@@ -29,5 +29,5 @@ public class r_recipe_msg {
 
     // 식재료 투입량
 	@Column
-    private Integer msgAmount;
+    private float msgAmount;
 }

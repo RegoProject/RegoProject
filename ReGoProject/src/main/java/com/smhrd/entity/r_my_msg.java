@@ -30,9 +30,9 @@ public class r_my_msg {
 
     // 조미료 보유량
 	@Column
-    private Integer msgAmount;
+    private float msgAmount;
 
     // 조미료 등록일
 	@Column
-    private Timestamp createdAt;
+    private String createdAt;
 }

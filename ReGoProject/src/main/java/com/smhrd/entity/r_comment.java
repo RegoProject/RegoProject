@@ -29,11 +29,11 @@ public class r_comment {
 
     // 댓글 작성일자
 	@Column
-    private Timestamp createdAt;
+    private String createdAt;
 
     // 댓글 수정일자
 	@Column
-    private Timestamp updatedAt;
+    private String updatedAt;
 
     // 댓글 작성자
 	@Column

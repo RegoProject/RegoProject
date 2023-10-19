@@ -30,5 +30,5 @@ public class r_follow {
 
     // 팔로잉 날짜
 	@Column
-    private Timestamp createdAt;
+    private String createdAt;
 }

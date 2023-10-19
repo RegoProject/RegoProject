@@ -30,9 +30,9 @@ public class r_my_ingredients {
 
     // 재료 보유량
 	@Column
-    private Integer ingreAmount;
+    private int ingreAmount;
 
     // 재료 등록일
 	@Column
-    private Timestamp createdAt;
+    private String createdAt;
 }

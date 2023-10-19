@@ -37,5 +37,5 @@ public class r_cooking {
 
     // 작성 날짜
 	@Column
-    private Timestamp createdAt;
+    private String createdAt;
 }

@@ -58,7 +58,7 @@ public class r_member {
 
     // 고객 가입일자 
 	@Column
-    private Timestamp custJoindate;
+    private String custJoindate;
 
 
 

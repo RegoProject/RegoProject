@@ -27,5 +27,5 @@ public class r_recipe_ingredients {
 
     // 식재료 투입량
 	@Column
-    private Integer ingreAmount;
+    private int ingreAmount;
 }

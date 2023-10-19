@@ -30,5 +30,5 @@ public class r_likes {
 
     // 좋아요 작성일자
 	@Column
-    private Timestamp createdAt;
+    private String createdAt;
 }

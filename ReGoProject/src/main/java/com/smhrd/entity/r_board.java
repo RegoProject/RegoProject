@@ -30,11 +30,11 @@ public class r_board {
 
     // 글 작성일자 
 	@Column
-    private Timestamp createdAt;
+    private String createdAt;
 
     // 글 수정일자 
 	@Column
-    private Timestamp updatedAt;
+    private String updatedAt;
 
     // 글 상태 
 	@Column
@@ -46,10 +46,10 @@ public class r_board {
 
     // 글 조회수 
 	@Column
-    private Integer rbViews;
+    private int rbViews;
 
     // 글 추천수 
 	@Column
-    private Integer rbLikes;
+    private int rbLikes;
 
 }
