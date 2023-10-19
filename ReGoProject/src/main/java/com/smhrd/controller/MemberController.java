@@ -83,6 +83,14 @@ public class MemberController {
 		
 	}
 	
+	
+	/* 비밀번호 찾기 */
+	@RequestMapping("/goFindPw")
+	public String goFind() {
+		
+		return "views/find";
+	}
+	
 	@RequestMapping("/update")
 	public String update(r_member member ,HttpSession session ) {
 		// 1. 수집
