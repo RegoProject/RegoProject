@@ -18,7 +18,7 @@ public class r_my_msg {
 	// 냉장고 번호 
 	@Id
 	@Column
-    private int rmr_num;
+    private int rmrNum;
 
     // 고객 아이디
 	@Column
@@ -26,13 +26,13 @@ public class r_my_msg {
 
     // 조미료카테고리 순번
 	@Column
-    private int msg_idx;
+    private int msgIdx;
 
     // 조미료 보유량
 	@Column
-    private Integer msg_amount;
+    private Integer msgAmount;
 
     // 조미료 등록일
 	@Column
-    private Timestamp created_at;
+    private Timestamp createdAt;
 }
