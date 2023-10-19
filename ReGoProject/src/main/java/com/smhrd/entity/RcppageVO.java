@@ -1,6 +1,7 @@
 package com.smhrd.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.Data;
 
@@ -9,5 +10,6 @@ import lombok.Data;
 @Entity 
 @Data
 public class RcppageVO {
-
+	@Id
+	private Long id;
 }

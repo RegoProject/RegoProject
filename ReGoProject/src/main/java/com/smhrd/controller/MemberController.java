@@ -16,8 +16,8 @@ public class MemberController {
 	@Autowired
 	private MemberRepository repo;
 	MemberVO member = new MemberVO();
-	// goMain 이라는 요청을 받으면 main.jsp
 	
+	// goMain 이라는 요청을 받으면 main.jsp
 	@RequestMapping("/goMain")
 	public String goMain() {
 		

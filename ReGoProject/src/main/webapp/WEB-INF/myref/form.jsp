@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>내 냉장고 수정폼? 필요없을것같긴함 </h1>
+<a href="/goMain">메인</a>
 </body>
 </html>

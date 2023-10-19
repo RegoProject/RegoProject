@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>마이페이지 폼(개인정보수정)</h1>
+<a href="/goMain">메인</a>
 </body>
 </html>

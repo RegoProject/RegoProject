@@ -1,6 +1,7 @@
 package com.smhrd.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.Data;
 
@@ -10,4 +11,7 @@ import lombok.Data;
 @Data
 public class RcpingrdVO {
 
+	
+	@Id
+	private Long id;
 }

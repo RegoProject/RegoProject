@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>내 냉장고 리스트 상세보기 페이지? 필요한가 모르겠음</h1>
+<a href="/goMain">메인</a>
 </body>
 </html>

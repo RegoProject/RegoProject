@@ -13,82 +13,29 @@ import com.smhrd.repository.MemberRepository;
 @Controller
 public class MyRefController {
 
-	@Autowired
-	private MemberRepository repo;
-	MemberVO member = new MemberVO();
-	// goMain 이라는 요청을 받으면 main.jsp
-	
-	@RequestMapping("/goMain")
-	public String goMain() {
+	@RequestMapping("/goMyRefList")
+	public String goList() {
 		
 		
-		return "views/main";
+		return "myref/list";
 	}
 	
-	@RequestMapping("/goUpdate")
-	public String goUpdate() {
+	@RequestMapping("/goMyRefForm")
+	public String goForm() {
+		// 마이냉장고에 폼이 필요한가? 나는 잘 모르겠음 모달창으로 할거면... 흠
 		
 		
-		return "update";
+		return "myref/form";
 	}
 	
-
-	@RequestMapping("/join")
-	public String join(MemberVO member) {
-		// 1. 수집
+	@RequestMapping("/goMyRefView")
+	public String goView() {
+		// 마이 냉장고의 상세보기? 필요한지 잘모르겠는데 일단 만들어놈
 		
-		// 2. 기능 정의 및 실행
-		repo.save(member);
 		
-		// 3. View 선택
-		
-		return "redirect:/goMain";
-		
+		return "myref/view";
 	}
 	
-
-	@RequestMapping("/login")
-	public String login(String email, String pw, HttpSession session) {
-		// 1. 수집
-		
-		// 2. 기능 정의 및 실행
-		member = repo.findByEmailAndPw(email, pw);
-		System.out.println(member);
-		if ( member != null) {
-			session.setAttribute("user", member );
-			System.out.println(email);
-			
-		}
-		// 3. View 선택
-		
-		return "redirect:/goMain";
-		
-	}
-	
-	@RequestMapping("/update")
-	public String update(MemberVO member ,HttpSession session ) {
-		// 1. 수집
-		
-		// 2. 기능 정의 및 실행
-		member = repo.save(member);
-		
-		if ( member != null ) {
-			session.setAttribute("user", member);
-			
-		}
-		
-		// 3. View 선택
-		return "redirect:/goMain";
-		
-	}
-	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		
-		session.removeAttribute("user");
-		
-		return "redirect:/goMain";
-	}
 	
 	
 	

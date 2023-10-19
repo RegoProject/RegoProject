@@ -13,81 +13,27 @@ import com.smhrd.repository.MemberRepository;
 @Controller
 public class RecipeController {
 
-	@Autowired
-	private MemberRepository repo;
-	MemberVO member = new MemberVO();
-	// goMain 이라는 요청을 받으면 main.jsp
-	
-	@RequestMapping("/goMain")
-	public String goMain() {
+	@RequestMapping("/goRecList")
+	public String goList() {
 		
 		
-		return "views/main";
+		return "recipe/list";
 	}
 	
-	@RequestMapping("/goUpdate")
-	public String goUpdate() {
+	@RequestMapping("/goRecForm")
+	public String goForm() {
+		// 레시피 수정폼이 필요한가 모르겠다
+		// 관리자용으로 남겨놔야하나?
 		
-		
-		return "update";
+		return "recipe/form";
 	}
 	
-
-	@RequestMapping("/join")
-	public String join(MemberVO member) {
-		// 1. 수집
-		
-		// 2. 기능 정의 및 실행
-		repo.save(member);
-		
-		// 3. View 선택
-		
-		return "redirect:/goMain";
-		
-	}
 	
-
-	@RequestMapping("/login")
-	public String login(String email, String pw, HttpSession session) {
-		// 1. 수집
+	@RequestMapping("/goRecView")
+	public String goView() {
+		// 레시피 상세뷰
 		
-		// 2. 기능 정의 및 실행
-		member = repo.findByEmailAndPw(email, pw);
-		System.out.println(member);
-		if ( member != null) {
-			session.setAttribute("user", member );
-			System.out.println(email);
-			
-		}
-		// 3. View 선택
-		
-		return "redirect:/goMain";
-		
-	}
-	
-	@RequestMapping("/update")
-	public String update(MemberVO member ,HttpSession session ) {
-		// 1. 수집
-		
-		// 2. 기능 정의 및 실행
-		member = repo.save(member);
-		
-		if ( member != null ) {
-			session.setAttribute("user", member);
-			
-		}
-		
-		// 3. View 선택
-		return "redirect:/goMain";
-		
-	}
-	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		
-		session.removeAttribute("user");
-		
-		return "redirect:/goMain";
+		return "recipe/form";
 	}
 	
 	
