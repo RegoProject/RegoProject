@@ -11,6 +11,14 @@ import lombok.Data;
 @Entity 
 @Data
 public class r_msg {
+	
+    // 조미료 순번 
 	@Id
-	private Long id;
+    private int msg_idx;
+
+    // 조미료 명 
+    private String msg_name;
+
+    // 조미료 이미지 
+    private String msg_img;
 }

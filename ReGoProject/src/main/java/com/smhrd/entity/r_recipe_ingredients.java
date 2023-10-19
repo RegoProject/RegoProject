@@ -11,7 +11,16 @@ import lombok.Data;
 @Data
 public class r_recipe_ingredients {
 
-	
+    // 재료 순번 
 	@Id
-	private Long id;
+    private int rcp_ingre_idx;
+
+    // 레시피 순번 
+    private int rcp_idx;
+
+    // 식재료 순번 
+    private int ingre_idx;
+
+    // 식재료 투입량 
+    private Integer ingre_amount;
 }
