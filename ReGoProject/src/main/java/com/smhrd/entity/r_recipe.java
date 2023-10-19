@@ -13,34 +13,34 @@ public class r_recipe {
 	
     // 레시피 순번 
 	@Id
-	private int rcp_idx;
+	private int rcpIdx;
 
     // 레시피 명 
-    private String rcp_name;
+    private String rcpName;
 
     // 레시피 조리순서 
-    private String rcp_content;
+    private String rcpContent;
 
     // 난이도 
-    private int rcp_level;
+    private int rcpLevel;
 
     // 동영상 URL 
-    private String rcp_url;
+    private String rcpUrl;
 
     // 이미지 경로1 
-    private String rcp_img1;
+    private String rcpImg1;
 
     // 이미지 경로2 
-    private String rcp_img2;
+    private String rcpImg2;
 
     // 이미지 경로3 
-    private String rcp_img3;
+    private String rcpImg3;
 
     // 이미지 경로4 
-    private String rcp_img4;
+    private String rcpImg4;
 
     // 이미지 경로5 
-    private String rcp_img5;
+    private String rcpImg5;
 
 
 }

@@ -15,23 +15,23 @@ import lombok.Data;
 public class r_comment {
 	// 댓글 순번 
 	@Id
-    private int rmt_idx;
+    private int rmtIdx;
 
     // 원글 순번 
-    private int rb_idx;
+    private int rbIdx;
 
     // 댓글 내용 
-    private String rmt_content;
+    private String rmtContent;
 
     // 댓글 작성일자 
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     // 댓글 수정일자 
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
 
     // 댓글 작성자 
-    private String cust_id;
+    private String custId;
 
     // 댓글 상태 
-    private String rmt_status;
+    private String rmtStatus;
 }

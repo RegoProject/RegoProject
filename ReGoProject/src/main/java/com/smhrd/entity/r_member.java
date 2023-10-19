@@ -21,34 +21,44 @@ public class r_member {
 
 	// 고객 아이디 
 	@Id // primary key 를 지정하는 어노테이션
-    private String cust_id;
+	@Column
+    private String custId;
 
     // 고객 비밀번호 
-    private String cust_pw;
+	@Column
+    private String custPw;
 
     // 고객 이름 
-    private String cust_name;
+	@Column
+    private String custName;
 
     // 고객 연락처 
-    private String cust_phone;
+	@Column
+    private String custPhone;
 
     // 고객 이메일 
-    private String cust_email;
+	@Column
+    private String custEmail;
 
     // 고객 주소 
-    private String cust_addr;
+	@Column
+    private String custAddr;
 
     // 고객 프로필사진 
-    private String cust_img;
+	@Column
+    private String custImg;
 
     // 고객 보유코인 
-    private Integer cust_coin;
+	@Column
+    private int custCoin;
 
     // 고객 경험치 
-    private Integer cust_exp;
+	@Column
+    private int custExp;
 
     // 고객 가입일자 
-    private Timestamp cust_joindate;
+	@Column
+    private Timestamp custJoindate;
 
 
 

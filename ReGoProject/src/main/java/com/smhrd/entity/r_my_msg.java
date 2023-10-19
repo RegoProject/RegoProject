@@ -19,7 +19,7 @@ public class r_my_msg {
     private int rmr_num;
 
     // 고객 아이디 
-    private String cust_id;
+    private String custId;
 
     // 조미료카테고리 순번 
     private int msg_idx;

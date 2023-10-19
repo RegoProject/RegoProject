@@ -16,14 +16,14 @@ public class r_likes {
 	
 	// 좋아요 순번 
 	@Id
-    private int rlike_idx;
+    private int rlikeIdx;
 
     // 고객 아이디 
-    private String cust_id;
+    private String custId;
 
     // 게시글 순번 
-    private int rb_idx;
+    private int rbIdx;
 
     // 좋아요 작성일자 
-    private Timestamp created_at;
+    private Timestamp createdAt;
 }

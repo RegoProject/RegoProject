@@ -15,17 +15,17 @@ public class r_my_ingredients {
 
 	@Id
 	// 냉장고 번호 
-    private int rmr_num;
+    private int rmrNum;
 
     // 고객 아이디 
-    private String cust_id;
+    private String custId;
 
     // 재료카테고리 순번 
-    private int ingre_idx;
+    private int ingreIdx;
 
     // 재료 보유량 
-    private Integer ingre_amount;
+    private Integer ingreAmount;
 
     // 재료 등록일 
-    private Timestamp created_at;
+    private Timestamp createdAt;
 }

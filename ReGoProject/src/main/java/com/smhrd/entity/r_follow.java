@@ -16,7 +16,7 @@ public class r_follow {
 	
 	// 팔로잉 순번 
 	@Id
-    private int rfl_idx;
+    private int rflIdx;
 
     // 팔로워(하는사람) 
     private String follower;
@@ -25,5 +25,5 @@ public class r_follow {
     private String followee;
 
     // 팔로잉 날짜 
-    private Timestamp created_at;
+    private Timestamp createdAt;
 }

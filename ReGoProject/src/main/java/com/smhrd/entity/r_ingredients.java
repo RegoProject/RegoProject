@@ -14,11 +14,11 @@ public class r_ingredients {
 	
 	// 식재료 순번
 	@Id
-    private int ingre_idx;
+    private int ingreIdx;
 
     // 식재료 명 
-    private String ingre_name;
+    private String ingreName;
 
     // 식재료 사진 
-    private String ingre_img;
+    private String ingreImg;
 }

@@ -16,30 +16,30 @@ public class r_board {
 	
     // 글 순번 
 	@Id
-    private int rb_idx;
+    private int rbIdx;
 
     // 글 내용 
-    private String rb_content;
+    private String rbContent;
 
     // 글 첨부파일 
-    private String rb_img;
+    private String rbImg;
 
     // 글 작성일자 
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     // 글 수정일자 
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
 
     // 글 상태 
-    private String rb_status;
+    private String rbStatus;
 
     // 글 작성자 
-    private String cust_id;
+    private String custId;
 
     // 글 조회수 
-    private Integer rb_views;
+    private Integer rbViews;
 
     // 글 추천수 
-    private Integer rb_likes;
+    private Integer rbLikes;
 
 }

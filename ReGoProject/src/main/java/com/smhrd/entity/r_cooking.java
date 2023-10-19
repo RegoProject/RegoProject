@@ -15,20 +15,20 @@ public class r_cooking {
 
 	// 요리 순번
 	@Id
-    private int rc_idx;
+    private int rcIdx;
 
     // 고객 아이디 
-    private String cust_id;
+    private String custId;
 
     // 레시피 순번 
-    private int rcp_idx;
+    private int rcpIdx;
 
     // 레시피 사진 
-    private String rcp_img;
+    private String rcpImg;
 
     // 성공 여부 
-    private String rc_yn;
+    private String rcYn;
 
     // 작성 날짜 
-    private Timestamp created_at;
+    private Timestamp createdAt;
 }

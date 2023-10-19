@@ -25,6 +25,13 @@ public class MemberController {
 		return "views/main";
 	}
 	
+	@RequestMapping("/goLogin")
+	public String goLogin() {
+		
+		
+		return "views/login";
+	}
+	
 	@RequestMapping("/goUpdate")
 	public String goUpdate() {
 		
@@ -33,6 +40,14 @@ public class MemberController {
 	}
 	
 
+	@RequestMapping("/goJoin")
+	public String goJoin() {
+
+		return "views/join";
+		
+	}
+	
+	
 	@RequestMapping("/join")
 	public String join(r_member member) {
 		// 1. 수집
@@ -48,17 +63,20 @@ public class MemberController {
 	
 
 	@RequestMapping("/login")
-	public String login(String email, String pw, HttpSession session) {
+	public String login(String custId, String custPw, HttpSession session) {
 		// 1. 수집
 		
 		// 2. 기능 정의 및 실행
-		member = repo.findByEmailAndPw(email, pw);
+		System.out.println("이거머임"+custId);
+		member = repo.findByCustIdAndCustPw(custId, custPw);
 		System.out.println(member);
 		if ( member != null) {
+			System.out.println(member);
 			session.setAttribute("user", member );
-			System.out.println(email);
+			System.out.println(custId);
 			
 		}
+
 		// 3. View 선택
 		
 		return "redirect:/goMain";

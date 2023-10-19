@@ -27,7 +27,7 @@ public interface MemberRepository extends JpaRepository<r_member, String> {
 	// 우리가 직접 메소드 만들기 가능
 	
 	// find(select) By(where) And(and) SQL문 처리 해줌!
-	public r_member findByEmailAndPw(String email, String pw);
+	public r_member findByCustIdAndCustPw(String custId, String custPw);
 	// 메소드의 이름을 기반으로 SQL문을 생성
 	// 카멜 기법으로만 만들어야함
 	// By절에 있는 컬럼의 이름이 잘 일치해야 한다.
