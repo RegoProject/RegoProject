@@ -14,10 +14,10 @@ import lombok.Data;
 @Data
 public class r_recipe_msg {
 
-    // 재료 순번 
+    // 조미료 순번 
 	@Id
 	@Column
-    private int rcpIngreIdx;
+    private int rcpMsgIdx;
 
     // 레시피 순번
 	@Column
