@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.smhrd.entity.MemberVO;
+import com.smhrd.entity.r_member;
 import com.smhrd.repository.MemberRepository;
 
 @Controller

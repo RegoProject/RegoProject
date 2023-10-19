@@ -5,11 +5,11 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-// 마이냉장고 테이블
+// 팔로우 테이블
 
 @Entity 
 @Data
-public class MyrfrgrVO {
+public class r_follow {
 
 	@Id
 	private Long id;

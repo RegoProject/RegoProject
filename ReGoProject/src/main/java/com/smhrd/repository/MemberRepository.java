@@ -4,10 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.smhrd.entity.MemberVO;
+import com.smhrd.entity.r_member;
 
 @Repository
-public interface MemberRepository extends JpaRepository<MemberVO, String> {
+public interface MemberRepository extends JpaRepository<r_member, String> {
 	// JPA의 DAO(Repository)는 interface로 구현
 	// JpaRepository interface를 상속 받음
 	// extends JpaRepository<Table 역할의 DTO , primary의 자료형 >
@@ -27,7 +27,7 @@ public interface MemberRepository extends JpaRepository<MemberVO, String> {
 	// 우리가 직접 메소드 만들기 가능
 	
 	// find(select) By(where) And(and) SQL문 처리 해줌!
-	public MemberVO findByEmailAndPw(String email, String pw);
+	public r_member findByEmailAndPw(String email, String pw);
 	// 메소드의 이름을 기반으로 SQL문을 생성
 	// 카멜 기법으로만 만들어야함
 	// By절에 있는 컬럼의 이름이 잘 일치해야 한다.

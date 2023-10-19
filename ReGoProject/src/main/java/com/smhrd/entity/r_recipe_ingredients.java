@@ -5,12 +5,13 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-// 좋아요 테이블
+// 레시피재료 테이블
 
 @Entity 
 @Data
-public class LikeVO {
+public class r_recipe_ingredients {
 
+	
 	@Id
 	private Long id;
 }

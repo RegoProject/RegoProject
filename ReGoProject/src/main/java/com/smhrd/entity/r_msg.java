@@ -5,12 +5,12 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-// 댓글 테이블
+// 조미료이미지 테이블
 
 
 @Entity 
 @Data
-public class ReplyVO {
+public class r_msg {
 	@Id
 	private Long id;
 }

@@ -5,12 +5,11 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-// 재료이미지 테이블
+// 레시피 페이지뷰  테이블
 
 @Entity 
 @Data
-public class IngrdimgVO {
-
+public class r_recipe {
 	@Id
 	private Long id;
 }

@@ -5,11 +5,11 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-// 재료카테고리 테이블
+// 마이냉장고 테이블
 
 @Entity 
 @Data
-public class FdingtgryVO {
+public class r_my_ingredients {
 
 	@Id
 	private Long id;

@@ -7,17 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.smhrd.entity.MemberVO;
+import com.smhrd.entity.r_member;
 import com.smhrd.repository.MemberRepository;
 
 @Controller
 public class MyRefController {
 
-	@RequestMapping("/goMyRefList")
-	public String goList() {
+	@RequestMapping("/goIngreList")
+	public String goIngreList() {
 		
 		
-		return "myref/list";
+		return "myref/ingreList";
+	}
+	
+	@RequestMapping("/goMsgList")
+	public String goMsgList() {
+		
+		
+		return "myref/msgList";
 	}
 	
 	@RequestMapping("/goMyRefForm")

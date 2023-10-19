@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Entity 
 @Data
-public class BoardVO {
+public class r_board {
 	
 	@Id
 	private Long id;

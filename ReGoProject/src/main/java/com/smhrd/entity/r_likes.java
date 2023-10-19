@@ -5,13 +5,12 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-// 레시피재료 테이블
+// 좋아요 테이블
 
 @Entity 
 @Data
-public class RcpingrdVO {
+public class r_likes {
 
-	
 	@Id
 	private Long id;
 }

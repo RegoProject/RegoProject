@@ -3,10 +3,10 @@ package com.smhrd.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.smhrd.entity.RcppageVO;
+import com.smhrd.entity.r_recipe;
 
 @Repository
-public interface RcpingrdRepository extends JpaRepository<RcppageVO, String> {
+public interface RcpingrdRepository extends JpaRepository<r_recipe, String> {
 
 
 

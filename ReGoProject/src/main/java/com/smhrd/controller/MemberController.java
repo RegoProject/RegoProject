@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.smhrd.entity.MemberVO;
+import com.smhrd.entity.r_member;
 import com.smhrd.repository.MemberRepository;
 
 @Controller
@@ -15,7 +15,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberRepository repo;
-	MemberVO member = new MemberVO();
+	r_member member = new r_member();
 	
 	// goMain 이라는 요청을 받으면 main.jsp
 	@RequestMapping("/goMain")
@@ -34,7 +34,7 @@ public class MemberController {
 	
 
 	@RequestMapping("/join")
-	public String join(MemberVO member) {
+	public String join(r_member member) {
 		// 1. 수집
 		
 		// 2. 기능 정의 및 실행
@@ -66,7 +66,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/update")
-	public String update(MemberVO member ,HttpSession session ) {
+	public String update(r_member member ,HttpSession session ) {
 		// 1. 수집
 		
 		// 2. 기능 정의 및 실행

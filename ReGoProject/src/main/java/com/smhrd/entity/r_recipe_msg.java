@@ -5,11 +5,11 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-// 팔로우 테이블
+// 재료카테고리 테이블
 
 @Entity 
 @Data
-public class FollowVO {
+public class r_recipe_msg {
 
 	@Id
 	private Long id;

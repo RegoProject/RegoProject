@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.smhrd.entity.MemberVO;
+import com.smhrd.entity.r_member;
 import com.smhrd.repository.MemberRepository;
 
 @Controller
@@ -16,7 +16,7 @@ public class MyPageController {
 
 	@Autowired
 	private MemberRepository repo;
-	MemberVO member = new MemberVO();
+	r_member member = new r_member();
 	
 	@RequestMapping("/goMyList")
 	public String goList() {
