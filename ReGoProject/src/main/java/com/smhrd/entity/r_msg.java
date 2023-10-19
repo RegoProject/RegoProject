@@ -1,5 +1,6 @@
 package com.smhrd.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,11 +15,14 @@ public class r_msg {
 	
     // 조미료 순번 
 	@Id
+	@Column
     private int msgIdx;
 
-    // 조미료 명 
+    // 조미료 명
+	@Column
     private String msgName;
 
-    // 조미료 이미지 
+    // 조미료 이미지
+	@Column
     private String msgImg;
 }

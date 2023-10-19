@@ -2,6 +2,7 @@ package com.smhrd.entity;
 
 import java.security.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -16,14 +17,18 @@ public class r_follow {
 	
 	// 팔로잉 순번 
 	@Id
+	@Column
     private int rflIdx;
 
-    // 팔로워(하는사람) 
+    // 팔로워(하는사람)
+	@Column
     private String follower;
 
-    // 팔로이(당하는사람) 
+    // 팔로이(당하는사람)
+	@Column
     private String followee;
 
-    // 팔로잉 날짜 
+    // 팔로잉 날짜
+	@Column
     private Timestamp createdAt;
 }

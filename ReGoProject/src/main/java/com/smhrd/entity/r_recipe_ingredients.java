@@ -1,5 +1,6 @@
 package com.smhrd.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -13,14 +14,18 @@ public class r_recipe_ingredients {
 
     // 재료 순번 
 	@Id
+	@Column
     private int rcpIngreIdx;
 
-    // 레시피 순번 
+    // 레시피 순번
+	@Column
     private int rcpIdx;
 
-    // 식재료 순번 
+    // 식재료 순번
+	@Column
     private int ingreIdx;
 
-    // 식재료 투입량 
+    // 식재료 투입량
+	@Column
     private Integer ingreAmount;
 }

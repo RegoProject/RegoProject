@@ -1,5 +1,6 @@
 package com.smhrd.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,11 +15,14 @@ public class r_ingredients {
 	
 	// 식재료 순번
 	@Id
+	@Column
     private int ingreIdx;
 
-    // 식재료 명 
+    // 식재료명
+	@Column
     private String ingreName;
 
-    // 식재료 사진 
+    // 식재료 사진
+	@Column
     private String ingreImg;
 }

@@ -2,6 +2,7 @@ package com.smhrd.entity;
 
 import java.security.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -16,30 +17,39 @@ public class r_board {
 	
     // 글 순번 
 	@Id
+	@Column
     private int rbIdx;
 
     // 글 내용 
+	@Column
     private String rbContent;
 
     // 글 첨부파일 
+	@Column
     private String rbImg;
 
     // 글 작성일자 
+	@Column
     private Timestamp createdAt;
 
     // 글 수정일자 
+	@Column
     private Timestamp updatedAt;
 
     // 글 상태 
+	@Column
     private String rbStatus;
 
     // 글 작성자 
+	@Column
     private String custId;
 
     // 글 조회수 
+	@Column
     private Integer rbViews;
 
     // 글 추천수 
+	@Column
     private Integer rbLikes;
 
 }
