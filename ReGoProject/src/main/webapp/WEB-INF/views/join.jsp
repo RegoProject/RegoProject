@@ -10,7 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/join.css" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
   <script src="/assets/js/join.js"></script>
+
 </head>
 
 <body>
@@ -29,19 +31,20 @@
               회원가입
             </h1>
             <!-- 아이디 입력 -->
-            <form action="#">
+            <form action="join">
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">아이디</span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="아이디 입력" />
+                  placeholder="아이디 입력" name="custId" />
+                 
               </label>
               <!-- 비밀번호 입력 -->
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">비밀번호</span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="비밀번호 입력" type="password" />
+                  placeholder="비밀번호 입력" type="password" name="custPw" />
               </label>
               <!-- 이름 입력 -->
               <label class="block mt-4 text-sm">
@@ -50,7 +53,7 @@
                 </span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="이름 입력" type="text" />
+                  placeholder="이름 입력" type="text" name="custName" />
               </label>
               <!-- 핸드폰 번호 입력 -->
               <label class="block mt-4 text-sm">
@@ -59,7 +62,7 @@
                 </span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="핸드폰 번호 입력" type="text" />
+                  placeholder="핸드폰 번호 입력" type="text" name="custPhone" />
               </label>
               <!-- 이메일 입력 -->
               <label class="block mt-4 text-sm">
@@ -68,7 +71,7 @@
                 </span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="이메일 입력" type="email" />
+                  placeholder="이메일 입력" type="email" name="custEmail" />
               </label>
               <!-- 주소 입력 -->
               <label class="block mt-4 text-sm">
@@ -77,7 +80,7 @@
                 </span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="주소 입력" type="text" />
+                  placeholder="주소 입력" type="text" name="custAddr" />
               </label>
               <!-- 프로필사진 첨부 -->
               <label class="block mt-4 text-sm">
@@ -86,15 +89,15 @@
                 </span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  type="file" />
+                  type="file" name="custImg" />
               </label>
+              
 
               <!-- 회원가입 버튼 -->
-              <a class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                href="#">
-                회원가입
-              </a>
-            </form>
+              
+              <input type="submit" value="회원가입" 
+              class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">  
+              </form> 
             
             <hr class="my-8" />
             <!-- 카카오톡 로그인 버튼 -->
