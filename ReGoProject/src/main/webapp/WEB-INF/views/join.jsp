@@ -8,9 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Create account - Windmill Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../public/assets/css/join.css" />
+  <link rel="stylesheet" href="/assets/css/join.css" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <script src="../public/assets/js/join.js"></script>
+  <script src="/assets/js/join.js"></script>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
       <div class="flex flex-col overflow-y-auto md:flex-row">
         <div class="h-32 md:h-auto md:w-1/2">
           <!-- 회원가입 이미지 사진 -->
-          <img aria-hidden="true" class="object-cover w-full h-full dark:hidden" src="../public/assets/img/로그인음식사진.jpg"
+          <img aria-hidden="true" class="object-cover w-full h-full dark:hidden" src="/assets/img/login/login.jpg"
             alt="Office" />
         </div>
         <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
@@ -29,7 +29,7 @@
               회원가입
             </h1>
             <!-- 아이디 입력 -->
-            <form action="#">
+            <form action="/join" method="post">
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">아이디</span>
                 <input

@@ -1,10 +1,11 @@
 package com.smhrd.entity;
 
-import java.security.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.Data;
 
@@ -12,6 +13,7 @@ import lombok.Data;
 
 @Entity // 이 DTO를 Table이라 지정하겠다.
 @Data
+@DynamicInsert  
 public class r_member {
 	// JAP : NO SQL
 	// ORM(Objec Relationl Mapping)
