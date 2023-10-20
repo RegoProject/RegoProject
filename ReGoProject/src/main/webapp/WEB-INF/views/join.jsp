@@ -31,7 +31,7 @@
               회원가입
             </h1>
             <!-- 아이디 입력 -->
-            <form action="join">
+            <form action="join"  enctype="multipart/form-data" method="post">
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">아이디</span>
                 <input
