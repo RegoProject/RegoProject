@@ -56,15 +56,15 @@ public class MemberController {
 	
 	
 	@RequestMapping("/join")
-	public String join(r_member member) {
+	public String join(@RequestParam("custImg") MultipartFile custImg,  r_member member) {
 		
 		
-		MultipartFile custImgFile = member.getCustImg();
+		
 		//회원가입 이미지 저장
 		String uuid =  UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
 		System.out.println(uuid);
 		// 2. uuid + file 이름, 저장할 이름을 생성
-		String filename = uuid + "_" + Img.getOriginalFilename();
+		String filename = uuid + "_" + custImg.getOriginalFilename();
 		System.out.println(filename);
 
 		 
@@ -77,7 +77,7 @@ public class MemberController {
 		//Path path = Paths.get(savePath+"\\"+ filename);
 		System.out.println(path);
 		try {
-			Files.copy( Img.getInputStream(), path);
+			Files.copy( custImg.getInputStream(), path);
 			member.setCustImg(filename);
 			
 			
