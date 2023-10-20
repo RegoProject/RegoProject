@@ -57,32 +57,22 @@ public class MemberController {
 		
 		// 3. View 선택
 		
-		return "redirect:/goMain";
+		return "redirect:/goLogin";
 		
 	}
 	
 
 	@RequestMapping("/login")
 	public String login(String custId, String custPw, HttpSession session) {
-		// 1. 수집
 		
-		// 2. 기능 정의 및 실행
-		System.out.println("이거머임"+custId);
 		member = repo.findByCustIdAndCustPw(custId, custPw);
-		System.out.println(member);
 		if ( member != null) {
-			System.out.println(member);
 			session.setAttribute("user", member );
-			System.out.println(custId);
-			
 		}
 
-		// 3. View 선택
-		
 		return "redirect:/goMain";
 		
 	}
-	
 	
 	/* 비밀번호 찾기 */
 	@RequestMapping("/goFindPw")
