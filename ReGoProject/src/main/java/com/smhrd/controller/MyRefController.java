@@ -15,8 +15,6 @@ public class MyRefController {
 
 	@RequestMapping("/goIngreList")
 	public String goIngreList() {
-		
-		
 		return "myref/ingreList";
 	}
 	

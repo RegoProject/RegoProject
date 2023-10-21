@@ -8,13 +8,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>${user.custId}님 환영합니다 -> 이거 안나와 해결해</h1> 
-<h1>메인왔나요</h1>
+<h1>${user.custId}님 환영합니다</h1> 
 <a href="/goBoardList">게시판</a>
 <br>
 <a href="/goMypage">마이페이지</a>
 <br>
-<a href="/goMyRefList">내냉장고</a>
+<a href="/goMyIngreList">내식재료</a>
+<br>
+<a href="/goMyMsgList">내조미료</a>
 <br>
 <a href="/goRecList">레시피</a>
 <br>

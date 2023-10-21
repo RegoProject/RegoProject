@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,6 +60,7 @@ public class MemberController {
 	public String join(@ModelAttribute r_member member, @RequestParam("custImg1") MultipartFile Img) {
 		
 		
+
 		
 		//회원가입 이미지 저장
 		String uuid =  UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
@@ -68,11 +68,7 @@ public class MemberController {
 		// 2. uuid + file 이름, 저장할 이름을 생성
 		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
-
-		 
 		// 3. 어디에 저장할지 
-				
-		
 		String savePath = "src/main/resources/static/";
 		Path path = Paths.get(savePath + filename);
 		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
