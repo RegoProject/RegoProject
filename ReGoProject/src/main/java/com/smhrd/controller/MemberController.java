@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class MemberController {
 	public String goUpdate() {
 		
 		
-		return "update";
+		return "views/update";
 	}
 	
 
@@ -88,25 +89,56 @@ public class MemberController {
 		
 		// 3. View 선택
 		
-		return "redirect:/goMain";
+		return "redirect:/goLogin";
 		
 	}
 	
 
-	@RequestMapping("/login")
-	public String login(String custId, String custPw, HttpSession session) {
-		// 1. 수집
+	   @RequestMapping("/login")
+	   public void login(@RequestParam("custId") String custId,@RequestParam("custPw") String custPw, HttpSession session , HttpServletResponse response) {
+	      // 1. 수집
+	      
+	      // 2. 기능 정의 및 실행
+	      
+	      member = repo.findByCustIdAndCustPw(custId, custPw);
+	      System.out.println(member);
+	      if ( member != null) {
+	         
+	         session.setAttribute("user", member );
+	         try {
+	            
+	            response.setContentType("text/plain; charset=UTF-8");   
+	            response.getWriter().write("success");
+	         } catch (Exception e) {
+	            
+	         }      
+	         
+	      }else{
+	         try {
+	            response.setContentType("text/plain; charset=UTF-8");   
+	            response.getWriter().write("fail");
+	            
+	         } catch (Exception e) {
+	            
+	         }
+	         
+	                  
+	      }
+	      
+
+	      // 3. View 선택
+	      
+	      
+	      
+	   }
+	   
+	   
+	   /* 비밀번호 찾기 */
 		
-		// 2. 기능 정의 및 실행
-		member = repo.findByCustIdAndCustPw(custId, custPw);
-		if ( member != null) {
-			session.setAttribute("user", member );
-			
-		}
 
 		// 3. View 선택
 		
-		return "redirect:/goMain";
+		
 		
 	}
 	
@@ -131,7 +163,7 @@ public class MemberController {
 		}
 		
 		// 3. View 선택
-		return "redirect:/goMain";
+		return "redirect:/goMypage";
 		
 	}
 	
