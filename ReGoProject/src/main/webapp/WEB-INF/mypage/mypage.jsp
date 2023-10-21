@@ -16,6 +16,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+<a href="javascript:window.history.back();">뒤로가기</a>
+<br>
+<h1>게시글 리스트(무한스크롤) 보기페이지</h1>
+<a href="/goMain">메인</a>
+<br>
+<a href="/goBoardForm">게시글수정폼버튼</a>
+<br>
+<a href="/goBoardView">게시글 상세뷰</a>
+<br>
+<a href="/boardAddList">게시글 addList 확인용(사용은안함)</a>
 
 <h1>마이페이지</h1>
 <h2>${user.custId}</h2>
@@ -24,7 +34,7 @@
     <input type="file" name="file" id="fileInput" style="display: none;">
     <input type="submit" value="Upload" style="display: none;">
 </form>
-<a href="goUpdate">회원정보수정</a>
+<a href="/goUpdate">회원정보수정</a>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -42,7 +52,7 @@ $(document).ready(function() {
         var formData = new FormData(this);
         
         $.ajax({
-            url: "/krj/updateProfileImage",
+            url: "/updateProfileImage",
             type: "POST",
             data: formData,
             contentType: false,

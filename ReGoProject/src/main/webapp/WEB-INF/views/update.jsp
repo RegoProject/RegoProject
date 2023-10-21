@@ -1,51 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<title>Forty by HTML5 UP</title>
-<meta charset="UTF-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="assets/css/main.css" />
-
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
-<style>
-</style>
-<body style="text-align: center;">
+<body>
+<h1>update 페이지</h1>
+<li><h5>업데이트</h5></li>
+			<form action="/update" method="post">
+				<li><input readonly id="checkInput" type="text"
+					 value=${user.custId} name="custId"></li>
+				<p id="checkResult"></p>
+				<li><input type="password" placeholder="변경할비밀번호를 입력하세요" name="custPw"></li>
+				<li><input type="text" value=${user.custName } placeholder=${user.custName }  name="custName"></li>
+				<li><input type="email" value=${user.custEmail } placeholder=${user.custEmail } name="custEmail"></li>
+				<li><input type="text" placeholder=${user.custAddr } name="custAddr"></li>
+				<li><input type="text" placeholder=${user.custPhone } name="custPhone"></li>
+				<li><input type="text" value=${user.custImg }  name="custImg" style="display: none;"></li>
+			    <li><input type="date" value=${user.custJoindate }  name="custJoindate" style="display: none;"></li>
+				<li><input type="submit" value="가입하기" class="button fit"></li>
+			</form>	
 
-	<!-- Wrapper -->
-	<div id="wrapper">
-		<!-- Menu -->
-		<nav id="Update">
-		<ul class="actions vertical">
-			<li><h5>회원정보수정</h5></li>
-			<%--Ex08. 개인정보수정 기능 만들기 : 사용자의 새로운 정보를 입력받고 DB에 저장된 정보를 수정하는 기능을 만들어 봅시다. --%>
-			<form action="update">
-				<input hidden name="email" value="${user.email }">
-				<li>${user.email }</li>
-
-				<li><input name="pw" type="password" placeholder="PW를 입력하세요"
-					value="${user.pw }" style="width: 500px; margin: 0 auto;"></li>
-				<li><input name="tel" type="text" placeholder="전화번호를 입력하세요"
-					value="${user.tel }" style="width: 500px; margin: 0 auto;"></li>
-				<li><input name="address" type="text" placeholder="집주소를 입력하세요"
-					value="${user.address }" style="width: 500px; margin: 0 auto;"></li>
-
-				<li><input type="submit" value="UPDATE" class="button fit"
-					style="width: 500px; margin: 0 auto;"></li>
-			</form>
-		</ul>
-		</nav>
-	</div>
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/skel.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-	<script src="assets/js/main.js"></script>
 </body>
 </html>
-

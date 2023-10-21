@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
@@ -44,7 +45,7 @@ public class MemberController {
 	public String goUpdate() {
 		
 		
-		return "update";
+		return "views/update";
 	}
 	
 
@@ -92,29 +93,46 @@ public class MemberController {
 		
 		// 3. View 선택
 		
-		return "redirect:/goMain";
+		return "redirect:/goLogin";
 		
 	}
 	
 
 	@RequestMapping("/login")
-	public String login(String custId, String custPw, HttpSession session) {
+	public void login(@RequestParam("custId") String custId,@RequestParam("custPw") String custPw, HttpSession session , HttpServletResponse response) {
 		// 1. 수집
 		
 		// 2. 기능 정의 및 실행
-		System.out.println("이거머임"+custId);
+		
 		member = repo.findByCustIdAndCustPw(custId, custPw);
 		System.out.println(member);
 		if ( member != null) {
-			System.out.println(member);
-			session.setAttribute("user", member );
-			System.out.println(custId);
 			
+			session.setAttribute("user", member );
+			try {
+				
+				response.setContentType("text/plain; charset=UTF-8");	
+				response.getWriter().write("success");
+			} catch (Exception e) {
+				
+			}		
+			
+		}else{
+			try {
+				response.setContentType("text/plain; charset=UTF-8");	
+				response.getWriter().write("fail");
+				
+			} catch (Exception e) {
+				
+			}
+			
+						
 		}
+		
 
 		// 3. View 선택
 		
-		return "redirect:/goMain";
+		
 		
 	}
 	
@@ -139,7 +157,7 @@ public class MemberController {
 		}
 		
 		// 3. View 선택
-		return "redirect:/goMain";
+		return "redirect:/goMypage";
 		
 	}
 	

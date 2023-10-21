@@ -34,12 +34,12 @@
               <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
               로그인
               </h1>
-              <form action="/login" method="post">
+              <form  method="post" id="loginform">
               <!-- 아이디 입력 창 -->
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">아이디</span>
                 <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="아이디 입력" name="custId"/>
+                  placeholder="아이디 입력" name="custId"  id="username" />
               </label>
               <!-- 비밀번호 입력 창 -->
               <label class="block mt-4 text-sm">
@@ -47,7 +47,7 @@
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="비밀번호 입력"
-                  type="password" name="custPw"
+                  type="password" name="custPw" id="password"
                 />
               </label>
 
@@ -92,4 +92,40 @@
     </div>
   </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$("#loginform").submit(function(event) {
+	
+	event.preventDefault();
+    var custId = $('#username').val();
+    var custPw = $('#password').val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/login', // 로그인 처리를 담당하는 컨트롤러의 URL
+        data: {
+            custId: custId,
+            custPw: custPw
+        },
+        success: function(response) {
+        	
+            // 로그인 성공 시 수행할 동작
+            if (response === 'success') {
+                // 로그인 성공 시 메인 페이지로 이동 등의 동작
+                console.log("로그인성공");
+                window.location.href = 'goMain';
+            } else {
+                // 로그인 실패 시 수행할 동작
+                console.log("로그인실패");
+                alert("로그인 실패. 아이디와 비밀번호를 확인해주세요.");
+                // 여기서 실패 메시지를 표시하거나 다른 동작을 수행할 수 있습니다.
+            }
+        },
+        error: function() {
+            // AJAX 요청이 실패했을 때 수행할 동작
+            console.log('AJAX request failed');
+        }
+    });
+});
+</script>
 
