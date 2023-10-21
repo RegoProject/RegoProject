@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.Data;
 
@@ -14,6 +15,7 @@ import lombok.Data;
 @Entity // 이 DTO를 Table이라 지정하겠다.
 @Data
 @DynamicInsert  
+@DynamicUpdate
 public class r_member {
 	// JAP : NO SQL
 	// ORM(Objec Relationl Mapping)
