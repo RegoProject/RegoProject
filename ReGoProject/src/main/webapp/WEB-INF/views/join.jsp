@@ -89,7 +89,7 @@
                 </span>
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-green-400 focus:outline-none focus:shadow-outline-green dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  type="file" name="custImg" />
+                  type="file" name="custImg1" />
               </label>
               
 
@@ -107,7 +107,7 @@
             </button>
             <!-- 계정 있을 때 로그인 하기 -->
             <p class="mt-4">
-              <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="#">
+              <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="/goLogin">
                 계정이 이미 있으신가요? 로그인
               </a>
             </p>

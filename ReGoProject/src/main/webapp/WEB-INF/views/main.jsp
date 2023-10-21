@@ -11,7 +11,7 @@
 <h1>${user.custId}님 환영합니다</h1> 
 <a href="/goBoardList">게시판</a>
 <br>
-<a href="/goMyList">마이페이지</a>
+<a href="/goMypage">마이페이지</a>
 <br>
 <a href="/goMyRefList">내냉장고</a>
 <br>
