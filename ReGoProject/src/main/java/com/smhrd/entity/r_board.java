@@ -1,6 +1,5 @@
 package com.smhrd.entity;
 
-import java.security.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

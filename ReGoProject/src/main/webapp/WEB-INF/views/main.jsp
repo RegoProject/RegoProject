@@ -13,7 +13,9 @@
 <br>
 <a href="/goMypage">마이페이지</a>
 <br>
-<a href="/goMyRefList">내냉장고</a>
+<a href="/goMyIngreList">내식재료</a>
+<br>
+<a href="/goMyMsgList">내조미료</a>
 <br>
 <a href="/goRecList">레시피</a>
 <br>

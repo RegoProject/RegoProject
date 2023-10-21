@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.smhrd.mapper.r_memberMapper">
+
+
+<select id="myIngredients" resultType="r_ingre_join_data" parameterType="r_ingre_join_data">
+
+		<![CDATA[
+					SELECT RI.INGRENAME, RMI.INGREAMOUNT
+					  FROM R_MY_INGREDIENTS RMI
+					  JOIN R_INGREDIENTS RI ON RMI.INGREIDX = RI.INGREIDX
+					 WHERE RMI.CUSTID = #{custId}
+		]]>
+
+
+</select>
+
+
+
 </mapper>
