@@ -13,7 +13,11 @@
 <br>
 <a href="/goMypage">마이페이지</a>
 <br>
-<a href="/goMyIngreList">내식재료</a>
+<form action="/goMyIngreList" method="post">
+<input type="hidden" id="${user.custId }" value="${user.custId }">
+<button type="submit">내식재료</button>
+</form>
+
 <br>
 <a href="/goMyMsgList">내조미료</a>
 <br>

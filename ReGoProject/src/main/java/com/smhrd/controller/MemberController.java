@@ -98,13 +98,9 @@ public class MemberController {
 		// 1. 수집
 		
 		// 2. 기능 정의 및 실행
-		System.out.println("이거머임"+custId);
 		member = repo.findByCustIdAndCustPw(custId, custPw);
-		System.out.println(member);
 		if ( member != null) {
-			System.out.println(member);
 			session.setAttribute("user", member );
-			System.out.println(custId);
 			
 		}
 
