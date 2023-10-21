@@ -2,15 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.smhrd.mapper.r_memberMapper">
 
-
 <select id="myIngredients" resultType="com.smhrd.entity.r_ingre_join_data" parameterType="com.smhrd.entity.r_ingre_join_data">
+		/* select.myIngredients */
 		<![CDATA[
-					SELECT RI.INGRENAME, RMI.INGREAMOUNT
-					  FROM R_MY_INGREDIENTS RMI
-					  JOIN R_INGREDIENTS RI ON RMI.INGREIDX = RI.INGREIDX
-					 WHERE RMI.CUSTID = #{custId}
+					SELECT RI.ingreName
+						 , RMI.ingreAmount
+					  FROM r_my_ingredients RMI
+					  JOIN r_ingredients RI ON RMI.ingreIdx = RI.ingreIdx
+					 WHERE RMI.custId = #{custId}
 		]]>
+</select>
 
+<select id="myMsg" resultType="com.smhrd.entity.r_msg_join_data" parameterType="com.smhrd.entity.r_msg_join_data">
+		<![CDATA[
+					SELECT RM.msgName
+						 , RMM.msgAmount
+					  FROM r_my_msg RMM
+					  JOIN r_msg RM ON RMM.msgIdx = RM.msgIdx
+					 WHERE RMM.custId = #{custId}
+		]]>
 </select>
 
 

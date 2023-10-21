@@ -7,11 +7,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.smhrd.entity.r_ingre_join_data;
 import com.smhrd.entity.r_member;
+import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.service.r_memberService;
 
 @Controller
@@ -23,25 +23,43 @@ public class MyRefController {
 	
 	
 	@RequestMapping("/goMyIngreList")
-	public String goIngreList( r_member member, HttpSession session, Model model) {
+	public String goIngreList(r_member member, HttpSession session, Model model) {
 		member = (r_member) session.getAttribute("user");
-		System.out.println(member.getCustId());
-		
 		try {
-			System.out.println("여기는 오나요");
 			List<r_ingre_join_data> myIngre = memService.myIngredients(member.getCustId());
-			model.addAllAttributes(myIngre);
+			
+			if(myIngre != null ) {
+				// ajax 응답 해주기?
+				model.addAttribute("myIngre", myIngre);
+			}else {
+				// ajax 응답 해주기
+				System.out.println("냉장고가 비어있습니다.");
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
 		return "myref/ingreList";
 	}
 	
-	@RequestMapping("/goMsgList")
-	public String goMsgList() {
-		
+	@RequestMapping("/goMyMsgList")
+	public String goMsgList(r_member member, HttpSession session, Model model) {
+		member = (r_member) session.getAttribute("user");
+		try {
+			List<r_msg_join_data> myMsg = memService.myMsg(member.getCustId());
+			
+			if(myMsg != null ) {
+				// ajax 응답 해주기?
+				model.addAttribute("myMsg", myMsg);
+			}else {
+				// ajax 응답 해주기
+				System.out.println("조미료가 비어있습니다.");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "myref/msgList";
 	}

@@ -19,7 +19,10 @@
 </form>
 
 <br>
-<a href="/goMyMsgList">내조미료</a>
+<form action="/goMyMsgList" method="post">
+<input type="hidden" id="${user.custId }" value="${user.custId }">
+<button type="submit">내조미료</button>
+</form>
 <br>
 <a href="/goRecList">레시피</a>
 <br>

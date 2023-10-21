@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.smhrd.entity.r_ingre_join_data;
+import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.mapper.r_memberMapper;
 
 @Service
@@ -21,15 +22,19 @@ public class r_memberService {
 		this.memMapper = memMapper;
 	}
 	
+	// 재료 조인 dao
 	public List<r_ingre_join_data> myIngredients(String custId){
-		System.out.println("여기까지안온다");
 		List<r_ingre_join_data> memIngreList = memMapper.myIngredients(custId);
-		System.out.println(memIngreList);
 		
 		return memIngreList;
-		
 	}
 	
+	// 재료 조인 dao
+	public List<r_msg_join_data> myMsg(String custId){
+		List<r_msg_join_data> memMsgList = memMapper.myMsg(custId);
+		
+		return memMsgList;
+	}
 	
 
 }
