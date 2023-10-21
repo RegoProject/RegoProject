@@ -26,6 +26,7 @@
 <br>
 <a href="/goRecList">레시피</a>
 <br>
+<a href="/logout">로그아웃</a>
 
 </body>
 </html>

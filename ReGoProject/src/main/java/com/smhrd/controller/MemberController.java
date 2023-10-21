@@ -140,7 +140,8 @@ public class MemberController {
 		
 		session.removeAttribute("user");
 		
-		return "redirect:/goMain";
+		// jsp에서 jsp로 넘어갈때? redirect 
+		return "redirect:/goLogin";
 	}
 	
 	

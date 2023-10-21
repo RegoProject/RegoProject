@@ -17,6 +17,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<a href="/goMain?custId=${custId}">메인</a>
+	<a href="/goMain">메인</a>
 </body>
 </html>
