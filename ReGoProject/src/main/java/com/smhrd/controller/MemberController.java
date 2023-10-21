@@ -10,6 +10,7 @@ import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,7 +57,7 @@ public class MemberController {
 	
 	
 	@RequestMapping("/join")
-	public String join(@RequestParam("custImg") MultipartFile custImg,  r_member member) {
+	public String join(@ModelAttribute r_member member, @RequestParam("custImg1") MultipartFile Img) {
 		
 		
 		
@@ -64,7 +65,7 @@ public class MemberController {
 		String uuid =  UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
 		System.out.println(uuid);
 		// 2. uuid + file 이름, 저장할 이름을 생성
-		String filename = uuid + "_" + custImg.getOriginalFilename();
+		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
 
 		 
@@ -77,9 +78,9 @@ public class MemberController {
 		//Path path = Paths.get(savePath+"\\"+ filename);
 		System.out.println(path);
 		try {
-			Files.copy( custImg.getInputStream(), path);
+			Files.copy( Img.getInputStream(), path);
 			member.setCustImg(filename);
-			
+			repo.save(member);
 			
 			 System.out.println("성공이야?");
 			
@@ -87,7 +88,7 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		// 2. 기능 정의 및 실행
-		repo.save(member);
+		
 		
 		// 3. View 선택
 		

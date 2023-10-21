@@ -45,5 +45,10 @@ public class MyPageController {
 		
 		return "mypage/addList";
 	}
+	@RequestMapping("/goMypage")
+	public String goMypage() {
+		
+		return "mypage";
+	}
 	
 }
