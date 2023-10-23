@@ -3,20 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>REGO HOME</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./assets/css/home.css" />
+  <link rel="stylesheet" href="/assets/css/home.css" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <script src="./assets/js/init-alpine.js"></script>
+  <script src="/assets/js/init-alpine.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <script src="jquery.min.js"></script>
-  <link rel="stylesheet" href="./assets/css/homeCopy.css" />
-  <script src="./assets/js/slide.js" defer></script>
+  <!-- 
+  필요없을거같아용
+  <script src="jquery.min.js"></script> 
+  -->
+  <link rel="stylesheet" href="/assets/css/homeCopy.css" />
+  <script src="/assets/js/slide.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
@@ -74,7 +76,7 @@
             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"></span>
             <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-              href="#">
+              href="/goMain">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path
@@ -88,7 +90,7 @@
         <ul>
           <li class="relative px-6 py-3">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="#">
+              href="/goRecList">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path
@@ -100,7 +102,7 @@
           </li>
           <li class="relative px-6 py-3">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="#">
+              href="/goBoardList">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path
@@ -112,7 +114,7 @@
           </li>
           <li class="relative px-6 py-3">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="#">
+              href="/goMypage">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -123,7 +125,7 @@
           </li>
           <li class="relative px-6 py-3">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="#">
+              href="/logout">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -150,8 +152,8 @@
 
           <div class="flex justify-center flex-1 lg:mr-32">
             
-              <a href="#">
-                <img id="logo" src="./assets/img/레고로고.png" width="80px" height="80px" style="margin: auto;">
+              <a href="/goMain">
+                <img id="logo" src="/assets/img/레고로고.png" width="80px" height="80px" style="margin: auto;">
               </a>
             
           </div>
@@ -177,6 +179,7 @@
             <li class="relative">
               <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                 @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account" aria-haspopup="true">
+                <!-- 기본이미지 경로 넣어줘야해요 -->
                 <img class="object-cover w-8 h-8 rounded-full"
                   src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
                   alt="" aria-hidden="true" />
@@ -188,7 +191,7 @@
                   aria-label="submenu">
                   <li class="flex">
                     <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#">
+                      href="/goMypage">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path
@@ -200,7 +203,7 @@
                   </li>
                   <li class="flex">
                     <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#">
+                      href="/logout">
                       <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path
@@ -223,7 +226,7 @@
           <select name="#" id="searchSelect">
             <option value="">전체</option>
             <option value="">보유재료</option>
-            <option value="">조미료</option>
+            <option value="">보유조미료</option>
             <option value="">레시피</option>
           </select>
           <input id="btnDisplayMode" class="search" type="text" placeholder="검색어 입력">
@@ -234,35 +237,35 @@
               <div class="slidT2">
                 고기의 유통기한이 얼마 남지 않았습니다!
               </div>
-              <img class="simg" src="./assets/img/음식배너4.png" style="width:100%">
+              <img class="simg" src="/assets/img/음식배너4.png" style="width:100%">
             </div>
 
             <div class="mySlides fade">
               <div class="slidT">
                 우유의 유통기한이 얼마 남지 않았습니다!
               </div>
-              <img class="simg" src="./assets/img/음식배너5.png" style="width:100%">
+              <img class="simg" src="/assets/img/음식배너5.png" style="width:100%">
             </div>
 
             <div class="mySlides fade">
               <div class="slidT">
                 REGO와 함께 냉장고를 관리 해보세요!
               </div>
-              <img class="simg" src="./assets/img/음식배너1.jpg" style="width:100%">
+              <img class="simg" src="/assets/img/음식배너1.jpg" style="width:100%">
             </div>
 
             <div class="mySlides fade">
               <div class="slidT">
                 REGO와 함께 맛있는 음식을 만들어요!
               </div>
-              <img class="simg" src="./assets/img/음식배너3.png" style="width:100%">
+              <img class="simg" src="/assets/img/음식배너3.png" style="width:100%">
             </div>
 
             <div class="mySlides fade">
               <div class="slidT2">
                 REGO와 함께 즐거운 시간 보내요!
               </div>
-              <img class="simg" src="./assets/img/음식배너2.png" style="width:100%">
+              <img class="simg" src="/assets/img/음식배너2.png" style="width:100%">
             </div>
 
           </div>
@@ -276,18 +279,18 @@
           </div>
           <br>
           <div class="food">
-            <a href="#">
+            <a href="/goMyIngreList">
               <div class="Seasoning" style="display:inline-block">
                 <div>
-                  <img id="igd" src="./assets/img/ingredient.png">
+                  <img id="igd" src="/assets/img/ingredient.png">
                 </div>
                 <p calss="font">식재료</p>
               </div>
             </a>
-            <a href="#">
+            <a href="/goMyMsgList">
               <div class="ingredient" style="display:inline-block">
                 <div>
-                  <img id="ss" src="./assets/img/Seasoning.png">
+                  <img id="ss" src="/assets/img/Seasoning.png">
                 </div>
                 <p calss="font">조미료</p>
               </div>
@@ -295,10 +298,10 @@
           </div>
           <div>
             <br>
-            <a href="#">
+            <a href="/goRecList">
               <div class="recipeRc" style="display:inline-block">
                 <div>
-                  <img id="ss" src="./assets/img/recipe.png">
+                  <img id="ss" src="/assets/img/recipe.png">
                 </div>
                 <p calss="font">레시피 추천</p>
               </div>
@@ -306,7 +309,7 @@
             <a href="#">
               <div class="addItem" style="display:inline-block">
                 <div>
-                  <img id="ss" src="./assets/img/add-button.png">
+                  <img id="ss" src="/assets/img/add-button.png">
                 </div>
                 <p calss="font">항목추가</p>
               </div>
