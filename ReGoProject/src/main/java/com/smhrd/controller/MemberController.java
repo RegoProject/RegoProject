@@ -126,23 +126,10 @@ public class MemberController {
 	      }
 	      
 
-	      // 3. View 선택
-	      
-	      
 	      
 	   }
 	   
-	   
-	   /* 비밀번호 찾기 */
-		
 
-		// 3. View 선택
-		
-		
-		
-	}
-	
-	
 	/* 비밀번호 찾기 */
 	@RequestMapping("/goFindPw")
 	public String goFind() {

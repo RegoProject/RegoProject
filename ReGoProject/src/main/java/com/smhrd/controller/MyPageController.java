@@ -55,18 +55,16 @@ public class MyPageController {
 	}
 	@RequestMapping("/updateProfileImage")
     public void updateProfileImage(@RequestParam("file") MultipartFile file ,HttpServletResponse response , HttpSession session ) {
-	// 이미지파일 넣기 난이도★★★
+	// 이미지파일 넣기 난이도★★★ ㅋㅋㅋㅋ 고생하셨어요
 			// 1. UUID 생성 : 16글자 랜덤한 문자열		
 			String uuid =  UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
 			System.out.println(uuid);
+			
 			// 2. uuid + file 이름, 저장할 이름을 생성
 			String filename = uuid + "_" + file.getOriginalFilename();
 			System.out.println(filename);
 
-			 
 			// 3. 어디에 저장할지 
-					
-			
 			String savePath = "src/main/resources/static/";
 			Path path = Paths.get(savePath + filename);
 			// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
