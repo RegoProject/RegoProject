@@ -24,159 +24,136 @@ public class MemberController {
 	@Autowired
 	private MemberRepository repo;
 	r_member member = new r_member();
-	
+
 	// goMain 이라는 요청을 받으면 main.jsp
 	@RequestMapping("/goMain")
 	public String goMain() {
-		
-		
+
 		return "views/main";
 	}
-	
+
 	@RequestMapping("/goLogin")
 	public String goLogin() {
-		
-		
+
 		return "views/login";
 	}
-	
+
 	@RequestMapping("/goUpdate")
 	public String goUpdate() {
-		
-		
+
 		return "views/update";
 	}
-	
 
 	@RequestMapping("/goJoin")
 	public String goJoin() {
 
 		return "views/join";
-		
+
 	}
-	
-	
+
 	@RequestMapping("/join")
 	public String join(@ModelAttribute r_member member, @RequestParam("custImg1") MultipartFile Img) {
-		
-		
 
-		
-		//회원가입 이미지 저장
-		String uuid =  UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
+		// 회원가입 이미지 저장
+		String uuid = UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
 		System.out.println(uuid);
 		// 2. uuid + file 이름, 저장할 이름을 생성
 		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
-		// 3. 어디에 저장할지 
+		// 3. 어디에 저장할지
 		String savePath = "src/main/resources/static/";
 		Path path = Paths.get(savePath + filename);
 		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
-		//Path path = Paths.get(savePath+"\\"+ filename);
+		// Path path = Paths.get(savePath+"\\"+ filename);
 		System.out.println(path);
 		try {
-			Files.copy( Img.getInputStream(), path);
+			Files.copy(Img.getInputStream(), path);
 			member.setCustImg(filename);
 			repo.save(member);
-			
-			 System.out.println("성공이야?");
-			
+
+			System.out.println("성공이야?");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		// 2. 기능 정의 및 실행
-		
-		
+
 		// 3. View 선택
-		
+
 		return "redirect:/goLogin";
-		
+
 	}
-	
 
-	   @RequestMapping("/login")
-	   public void login(@RequestParam("custId") String custId,@RequestParam("custPw") String custPw, HttpSession session , HttpServletResponse response) {
-	      // 1. 수집
-	      
-	      // 2. 기능 정의 및 실행
-	      
-	      member = repo.findByCustIdAndCustPw(custId, custPw);
-	      System.out.println(member);
-	      if ( member != null) {
-	         
-	         session.setAttribute("user", member );
-	         try {
-	            
-	            response.setContentType("text/plain; charset=UTF-8");   
-	            response.getWriter().write("success");
-	         } catch (Exception e) {
-	            
-	         }      
-	         
-	      }else{
-	         try {
-	            response.setContentType("text/plain; charset=UTF-8");   
-	            response.getWriter().write("fail");
-	            
-	         } catch (Exception e) {
-	            
-	         }
-	         
-	                  
-	      }
-	      
+	@RequestMapping("/login")
+	public void login(@RequestParam("custId") String custId, @RequestParam("custPw") String custPw, HttpSession session,
+			HttpServletResponse response) {
+		// 1. 수집
 
-	      // 3. View 선택
-	      
-	      
-	      
-	   }
-	   
-	   
-	   /* 비밀번호 찾기 */
-		
+		// 2. 기능 정의 및 실행
+
+		member = repo.findByCustIdAndCustPw(custId, custPw);
+		System.out.println(member);
+		if (member != null) {
+
+			session.setAttribute("user", member);
+			try {
+
+				response.setContentType("text/plain; charset=UTF-8");
+				response.getWriter().write("success");
+			} catch (Exception e) {
+
+			}
+
+		} else {
+			try {
+				response.setContentType("text/plain; charset=UTF-8");
+				response.getWriter().write("fail");
+
+			} catch (Exception e) {
+
+			}
+
+		}
 
 		// 3. View 선택
-		
-		
-		
+
 	}
-	
-	
+
+	/* 비밀번호 찾기 */
+
+	// 3. View 선택
+
 	/* 비밀번호 찾기 */
 	@RequestMapping("/goFindPw")
 	public String goFind() {
-		
+
 		return "views/find";
 	}
-	
+
 	@RequestMapping("/update")
-	public String update(r_member member ,HttpSession session ) {
+	public String update(r_member member, HttpSession session) {
 		// 1. 수집
-		
+
 		// 2. 기능 정의 및 실행
 		member = repo.save(member);
-		
-		if ( member != null ) {
+
+		if (member != null) {
 			session.setAttribute("user", member);
-			
+
 		}
-		
+
 		// 3. View 선택
 		return "redirect:/goMypage";
-		
+
 	}
-	
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
-		
+
 		session.removeAttribute("user");
-		
-		// jsp에서 jsp로 넘어갈때? redirect 
+
+		// jsp에서 jsp로 넘어갈때? redirect
 		return "redirect:/goLogin";
 	}
-	
-	
-	
-	
+
 }
