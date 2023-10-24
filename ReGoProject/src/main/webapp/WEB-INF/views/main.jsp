@@ -404,7 +404,7 @@
            >
             확인
           </button>
-          <div><ul id="searchList" class=""></ul></div>
+         <ul id="searchList" class=""></ul>
           
           </div>
           </div>
@@ -583,12 +583,13 @@
 
 $(document).ready(function() {
   const inputElement = $('#ingreName'); // 모달창 내의 input 요소 선택
+  const searchList = $('#searchList');
 
 
   inputElement.on('input', function() {
     const searchTerm = inputElement.val();
     console.log(searchTerm);
-
+    if (searchTerm.trim() !== '') {
     $.ajax({
       url: '/ingreSearch',
       method: 'GET',
@@ -601,6 +602,10 @@ $(document).ready(function() {
         console.error('AJAX 오류:', error);
       }
     });
+   }else{
+	   searchList.empty();
+	   
+   }
   });
 
   function updateSearchResults(results) {
