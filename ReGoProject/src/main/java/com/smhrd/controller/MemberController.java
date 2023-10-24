@@ -88,7 +88,7 @@ public class MemberController {
 	public void login(@RequestParam("custId") String custId, @RequestParam("custPw") String custPw, HttpSession session,
 			HttpServletResponse response) {
 
-		// 2. 기능 정의 및 실행
+		
 
 		member = repo.findByCustIdAndCustPw(custId, custPw);
 		System.out.println(member);
@@ -111,11 +111,7 @@ public class MemberController {
 			} catch (Exception e) {
 
 			}
-
-		}
-
-
-		
+		}		
 	}	
 
 

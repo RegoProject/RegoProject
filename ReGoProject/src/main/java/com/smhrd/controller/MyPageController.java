@@ -60,9 +60,9 @@ public class MyPageController {
 		//마이페이지 이동시 ID로 select해서 최신순 10개 가져오는 메서드
 		r_member member =(r_member)session.getAttribute("user");
 		String custId = member.getCustId();
-		List<r_board> list= repo2.findFirst10ByCustIdOrderByCreatedAtDesc(custId);
-		model.addAttribute("board",list);
-		System.out.println(list);
+		//List<r_board> list= repo2.findFirst10ByCustIdOrderByCreatedAtDesc(custId);
+		//model.addAttribute("board",list);
+		//System.out.println(list);
 		
 		return "mypage/mypage";
 	} 
