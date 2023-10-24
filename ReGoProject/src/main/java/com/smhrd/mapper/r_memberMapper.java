@@ -15,6 +15,11 @@ public interface r_memberMapper {
 
 	// 나의 조미료 + 조미료 카테고리 조인 dao
 	public List<r_msg_join_data> myMsg(String custId);
+
+	// 조미료 검색창 비동기 확인용 dao
+	public r_ingre_join_data searchMyIngre(String custId,String ingreName);
+	
+
 	
 	
 }

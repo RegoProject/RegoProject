@@ -19,7 +19,7 @@ import com.smhrd.entity.r_member;
 import com.smhrd.repository.MemberRepository;
 
 @Controller
-public class MyPageController {
+public class myPageController {
 	
 
 	@Autowired

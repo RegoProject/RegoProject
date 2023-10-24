@@ -9,17 +9,13 @@
   <title>REGO HOME</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/home.css" />
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <script src="/assets/js/init-alpine.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <!-- 
-  필요없을거같아용
-  <script src="jquery.min.js"></script> 
-  -->
   <link rel="stylesheet" href="/assets/css/homeCopy.css" />
-  <script src="/assets/js/slide.js" defer></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+  
+  <!--폰트어썸 라이브러리 / 체크박스용 라이브러리-->
+ <link rel="stylesheet" href="/assets/css/checkbox.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+
 
 </head>
 
@@ -153,7 +149,7 @@
           <div class="flex justify-center flex-1 lg:mr-32">
             
               <a href="/goMain">
-                <img id="logo" src="/assets/img/레고로고.png" width="80px" height="80px" style="margin: auto;">
+                <img id="logo" src="/assets/img/regoLogo.png" width="80px" height="80px" style="margin: auto;">
               </a>
             
           </div>
@@ -237,35 +233,35 @@
               <div class="slidT2">
                 고기의 유통기한이 얼마 남지 않았습니다!
               </div>
-              <img class="simg" src="/assets/img/음식배너4.png" style="width:100%">
+              <img class="simg" src="/assets/img/foodBanner4.png" style="width:100%">
             </div>
 
             <div class="mySlides fade">
               <div class="slidT">
                 우유의 유통기한이 얼마 남지 않았습니다!
               </div>
-              <img class="simg" src="/assets/img/음식배너5.png" style="width:100%">
+              <img class="simg" src="/assets/img/foodBanner5.png" style="width:100%">
             </div>
 
             <div class="mySlides fade">
               <div class="slidT">
                 REGO와 함께 냉장고를 관리 해보세요!
               </div>
-              <img class="simg" src="/assets/img/음식배너1.jpg" style="width:100%">
+              <img class="simg" src="/assets/img/foodBanner1.jpg" style="width:100%">
             </div>
 
             <div class="mySlides fade">
               <div class="slidT">
                 REGO와 함께 맛있는 음식을 만들어요!
               </div>
-              <img class="simg" src="/assets/img/음식배너3.png" style="width:100%">
+              <img class="simg" src="/assets/img/foodBanner3.png" style="width:100%">
             </div>
 
             <div class="mySlides fade">
               <div class="slidT2">
                 REGO와 함께 즐거운 시간 보내요!
               </div>
-              <img class="simg" src="/assets/img/음식배너2.png" style="width:100%">
+              <img class="simg" src="/assets/img/foodBanner2.png" style="width:100%">
             </div>
 
           </div>
@@ -307,7 +303,7 @@
               </div>
             </a>
             <a href="#">
-              <div class="addItem" style="display:inline-block">
+              <div @click="openModal" class="addItem" style="display:inline-block">
                 <div>
                   <img id="ss" src="/assets/img/add-button.png">
                 </div>
@@ -317,7 +313,255 @@
             <br><br>
           </div>
         </div>
+                  
+          </div>
+        </main>
+      </div>
     </div>
+    
+    <!-- homecopy랑 css 연관됨 -->
+    <!-- Modal backdrop. This what you want to place close to the closing body tag -->
+    <div
+      x-show="isModalOpen"
+      x-transition:enter="transition ease-out duration-150"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+      class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+    >
+      <!-- Modal -->
+      <div
+        x-show="isModalOpen"
+        x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 transform translate-y-1/2"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0  transform translate-y-1/2"
+        @click.away="closeModal"
+        @keydown.escape="closeModal"
+        class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+        role="dialog"
+        id="modal"
+      >
+      
+        <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+        <header class="flex justify-end">
+          <button
+            class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+            aria-label="close"
+            @click="closeModal"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              role="img"
+              aria-hidden="true"
+            >
+              <path
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+        </header>
+        <!-- Modal body -->
+        <div class="mt-4 mb-6">
+          <!-- Modal title -->
+          <p
+            class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300"
+          >
+            Modal header
+          </p>
+          <!-- Modal description -->
+          <p class="text-sm text-gray-700 dark:text-gray-400">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum et
+            eligendi repudiandae voluptatem tempore!
+          </p>
+        </div>
+        
+   
+   <div class="mt-4 mb-6 text-center">
+	<h2 class="subtitle">재료</h2>
+   
+			<!-- 사진으로 추가하는 태그 -->	
+			<div>
+          <input type="file" class="h-12 px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" 
+           style="box-sizing: border-box; left: 0;"
+          >
+        
+          
+
+          <div class="mt-4">
+          <input id="ingreName" name="ingreName"class="h-12 searchModal" value=""  style="left: 0;">
+          
+      <button type="submit"
+            class="h-12 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+           >
+            확인
+          </button>
+          <div><ul id="searchList" class=""></ul></div>
+          
+          </div>
+          </div>
+
+          
+         <div class="mt-4">
+         <h2 class="subtitle">조미료</h2>
+         <div class="mt-4">
+           <button
+          @click="openTrdModal"
+            class="w-full h-12 px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+          id="msgAdd"
+          >
+            조미료추가
+          </button>
+         
+          </div>
+          <div class="mt-4">
+          <button
+            @click="closeModal"
+            class="w-full h-12 px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+          id="cancleModal"
+          >
+            Cancel
+          </button>
+          </div>
+           </div>
+      </div>
+          
+      
+    <!-- 두 번째 모달 내용
+       <div
+  x-show="isSecModalOpen"
+  x-transition:enter="transition ease-out duration-150"
+  x-transition:enter-start="opacity-0 transform translate-y-1/2"
+  x-transition:enter-end="opacity-100"
+  x-transition:leave="transition ease-in duration-150"
+  x-transition:leave-start="opacity-100"
+  x-transition:leave-end="opacity-0 transform translate-y-1/2"
+  class="fixed inset-0 z-40 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+>
+
+      <div
+        x-show="isSecModalOpen"
+        x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 transform translate-y-1/2"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0  transform translate-y-1/2"
+        @click.away="closeSecModal"
+        @keydown.escape="closeSecModal"
+        class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+        role="dialog"
+        id="secModal"
+      >
+     
+ <div>
+
+    
+          <button
+            class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            사진추가
+          </button>
+        </div>
+    <div>
+
+      </div>
+    
+      <button
+        @click="closeSecModal"
+        class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+      
+      >
+       닫기
+      </button>
+   
+      </div>
+    </div>
+     -->
+    
+    <div
+  x-show="isTrdModalOpen"
+  x-transition:enter="transition ease-out duration-150"
+  x-transition:enter-start="opacity-0 transform translate-y-1/2"
+  x-transition:enter-end="opacity-100"
+  x-transition:leave="transition ease-in duration-150"
+  x-transition:leave-start="opacity-100"
+  x-transition:leave-end="opacity-0 transform translate-y-1/2"
+  class="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+>
+  <!-- 세 번째 모달 내용 -->
+        <div
+        x-show="isTrdModalOpen"
+        x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 transform translate-y-1/2"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0  transform translate-y-1/2"
+        @click.away="closeTrdModal"
+        @keydown.escape="closeTrdModal"
+        class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+        role="dialog"
+        id="trdModal"
+      >
+      <!-- 3rd Modal Open 버튼 -->
+      
+      
+         <div class="container">
+        <ul class="ks-cboxtags">
+          <li><input type="checkbox" id="checkbox1" value="Rainbow Dash"><label for="checkbox1">간장</label></li>
+          <li><input type="checkbox" id="checkbox2" value="Cotton Candy" checked><label for="checkbox2">소금</label></li>
+          <li><input type="checkbox" id="checkbox3" value="Rarity" checked><label for="checkbox3">참기름</label></li>
+          <li><input type="checkbox" id="checkbox4" value="Moondancer"><label for="checkbox4">조미료1</label></li>
+          <li><input type="checkbox" id="checkbox5" value="Surprise"><label for="checkbox5">조미료2</label></li>
+          <li><input type="checkbox" id="checkbox6" value="Twilight Sparkle"><label for="checkbox6">조미료3</label></li>
+          <li><input type="checkbox" id="checkbox7" value="Fluttershy"><label for="checkbox7">조미료4</label></li>
+          <li><input type="checkbox" id="checkbox8" value="Derpy Hooves"><label for="checkbox8">조미료5</label></li>
+          <li><input type="checkbox" id="checkbox9" value="Princess Celestia"><label for="checkbox9">조미료6</label></li>
+          <li><input type="checkbox" id="checkbox10" value="Gusty"><label for="checkbox10">조미료</label></li>
+          <li><input type="checkbox" id="checkbox11" value="Discord"><label for="checkbox11">조미료</label></li>
+          <li><input type="checkbox" id="checkbox12" value="Clover"><label for="checkbox12">조미료</label></li>
+          <li><input type="checkbox" id="checkbox13" value="Baby Moondancer"><label for="checkbox13">조미료</label></li>
+          <li><input type="checkbox" id="checkbox14" value="Medley"><label for="checkbox14">조미료</label></li>
+          <li><input type="checkbox" id="checkbox15" value="Firefly"><label for="checkbox15">조미료</label></li>
+          <li><input type="checkbox" id="checkbox16" value="Firefly"><label for="checkbox16">조미료</label></li>
+          <li><input type="checkbox" id="checkbox17" value="Firefly"><label for="checkbox17">조미료</label></li>
+          <li><input type="checkbox" id="checkbox18" value="Firefly"><label for="checkbox18">조미료</label></li>
+          <li><input type="checkbox" id="checkbox19" value="Firefly"><label for="checkbox19">조미료</label></li>
+          <li><input type="checkbox" id="checkbox20" value="Firefly"><label for="checkbox20">조미료</label></li>
+          <li><input type="checkbox" id="checkbox21" value="Firefly"><label for="checkbox21">조미료</label></li>
+          <li><input type="checkbox" id="checkbox22" value="Firefly"><label for="checkbox22">조미료</label></li>
+          <li><input type="checkbox" id="checkbox23" value="Firefly"><label for="checkbox23">조미료</label></li>
+          <li><input type="checkbox" id="checkbox24" value="Firefly"><label for="checkbox24">조미료</label></li>
+          <li><input type="checkbox" id="checkbox25" value="Firefly"><label for="checkbox25">조미료</label></li>
+          <li><input type="checkbox" id="checkbox26" value="Firefly"><label for="checkbox26">조미료</label></li>
+          <li><input type="checkbox" id="checkbox27" value="Firefly"><label for="checkbox27">조미료</label></li>
+          <li><input type="checkbox" id="checkbox28" value="Firefly"><label for="checkbox28">조미료</label></li>
+          <li><input type="checkbox" id="checkbox29" value="Firefly"><label for="checkbox29">조미료</label></li>
+          <li><input type="checkbox" id="checkbox30" value="Firefly"><label for="checkbox30">조미료</label></li>
+
+        </ul>
+      
+      </div>
+     
+<button type="submit"
+  class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+  적용
+</button>
+</div>
+
+  
+    </div>
+    
+
+
   </div>
   </div>
   </div>
@@ -325,5 +569,67 @@
   </div>
   </div>
 </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <script src="/assets/js/init-alpine.js"></script>
+  <script src="/assets/js/focus-trap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
+ <!-- 없어도 될것같음  <script src="jquery.min.js"></script> --> 
+  <script src="/assets/js/slide.js" defer></script>
+
+  
+
+<script type="text/javaScript">
+
+$(document).ready(function() {
+  const inputElement = $('#ingreName'); // 모달창 내의 input 요소 선택
+
+
+  inputElement.on('input', function() {
+    const searchTerm = inputElement.val();
+    console.log(searchTerm);
+
+    $.ajax({
+      url: '/ingreSearch',
+      method: 'GET',
+      data: { ingreName: searchTerm },
+      success: function(results) {
+        console.log(results);
+        updateSearchResults(results);
+      },
+      error: function(xhr, status, error) {
+        console.error('AJAX 오류:', error);
+      }
+    });
+  });
+
+  function updateSearchResults(results) {
+	  const searchList = $('#searchList');
+
+    searchList.empty();
+
+    if (results.length > 0) {
+      $.each(results, function(index, result) {
+        const listItem = $('<li>').text(result.ingreName);
+        listItem.on('click', function() {
+          // 사용자가 항목을 선택했을 때 실행할 작업을 추가합니다.
+        });
+        searchList.append(listItem);
+      });
+    } else {
+      const noResultsMessage = $('<li>').text('일치하는 항목이 없습니다.');
+      searchList.append(noResultsMessage);
+    }
+  }
+});
+
+</script>
+
+
+
+
+
+
+
 
 </html>

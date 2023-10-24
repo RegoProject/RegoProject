@@ -13,7 +13,22 @@
 		]]>
 </select>
 
+<!-- 사용자가 재료 보유했는지 검색기능 -->
+<select id="searchMyIngre" resultType="com.smhrd.entity.r_ingre_join_data" parameterType="com.smhrd.entity.r_ingre_join_data">
+		/* select.searchMyIngre */
+		<![CDATA[
+					SELECT RI.ingreName
+						 , RMI.ingreAmount
+					  FROM r_my_ingredients RMI
+					  JOIN r_ingredients RI ON RMI.ingreIdx = RI.ingreIdx
+					 WHERE RMI.custId = #{custId}
+					   AND RI.ingreName = #{ingreName}
+		]]>
+</select>
+
+
 <select id="myMsg" resultType="com.smhrd.entity.r_msg_join_data" parameterType="com.smhrd.entity.r_msg_join_data">
+		/* select.myMsg */
 		<![CDATA[
 					SELECT RM.msgName
 						 , RMM.msgAmount

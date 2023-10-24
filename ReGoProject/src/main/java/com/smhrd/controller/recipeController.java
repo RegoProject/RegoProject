@@ -11,33 +11,32 @@ import com.smhrd.entity.r_member;
 import com.smhrd.repository.MemberRepository;
 
 @Controller
-public class BoardController {
+public class recipeController {
 
-	@RequestMapping("/goBoardList")
+	@RequestMapping("/goRecList")
 	public String goList() {
-		return "board/list";
-	}
-	
-	@RequestMapping("/boardAddList")
-	public String addList() {
 		
-		return "board/addList";
+		
+		return "recipe/list";
 	}
 	
-	@RequestMapping("/goBoardForm")
+	@RequestMapping("/goRecForm")
 	public String goForm() {
+		// 레시피 수정폼이 필요한가 모르겠다
+		// 관리자용으로 남겨놔야하나?
 		
-		return "board/form";
+		return "recipe/form";
 	}
 	
-	@RequestMapping("/goBoardView")
+	
+	@RequestMapping("/goRecView")
 	public String goView() {
+		// 레시피 상세뷰
 		
-		return "board/view";
+		return "recipe/form";
 	}
 	
-
+	
 	
 	
 }
-

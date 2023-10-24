@@ -15,7 +15,7 @@ import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.service.r_memberService;
 
 @Controller
-public class MyRefController {
+public class myRefController {
 	r_ingre_join_data myIngre = new r_ingre_join_data();
 	
 	@Autowired
@@ -80,6 +80,35 @@ public class MyRefController {
 		return "myref/view";
 	}
 	
+	
+	@RequestMapping("/searchMyIngre")
+	public String searchIngre(r_member member,  String ingreName, HttpSession session, Model model) {
+		
+		member = (r_member) session.getAttribute("user");
+		try {
+			r_ingre_join_data searchMyIngre = memService.searchMyIngre(member.getCustId(), ingreName);
+			
+			if(searchMyIngre != null ) {
+				// ajax 응답 해주기?
+				
+				if(searchMyIngre.getIngreAmount()==1) {
+					// 재료가 있음
+					
+				}
+				
+				
+			}else {
+				// ajax 응답 해주기
+				System.out.println("조미료가 비어있습니다.");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "";
+	}
 	
 	
 	
