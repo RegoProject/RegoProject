@@ -33,6 +33,7 @@ public class RecipeController {
 	public String goView() {
 		// 레시피 상세뷰
 		
+		
 		return "recipe/form";
 	}
 	
