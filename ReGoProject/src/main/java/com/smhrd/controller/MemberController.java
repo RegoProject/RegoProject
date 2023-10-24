@@ -87,7 +87,6 @@ public class MemberController {
 	@RequestMapping("/login")
 	public void login(@RequestParam("custId") String custId, @RequestParam("custPw") String custPw, HttpSession session,
 			HttpServletResponse response) {
-		// 1. 수집
 
 		// 2. 기능 정의 및 실행
 
@@ -115,8 +114,10 @@ public class MemberController {
 
 		}
 
+
 		
 	}	
+
 
 
 	@RequestMapping("/goFindPw")

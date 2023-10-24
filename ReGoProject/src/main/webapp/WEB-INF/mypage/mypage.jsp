@@ -64,6 +64,7 @@ $(document).ready(function() {
                     
                     $("#profilePhoto").attr("src", res);
                 },2500 );
+            	// 다듬을때하기 -> 배포할때 업로드가 바로바로 돼서 바로 프로젝트가 새로고침되게끔 해야함
             },
             error: function(e) {
                 console.log("에러 발생");

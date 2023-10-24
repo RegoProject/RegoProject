@@ -12,7 +12,7 @@ public interface BoardRepository extends JpaRepository<r_board, String> {
 
 	public List<r_board> findFirst10ByCustIdOrderByCreatedAtDesc(String custId);
 	
-	public List<r_board> findNext10ByCustIdOrderByCreatedAtDesc(String writer, int page);
+	//public List<r_board> findNext10ByCustIdOrderByCreatedAtDesc(String writer, int page);
 	
 }
 
