@@ -10,7 +10,7 @@ import com.smhrd.entity.r_ingredients;
 @Mapper
 public interface r_ingredientsMapper {
 	
-	public List<r_ingredients> ingreSearch(@Param("ingreName") String ingreName);
+	public List<r_ingredients> ingreSearch(String ingreName);
 	
 
 	

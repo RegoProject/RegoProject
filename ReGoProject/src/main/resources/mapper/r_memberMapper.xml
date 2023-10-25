@@ -22,7 +22,7 @@
 					  FROM r_my_ingredients RMI
 					  JOIN r_ingredients RI ON RMI.ingreIdx = RI.ingreIdx
 					 WHERE RMI.custId = #{custId}
-					   AND RI.ingreName = #{ingreName}
+					   AND LOWER(RI.ingreName) LIKE CONCAT('%', #{ingreName}, '%')
 		]]>
 </select>
 

@@ -17,7 +17,7 @@ public interface r_memberMapper {
 	public List<r_msg_join_data> myMsg(String custId);
 
 	// 조미료 검색창 비동기 확인용 dao
-	public r_ingre_join_data searchMyIngre(String custId,String ingreName);
+	public List<r_ingre_join_data> searchMyIngre(String custId,String ingreName);
 	
 
 	

@@ -36,8 +36,8 @@ public class r_memberService {
 		return memMsgList;
 	}
 	
-	public r_ingre_join_data searchMyIngre(String custId, String ingreName){
-		r_ingre_join_data searchMyIngre = memMapper.searchMyIngre(custId,ingreName);
+	public List<r_ingre_join_data> searchMyIngre(String custId, String ingreName){
+		List<r_ingre_join_data> searchMyIngre = memMapper.searchMyIngre(custId,ingreName);
 		
 		return searchMyIngre;
 	}
