@@ -1,4 +1,5 @@
 /**
+문제생기면 let-> const로 다 바꿔주세요
  * Limit focus to focusable elements inside `element`
  * @param {HTMLElement} element - DOM element to focus trap inside
  * @return {Function} cleanup function
@@ -9,7 +10,12 @@ function focusTrap(element) {
   const lastFocusableEl = focusableElements[focusableElements.length - 1]
 
   // Wait for the case the element was not yet rendered
-  setTimeout(() => firstFocusableEl.focus(), 50)
+  setTimeout(() => {
+  const firstFocusableEl = focusableElements[0];
+  if (firstFocusableEl) {
+    firstFocusableEl.focus();
+  }
+}, 50);
 
   /**
    * Get all focusable elements inside `element`

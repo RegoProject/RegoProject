@@ -29,12 +29,18 @@ public class r_memberService {
 		return memIngreList;
 	}
 	
-	// 재료 조인 dao
+	// 조미료 조인 dao
 	public List<r_msg_join_data> myMsg(String custId){
 		List<r_msg_join_data> memMsgList = memMapper.myMsg(custId);
 		
 		return memMsgList;
 	}
 	
-
+	public List<r_ingre_join_data> searchMyIngre(String custId, String ingreName){
+		List<r_ingre_join_data> searchMyIngre = memMapper.searchMyIngre(custId,ingreName);
+		
+		return searchMyIngre;
+	}
+	
+	
 }

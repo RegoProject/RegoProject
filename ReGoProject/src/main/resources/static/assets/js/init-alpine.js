@@ -58,5 +58,20 @@ function data() {
       this.isModalOpen = false
       this.trapCleanup()
     },
+
+	// trdModal
+	isTrdModalOpen: false,
+    trapTrdCleanup: null,
+	isModalOpen: false,
+    openTrdModal() {
+	
+      this.isTrdModalOpen = true
+      this.trapTrdCleanup = focusTrap(document.querySelector('#trdModal'))
+    },
+    closeTrdModal() {
+      this.isTrdModalOpen = false
+      this.trapTrdCleanup()
+    },
+
   }
 }

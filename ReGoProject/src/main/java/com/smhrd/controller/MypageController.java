@@ -24,7 +24,7 @@ import com.smhrd.repository.BoardRepository;
 import com.smhrd.repository.MemberRepository;
 
 @Controller
-public class MyPageController {
+public class MypageController {
 	
 
 	@Autowired

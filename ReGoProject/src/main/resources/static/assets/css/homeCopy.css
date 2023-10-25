@@ -1297,11 +1297,11 @@ img,video {
     padding-right: .5rem
 }
 
+/* .75 -> 6 로 바꿨음 모달관련인것같아서 문제있으면 수정해주세요*/
 .py-3 {
-    padding-top: .75rem;
+    padding-top: 6rem;
     padding-bottom: .75rem
 }
-
 .px-3 {
     padding-left: .75rem;
     padding-right: .75rem
@@ -2063,6 +2063,27 @@ input{
     left: 8%;
 }
 
+#msgAdd{
+    margin: auto;
+    width: 66%;
+    position: relative;
+    bottom: 92%;
+
+}
+
+#cancleModal{
+	margin: auto;
+    width: 66%;
+    position: relative;
+    bottom: 92%;
+	
+}
+
+#ingreAdd{
+    position: relative;
+    bottom: 92%;
+}
+
 svg{
     margin-left: 35px;
 }
@@ -2260,6 +2281,31 @@ img {vertical-align: middle;}
     border: 2px solid #7DD076;
     border-radius: 3px;
 }
+
+.searchModal{
+    width: 52%;
+    background-color: white;
+    position: relative;
+    left: 3%;
+    box-shadow: #7DD076;
+    bottom: 91%;
+    border: 2px solid #7DD076;
+    border-radius: 3px;
+}
+
+#searchList li {
+	margin-left:14%;
+	width: 53%;
+	background-color: white; 
+    position: relative;
+    left: 3%;
+    box-shadow: #7DD076;
+    bottom: 91%;
+    border: 2px solid #7DD076;
+    border-radius: 3px;
+
+}
+
 
 input:focus{
     border-color:#7DD076;

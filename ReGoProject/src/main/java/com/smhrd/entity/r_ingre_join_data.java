@@ -7,6 +7,6 @@ import lombok.Data;
 public class r_ingre_join_data {
 	
 	private String ingreName;
-	private String ingreAmount;
+	private int ingreAmount;
 
 }

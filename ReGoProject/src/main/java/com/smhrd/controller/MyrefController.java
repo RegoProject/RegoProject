@@ -15,7 +15,7 @@ import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.service.r_memberService;
 
 @Controller
-public class MyRefController {
+public class MyrefController {
 	r_ingre_join_data myIngre = new r_ingre_join_data();
 	
 	@Autowired
@@ -81,7 +81,6 @@ public class MyRefController {
 	}
 	
 	
-	
-	
+
 	
 }
