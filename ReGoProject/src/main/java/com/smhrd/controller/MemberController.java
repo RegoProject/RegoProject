@@ -1,8 +1,11 @@
 package com.smhrd.controller;
 
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -52,8 +55,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("/join")
-	public String join(@ModelAttribute r_member member, @RequestParam("custImg1") MultipartFile Img) {
-
+	public String join(@ModelAttribute r_member member, @RequestParam("custImg1") MultipartFile Img, @RequestParam("custAddr1") String custAddr1,
+			@RequestParam("custAddr2") String custAddr2) {
+		
+		String addr= member.getCustAddr();
+		String custAddr = addr +"/"+custAddr1 +"/"+custAddr2;
+		System.out.println(custAddr);
+		
 		// 회원가입 이미지 저장
 		String uuid = UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
 		System.out.println(uuid);
@@ -69,6 +77,7 @@ public class MemberController {
 		try {
 			Files.copy(Img.getInputStream(), path);
 			member.setCustImg(filename);
+			member.setCustAddr(custAddr);
 			repo.save(member);
 
 			System.out.println("성공이야?");
@@ -146,6 +155,27 @@ public class MemberController {
 
 		// jsp에서 jsp로 넘어갈때? redirect
 		return "redirect:/goLogin";
+	}
+	@RequestMapping("/idCheck")
+	public void idCheck(@RequestParam("id") String custId ,r_member member ,HttpServletResponse response  ) {
+		
+		Optional<r_member> id = repo.findById(custId);
+		
+		System.out.println("여기오나요?");
+		
+		 try {
+		        response.setContentType("text/plain; charset=UTF-8");
+		        if (!id.isPresent()) {
+		            response.getWriter().write("true");
+		        } else {
+		            response.getWriter().write("false");
+		        }
+		    } catch (Exception e) {
+		        // 예외 처리
+		    }
+		
+		
+		
 	}
 
 }
