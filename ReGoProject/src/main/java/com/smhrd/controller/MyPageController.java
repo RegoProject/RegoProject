@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
@@ -55,7 +56,7 @@ public class MyPageController {
 		return "mypage/mypage";
 	}
 	@RequestMapping("/updateProfileImage")
-    public void updateProfileImage(@RequestParam("file") MultipartFile file ,HttpServletResponse response , HttpSession session ) {
+    public void updateProfileImage(@RequestParam("file") MultipartFile file ,HttpServletResponse response , HttpSession session, HttpServletRequest request ) {
 	// 이미지파일 넣기 난이도★★★ ㅋㅋㅋㅋ 고생하셨어요
 			// 1. UUID 생성 : 16글자 랜덤한 문자열		
 			String uuid =  UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
@@ -67,8 +68,8 @@ public class MyPageController {
 
 			// 3. 어디에 저장할지 
 			
-			String savePath = session.getServletContext().getRealPath("sImg");
-			System.out.println(session.getServletContext().getRealPath("sImg"));
+			String savePath = request.getServletContext().getRealPath("sImg");
+			System.out.println(request.getServletContext().getRealPath("sImg"));
 			
 			
 //			Path path = Paths.get(savePath + filename);
