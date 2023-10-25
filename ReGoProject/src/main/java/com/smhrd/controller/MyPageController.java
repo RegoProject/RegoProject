@@ -65,7 +65,7 @@ public class MyPageController {
 			System.out.println(filename);
 
 			// 3. 어디에 저장할지 
-			String savePath = "/home/ubuntu/RegoProject/ReGoProject/src/main/resources/static/";
+			String savePath = "/home/ubuntu/profileImg/";
 			Path path = Paths.get(savePath + filename);
 			// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 			//Path path = Paths.get(savePath+"\\"+ filename);
