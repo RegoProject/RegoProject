@@ -2063,26 +2063,7 @@ input{
     left: 8%;
 }
 
-#msgAdd{
-    margin: auto;
-    width: 66%;
-    position: relative;
-    bottom: 92%;
 
-}
-
-#cancleModal{
-	margin: auto;
-    width: 66%;
-    position: relative;
-    bottom: 92%;
-	
-}
-
-#ingreAdd{
-    position: relative;
-    bottom: 92%;
-}
 
 svg{
     margin-left: 35px;
@@ -2282,8 +2263,11 @@ img {vertical-align: middle;}
     border-radius: 3px;
 }
 
+/* 검색창 디자인 */
+
+/*모달 디자인 모음입니다. */
 .searchModal{
-    width: 52%;
+    width: 64%;
     background-color: white;
     position: relative;
     left: 3%;
@@ -2294,8 +2278,8 @@ img {vertical-align: middle;}
 }
 
 #searchList li {
-	margin-left:14%;
-	width: 53%;
+	margin-left:15%;
+	width: 64%;
 	background-color: white; 
     position: relative;
     left: 3%;
@@ -2305,6 +2289,53 @@ img {vertical-align: middle;}
     border-radius: 3px;
 
 }
+
+#addIngreFile {
+	width : 64%
+	
+}
+
+
+#msgAdd{
+    margin: auto;
+    width: 64%;
+    position: relative;
+    bottom: 92%;
+
+}
+
+.msgSubmit{
+	margin: auto;
+    width: 45%;
+    position: relative;
+    bottom: 92%;
+	
+}
+
+.cancleModal{
+	margin: auto;
+    width: 64%;
+    position: relative;
+    bottom: 92%;
+	
+}
+
+.cancleTrdModal{
+	margin: auto;
+    width: 45%;
+    position: relative;
+    bottom: 92%;
+	
+}
+
+
+#ingreAdd{
+    position: relative;
+    bottom: 92%;
+}
+
+/*여기까지 입니다 */
+
 
 
 input:focus{

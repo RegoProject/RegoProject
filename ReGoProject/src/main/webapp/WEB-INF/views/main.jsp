@@ -231,10 +231,10 @@
 					<br>
 					<!-- search -->
 					<select name="#" id="searchSelect">
-						<option value="">전체</option>
-						<option value="">보유재료</option>
-						<option value="">보유조미료</option>
-						<option value="">레시피</option>
+						<option value="전체">전체</option>
+						<option value="보유재료">보유재료</option>
+						<option value="보유조미료">보유조미료</option>
+						<option value="레시피">레시피</option>
 					</select> <input id="btnDisplayMode" class="search" type="text"
 						placeholder="검색어 입력">
 					<button class="searchBtn" type="button" value="#">검색</button>
@@ -359,11 +359,9 @@
 				<!-- Modal title -->
 				<p
 					class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-					Modal header</p>
+					재료 조미료 추가</p>
 				<!-- Modal description -->
-				<p class="text-sm text-gray-700 dark:text-gray-400">Lorem, ipsum
-					dolor sit amet consectetur adipisicing elit. Nostrum et eligendi
-					repudiandae voluptatem tempore!</p>
+				<p class="text-sm text-gray-700 dark:text-gray-400">재료와 조미료를 추가하는 모달창입니다.</p>
 			</div>
 
 
@@ -372,19 +370,15 @@
 
 				<!-- 사진으로 추가하는 태그 -->
 				<div>
-					<input type="file"
-						class="h-12 px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+					<input type="file" id="addIngreFile"
+						class="h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
 						style="box-sizing: border-box; left: 0;">
 
 
 
-					<div class="mt-4">
+					<div class="mt-4 text-center">
 						<input id="ingreName" name="ingreName" class="h-12 searchModal"
 							value="" style="left: 0;">
-
-						<button type="submit"
-							class="h-12 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-							확인</button>
 						<ul id="searchList" class=""></ul>
 
 					</div>
@@ -395,14 +389,14 @@
 					<h2 class="subtitle">조미료</h2>
 					<div class="mt-4">
 						<button @click="openTrdModal"
-							class="w-full h-12 px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+							class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
 							id="msgAdd">조미료추가</button>
 
 					</div>
 					<div class="mt-4">
 						<button @click="closeModal"
-							class="w-full h-12 px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
-							id="cancleModal">Cancel</button>
+							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray cancleModal"
+							>취소</button>
 					</div>
 				</div>
 			</div>
@@ -481,7 +475,8 @@
 					<!-- 조미료 추가(trdModal) 버튼 -->
 
 
-					<div class="container">
+					<div class="pl-5 container text-center">
+					<h2>조미료 추가입니다.</h2>
 						<ul class="ks-cboxtags">
 							<li><input type="checkbox" id="checkbox1"
 								value="Rainbow Dash"><label for="checkbox1">간장</label></li>
@@ -547,10 +542,14 @@
 						</ul>
 
 					</div>
-
+				<div class="pl-10">
 					<button type="submit"
-						class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+						class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple msgSubmit">
 						적용</button>
+					<button @click="closeTrdModal"
+							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray cancleTrdModal"
+						>취소</button>
+					</div>	
 				</div>
 
 
@@ -633,13 +632,19 @@
 
 						// 만약 값이 1이라면 (보유중이라면)
 						if (ingreAmount === '1') {
-							// 보유중으로 <li> 추가
-							listItem.text(ingreName + "보유중");
+					        // 보유중텍스트를 빨간색으로 스타일링
+					        const textSpan = $('<span>').text(' 보유중');
+					        textSpan.css('color', 'red');
+							
+							// ingreName+보유중으로 <li> 추가
+							listItem.text(ingreName+' ').append(textSpan);
+							
 						} else {
 							// 값이 0이라면 (미보유중이면)
-							listItem.text(ingreName);
+							listItem.text(ingreName+' ');
 							// ingreName 추가(버튼)으로 <li> 추가
-							const addButton = $('<button>').text('추가');
+							const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
+
 							addButton.on('click', function() {
 								// 추가 버튼 누르면 DB에 1로 저장될수있게 한다.
 								// 누르면 버튼을 비활성화 처리 해주는게 좋다 (여러번 요청들어가지 않게)
@@ -647,7 +652,8 @@
 							});
 							listItem.append(addButton);
 						}
-
+						
+						listItem.addClass('text-center');
 						searchList.append(listItem);
 					}
 				}
