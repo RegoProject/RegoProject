@@ -68,8 +68,7 @@ public class MyPageController {
 
 			// 3. 어디에 저장할지 
 			
-			String savePath = request.getServletContext().getRealPath("sImg");
-			System.out.println(request.getServletContext().getRealPath("sImg"));
+			String savePath = System.getProperty("user.dir") + "/src/main/resources/static/saveImg";
 			
 			
 //			Path path = Paths.get(savePath + filename);
