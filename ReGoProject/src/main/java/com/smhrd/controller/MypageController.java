@@ -1,8 +1,10 @@
 package com.smhrd.controller;
 
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -11,19 +13,23 @@ import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.smhrd.entity.r_board;
 import com.smhrd.entity.r_member;
+import com.smhrd.repository.BoardRepository;
 import com.smhrd.repository.MemberRepository;
 
 @Controller
-public class myPageController {
+public class MypageController {
 	
 
 	@Autowired
 	private MemberRepository repo;
+	private BoardRepository repo2;
 	r_member member = new r_member();
 	
 	
@@ -49,10 +55,18 @@ public class myPageController {
 		return "mypage/addList";
 	}
 	@RequestMapping("/goMypage")
-	public String goMypage() {
+	public String goMypage(HttpSession session , Model model ) {
+		
+		//마이페이지 이동시 ID로 select해서 최신순 10개 가져오는 메서드
+		r_member member =(r_member)session.getAttribute("user");
+		String custId = member.getCustId();
+		//List<r_board> list= repo2.findFirst10ByCustIdOrderByCreatedAtDesc(custId);
+		//model.addAttribute("board",list);
+		//System.out.println(list);
 		
 		return "mypage/mypage";
-	}
+	} 
+	//마이페이지에서 프로필사진변경 코드
 	@RequestMapping("/updateProfileImage")
     public void updateProfileImage(@RequestParam("file") MultipartFile file ,HttpServletResponse response , HttpSession session ) {
 	// 이미지파일 넣기 난이도★★★ ㅋㅋㅋㅋ 고생하셨어요
@@ -85,11 +99,18 @@ public class myPageController {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-			
-			
-        
+			}       
         
     }
+	@RequestMapping("/getMoreBoard")
+	public void getMoreBoard(@RequestParam("page") int page ,HttpSession session) {
+		r_member member= (r_member)session.getAttribute("user");
+		String custId =member.getCustId();
+		//List<r_board> list =repo2.findNext10ByCustIdOrderByCreatedAtDesc(custId, page);
+		
+		
+				
+	}
+	
 	
 }

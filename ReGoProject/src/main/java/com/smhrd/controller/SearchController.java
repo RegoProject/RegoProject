@@ -20,7 +20,7 @@ import com.smhrd.service.r_ingredientsService;
 import com.smhrd.service.r_memberService;
 
 @RestController
-public class searchController {
+public class SearchController {
 	@Autowired
 	r_ingredientsService ingreService;
 

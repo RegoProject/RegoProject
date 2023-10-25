@@ -13,11 +13,11 @@
 				<li><input readonly id="checkInput" type="text"
 					 value=${user.custId} name="custId"></li>
 				<p id="checkResult"></p>
-				<li><input type="password" placeholder="변경할비밀번호를 입력하세요" name="custPw"></li>
-				<li><input type="text" value=${user.custName } placeholder=${user.custName }  name="custName"></li>
-				<li><input type="email" value=${user.custEmail } placeholder=${user.custEmail } name="custEmail"></li>
-				<li><input type="text" placeholder=${user.custAddr } name="custAddr"></li>
-				<li><input type="text" placeholder=${user.custPhone } name="custPhone"></li>
+				<li><input type="password" placeholder="변경할비밀번호를 입력하세요" name="custPw" value=${user.custPw }></li>
+				<li><input type="text" value=${user.custName } placeholder=${user.custName }  name="custName" value=${user.custName }></li>
+				<li><input type="email" value=${user.custEmail } placeholder=${user.custEmail } name="custEmail" value=${user.custEmail }></li>
+				<li><input type="text" placeholder=${user.custAddr } name="custAddr" value=${user.custAddr }></li>
+				<li><input type="text" placeholder=${user.custPhone } name="custPhone" value=${user.custPhone }></li>
 				<li><input type="text" value=${user.custImg }  name="custImg" style="display: none;"></li>
 			    <li><input type="date" value=${user.custJoindate }  name="custJoindate" style="display: none;"></li>
 				<li><input type="submit" value="가입하기" class="button fit"></li>

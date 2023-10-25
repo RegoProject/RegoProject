@@ -19,7 +19,7 @@ import com.smhrd.entity.r_member;
 import com.smhrd.repository.MemberRepository;
 
 @Controller
-public class memberController {
+public class MemberController {
 
 	@Autowired
 	private MemberRepository repo;
@@ -88,7 +88,7 @@ public class memberController {
 	public void login(@RequestParam("custId") String custId, @RequestParam("custPw") String custPw, HttpSession session,
 			HttpServletResponse response) {
 
-		// 2. 기능 정의 및 실행
+		
 
 		member = repo.findByCustIdAndCustPw(custId, custPw);
 		System.out.println(member);
@@ -111,11 +111,11 @@ public class memberController {
 			} catch (Exception e) {
 
 			}
+		}		
+	}	
 
-		}
-	}
 
-	/* 비밀번호 찾기 */
+
 	@RequestMapping("/goFindPw")
 	public String goFind() {
 
