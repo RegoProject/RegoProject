@@ -66,7 +66,7 @@ public class MyPageController {
 			System.out.println(filename);
 
 			// 3. 어디에 저장할지 
-			String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\saveImg\\";
+			String savePath = "/home/ubuntu/RegoProject/ReGoProject/src/main/resources/static/saveImg/";
 			System.out.println(savePath);
 			
 //			Path path = Paths.get(savePath + filename);
