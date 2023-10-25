@@ -13,10 +13,13 @@
 	<artifactId>ReGoProject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ReGoProject</name>
+	<!-- war 빌드 찾다가 넣은거  -->
 	<packaging>war</packaging>
+	<!-- 위 주석 사이에 있는 코드-->
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<!-- war 빌드 찾다가 넣은거  아래 코드 두줄 /porperties까지 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.springframework-version>4.3.24.RELEASE</org.springframework-version>
 		
