@@ -68,8 +68,8 @@ public class MyPageController {
 
 			// 3. 어디에 저장할지 
 			
-			String savePath = System.getProperty("user.dir") + "/src/main/resources/static/saveImg";
-			
+			String savePath = System.getProperty("user.dir").split("target/")[0] + "src/main/resources/static/saveImg";
+			System.out.println(savePath);
 			
 //			Path path = Paths.get(savePath + filename);
 			// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
