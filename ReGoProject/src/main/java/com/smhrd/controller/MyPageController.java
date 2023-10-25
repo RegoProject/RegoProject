@@ -66,8 +66,7 @@ public class MyPageController {
 			System.out.println(filename);
 
 			// 3. 어디에 저장할지 
-			System.out.println(session.getServletContext().toString());
-			System.out.println(session.getServletContext().getRealPath("saveImg"));
+			System.out.println(session.getServletContext().getRealPath(""));
 			String savePath = "/home/ubuntu/RegoProject/ReGoProject/target/ReGoProject-0.0.1-SNAPSHOT/WEB-INF/classes/static/saveImg/";
 			
 			
