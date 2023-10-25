@@ -30,7 +30,8 @@
 <h1>마이페이지</h1>
 <h2>${user.custId}</h2> 
 <form id="uploadForm" enctype="multipart/form-data">
-    <img id="profilePhoto" src="imagePath/uploadedImage/${user.custImg}" alt="#" class="rounded-image">
+<!-- 문제생기면 imagePath/ -->
+    <img id="profilePhoto" src="imagePath/${user.custImg}" alt="#" class="rounded-image">
     <input type="file" name="file" id="fileInput" style="display: none;">
     <input type="submit" value="Upload" style="display: none;">
 </form>
@@ -58,12 +59,10 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(res) {
-            	setTimeout(function() {
-                    console.log("파일 업로드 성공");
-                    console.log(res);
-                    
-                    $("#profilePhoto").attr("src", res);
-                },2500 );
+            	console.log(res)
+                setTimeout(function() {
+                    window.location.reload();
+                }, 2500);
             	// 다듬을때하기 -> 배포할때 업로드가 바로바로 돼서 바로 프로젝트가 새로고침되게끔 해야함
             },
             error: function(e) {
