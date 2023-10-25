@@ -1,5 +1,6 @@
 package com.smhrd.controller;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -66,13 +67,18 @@ public class MyPageController {
 
 			// 3. 어디에 저장할지 
 			String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\saveImg\\";
-			Path path = Paths.get(savePath + filename);
+			System.out.println(savePath);
+			
+//			Path path = Paths.get(savePath + filename);
 			// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 			//Path path = Paths.get(savePath+"\\"+ filename);
-			System.out.println(path);
+//			System.out.println(path);
 			r_member member = (r_member)session.getAttribute("user");
 			try {
-				Files.copy( file.getInputStream(), path);
+//				Files.copy( file.getInputStream(), path);
+				File f = new File(savePath + filename);
+				file.transferTo(f);
+				
 				
 				response.setContentType("text/plain; charset=UTF-8");	
 				response.getWriter().write(filename);
