@@ -28,9 +28,9 @@
 <a href="/boardAddList">게시글 addList 확인용(사용은안함)</a>
 
 <h1>마이페이지</h1>
-<h2>${user.custId}</h2>
+<h2>${user.custId}</h2> 
 <form id="uploadForm" enctype="multipart/form-data">
-    <img id="profilePhoto" src="/${user.custImg}" alt="#" class="rounded-image">
+    <img id="profilePhoto" src="${user.custImg}" alt="#" class="rounded-image">
     <input type="file" name="file" id="fileInput" style="display: none;">
     <input type="submit" value="Upload" style="display: none;">
 </form>
