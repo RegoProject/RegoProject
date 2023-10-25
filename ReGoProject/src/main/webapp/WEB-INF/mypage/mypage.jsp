@@ -30,7 +30,7 @@
 <h1>마이페이지</h1>
 <h2>${user.custId}</h2> 
 <form id="uploadForm" enctype="multipart/form-data">
-    <img id="profilePhoto" src="saveImg/${user.custImg}" alt="#" class="rounded-image">
+    <img id="profilePhoto" src="sImg/${user.custImg}" alt="#" class="rounded-image">
     <input type="file" name="file" id="fileInput" style="display: none;">
     <input type="submit" value="Upload" style="display: none;">
 </form>
