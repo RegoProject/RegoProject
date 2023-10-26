@@ -12,13 +12,26 @@
 	rel="stylesheet" />
 
 <link rel="stylesheet" href="/assets/css/homeCopy.css" />
+<link rel="stylesheet" href="/assets/css/main.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-
 <!--폰트어썸 라이브러리 / 체크박스용 라이브러리-->
 <link rel="stylesheet" href="/assets/css/checkbox.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+	defer></script>
+<script src="jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+	defer></script>
+<script src="/assets/js/init-alpine.js"></script>
+<script src="/assets/js/focus-trap.js"></script>
+
+<script src="/assets/js/slide.js" defer></script>
+	
 
 
 </head>
@@ -79,7 +92,7 @@
 				<a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
 					href="#"> Coin : (숫자) 개 </a>
 				<ul class="mt-6">
-					<li class="relative px-6 py-3"><span
+					<li class="relative px-6 py-2"><span
 						class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
 						aria-hidden="true"></span> <a
 						class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
@@ -93,7 +106,7 @@
 					</a></li>
 				</ul>
 				<ul>
-					<li class="relative px-6 py-3"><a
+					<li class="relative px-6 py-2"><a
 						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
 						href="/goRecList"> <svg class="w-5 h-5" aria-hidden="true"
 								fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -103,7 +116,7 @@
                 </path>
               </svg> <span class="ml-4">레시피</span>
 					</a></li>
-					<li class="relative px-6 py-3"><a
+					<li class="relative px-6 py-2"><a
 						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
 						href="/goRecList"> <svg class="w-5 h-5" aria-hidden="true"
 								fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -113,7 +126,7 @@
                 </path>
               </svg> <span class="ml-4">커뮤니티</span>
 					</a></li>
-					<li class="relative px-6 py-3"><a
+					<li class="relative px-6 py-2"><a
 						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
 						href="/goMypage"> <svg class="w-5 h-5" aria-hidden="true"
 								fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -122,7 +135,7 @@
                 <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
               </svg> <span class="ml-4">마이페이지</span>
 					</a></li>
-					<li class="relative px-6 py-3"><a
+					<li class="relative px-6 py-2"><a
 						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
 						href="/logout"> <svg class="w-5 h-5" aria-hidden="true"
 								fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -134,9 +147,9 @@
 			</div>
 		</aside>
 		<div class="flex flex-col flex-1 w-full">
-			<header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+			<header class="z-10 bg-white shadow-md dark:bg-gray-800 py-2">
 				<div
-					class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+					class="container flex py-2 items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
 					<!-- Mobile hamburger button안에 md:hidden 지워야함-->
 					<button class="p-1 mr-5 -ml-1 rounded-md focus:outline-none"
 						@click="toggleSideMenu" aria-label="Menu">
@@ -186,7 +199,7 @@
 								aria-label="Account" aria-haspopup="true">
 								<!-- 기본이미지 경로 넣어줘야해요 -->
 								<img class="object-cover w-8 h-8 rounded-full"
-									src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+									src="/assets/img/login/defaultProfileImg.png"
 									alt="" aria-hidden="true" />
 							</button>
 							<template x-if="isProfileMenuOpen">
@@ -227,19 +240,18 @@
 			</header>
 			<main class="h-full overflow-y-auto">
 				<div class="container px-6 mx-auto grid">
-					<br>
-					<br>
 					<!-- search -->
-					<select name="#" id="searchSelect">
+					<div class="py-4 mb-2">
+					<select name="#" id="searchSelect" class="selectH-5">
 						<option value="전체">전체</option>
 						<option value="보유재료">보유재료</option>
 						<option value="보유조미료">보유조미료</option>
 						<option value="레시피">레시피</option>
-					</select> <input id="btnDisplayMode" class="search" type="text"
-						placeholder="검색어 입력">
-					<button class="searchBtn" type="button" value="#">검색</button>
-					<div class="slideshow-container">
-
+					</select> 
+					<input id="btnDisplayMode" class="search" type="text"
+						placeholder="검색어 입력"> <button class="searchBtn" type="button" value="#">검색</button>
+				</div>
+					<div class="slideshow-container py-4">
 						<div class="mySlides fade">
 							<div class="slidT2">고기의 유통기한이 얼마 남지 않았습니다!</div>
 							<img class="simg" src="/assets/img/foodBanner4.png"
@@ -272,11 +284,11 @@
 
 					</div>
 
-					<div style="text-align: center">
+					<div style="text-align: center" class="mb-6">
 						<span class="dot"></span> <span class="dot"></span> <span
 							class="dot"></span> <span class="dot"></span> <span class="dot"></span>
 					</div>
-					<br>
+
 					<div class="food">
 						<a href="/goMyIngreList">
 							<div class="Seasoning" style="display: inline-block">
@@ -288,7 +300,7 @@
 						</a> <a href="/goMyMsgList">
 							<div class="ingredient" style="display: inline-block">
 								<div>
-									<img id="ss" src="/assets/img/Seasoning.png">
+									<img id="ss" src="/assets/img/seasoning.png">
 								</div>
 								<p calss="font">조미료</p>
 							</div>
@@ -394,8 +406,8 @@
 
 					</div>
 					<div class="mt-4">
-						<button @click="closeModal"
-							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray cancleModal"
+						<button id="cancleModal" @click="closeModal"
+							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
 							>취소</button>
 					</div>
 				</div>
@@ -475,7 +487,7 @@
 					<!-- 조미료 추가(trdModal) 버튼 -->
 
 
-					<div class="pl-5 container text-center">
+					<div class="pl-5 checkContainer text-center">
 					<h2>조미료 추가입니다.</h2>
 						<ul class="ks-cboxtags">
 							<li><input type="checkbox" id="checkbox1"
@@ -542,12 +554,12 @@
 						</ul>
 
 					</div>
-				<div class="pl-10">
-					<button type="submit"
-						class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple msgSubmit">
+				<div class="pl-1_5">
+					<button id="msgSubmit" type="submit"
+						class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
 						적용</button>
-					<button @click="closeTrdModal"
-							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray cancleTrdModal"
+					<button id="cancleTrdModal" @click="closeTrdModal"
+							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray "
 						>취소</button>
 					</div>	
 				</div>
@@ -564,17 +576,6 @@
 	</div>
 	</div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
-	defer></script>
-<script src="/assets/js/init-alpine.js"></script>
-<script src="/assets/js/focus-trap.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-	defer></script>
-<!-- 없어도 될것같음  <script src="jquery.min.js"></script> -->
-<script src="/assets/js/slide.js" defer></script>
 
 
 
