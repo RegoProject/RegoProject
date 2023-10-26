@@ -43,7 +43,7 @@
 
 }
 
-.msgSubmit{
+#msgSubmit{
 	margin: auto;
     width: 45%;
     position: relative;
@@ -51,7 +51,8 @@
 	
 }
 
-.cancleModal{
+
+#cancleModal{
 	margin: auto;
     width: 64%;
     position: relative;
@@ -59,7 +60,7 @@
 	
 }
 
-.cancleTrdModal{
+#cancleTrdModal{
 	margin: auto;
     width: 45%;
     position: relative;
