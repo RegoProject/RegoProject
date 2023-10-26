@@ -14,11 +14,23 @@
 <link rel="stylesheet" href="/assets/css/homeCopy.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-
 <!--폰트어썸 라이브러리 / 체크박스용 라이브러리-->
 <link rel="stylesheet" href="/assets/css/checkbox.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+	defer></script>
+<script src="jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+	defer></script>
+<script src="/assets/js/init-alpine.js"></script>
+<script src="/assets/js/focus-trap.js"></script>
+
+<script src="/assets/js/slide.js" defer></script>
+	
 
 
 </head>
@@ -79,7 +91,7 @@
 				<a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
 					href="#"> Coin : (숫자) 개 </a>
 				<ul class="mt-6">
-					<li class="relative px-6 py-3"><span
+					<li class="relative px-6 py-2"><span
 						class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
 						aria-hidden="true"></span> <a
 						class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
@@ -93,7 +105,7 @@
 					</a></li>
 				</ul>
 				<ul>
-					<li class="relative px-6 py-3"><a
+					<li class="relative px-6 py-2"><a
 						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
 						href="/goRecList"> <svg class="w-5 h-5" aria-hidden="true"
 								fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -103,7 +115,7 @@
                 </path>
               </svg> <span class="ml-4">레시피</span>
 					</a></li>
-					<li class="relative px-6 py-3"><a
+					<li class="relative px-6 py-2"><a
 						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
 						href="/goBoardList"> <svg class="w-5 h-5" aria-hidden="true"
 								fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -113,7 +125,7 @@
                 </path>
               </svg> <span class="ml-4">커뮤니티</span>
 					</a></li>
-					<li class="relative px-6 py-3"><a
+					<li class="relative px-6 py-2"><a
 						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
 						href="/goMypage"> <svg class="w-5 h-5" aria-hidden="true"
 								fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -122,7 +134,7 @@
                 <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
               </svg> <span class="ml-4">마이페이지</span>
 					</a></li>
-					<li class="relative px-6 py-3"><a
+					<li class="relative px-6 py-2"><a
 						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
 						href="/logout"> <svg class="w-5 h-5" aria-hidden="true"
 								fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -134,7 +146,7 @@
 			</div>
 		</aside>
 		<div class="flex flex-col flex-1 w-full">
-			<header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+			<header class="z-10 bg-white shadow-md dark:bg-gray-800">
 				<div
 					class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
 					<!-- Mobile hamburger button안에 md:hidden 지워야함-->
@@ -475,7 +487,7 @@
 					<!-- 조미료 추가(trdModal) 버튼 -->
 
 
-					<div class="pl-5 container text-center">
+					<div class="pl-5 checkContainer text-center">
 					<h2>조미료 추가입니다.</h2>
 						<ul class="ks-cboxtags">
 							<li><input type="checkbox" id="checkbox1"
@@ -564,17 +576,6 @@
 	</div>
 	</div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
-	defer></script>
-<script src="/assets/js/init-alpine.js"></script>
-<script src="/assets/js/focus-trap.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-	defer></script>
-<!-- 없어도 될것같음  <script src="jquery.min.js"></script> -->
-<script src="/assets/js/slide.js" defer></script>
 
 
 
