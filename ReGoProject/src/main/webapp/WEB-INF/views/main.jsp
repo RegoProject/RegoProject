@@ -147,7 +147,7 @@
 			</div>
 		</aside>
 		<div class="flex flex-col flex-1 w-full">
-			<header class="z-10 bg-white shadow-md dark:bg-gray-800">
+			<header class="z-10 bg-white shadow-md dark:bg-gray-800 py-2">
 				<div
 					class="container flex py-2 items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
 					<!-- Mobile hamburger button안에 md:hidden 지워야함-->
@@ -241,7 +241,7 @@
 			<main class="h-full overflow-y-auto">
 				<div class="container px-6 mx-auto grid">
 					<!-- search -->
-					<div class="mt-2 mb-4">
+					<div class="py-4 mb-2">
 					<select name="#" id="searchSelect" class="selectH-5">
 						<option value="전체">전체</option>
 						<option value="보유재료">보유재료</option>
@@ -251,7 +251,7 @@
 					<input id="btnDisplayMode" class="search" type="text"
 						placeholder="검색어 입력"> <button class="searchBtn" type="button" value="#">검색</button>
 				</div>
-					<div class="slideshow-container">
+					<div class="slideshow-container py-4">
 						<div class="mySlides fade">
 							<div class="slidT2">고기의 유통기한이 얼마 남지 않았습니다!</div>
 							<img class="simg" src="/assets/img/foodBanner4.png"
@@ -284,7 +284,7 @@
 
 					</div>
 
-					<div style="text-align: center" class="py-2">
+					<div style="text-align: center" class="mb-6">
 						<span class="dot"></span> <span class="dot"></span> <span
 							class="dot"></span> <span class="dot"></span> <span class="dot"></span>
 					</div>
