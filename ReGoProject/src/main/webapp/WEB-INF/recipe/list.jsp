@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 <head>
@@ -11,9 +12,9 @@
   <script src="/assets/js/init-alpine.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <script src="jquery.min.js"></script>
+  <!--  <script src="jquery.min.js"></script> -->
   <link rel="stylesheet" href="/assets/css/recipe.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
 <body>
 
 <!-- <a href="/goMain">메인</a> -->
@@ -199,16 +200,16 @@
           </ul>
         </div>
       </header>
-      <main class="h-full overflow-y-auto">
+      <main class="#"> <!--  h-full overflow-y-auto -->
         <br><br>
         <div class="container px-6 mx-auto grid flex-container margin:auto">
         
         
         
-          <div class="grid-container">
+          <div class="grid-container" id="rcp_list">
           
           <!-- 반복문 돌리는곳  -->
-            <div class="addItem4" style="display:inline-block">
+          <!--  <div class="addItem4" style="display:inline-block">
               <a href="#">
                 <img class="recipeImg" src="/assets/img/dduk.jpg">
                 <p class="title">떡볶이</p>
@@ -223,28 +224,40 @@
                 </div>
               </a>
             </div>
+           -->
+           
+            
+           
+            
             <!-- 반복문 돌리는곳  -->
 
-            <div class="addItem4" style="display:inline-block">
-              <a href="#">
-                <img class="recipeImg" src="/assets/img/bc.jpg">
-                <p class="title">배추찜</p>
-                <br>
-                <div class="flex-row display:inline-block;">
-                  <img src="/assets/img/star_gray.png" class="dimg">
-                  <p class="Difficulty">난이도</p>
-                  <div class="flex-row display:inline-block;">
-                    <img src="/assets/img/clock_gray.png" class="timg">
-                    <p class="time">시간</p>
-                  </div>
-                </div>
-              </a>
-            </div>
+            
+            <c:forEach var="recipe" items="${recipe}">
+            	<div class="addItem4" style="display:inline-block" >
+            		<a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
+                		<img class="recipeImg" src="${recipe.rcpImg1}">
+                		<p class="title">${recipe.rcpName}</p>
+              		</a>
+                	<br>
+                	<div class="flex-row display:inline-block;">
+                  		<img src="/assets/img/star_gray.png" class="dimg">
+                 	 	<p class="Difficulty">난이도</p>
+                  		<div class="flex-row display:inline-block;">
+                    		<img src="/assets/img/clock_gray.png" class="timg">
+                    		<p class="time">시간</p>
+                 		</div>
+               		</div>
+               	</div>
+               
+               	</c:forEach>
+             	
+            
+            
 
 
 
           </div>
-        </div>
+        </div> 
     </div>
     </main>
   </div>
@@ -253,4 +266,66 @@
 
 
 </body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    let page = 2; // 초기 페이지
+    let loading = false;
+        
+
+    function loadMoreData() {
+        if (loading) return; // 이미 로딩 중이면 중복 실행 방지
+        loading = true;
+        console.log(page);
+        $.ajax({
+            url: '/loadMoreData', // 데이터를 불러올 엔드포인트
+            type: 'GET',
+            data: { "page": page }, // 현재 페이지 정보를 서버에 전달
+            success: function(data) {
+                if (data.length === 0) {
+                    // 더 이상 데이터가 없으면 무한 스크롤 중지
+                    $(window).off('scroll', loadMoreData);
+                    return;
+                }
+                console.log(data);
+                let ul = $('#rcp_list');
+                 // tr 변수를 초기화
+                for (let i = 0; i < data.length; i++) {
+                	let tr = "<div class='addItem4' style='display:inline-block' >";
+                    tr += "<a href='/goRecView?rcpIdx=" + data[i].rcpIdx + "'>";
+                    tr += "<img class='recipeImg' src='" + data[i].rcpImg1 + "' alt='#'>";
+                    tr += "<p class='title'>" + data[i].rcpName + "</p>";
+                    tr += "</a> ";
+                    tr += "<br>";
+                    tr += "<div class='flex-row display:inline-block'>";
+                    tr += "<img src='/assets/img/star_gray.png' class='dimg'>";
+                    tr += "<p class='Difficulty'>난이도</p>";
+                    tr += "<div class='flex-row display:inline-block'>";
+                    tr += "<img src='/assets/img/clock_gray.png' class='timg'>";
+                    tr += "<p class='time'>시간</p>";
+                    tr += "</div>";
+                    tr += "</div>";
+                    tr += "</div>";
+                    ul.append(tr);
+                }
+                
+                page++;
+                loading = false; // 다음 페이지로 이동
+            },
+            error: function() {
+                alert('데이터를 불러오는데 실패했습니다.');
+                loading = false;
+            }
+        });
+    }
+
+    // 스크롤 이벤트를 감지하여 무한 스크롤 동작
+    $(window).scroll(function() {
+       if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+            loadMoreData(); // 스크롤이 끝에 도달하면 새로운 데이터를 불러옴
+        }
+    });
+});
+</script>
 </html>
