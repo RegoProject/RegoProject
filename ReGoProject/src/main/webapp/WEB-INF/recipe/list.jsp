@@ -202,7 +202,12 @@
       <main class="h-full overflow-y-auto">
         <br><br>
         <div class="container px-6 mx-auto grid flex-container margin:auto">
+        
+        
+        
           <div class="grid-container">
+          
+          <!-- 반복문 돌리는곳  -->
             <div class="addItem4" style="display:inline-block">
               <a href="#">
                 <img class="recipeImg" src="/assets/img/dduk.jpg">
@@ -218,6 +223,7 @@
                 </div>
               </a>
             </div>
+            <!-- 반복문 돌리는곳  -->
 
             <div class="addItem4" style="display:inline-block">
               <a href="#">
@@ -234,22 +240,7 @@
                 </div>
               </a>
             </div>
-            <div class="addItem4" style="display:inline-block">
-              <a href="#">
-                <img class="recipeImg" src="/assets/img/gg.jpg">
-                <p class="title">시금치</p>
-                <p class="Difficulty">난이도</p>
-                <p class="time">시간</p>
-              </a>
-            </div>
-            <div class="addItem4" style="display:inline-block">
-              <a href="#">
-                <img class="recipeImg" src="/assets/img/gg.jpg">
-                <p class="title">시금치</p>
-                <p class="Difficulty">난이도</p>
-                <p class="time">시간</p>
-              </a>
-            </div>
+
 
 
           </div>
