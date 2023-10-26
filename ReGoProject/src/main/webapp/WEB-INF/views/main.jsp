@@ -288,7 +288,7 @@
 						</a> <a href="/goMyMsgList">
 							<div class="ingredient" style="display: inline-block">
 								<div>
-									<img id="ss" src="/assets/img/Seasoning.png">
+									<img id="ss" src="/assets/img/seasoning.png">
 								</div>
 								<p calss="font">조미료</p>
 							</div>
