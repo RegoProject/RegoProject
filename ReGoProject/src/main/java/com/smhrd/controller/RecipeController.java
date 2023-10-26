@@ -1,22 +1,37 @@
 package com.smhrd.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.smhrd.entity.r_member;
-import com.smhrd.repository.r_memberrRepository;
+
+import com.smhrd.entity.r_recipe;
+import com.smhrd.repository.r_recipeRepository;
+
+
+
+
+
 
 @Controller
 public class RecipeController {
-
+	
+	@Autowired
+	private r_recipeRepository repo;
+	
 	@RequestMapping("/goRecList")
-	public String goList() {
+	public String goList(Model model) {
 		
+		List<r_recipe> list=  repo.findAll();
 		
+		model.addAttribute("recipe",list);
 		return "recipe/list";
 	}
 	
