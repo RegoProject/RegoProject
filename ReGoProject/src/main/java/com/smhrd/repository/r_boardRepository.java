@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.smhrd.entity.r_board;
 
 @Repository
-public interface BoardRepository extends JpaRepository<r_board, String> {
+public interface r_boardRepository extends JpaRepository<r_board, String> {
 
 	public List<r_board> findFirst10ByCustIdOrderByCreatedAtDesc(String custId);
 	

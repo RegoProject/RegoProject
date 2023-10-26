@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.smhrd.entity.r_member;
 
 @Repository
-public interface MemberRepository extends JpaRepository<r_member, String> {
+public interface r_memberrRepository extends JpaRepository<r_member, String> {
 	// JPA의 DAO(Repository)는 interface로 구현
 	// JpaRepository interface를 상속 받음
 	// extends JpaRepository<Table 역할의 DTO , primary의 자료형 >

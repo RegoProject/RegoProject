@@ -11,15 +11,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.smhrd.entity.r_member;
+
 import com.smhrd.entity.r_recipe;
-import com.smhrd.repository.MemberRepository;
-import com.smhrd.repository.RcppageRepository;
+import com.smhrd.repository.r_recipeRepository;
+
+
+
+
+
 
 @Controller
 public class RecipeController {
 	
 	@Autowired
-	private RcppageRepository repo;
+	private r_recipeRepository repo;
 	
 	@RequestMapping("/goRecList")
 	public String goList(Model model) {

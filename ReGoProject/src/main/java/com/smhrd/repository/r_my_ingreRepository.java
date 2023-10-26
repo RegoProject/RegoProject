@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.smhrd.entity.r_my_ingredients;
 
 @Repository
-public interface MyrfrgrRepository extends JpaRepository<r_my_ingredients, String> {
+public interface r_my_ingreRepository extends JpaRepository<r_my_ingredients, String> {
 
 
 

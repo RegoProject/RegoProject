@@ -1,10 +1,12 @@
 package com.smhrd.controller;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
@@ -16,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.entity.r_member;
-import com.smhrd.repository.MemberRepository;
+import com.smhrd.repository.r_memberrRepository;
 
 @Controller
 public class MyPageController {
 	
 
 	@Autowired
-	private MemberRepository repo;
+	private r_memberrRepository repo;
 	r_member member = new r_member();
 	
 	
@@ -54,7 +56,7 @@ public class MyPageController {
 		return "mypage/mypage";
 	}
 	@RequestMapping("/updateProfileImage")
-    public void updateProfileImage(@RequestParam("file") MultipartFile file ,HttpServletResponse response , HttpSession session ) {
+    public void updateProfileImage(@RequestParam("file") MultipartFile file ,HttpServletResponse response , HttpSession session, HttpServletRequest request ) {
 	// 이미지파일 넣기 난이도★★★ ㅋㅋㅋㅋ 고생하셨어요
 			// 1. UUID 생성 : 16글자 랜덤한 문자열		
 			String uuid =  UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
@@ -65,14 +67,20 @@ public class MyPageController {
 			System.out.println(filename);
 
 			// 3. 어디에 저장할지 
-			String savePath = "src/main/resources/static/";
-			Path path = Paths.get(savePath + filename);
+			
+			String savePath = "/home/ubuntu/uploadedImage";
+			System.out.println(savePath);
+			
+//			Path path = Paths.get(savePath + filename);
 			// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 			//Path path = Paths.get(savePath+"\\"+ filename);
-			System.out.println(path);
+//			System.out.println(path);
 			r_member member = (r_member)session.getAttribute("user");
 			try {
-				Files.copy( file.getInputStream(), path);
+//				Files.copy( file.getInputStream(), path);
+				File f = new File(savePath + "/" + filename);
+				file.transferTo(f);
+				
 				
 				response.setContentType("text/plain; charset=UTF-8");	
 				response.getWriter().write(filename);
