@@ -12,6 +12,7 @@
 	rel="stylesheet" />
 
 <link rel="stylesheet" href="/assets/css/homeCopy.css" />
+<link rel="stylesheet" href="/assets/css/main.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
 <!--폰트어썸 라이브러리 / 체크박스용 라이브러리-->
@@ -148,7 +149,7 @@
 		<div class="flex flex-col flex-1 w-full">
 			<header class="z-10 bg-white shadow-md dark:bg-gray-800">
 				<div
-					class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+					class="container flex py-2 items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
 					<!-- Mobile hamburger button안에 md:hidden 지워야함-->
 					<button class="p-1 mr-5 -ml-1 rounded-md focus:outline-none"
 						@click="toggleSideMenu" aria-label="Menu">
@@ -198,7 +199,7 @@
 								aria-label="Account" aria-haspopup="true">
 								<!-- 기본이미지 경로 넣어줘야해요 -->
 								<img class="object-cover w-8 h-8 rounded-full"
-									src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+									src="/assets/img/login/defaultProfileImg.png"
 									alt="" aria-hidden="true" />
 							</button>
 							<template x-if="isProfileMenuOpen">
@@ -239,19 +240,18 @@
 			</header>
 			<main class="h-full overflow-y-auto">
 				<div class="container px-6 mx-auto grid">
-					<br>
-					<br>
 					<!-- search -->
-					<select name="#" id="searchSelect">
+					<div class="mt-2 mb-4">
+					<select name="#" id="searchSelect" class="selectH-5">
 						<option value="전체">전체</option>
 						<option value="보유재료">보유재료</option>
 						<option value="보유조미료">보유조미료</option>
 						<option value="레시피">레시피</option>
-					</select> <input id="btnDisplayMode" class="search" type="text"
-						placeholder="검색어 입력">
-					<button class="searchBtn" type="button" value="#">검색</button>
+					</select> 
+					<input id="btnDisplayMode" class="search" type="text"
+						placeholder="검색어 입력"> <button class="searchBtn" type="button" value="#">검색</button>
+				</div>
 					<div class="slideshow-container">
-
 						<div class="mySlides fade">
 							<div class="slidT2">고기의 유통기한이 얼마 남지 않았습니다!</div>
 							<img class="simg" src="/assets/img/foodBanner4.png"
@@ -284,11 +284,11 @@
 
 					</div>
 
-					<div style="text-align: center">
+					<div style="text-align: center" class="py-2">
 						<span class="dot"></span> <span class="dot"></span> <span
 							class="dot"></span> <span class="dot"></span> <span class="dot"></span>
 					</div>
-					<br>
+
 					<div class="food">
 						<a href="/goMyIngreList">
 							<div class="Seasoning" style="display: inline-block">

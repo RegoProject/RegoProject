@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 html {
     line-height: 1.15;
@@ -1041,6 +1039,11 @@ img,video {
     height: 8rem
 }
 
+.selectH-5 {
+    height: 1.66rem
+}
+
+
 .h-full {
     height: 100%
 }
@@ -1297,6 +1300,10 @@ img,video {
     padding-right: .5rem
 }
 
+.py-3 {
+    padding-top: .75rem;
+    padding-bottom: .75rem
+}
 
 .px-3 {
     padding-left: .75rem;
@@ -1820,7 +1827,10 @@ img,video {
 }
 
 .w-full {
-    width: 80%
+    width: 100%;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
     
 }
 
@@ -2050,9 +2060,11 @@ img,video {
 
 input{
     margin: auto;
+    width: 68%;
+    position: relative;
+    bottom: 92%;
+    left: 8%;
 }
-
-
 
 svg{
     margin-left: 35px;
@@ -2068,24 +2080,29 @@ body > div > div.flex.flex-col.flex-1.w-full > main > div > a {
 }
 
 .Seasoning{
-    width:49.3%;
-    height: 150px;
+    width:48%;
+    height: 180px;
     box-sizing: border-box;
     align-items: center;
     border-radius: 10px;
-    background-color: #7FDBDA;
-    box-shadow: 3px 5px 1px 0 lightgray
+    background-color: white;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    margin: auto;
+    position: relative;
 }
 
 
 .ingredient{
-    width: 49.3%;
-    height: 150px;
+    width: 48%;
+    height: 180px;
     box-sizing: border-box;
     align-items: center;
     border-radius: 10px;
-    background-color: #7FDBDA;
-    box-shadow: 3px 5px 1px 0 lightgray
+    background-color: white;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    margin: auto;
+    position: relative;
+    left: 3%;
 }
 
 #ss{
@@ -2094,15 +2111,17 @@ body > div > div.flex.flex-col.flex-1.w-full > main > div > a {
     align-items: center;
     margin: auto;
     margin-top: 30px;
+    
    
 }
 
 #igd{
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     align-items: center;
     margin: auto;
     margin-top: 30px;
+    
     
 }
 
@@ -2116,15 +2135,6 @@ body > div > div.flex.flex-col.flex-1.w-full > main > div > a {
     box-shadow: 3px 5px 1px 0 lightgray
 }
 
-.addItem{
-    width:98.8%;
-    height: 150px;
-    box-sizing: border-box;
-    align-items: center;
-    border-radius: 10px;
-    background-color: #F1F592;
-    box-shadow: 3px 5px 1px 0 lightgray
-}
 
 .recipe{
     width:98.8%;
@@ -2143,4 +2153,195 @@ body > div > div.flex.flex-col.flex-1.w-full > main > div > a {
     font-weight: bold;
     color: white;
     margin-top: 40px;
+}
+
+* {box-sizing: border-box;}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 100%;
+  position: relative;
+  margin: auto;
+}
+
+/* Caption text */
+.text {
+  color: #000000;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 5px;
+  width: 5px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+
+.slidT{
+    font-size: 15px;
+    color: #000;
+    position: absolute;
+    top: 30%;
+    left: 11%;
+}
+
+.slidT2{
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    top: 30%;
+    left: 11%;
+    
+}
+
+
+.mySlides .fade{
+    position: relative;
+}
+
+
+input:focus{
+    border-color:#7DD076;
+    outline: none;
+}
+
+select:focus{
+    border-color:#7DD076;
+    outline: none;
+}
+
+button:focus{
+    border-color:#7DD076;
+    outline: none;
+}
+
+p{
+    font-size: larger;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    top: 5%;
+}
+
+#searchSelect{
+    width: 18%;
+    position: relative;
+    top : 21%;
+    left: 2%;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    /*box-shadow: 3px 3px 1px 0 lightgray;*/
+}
+
+.search{
+    width: 58%;
+    background-color: white;
+    position: relative;
+    left: 2%;
+    top:19%;
+    box-shadow: #7DD076;
+    bottom: 2%;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    /*box-shadow: 3px 3px 1px 0 lightgray;*/
+}
+
+
+.searchBtn{
+    width: 18%;
+    position: relative;
+    bottom: 2%;
+    top:19%;
+    left: 2%;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    background-color: white;
+    /*box-shadow: 3px 3px 1px 0 lightgray;*/
+}
+
+.recipeRc{
+    width: 48%;
+    height: 180px;
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #F1F592;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    margin: auto;
+    position: relative;
+}
+
+
+.ingIcon{
+    width: 48%;
+    height: 180px;
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #F4CB81;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    margin: auto;
+    position: relative;
+    left: 3%;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#logo {
+    width: 100%;  /* 이미지 너비를 부모 요소의 100%로 설정 */
+    max-width: 100px;  /* 이미지의 최대 너비를 설정 */
+    height: auto; /* 높이를 자동으로 설정하여 이미지의 비율을 유지 */
+    position: relative;
+    left: 5%;
 }
