@@ -140,9 +140,11 @@
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script type="text/javascript">
   $(document).ready(function(){
-	    var input = $('#checkId');
-	    input.on('input', idCheck);
+	  //id확인  
+	  var input = $('#checkId');
+	  input.on('input', idCheck);
 	    
+	    //패스워드체크
 	    var checkPassword = $('#checkPassword');
 	    
 	    checkPassword.on('input', chPassword);
