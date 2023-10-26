@@ -60,40 +60,43 @@ public class SearchController {
 	}
 
 	@RequestMapping("/searchMyIngre")
-	public ResponseEntity<Map<String, String>> searchIngre(r_member member, String ingreName, HttpSession session, Model model) {
-		System.out.println("들어오는지 확인");
-		member = (r_member) session.getAttribute("user");
-		Map<String, String> responseMap = new HashMap<>();
-		try {
-			if (ingreName != null) {
-				System.out.println("들어오는지 확인 이프문안");
-				List<r_ingre_join_data> searchMyIngre = memService.searchMyIngre(member.getCustId(), ingreName);
+	public ResponseEntity<?> searchIngre(r_member member, String ingreName, HttpSession session, Model model) {
+	    member = (r_member) session.getAttribute("user");
+	    try {
+	        if (ingreName != null) {
+	            if (memService.searchMyIngre(member.getCustId(), ingreName) != null) {
+	                List<r_ingre_join_data> searchMyIngre = memService.searchMyIngre(member.getCustId(), ingreName);
 
-				  if (searchMyIngre != null && !searchMyIngre.isEmpty()) {
-		                for (r_ingre_join_data ingredient : searchMyIngre) {
-		                    if (ingredient.getIngreAmount() == 1) {
-		                        responseMap.put(ingredient.getIngreName(), "1");
-		                    } else {
-		                        responseMap.put(ingredient.getIngreName(), "0");
-		                    }
-		                }
+	                if (searchMyIngre != null && !searchMyIngre.isEmpty()) {
+	                    Map<String, String> responseMap = new HashMap<>();
+	                    for (r_ingre_join_data ingredient : searchMyIngre) {
+	                        if (ingredient.getIngreAmount() == 1) {
+	                            responseMap.put(ingredient.getIngreName(), "1");
+	                        } else {
+	                            responseMap.put(ingredient.getIngreName(), "0");
+	                        }
+	                    }
+	                    responseMap.put("type", "searchMyIngre"); // 응답 유형 추가
+	                    return ResponseEntity.ok(responseMap);
+	                }
+	            }
 
-		                return ResponseEntity.ok(responseMap);
-		                
-				} else {
-					// ajax 응답 해주기
-	                responseMap.put("message", "검색 결과가 없습니다.");
+	            List<r_ingredients> ingreList = ingreService.ingreSearch(ingreName);
+
+	            if (ingreList != null) {
+	                Map<String, Object> responseMap = new HashMap<>();
+	                responseMap.put("type", "searchIngre"); // 응답 유형 추가
+	                responseMap.put("data", ingreList); // 데이터 추가
 	                return ResponseEntity.ok(responseMap);
-				}
-			} else {
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
+
+
 
 }
