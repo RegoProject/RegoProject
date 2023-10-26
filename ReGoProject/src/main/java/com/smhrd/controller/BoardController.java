@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.smhrd.entity.r_member;
-import com.smhrd.repository.MemberRepository;
+import com.smhrd.repository.r_memberrRepository;
 
 @Controller
 public class BoardController {

@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.entity.r_member;
-import com.smhrd.repository.MemberRepository;
+import com.smhrd.repository.r_memberrRepository;
 
 @Controller
 public class MemberController {
 
 	@Autowired
-	private MemberRepository repo;
+	private r_memberrRepository repo;
 	r_member member = new r_member();
 
 	// goMain 이라는 요청을 받으면 main.jsp

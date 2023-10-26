@@ -3,10 +3,10 @@ package com.smhrd.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.smhrd.entity.r_cooking;
+import com.smhrd.entity.r_msg;
 
 @Repository
-public interface CooksuccynRepository extends JpaRepository<r_cooking, String> {
+public interface r_recipe_msgRepository extends JpaRepository<r_msg, String> {
 
 
 
