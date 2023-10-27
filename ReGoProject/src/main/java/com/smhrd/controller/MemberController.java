@@ -128,7 +128,7 @@ public class MemberController {
 	@RequestMapping("/goFindPw")
 	public String goFind() {
 
-		return "views/find";
+		return "views/findPw";
 	}
 
 	@RequestMapping("/update")

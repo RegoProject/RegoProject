@@ -21,9 +21,6 @@ import com.smhrd.repository.r_recipeRepository;
 
 
 
-
-
-
 @Controller
 public class RecipeController {
 	
@@ -56,6 +53,16 @@ public class RecipeController {
 		
 		return "recipe/view";
 	}
+	
+	@RequestMapping("/goRecommendList")
+	public String goRecommendList(r_member member, Model model) {
+	
+		
+		
+	//	model.addAttribute("recipeRecommed",recRecommendlist);
+		return "recipe/recommendList";
+	}
+	
 	@RequestMapping("/loadMoreData")
 	public void loadMoreRcp(@RequestParam("page") int page, HttpServletResponse response ) {
 		System.out.println(page);
