@@ -118,7 +118,7 @@
 
       </div>
     </aside>
-    <div class="flex flex-col flex-1 w-full">
+    <div class="flex flex-col flex-1 w-full ">
       <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
         <div
           class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
@@ -235,7 +235,8 @@
             <c:forEach var="recipe" items="${recipe}">
             	<div class="addItem4" style="display:inline-block" >
             		<a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
-                		<img class="recipeImg" src="${recipe.rcpImg1}">
+            		<!-- 이미지 경로는  -->
+                		<img class="recipeImg" src="/assets/img/food/${recipe.rcpImg1}">
                 		<p class="title">${recipe.rcpName}</p>
               		</a>
                 	<br>
