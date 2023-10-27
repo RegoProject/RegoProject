@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- 뒤로가기 추가해야합니다. -->
+<h6><a href="javascript:window.history.back();">뒤로가기</a></h6>
 <h1>update 페이지</h1>
+
 <li><h5>업데이트</h5></li>
 			<form action="/update" method="post">
 				<li><input readonly id="checkInput" type="text"

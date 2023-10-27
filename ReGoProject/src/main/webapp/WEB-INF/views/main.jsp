@@ -307,7 +307,7 @@
 						</a>
 					</div>
 					<div>
-						<br> <a href="/goRecList">
+						<br> <a href="/goRecommendList">
 							<div class="recipeRc" style="display: inline-block">
 								<div>
 									<img id="ss" src="/assets/img/recipe.png">
@@ -597,6 +597,7 @@
 					},
 					success : function(results) {
 						updateSearchResults(results);
+						console.log(results)
 					},
 					error : function(xhr, status, error) {
 						console.error('AJAX 오류:', error);
@@ -607,58 +608,61 @@
 
 			}
 		});
+		
+		
+		
 		function updateSearchResults(results) {
-			console.log('여기까지만 들어와');
-			const searchList = $('#searchList');
-			searchList.empty();
-			console.log(results) // 값은 키:밸류로 잘 들어오고있어
+		    const searchList = $('#searchList');
+		    searchList.empty();
+		    console.log(results);
 
-			// 결과에 메시지가 포함된 경우
-			if (results.hasOwnProperty('message')) {
+		    // 결과의 유형을 확인합니다.
+		    if (results.type === 'searchIngre') {
+		        // searchIngre 유형일 경우
+		        results.data.forEach(function(result) {
+		            const ingreName = result.ingreName;
+		            const ingreIdx = result.ingreIdx;
+		            const ingreImg = result.ingreImg;
 
-				// 결과값의 message 키 값을 li 로 추가 한다 ( 검색 결과가 없습니다. )
-				const noResultsMessage = $('<li>').text(results.message);
-				searchList.append(noResultsMessage);
+		            const listItem = $('<li>').text(ingreName);
+		            const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
 
-			// message 키 말고 다른 배열이 들어 올 경우 (검색이 됐을경우)
-			} else {
-				
-				// results 순회하면서 ingreName 값을 가져오고
-				for ( const ingreName in results) {
-					// 만약 results 내에 ingreName 이라는 키가 있다면
-					if (results.hasOwnProperty(ingreName)) {
-						// results의 ingreName이라는 키의 값을 ingreAmount에 담아주고
-						const ingreAmount = results[ingreName];
-						const listItem = $('<li>');
+		            addButton.on('click', function() {
+		                // 추가 버튼을 누를 때 처리를 추가합니다.
+		                // 예: 클릭 이벤트 핸들러
+		            });
 
-						// 만약 값이 1이라면 (보유중이라면)
-						if (ingreAmount === '1') {
-					        // 보유중텍스트를 빨간색으로 스타일링
-					        const textSpan = $('<span>').text(' 보유중');
-					        textSpan.css('color', 'red');
-							
-							// ingreName+보유중으로 <li> 추가
-							listItem.text(ingreName+' ').append(textSpan);
-							
-						} else {
-							// 값이 0이라면 (미보유중이면)
-							listItem.text(ingreName+' ');
-							// ingreName 추가(버튼)으로 <li> 추가
-							const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
+		            listItem.append(addButton);
+		            searchList.append(listItem);
+		        });
+		    } else if (results.type === 'searchMyIngre') {
+		        // searchMyIngre 유형일 경우
+		        for (const ingreName in results) {
+		            if (ingreName !== 'type') {
+		                const ingreAmount = results[ingreName];
 
-							addButton.on('click', function() {
-								// 추가 버튼 누르면 DB에 1로 저장될수있게 한다.
-								// 누르면 버튼을 비활성화 처리 해주는게 좋다 (여러번 요청들어가지 않게)
-								
-							});
-							listItem.append(addButton);
-						}
-						
-						listItem.addClass('text-center');
-						searchList.append(listItem);
-					}
-				}
-			}
+		                const listItem = $('<li>').text(ingreName + ' ');
+
+		                if (ingreAmount === '1') {
+		                    const textSpan = $('<span>').text(' 보유중');
+		                    textSpan.css('color', 'red');
+		                    listItem.append(textSpan);
+		                } else {
+		                    const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
+
+		                    addButton.on('click', function() {
+		                        // 추가 버튼을 누를 때 처리를 추가합니다.
+		                        // 예: 클릭 이벤트 핸들러
+		                    });
+
+		                    listItem.append(addButton);
+		                }
+
+		                listItem.addClass('text-center');
+		                searchList.append(listItem);
+		            }
+		        }
+		    }
 		}
 
 	});
