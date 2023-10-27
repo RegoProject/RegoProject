@@ -36,6 +36,10 @@ public class BoardController {
 		return "board/view";
 	}
 	
+	@RequestMapping("/testList")
+	public String testList() {
+		return "board/listtest";
+	}
 
 	
 	
