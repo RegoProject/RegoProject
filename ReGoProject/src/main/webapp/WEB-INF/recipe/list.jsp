@@ -235,8 +235,9 @@
             <c:forEach var="recipe" items="${recipe}">
             	<div class="addItem4" style="display:inline-block" >
             		<a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
-            		<!-- 이미지 경로는  -->
-                		<img class="recipeImg" src="/assets/img/food/${recipe.rcpImg1}">
+            		<!-- 이미지 경로는 imagePath/uploadedImage/ 이하폴더로 해주세요 (배포용)
+            			테스트는 아무데서나 해도됩니다. -->
+                		<img class="recipeImg" src="imagePath/uploadedImage/food/${recipe.rcpImg1}">
                 		<p class="title">${recipe.rcpName}</p>
               		</a>
                 	<br>
