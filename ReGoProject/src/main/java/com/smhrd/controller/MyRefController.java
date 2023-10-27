@@ -56,8 +56,15 @@ public class MyRefController {
 			List<r_msg_join_data> myMsg = memService.myMsg(member.getCustId());
 			
 			if(myMsg != null ) {
-				// ajax 응답 해주기?
-				model.addAttribute("myMsg", myMsg);
+				 List<r_msg_join_data> filteredMsg = new ArrayList<>();
+				 
+				 for (r_msg_join_data msgData : myMsg) {
+		                if (msgData.getMsgAmount() == 1) {
+		                    filteredMsg.add(msgData);
+		                }
+		            }
+				 
+				model.addAttribute("myMsg", filteredMsg);
 			}else {
 				// ajax 응답 해주기
 				System.out.println("조미료가 비어있습니다.");
