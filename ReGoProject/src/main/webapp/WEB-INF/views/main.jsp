@@ -383,14 +383,65 @@
 						class="h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
 						style="box-sizing: border-box; left: 0;">
 
-
-
+				
+				<!-- 글자로 추가하는 태그 -->
 					<div class="mt-4 text-center">
-						<input id="ingreName" name="ingreName" class="h-12 searchModal"
+						<input id="ingreName" name="ingreName" @click="openSecModal" class="h-12 searchModal"
 							value="" style="left: 0;">
 						<ul id="searchList" class=""></ul>
-
+      						
+					 
 					</div>
+					<div
+					  x-show="isSecModalOpen"
+					  x-transition:enter="transition ease-out duration-150"
+					  x-transition:enter-start="opacity-0 transform translate-y-1/2"
+					  x-transition:enter-end="opacity-100"
+					  x-transition:leave="transition ease-in duration-150"
+					  x-transition:leave-start="opacity-100"
+					  x-transition:leave-end="opacity-0 transform translate-y-1/2"
+					  class="fixed inset-0 z-40 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+					>
+					
+					      <div
+					        x-show="isSecModalOpen"
+					        x-transition:enter="transition ease-out duration-150"
+					        x-transition:enter-start="opacity-0 transform translate-y-1/2"
+					        x-transition:enter-end="opacity-100"
+					        x-transition:leave="transition ease-in duration-150"
+					        x-transition:leave-start="opacity-100"
+					        x-transition:leave-end="opacity-0  transform translate-y-1/2"
+					        @click.away="closeSecModal"
+					        @keydown.escape="closeSecModal"
+					        class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+					        role="dialog"
+					        id="secModal"
+					      >
+					      
+					     
+					<header class="flex justify-end">
+				<button
+					class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+					aria-label="close" @click="closeModal">
+					<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+						role="img" aria-hidden="true">
+              <path
+							d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+							clip-rule="evenodd" fill-rule="evenodd"></path>
+            </svg>
+				</button>
+				<input id="ingreName2" name="ingreName"class="h-12 searchModal"
+							value="" style="left: 0;">
+							<ul id="searchList2" class=""></ul>
+			</header>
+					 </div>
+
+					
+						
+						
+				
+						
+					 
 				</div>
 
 
@@ -411,36 +462,9 @@
 			</div>
 
 
-			<!-- 두 번째 모달 내용
-       <div
-  x-show="isSecModalOpen"
-  x-transition:enter="transition ease-out duration-150"
-  x-transition:enter-start="opacity-0 transform translate-y-1/2"
-  x-transition:enter-end="opacity-100"
-  x-transition:leave="transition ease-in duration-150"
-  x-transition:leave-start="opacity-100"
-  x-transition:leave-end="opacity-0 transform translate-y-1/2"
-  class="fixed inset-0 z-40 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
->
+	
 
-      <div
-        x-show="isSecModalOpen"
-        x-transition:enter="transition ease-out duration-150"
-        x-transition:enter-start="opacity-0 transform translate-y-1/2"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0  transform translate-y-1/2"
-        @click.away="closeSecModal"
-        @keydown.escape="closeSecModal"
-        class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
-        role="dialog"
-        id="secModal"
-      >
-     
- <div>
-
-    
+    <!-- 
           <button
             class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
             사진추가
@@ -665,6 +689,99 @@
 		}
 
 	});
+	
+	
+	
+	
+	$(document).ready(function() {
+		const inputElement = $('#ingreName2'); // 모달창 내의 input 요소 선택
+		const searchList = $('#searchList2');
+
+		inputElement.on('input', function() {
+			const searchTerm = inputElement.val();
+			console.log(searchTerm);
+			if (searchTerm.trim() !== '') {
+				$.ajax({
+					url : '/searchMyIngre',
+					method : 'POST',
+					data : {
+						ingreName : searchTerm,
+						custId : '${user.custId}'
+					},
+					success : function(results) {
+						updateSearchResults(results);
+						console.log(results)
+					},
+					error : function(xhr, status, error) {
+						console.error('AJAX 오류:', error);
+					}
+				});
+			} else {
+				searchList.empty();
+
+			}
+		});
+		
+		
+		
+		function updateSearchResults(results) {
+		    const searchList = $('#searchList2');
+		    searchList.empty();
+		    console.log(results);
+
+		    // 결과의 유형을 확인합니다.
+		    if (results.type === 'searchIngre') {
+		        // searchIngre 유형일 경우
+		        results.data.forEach(function(result) {
+		            const ingreName = result.ingreName;
+		            const ingreIdx = result.ingreIdx;
+		            const ingreImg = result.ingreImg;
+
+		            const listItem = $('<li>').text(ingreName);
+		            const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
+
+		            addButton.on('click', function() {
+		                // 추가 버튼을 누를 때 처리를 추가합니다.
+		                // 예: 클릭 이벤트 핸들러
+		            });
+
+		            listItem.append(addButton);
+		            searchList.append(listItem);
+		        });
+		    } else if (results.type === 'searchMyIngre') {
+		        // searchMyIngre 유형일 경우
+		        for (const ingreName in results) {
+		            if (ingreName !== 'type') {
+		                const ingreAmount = results[ingreName];
+
+		                const listItem = $('<li>').text(ingreName + ' ');
+
+		                if (ingreAmount === '1') {
+		                    const textSpan = $('<span>').text(' 보유중');
+		                    textSpan.css('color', 'red');
+		                    listItem.append(textSpan);
+		                } else {
+		                    const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
+
+		                    addButton.on('click', function() {
+		                        // 추가 버튼을 누를 때 처리를 추가합니다.
+		                        // 예: 클릭 이벤트 핸들러
+		                    });
+
+		                    listItem.append(addButton);
+		                }
+
+		                listItem.addClass('text-center');
+		                searchList.append(listItem);
+		            }
+		        }
+		    }
+		}
+
+	});
+	
+	
+	
 </script>
 
 

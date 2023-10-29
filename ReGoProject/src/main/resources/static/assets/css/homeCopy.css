@@ -4,6 +4,45 @@
 
 /* 검색창 디자인 */
 
+/* 모달 스타일 */
+/* 검색 컨테이너 스타일 */
+/* 검색 컨테이너 스타일 */
+.search-container {
+  position: relative;
+}
+
+/* 검색 입력 필드 스타일 */
+.searchInput {
+  width: 64%; /* 원래의 너비 */
+  padding: 10px;
+  border: 2px solid #7DD076;
+  border-radius: 3px;
+  position: relative;
+  left: 3%;
+}
+
+/* 연관 검색어 목록 스타일 */
+.search-suggestions {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 3%;
+  width: 64%; /* 원래의 너비와 일치하도록 조정 */
+  background-color: #fff;
+  border: 2px solid #7DD076;
+  border-radius: 3px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+/* 검색 입력 필드 클릭 시 연관 검색어 목록 표시 */
+.searchInput:focus + .search-suggestions {
+  display: block;
+}
+
+/* 추가 스타일링은 필요에 따라 조절할 수 있습니다. */
+
+
 /*모달 디자인 모음입니다. */
 .searchModal{
     width: 64%;
