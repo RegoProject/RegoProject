@@ -1,6 +1,6 @@
-@charset "UTF-8";
-
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+
 
 html {
     line-height: 1.15;
@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    margin: 0
+    margin: 0;
 }
 
 main {
@@ -316,14 +316,16 @@ video {
     vertical-align: middle
 }
 
-img,
+/* CSS 수정했음 비디오 크기*/
+
 video {
-    max-width: 100%;
-    height: auto
+    max-width: 75%;
+    height: auto;
+    margin: auto;
 }
 
 .container {
-    width: 100%;
+    width: 100%
 }
 
 @media (min-width: 640px) {
@@ -643,14 +645,13 @@ print and (-ms-high-contrast:none) {
 
 .bg-gray-50 {
     --bg-opacity: 1;
-    background-color: #f9fafb;
-    background-color: rgba(249, 250, 251, var(--bg-opacity))
+    background-color: white;
 }
 
 .bg-gray-100 {
     --bg-opacity: 1;
-    background-color: #f4f5f7;
-    background-color: rgba(244, 245, 247, var(--bg-opacity))
+    background-color: white;
+
 }
 
 .bg-red-100 {
@@ -2129,7 +2130,7 @@ input {
     width: 68%;
     position: relative;
     bottom: 92%;
-    left: 8%;
+    left: 50%;
 }
 
 svg {
@@ -2172,12 +2173,11 @@ body>div>div.flex.flex-col.flex-1.w-full>main>div>a {
 }
 
 #ss {
-    width: 110px;
-    height: 110px;
+    width: 60px;
+    height: 60px;
     align-items: center;
     margin: auto;
     margin-top: 30px;
-
 
 }
 
@@ -2331,22 +2331,19 @@ img {
 
 }
 
-
 .mySlides .fade {
     position: relative;
 }
 
 .search {
-    width: 55%;
-    height: 150%;
+    width: 63%;
     background-color: white;
     position: relative;
-    left: 0%;
+    left: 3%;
     box-shadow: #7DD076;
-    bottom: 100.5%;
-    border: 1px solid lightgray;
-    border-radius: 50px;
-    /*box-shadow: 3px 3px 1px 0 lightgray;*/
+    bottom: 91%;
+    border: 2px solid #7DD076;
+    border-radius: 3px;
 }
 
 input:focus {
@@ -2365,16 +2362,34 @@ button:focus {
 }
 
 p {
-    font-size: larger;
+    font-size: smaller;
     text-align: center;
     font-weight: bold;
     position: relative;
-    top: 5%;
+    top: 1%;
+    
 }
 
-/* searchBtn, searchSelect css 필요 없어서 지움 */
+#searchSelect {
+    width: 16%;
+    position: relative;
+    top: 2%;
+    left: 5%;
+    border: 2px solid #7DD076;
+    box-shadow: #7DD076;
+    border-radius: 3px;
+}
 
-
+.searchBtn {
+    width: 11%;
+    position: relative;
+    bottom: 191%;
+    left: 85%;
+    border: 2px solid #7DD076;
+    box-shadow: #7DD076;
+    border-radius: 3px;
+    background-color: white;
+}
 
 .recipeRc {
     width: 48%;
@@ -2388,8 +2403,7 @@ p {
     position: relative;
 }
 
-
-.ingIcon {
+.addItem {
     width: 48%;
     height: 180px;
     box-sizing: border-box;
@@ -2402,156 +2416,279 @@ p {
     left: 3%;
 }
 
+.ingIcon {
+    width: 20%;
+    height: 180px;
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #F4CB81;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    margin: auto;
+    position: relative;
+    left: 3%;
+}
+
+.addItem2 {
+    width: 20%;
+    height: 125px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color:linen;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    position: relative;
+    display: inline-block;
+    flex-direction: reverse;
+}
+
+.addItem3 {
+    width: 20%;
+    height: 125px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    position: relative;
+    display: inline-block;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+   
+}
+
+.addItem2,
+.addItem3,
+.addItem4 {
+    flex: 0 0 calc(33.3% - 20px);
+    /* Adjust the width as needed */
+    margin-right: 20px;
+    /* Add margin for spacing between items */
+    margin-bottom: 20px;
+    /* Add margin for vertical spacing */
+}
+
+/* Adjust the width, margins, and other styles as needed for your layout */
+
+.ingB {
+    display: inline-block;
+    position: relative;
+    margin: auto;
+    
+}
+
+
+
+.addB {
+    width: 100%;
+}
+
+#addImg {
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    margin: auto;
+    margin-top: 30px;
+
+}
+
+.myCheckbox {
+    position: relative;
+    margin-left: 10%;
+}
+
+.ss1 {
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    margin: auto;
+    margin-top: 30px;
+
+}
+
+.addItem4 {
+    flex: 1 0 50%; /* 요소를 2개씩 행에 배치 */
+    box-sizing: border-box;
+    margin: 10px; /* 요소 사이의 간격을 조정 */
+    max-width: calc(50% - 20px); /* 반응형을 위한 최대 너비 설정 */
+    width: 43%;
+
+}
+
+.recipeImg {
+    border-radius: 3px;
+}
+
+.title {
+    font-size: medium;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* 센터 정렬 */
+}
+
+.Difficulty {
+    font-size: smaller;
+    font-weight: bolder;
+    text-align: center;
+    color: gray;
+}
+
+.time {
+    font-size: smaller;
+    font-weight: bolder;
+    text-align: center;
+    color: gray;
+}
+
+.dimg {
+    width: 12px;
+    margin: auto;
+}
+
+.timg {
+    width: 12px;
+    margin: auto;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#logo {
+    width: 100%;  /* 이미지 너비를 부모 요소의 100%로 설정 */
+    max-width: 100px;  /* 이미지의 최대 너비를 설정 */
+    height: auto; /* 높이를 자동으로 설정하여 이미지의 비율을 유지 */
+    position: relative;
+    left: 5%;
+}
+
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-#logo {
-    max-width: 80px;
-    height: auto;
+.flex-container {
+    justify-content: space-between; /* 요소들을 좌우에 정렬합니다. */
 }
-
-/* 화면 너비가 600픽셀 미만일 때 적용될 CSS */
-@media (max-width: 600px) {
-    #logo {
-        max-width: 60px;
-    }
-}
-
-/* 여기서부터 css 추가 됨*/
-
-
-.card {
-    background: white;
-    margin: 0 auto;
-    width: 330px;
-    border-radius: 2px;
-    border-bottom: 1px solid #ccc;
-    overflow: auto;
-    box-shadow: 5px 4px 5px 0 lightgray;
-
-}
-
-.card-header {
-    padding: 15px;
-}
-
-.profile-img {
-    display: inline-block;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    position: relative;
-    top: 3px;
-    margin-right: 5px;
-}
-
-.profile-info {
-    display: inline-block;
-}
-
-.time {
-    font-family: "Open Sans", sans-serif;
-    font-size: 10px;
-    float: right;
-    top: 10px;
-    position: relative;
-}
-
-.name {
-    font-size: 10px;
-    color: #111;
-    font-weight: bold;
-}
-
-.location {
-    font-size: 12px;
-    color: #111;
-}
-
-.content {
-    
-        width: 100%;
-        height: auto;
-    
-}
-
-.content img {
-    max-width: 100%;
-    height: auto;
-}
-
-.card-footer {
-    padding: 15px;
-    box-sizing: border-box;
-    overflow: auto;
-}
-
-.likes {
-    color: #111;
-    font-size: 12 px;
-}
-
-.description {
-    margin: 0;
-}
-
-p {
-    margin: 0;
-}
-
-.profileimg {
-    border-radius: 50%;
-}
-
-.likeimg {
-    width: 15px;
-    height: 15px;
-}
-
-.liketext {
-    font-size: 12px;
-    text-align: left;
-    font-weight: bold;
-    position: relative;
-    top: 5%;
-}
-
-.context {
-    font-size: 12px;
-    text-align: left;
-    position: relative;
-    top: 5%;
-}
-
-.userid {
-    font-size: 11px;
-    position: relative;
-    bottom: 6px;
-}
-
-.comments {
+.flex-row {
     display: flex;
     align-items: center;
-    /* 수직 정렬 */
+    margin-left: 20%;
+    margin: auto;
+}
+.flex-row img {
+    margin-right: 10px;
 }
 
-.username,
-.usercomment {
-    margin-right: 20px;
-    font-size: 12px;
-    /* 오른쪽 여백 추가 */
+
+/* recipe css 가져와서 밑으로 추가 함. 수정은 따로 위에 주석으로 적어두겠음 */
+.video-container {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    height: 0;
 }
 
-.searchimg {
-    width: 12px;
-    height: 12px;
+.video-container .video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.recipemv {
+   width: 100%;
+}
+
+/* 뒤로가기 css 추가 */ 
+.backBtn {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    
+    
+}
+/* 레시피 영상 css */
+/* 320번 줄 video css도 수정했음, 비디오 크기 */
+
+.videorcp {
+    align-items: center;
     margin: auto;
     position: relative;
-    left: 23%;
-    bottom: 265%;
+    left: 1000%;
 }
 
+.videocon {
+    display: flex;
+    justify-content: center;
+}
+
+.rcptitle {
+    position: relative;
+    font-weight: bold;
+    left: 15%;
+}
+
+.rcpd, .rcpt {
+    font-size: small;
+    display: flex;
+    position: relative;
+    left: 15%;
+}
+
+.rcpmt {
+    position: relative;
+    left: 3%;
+    font-weight: bold;
+}
+
+.rcpm {
+    width: 75%;
+    margin: auto;
+    border-bottom: 2px solid lightgray;
+}
+
+.smimg {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    display: flex;
     
+}
+
+.rcping {
+    position: relative;
+    width: 75%;
+    word-wrap: break-word;
+   
+}
+.basic {
+    width: 70%;
+    position: relative;
+    word-wrap: break-word;
+    left: 15%;
+    text-align: left;
+}
+
+.rcpmt {
+    position: relative;
+    left: 3%;
+    font-weight: bold;
+}
+
+.rcpstep {
+    width: 70%;
+    position: relative;
+    word-wrap: break-word;
+    left: 15%;
+    text-align: left;
+}

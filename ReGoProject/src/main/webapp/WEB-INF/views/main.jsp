@@ -34,7 +34,7 @@
 
 <body>
 	<!-- <h1>${user.custId}님 환영합니다</h1> 
-<a href="/goBoardList">게시판</a>
+<a href="/goCommunity">게시판</a>
 <br>
 <a href="/goMypage">마이페이지</a>
 <br>
@@ -514,9 +514,9 @@
 							<li><input type="checkbox" id="checkbox1"
 								value="Rainbow Dash"><label for="checkbox1">간장</label></li>
 							<li><input type="checkbox" id="checkbox2"
-								value="Cotton Candy" checked><label for="checkbox2">소금</label></li>
+								value="Cotton Candy"><label for="checkbox2">소금</label></li>
 							<li><input type="checkbox" id="checkbox3" value="Rarity"
-								checked><label for="checkbox3">참기름</label></li>
+								><label for="checkbox3">참기름</label></li>
 							<li><input type="checkbox" id="checkbox4" value="Moondancer"><label
 								for="checkbox4">조미료1</label></li>
 							<li><input type="checkbox" id="checkbox5" value="Surprise"><label
