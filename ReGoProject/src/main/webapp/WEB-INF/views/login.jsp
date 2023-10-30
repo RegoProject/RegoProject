@@ -93,6 +93,7 @@
   </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 $("#loginform").submit(function(event) {
 	
@@ -117,7 +118,7 @@ $("#loginform").submit(function(event) {
             } else {
                 // 로그인 실패 시 수행할 동작
                 console.log("로그인실패");
-                alert("로그인 실패. 아이디와 비밀번호를 확인해주세요.");
+                swal("로그인 실패");
                 // 여기서 실패 메시지를 표시하거나 다른 동작을 수행할 수 있습니다.
             }
         },

@@ -31,7 +31,7 @@ public interface r_memberrRepository extends JpaRepository<r_member, String> {
 	// 메소드의 이름을 기반으로 SQL문을 생성
 	// 카멜 기법으로만 만들어야함
 	// By절에 있는 컬럼의 이름이 잘 일치해야 한다.
-	
+	public r_member findByCustId(String custId);
 	
 	
 	// 간단한 기능들을 빠르고 쉽게 만들수 있지만..

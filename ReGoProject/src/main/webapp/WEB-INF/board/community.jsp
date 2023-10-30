@@ -5,7 +5,6 @@
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
 <head>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>REGO HOME</title>
@@ -14,18 +13,10 @@
   <script src="./assets/js/init-alpine.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <script src="./assets/js/charts-lines.js" defer></script>
-  <script src="./assets/js/charts-pie.js" defer></script>
-  <script src="jquery.min.js"></script>
-  <link rel="stylesheet" href="./assets/css/homeCopy1.css" />
-  <script src="./assets/js/slide.js" defer></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="jquery.min.js"></script> -->
+  <link rel="stylesheet" href="./assets/css/community.css" />
+
+  
 
 </head>
 
@@ -121,7 +112,7 @@
       </div>
     </aside>
     <div class="flex flex-col flex-1 w-full">
-      <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+      <header class="z-10 py-2 bg-white shadow-md dark:bg-gray-800">
         <div
           class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
           <!-- Mobile hamburger button안에 md:hidden 지워야함-->
@@ -201,81 +192,173 @@
           </ul>
         </div>
       </header>
-      <main class="h-full overflow-y-auto">
+      <main class="#"> <!--  class="h-full overflow-y-auto"  -->
         <div class="container px-6 mx-auto grid">
           <br><br>
-        <!-- -->
-        <div style="width: 100%; display: flex; align-items: center; ">
 
-          <div style="width: 25%;">
-            <form id="uploadForm" enctype="multipart/form-data">
-              <img id="profilePhoto" src="./assets/img/고양이2.jpg" alt="#" class="rounded-image">
-              <input type="file" name="file" id="fileInput" style="display: none;">
-              <input type="submit" value="Upload" style="display: none;">
-            </form>
-          </div>
+          <!-- 여기서부터 코드 추가 되었음 -->
+          <!-- search -->
+          <input class="search" type="text" placeholder="검색어 입력">
+          <button>
+            <img src="./assets/img/search_black.png" class="searchimg">
+          </button>
+          <br>
+          <!-- 커뮤니티 피드 -->
+          <section class="container" id="bbc">
+          <c:forEach var="board" items="${board}" varStatus="status">
+            <div class="card">
+              <div class="card-header">
+                <div class="profile-img">
+                  <a href="/goMypage?custId=${board.custId}"> 
+                  <img src="${userImg[status.index]}" class="profileimg">
+                  </a>
+                </div>
+                <div class="profile-info">
+                  <div class="name"><p class="userid">${board.custId}</p></div>
+                </div>
+              </div>
         
-          <div style="width: 75%; height: 100%;">
+              <div class="content">
+                <img src="${board.rbImg}" width="100%" height="400" />
+              </div>
         
-            <div style="width: 100%; height: 50%; display: flex; align-items: center; margin-bottom: 10px;">
-              <div style="width:10%;"></div>
-              <div style="width: 30%;">게시글 10</div>
-              <div style="width: 30%;">팔로워 0</div>
-              <div style="width: 30%;">팔로잉 1000</div>  
+              <div class="card-footer">
+              <c:if test="${likes.contains(board.rbIdx) }" >
+                <div class="likes" id= "${board.rbIdx}">
+                  <button class="likeBtn" data-status="unlike" value="${board.rbIdx}"><img src="./assets/img/redheart.png" class="likeimg"></button>
+                  <p class="liketext">좋아요 ${likeCnt[status.index]}개</p>
+                </div>
+              </c:if>
+              <c:if test="${not likes.contains(board.rbIdx) }" >
+                <div class="likes" id= "${board.rbIdx}">
+                  <button class="likeBtn" data-status="like" value="${board.rbIdx}"><img src="./assets/img/heart.png" class="likeimg"></button>
+                  <p class="liketext">좋아요 ${likeCnt[status.index]}개</p>
+                </div>
+              </c:if>
+                
+                <br>
+                <div class="description">
+                  <p class="context">${board.rbContent }</p>
+                </div>
+                <br><br>
+                <div class="comments">
+                 <p class="username">wonseo</p>
+                 <p class="usercomment">좋은 사진 감사합니다!</p>
+                </div>
+                
+                
+              </div>
             </div>
-        
-            <div style="width: 100%; height: 50%; display: flex; align-items: center; margin-bottom: 10px;">
-              <div style="width:10%;"></div>
-              <button type="button" class="btn btn-success" style="width: 45%;">게시글작성</button>
-              <div style="width: 3%;"></div>
-              <button type="button" class="btn btn-secondary" style="width: 45%;">회원정보수정</button>
-                             
-            </div> 
-        
-          </div>
-        
-        </div>
-        <div>
-          <div style="width: 100%; height: 40px; margin-bottom: 10px; border-bottom: 1px solid rgb(77, 72, 72);" ></div>
-        </div>
-
-        
-        <div>  
-          <ul class="boardList">
-           <c:forEach var="board" items="${board}">
-            <h1>${board.rbContent }</h1>
-            <li class="userBoard" style="margin: 15%;">            
-              <a href="#" class="image_container">
-                <img class="userBoardImg" src="${board.rbImg}" alt="#">
-              </a>
-              <a href="#" class="like" data-status="like"><h1>&hearts;</h1></a> <!-- 빈 하트 -->           
-            </li>
-            </c:forEach>
-            <li class="userBoard" style="margin: 15%;">
-              <a href="#" class="image_container">
-                <img class="userBoardImg" src="./assets/img/food/dduk.jpg" alt="#">
-              </a>
-              <a href="#" class="like" data-status="unlike"><h1>&#x1F5A4;</h1></a>                        
-            </li>
-            
-          </ul>
-        </div>    
-          <!-- 여기서부터 시작하시면 됩니다 !! -->
+          
+        </c:forEach>
+        </section>
         </div>
     </div>
-  </div>
-  </div>
   </div>
   </main>
   </div>
   </div>
 </body>
+
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
 
+
 $(document).ready(function(){
-    $('.like').on('click',function(){
-    	var status = $(this).data('status');
+	  let page = 1; // 초기 페이지
+	  let loading = false;
+
+	    function loadMoreData() {
+	    	
+	        if (loading) return; // 이미 로딩 중이면 중복 실행 방지
+	        loading = true;
+	        console.log(page);
+	        $.ajax({
+	            url: '/loadMoreBoard', // 데이터를 불러올 엔드포인트
+	            type: 'GET',
+	            data: { "page": page }, // 현재 페이지 정보를 서버에 전달
+	            success: function(res) {
+	            	var list = res.list;
+					if (list.length === 0) {
+	                	
+	                    $(window).off('scroll', loadMoreData);
+	                    return;
+	                }
+	            	console.log(res);
+	            	
+
+	                 // 'list'에 해당하는 데이터
+	                var likes = res.likes; // 'likes'에 해당하는 데이터
+	                var likeCnt = res.likeCnt;
+	                var uImg =  res.userImg;
+	                
+	                
+	                
+	                
+	                
+	            	var container = $("#bbc");
+	            	for (var i = 0; i < 10; i++) {
+	            	    
+	            		var card= "<div class='card'>";
+	            	    card +=  "<div class='card-header'>";
+	            	    card +=  "<div class='profile-img'>";
+	            	    card +=  "<a href='/goMypage?custId="+list[i].custId +"'>"; 
+	            	    card +=  "<img src='" + uImg[i] + "' class='profileimg'></a>" ;
+	            	    card +=  "</div>"; 
+	            	    card +=  "<div class='profile-info'>"; 
+	            	    card +=  "<div class='name'><p class='userid'>"+ list[i].custId +"</p></div></div>";
+	            	 	card +=  "<div class='content'>"; 
+	            	    card +=  "<img src='" + list[i].rbImg + "' width='100%' height='400' />" ;
+	            	    card +=  "</div>" ;
+	            	    card +=  "<div class='card-footer'>" ;
+	            	    if (likes.includes(list[i].rbIdx)) {
+	                        
+	                        card += "<div class='likes' id='"+ list[i].rbIdx +"'>";	                       
+	                        card += "<button class='likeBtn' data-status='unlike' value='" +list[i].rbIdx +"'>";
+	                        card += "<img src='./assets/img/redheart.png' class='likeimg'>" +"</button>";
+	                        card += "<p class='liketext'>좋아요" + likeCnt[i] + "개</p></div>"
+	                    } else {
+	                    	card += "<div class='likes' id='"+ list[i].rbIdx +"'>";	                       
+	                        card += "<button class='likeBtn' data-status='like' value='" +list[i].rbIdx +"'>";
+	                        card += "<img src='./assets/img/heart.png' class='likeimg'>" +"</button>";
+	                        card += "<p class='liketext'>좋아요" + likeCnt[i] + "개</p></div>"	    	
+	                    }
+	            	    card += "<br><div class='description'><p class='context'>"+list[i].rbContent + "</p></div>"
+	            	    card += "<br><br><div class='comments'><p class='username'>wonseo</p><p class='usercomment'>좋은사진감사합니다!</p></div></div></div>"
+	            	    console.log("여기와1?");
+	            	    container.append(card);
+	            	}
+	            	
+	                
+	            	
+	                page++;
+	                loading = false; // 다음 페이지로 이동
+	                // 데이터를 화면에 추가하는 코드 작성
+	            },
+	            error: function() {
+	                alert('데이터를 불러오는데 실패했습니다.');
+	                loading = false;
+	            }
+	        });
+	    }
+
+	    // 스크롤 이벤트를 감지하여 무한 스크롤 동작
+	    $(window).scroll(function() {
+	        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+	            console.log("스크롤끝");
+	        	loadMoreData(); // 스크롤이 끝에 도달하면 새로운 데이터를 불러옴
+	        }
+	    });
+	
+	
+	
+	
+	
+   
+    $(document).on('click', '.likeBtn', function(){
+    
+    	var rbIdx = parseInt($(this).val());
+        var status = $(this).data('status');
         if (status === 'like') {
             // 좋아요 상태일 때 처리
             console.log("좋아요를 눌렀습니다!");
@@ -283,9 +366,49 @@ $(document).ready(function(){
             // 언라이크 상태일 때 처리
             console.log("언라이크를 눌렀습니다!");
         }
-        
+        $.ajax({
+            type: "POST",
+            url: "/likeUnlike",
+            data: {
+                rbidx: rbIdx,
+                status: status
+            },
+            success: function(response) {
+            	//json형식의 문자열을 보내서 Json 타입으로 변환
+            	var res = JSON.parse(response);
+                
+            	var rbidx = res.rbidx;
+                var status = res.status;
+                var likeCount = res.likeCount;
+                console.log(status);
+                if(status === "like"){
+                	console.log("여까지오냐?")
+                	let div = $("#"+rbidx);
+                	div.empty();               	
+                	
+                	let tr = "<button class='likeBtn' data-status='unlike' value='" + rbidx + "'><img src='./assets/img/redheart.png' class='likeimg'></button>";
+                	tr += "<p class='liketext'>좋아요"+likeCount +"개</p>";
+                	
+                	div.append(tr);      		              	
+                }else{
+                	let div = $("#"+rbidx);
+                	div.empty();
+                	
+                	let tr = "<button class='likeBtn' data-status='like' value='" + rbidx + "'><img src='./assets/img/heart.png' class='likeimg'></button>";
+                	tr += "<p class='liketext'>좋아요"+likeCount +"개</p>";                	
+                	div.append(tr);   
+                	
+                }
+            	
+                console.log("좋아요 정보가 성공적으로 전송되었습니다.");
+            },
+            error: function(error) {
+                console.error("좋아요 정보 전송 중 오류가 발생했습니다.", error);
+            }
+        });
     });
 });
 </script>
+
 
 </html>

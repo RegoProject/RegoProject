@@ -19,6 +19,7 @@
 <a href="/boardAddList">게시글 addList 확인용(사용은안함)</a>
 
 <a href="/testList">테스트리스트</a>
+<a href="/community">커뮤니티</a>
 
 
 </body>
