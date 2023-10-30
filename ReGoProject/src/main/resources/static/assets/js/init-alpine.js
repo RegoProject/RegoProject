@@ -58,13 +58,21 @@ function data() {
       this.isModalOpen = false
       this.trapCleanup()
     },
-
+	// secModal
+	isSecModalOpen: false,
+    trapSecCleanup: null,
+    openSecModal() {
+      this.isSecModalOpen = true
+      this.trapSecCleanup = focusTrap(document.querySelector('#secModal'))
+    },
+    closeSecModal() {
+      this.isSecModalOpen = false
+      this.trapSecCleanup()
+    },
 	// trdModal
 	isTrdModalOpen: false,
     trapTrdCleanup: null,
-	isModalOpen: false,
     openTrdModal() {
-	
       this.isTrdModalOpen = true
       this.trapTrdCleanup = focusTrap(document.querySelector('#trdModal'))
     },

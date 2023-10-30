@@ -9,7 +9,7 @@ public class Config implements WebMvcConfigurer {
 
     private String connectPath = "/imagePath/**";
     private String resourcePath = "file:///home/ubuntu/uploadedImage";
-
+// imagePath/uploadedImag/
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(connectPath)

@@ -7,6 +7,7 @@
 		<![CDATA[
 					SELECT RI.ingreName
 						 , RMI.ingreAmount
+						 , RI.ingreImg
 					  FROM r_my_ingredients RMI
 					  JOIN r_ingredients RI ON RMI.ingreIdx = RI.ingreIdx
 					 WHERE RMI.custId = #{custId}
@@ -32,6 +33,7 @@
 		<![CDATA[
 					SELECT RM.msgName
 						 , RMM.msgAmount
+						 , RM.msgImg
 					  FROM r_my_msg RMM
 					  JOIN r_msg RM ON RMM.msgIdx = RM.msgIdx
 					 WHERE RMM.custId = #{custId}

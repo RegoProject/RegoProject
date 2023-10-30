@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/assets/css/join.css" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
-  <script src="/assets/js/join.js"></script>
+  <script src="/assets/js/init-alpine.js"></script>
 
 </head>
 

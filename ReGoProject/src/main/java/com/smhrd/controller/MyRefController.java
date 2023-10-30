@@ -1,5 +1,6 @@
 package com.smhrd.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -27,20 +28,25 @@ public class MyRefController {
 		member = (r_member) session.getAttribute("user");
 		try {
 			List<r_ingre_join_data> myIngre = memService.myIngredients(member.getCustId());
-			
-			if(myIngre != null ) {
-				// ajax 응답 해주기?
-				model.addAttribute("myIngre", myIngre);
-			}else {
-				// ajax 응답 해주기
-				System.out.println("냉장고가 비어있습니다.");
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "myref/ingreList";
+			  if (myIngre != null) {
+		            List<r_ingre_join_data> filteredIngre = new ArrayList<>();
+
+		            for (r_ingre_join_data ingreData : myIngre) {
+		                if (ingreData.getIngreAmount() == 1) {
+		                    filteredIngre.add(ingreData);
+		                }
+		            }
+
+		            model.addAttribute("myIngre", filteredIngre);
+		        } else {
+		            System.out.println("냉장고가 비어있습니다.");
+		        }
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return "myref/ingreList";
 	}
 	
 	@RequestMapping("/goMyMsgList")
@@ -50,8 +56,15 @@ public class MyRefController {
 			List<r_msg_join_data> myMsg = memService.myMsg(member.getCustId());
 			
 			if(myMsg != null ) {
-				// ajax 응답 해주기?
-				model.addAttribute("myMsg", myMsg);
+				 List<r_msg_join_data> filteredMsg = new ArrayList<>();
+				 
+				 for (r_msg_join_data msgData : myMsg) {
+		                if (msgData.getMsgAmount() == 1) {
+		                    filteredMsg.add(msgData);
+		                }
+		            }
+				 
+				model.addAttribute("myMsg", filteredMsg);
 			}else {
 				// ajax 응답 해주기
 				System.out.println("조미료가 비어있습니다.");

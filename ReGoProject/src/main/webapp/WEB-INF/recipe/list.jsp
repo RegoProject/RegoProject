@@ -296,7 +296,7 @@ $(document).ready(function() {
                 for (let i = 0; i < data.length; i++) {
                 	let tr = "<div class='addItem4' style='display:inline-block' >";
                     tr += "<a href='/goRecView?rcpIdx=" + data[i].rcpIdx + "'>";
-                    tr += "<img class='recipeImg' src='" + data[i].rcpImg1 + "' alt='#'>";
+                    tr += "<img class='recipeImg' src='imagePath/uploadedImage/food/" + data[i].rcpImg1 + "' alt='#'>";
                     tr += "<p class='title'>" + data[i].rcpName + "</p>";
                     tr += "</a> ";
                     tr += "<br>";

@@ -8,5 +8,6 @@ public class r_ingre_join_data {
 	
 	private String ingreName;
 	private int ingreAmount;
+	private String ingreImg;
 
 }
