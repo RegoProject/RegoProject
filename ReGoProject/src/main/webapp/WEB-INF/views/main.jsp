@@ -507,71 +507,41 @@
 					role="dialog" id="trdModal">
 					<!-- 조미료 추가(trdModal) 버튼 -->
 
-
+			<form action="/addMySelectedMsg">
 					<div class="pl-5 checkContainer text-center">
 					<h2>조미료 추가입니다.</h2>
 						<ul class="ks-cboxtags">
-							<li><input type="checkbox" id="checkbox1"
-								value="Rainbow Dash"><label for="checkbox1">간장</label></li>
-							<li><input type="checkbox" id="checkbox2"
-								value="Cotton Candy"><label for="checkbox2">소금</label></li>
-							<li><input type="checkbox" id="checkbox3" value="Rarity"
-								><label for="checkbox3">참기름</label></li>
-							<li><input type="checkbox" id="checkbox4" value="Moondancer"><label
-								for="checkbox4">조미료1</label></li>
-							<li><input type="checkbox" id="checkbox5" value="Surprise"><label
-								for="checkbox5">조미료2</label></li>
-							<li><input type="checkbox" id="checkbox6"
-								value="Twilight Sparkle"><label for="checkbox6">조미료3</label></li>
-							<li><input type="checkbox" id="checkbox7" value="Fluttershy"><label
-								for="checkbox7">조미료4</label></li>
-							<li><input type="checkbox" id="checkbox8"
-								value="Derpy Hooves"><label for="checkbox8">조미료5</label></li>
-							<li><input type="checkbox" id="checkbox9"
-								value="Princess Celestia"><label for="checkbox9">조미료6</label></li>
-							<li><input type="checkbox" id="checkbox10" value="Gusty"><label
-								for="checkbox10">조미료</label></li>
-							<li><input type="checkbox" id="checkbox11" value="Discord"><label
-								for="checkbox11">조미료</label></li>
-							<li><input type="checkbox" id="checkbox12" value="Clover"><label
-								for="checkbox12">조미료</label></li>
-							<li><input type="checkbox" id="checkbox13"
-								value="Baby Moondancer"><label for="checkbox13">조미료</label></li>
-							<li><input type="checkbox" id="checkbox14" value="Medley"><label
-								for="checkbox14">조미료</label></li>
-							<li><input type="checkbox" id="checkbox15" value="Firefly"><label
-								for="checkbox15">조미료</label></li>
-							<li><input type="checkbox" id="checkbox16" value="Firefly"><label
-								for="checkbox16">조미료</label></li>
-							<li><input type="checkbox" id="checkbox17" value="Firefly"><label
-								for="checkbox17">조미료</label></li>
-							<li><input type="checkbox" id="checkbox18" value="Firefly"><label
-								for="checkbox18">조미료</label></li>
-							<li><input type="checkbox" id="checkbox19" value="Firefly"><label
-								for="checkbox19">조미료</label></li>
-							<li><input type="checkbox" id="checkbox20" value="Firefly"><label
-								for="checkbox20">조미료</label></li>
-							<li><input type="checkbox" id="checkbox21" value="Firefly"><label
-								for="checkbox21">조미료</label></li>
-							<li><input type="checkbox" id="checkbox22" value="Firefly"><label
-								for="checkbox22">조미료</label></li>
-							<li><input type="checkbox" id="checkbox23" value="Firefly"><label
-								for="checkbox23">조미료</label></li>
-							<li><input type="checkbox" id="checkbox24" value="Firefly"><label
-								for="checkbox24">조미료</label></li>
-							<li><input type="checkbox" id="checkbox25" value="Firefly"><label
-								for="checkbox25">조미료</label></li>
-							<li><input type="checkbox" id="checkbox26" value="Firefly"><label
-								for="checkbox26">조미료</label></li>
-							<li><input type="checkbox" id="checkbox27" value="Firefly"><label
-								for="checkbox27">조미료</label></li>
-							<li><input type="checkbox" id="checkbox28" value="Firefly"><label
-								for="checkbox28">조미료</label></li>
-							<li><input type="checkbox" id="checkbox29" value="Firefly"><label
-								for="checkbox29">조미료</label></li>
-							<li><input type="checkbox" id="checkbox30" value="Firefly"><label
-								for="checkbox30">조미료</label></li>
-
+							<!-- value 는 조미료 카테고리의 인덱스 값입니다. -->
+							<li><input type="checkbox" id="checkbox1" value="1" name="msgIdx">		<label for="checkbox1">간장</label></li>
+							<li><input type="checkbox" id="checkbox2" value="2" name="msgIdx">		<label for="checkbox2">소금</label></li>
+							<li><input type="checkbox" id="checkbox3" value="3" name="msgIdx">		<label for="checkbox3">참기름</label></li>
+							<li><input type="checkbox" id="checkbox4" value="4" name="msgIdx">		<label for="checkbox4">조미료1</label></li>
+							<li><input type="checkbox" id="checkbox5" value="5" name="msgIdx">		<label for="checkbox5">조미료2</label></li>
+							<li><input type="checkbox" id="checkbox6" value="6" name="msgIdx">		<label for="checkbox6">조미료3</label></li>
+							<li><input type="checkbox" id="checkbox7" value="7" name="msgIdx">		<label for="checkbox7">조미료4</label></li>
+							<li><input type="checkbox" id="checkbox8" value="8" name="msgIdx">		<label for="checkbox8">조미료5</label></li>
+							<li><input type="checkbox" id="checkbox9" value="9" name="msgIdx">		<label for="checkbox9">조미료6</label></li>
+							<li><input type="checkbox" id="checkbox10" value="10" name="msgIdx">	<label for="checkbox10">조미료7</label></li>
+							<li><input type="checkbox" id="checkbox11" value="11" name="msgIdx">	<label for="checkbox11">조미료8</label></li>
+							<li><input type="checkbox" id="checkbox12" value="12" name="msgIdx">	<label for="checkbox12">조미료9</label></li>
+							<li><input type="checkbox" id="checkbox13" value="13" name="msgIdx">	<label for="checkbox13">조미료10</label></li>
+							<li><input type="checkbox" id="checkbox14" value="14" name="msgIdx">	<label for="checkbox14">조미료11</label></li>
+							<li><input type="checkbox" id="checkbox15" value="15" name="msgIdx">	<label for="checkbox15">조미료12</label></li>
+							<li><input type="checkbox" id="checkbox16" value="16" name="msgIdx">	<label for="checkbox16">조미료13</label></li>
+							<li><input type="checkbox" id="checkbox17" value="17" name="msgIdx">	<label for="checkbox17">조미료14</label></li>
+							<li><input type="checkbox" id="checkbox18" value="18" name="msgIdx">	<label for="checkbox18">조미료15</label></li>
+							<li><input type="checkbox" id="checkbox19" value="19" name="msgIdx">	<label for="checkbox19">조미료16</label></li>
+							<li><input type="checkbox" id="checkbox20" value="20" name="msgIdx">	<label for="checkbox20">조미료17</label></li>
+							<li><input type="checkbox" id="checkbox21" value="21" name="msgIdx">	<label for="checkbox21">조미료18</label></li>
+							<li><input type="checkbox" id="checkbox22" value="22" name="msgIdx">	<label for="checkbox22">조미료19</label></li>
+							<li><input type="checkbox" id="checkbox23" value="23" name="msgIdx">	<label for="checkbox23">조미료20</label></li>
+							<li><input type="checkbox" id="checkbox24" value="24" name="msgIdx">	<label for="checkbox24">조미료21</label></li>
+							<li><input type="checkbox" id="checkbox25" value="25" name="msgIdx">	<label for="checkbox25">조미료22</label></li>
+							<li><input type="checkbox" id="checkbox26" value="26" name="msgIdx">	<label for="checkbox26">조미료23</label></li>
+							<li><input type="checkbox" id="checkbox27" value="27" name="msgIdx">	<label for="checkbox27">조미료24</label></li>
+							<li><input type="checkbox" id="checkbox28" value="28" name="msgIdx">	<label for="checkbox28">조미료25</label></li>
+							<li><input type="checkbox" id="checkbox29" value="29" name="msgIdx">	<label for="checkbox29">조미료26</label></li>
+							<li><input type="checkbox" id="checkbox30" value="30" name="msgIdx">	<label for="checkbox30">조미료27</label></li>
 						</ul>
 
 					</div>
@@ -579,6 +549,7 @@
 					<button id="msgSubmit" type="submit"
 						class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
 						적용</button>
+				</form>
 					<button id="cancleTrdModal" @click="closeTrdModal"
 							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray "
 						>취소</button>
@@ -603,6 +574,7 @@
 
 
 <script type="text/javaScript">
+
 	$(document).ready(function() {
 		const inputElement = $('#ingreName'); // 모달창 내의 input 요소 선택
 		const searchList = $('#searchList');
@@ -783,6 +755,29 @@
 	
 	
 </script>
+
+<script type="text/javaScript">
+  // "적용" 버튼 클릭 시 서버로 선택한 조미료 전송
+  document.getElementById('msgSubmit').addEventListener('click', function () {
+    const selectedSpices = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(checkbox => checkbox.value);
+    
+    // AJAX 또는 Fetch를 사용하여 서버로 선택한 조미료를 전송
+    fetch('/addMyMsg', {
+      method: 'POST',
+      body: JSON.stringify(selectedSpices),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      // 서버로부터 응답 처리
+    })
+    .catch(error => {
+      console.error('에러 발생:', error);
+    });
+  });
+</script>
+
 
 
 

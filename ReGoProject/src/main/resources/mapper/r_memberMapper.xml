@@ -27,7 +27,6 @@
 		]]>
 </select>
 
-
 <select id="myMsg" resultType="com.smhrd.entity.r_msg_join_data" parameterType="com.smhrd.entity.r_msg_join_data">
 		/* select.myMsg */
 		<![CDATA[
@@ -41,5 +40,44 @@
 </select>
 
 
+<!-- addMsg용 select 사전이행 쿼리문 -->
+<select id="selectMyMsg" resultType="com.smhrd.entity.r_my_msg" parameterType="com.smhrd.entity.r_my_msg">
+		/* seelct.selectMyMsg */
+		<![CDATA[
+				SELECT *
+				  FROM r_my_msg 
+				  WHERE custId = #{custId}
+				    AND msgIdx = #{msgIdx}
+		]]>
+
+</select>
+
+
+<!-- 유저 r_my_msg 테이블에 조미료 정보가 없을경우 insert -->
+<insert id="insertMyMsg" parameterType="com.smhrd.entity.r_my_msg">
+	/* insert.insertMyMsg */
+    <![CDATA[
+				INSERT INTO 	r_my_msg (
+											custId
+											, msgIdx
+											, msgAmount
+										 )
+				VALUES					(	#{custId}
+											, #{msgIdx} 
+											, 1
+										 )
+    ]]>
+</insert>
+
+
+<!-- 유저 r_my_msg 테이블에 조미료 정보가 있을경우 update -->
+<update id="updateMyMsg" parameterType="com.smhrd.entity.r_my_msg">
+    <![CDATA[
+			    UPDATE r_my_msg
+			       SET msgAmount = #{msgAmount}
+			     WHERE custId = #{custId}
+			       AND msgIdx = #{msgIdx} 
+    ]]>
+</update>
 
 </mapper>
