@@ -9,8 +9,8 @@
 <body>
 <a href="javascript:window.history.back();">뒤로가기</a>
 <br>
-<h1>게시글 자세히 보기페이지</h1>
-<a href="/goBoardList">목록</a>
+<h1>게시글 자세히 보기페이지</h1> 필요한가? 안필요한가 
+<a href="/goCommunity">목록</a>
 <br>
 <a href="#">수정</a>
 <br>

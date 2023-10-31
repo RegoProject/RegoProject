@@ -4,16 +4,21 @@
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<!-- 이거 절대빼먹으면 안돼요 !! -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- 이거 절대빼먹으면 안돼요 !! -->
+	<title>Insert title here</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+	<script src="/assets/js/init-alpine.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
+	<!--  <script src="jquery.min.js"></script> -->
+	<link rel="stylesheet" href="/assets/css/recipe.css" />
+
 </head>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <script src="/assets/js/init-alpine.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <!--  <script src="jquery.min.js"></script> -->
-  <link rel="stylesheet" href="/assets/css/recipe.css" />
+
   
 <body>
 
@@ -29,19 +34,12 @@
 </c:forEach>
 -->
   <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-    <!-- Desktop sidebar 여기 사이에있는 aside 코드 전부 지워야함-->
-
-    <!-- 여기 사이에있는 코드지워야함-->
-
-    <!-- Mobile sidebar -->
-
     <!-- Backdrop -->
     <div x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
       x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
       x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
       class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"></div>
-    <!--x-show="isSideMenuOpen에 있는" md:hidden 지워줘야함-->
     <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800"
       x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
       x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
@@ -83,7 +81,7 @@
           </li>
           <li class="relative px-6 py-3">
             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              href="/goBoardList">
+              href="/goCommunity">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path
@@ -122,7 +120,6 @@
       <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
         <div
           class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
-          <!-- Mobile hamburger button안에 md:hidden 지워야함-->
           <button class="p-1 mr-5 -ml-1 rounded-md focus:outline-none" @click="toggleSideMenu" aria-label="Menu">
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd"
@@ -134,7 +131,7 @@
           <div class="flex justify-center flex-1 lg:mr-32">
             <div></div>
             <a href="/goMain">
-              <img id="logo" src="/assets/img/regoJJIN.png" width="80px" height="80px" style="margin: auto;">
+              <img id="logo" src="/assets/img/regoLogo.png" width="80px" height="80px" style="margin: auto;">
             </a>
 
           </div>
@@ -202,7 +199,7 @@
       </header>
       <main class="#"> <!--  h-full overflow-y-auto -->
         <br><br>
-        <div class="container px-6 mx-auto grid flex-container margin:auto">
+        <div class="container px-6 mx-auto grid"> <!-- grid이후부터 flex-container margin:auto 삭제해봄 : 해봤는데 문제가 아니어서 되돌려놈..-->
         
         
         
@@ -235,9 +232,10 @@
             <c:forEach var="recipe" items="${recipe}">
             	<div class="addItem4" style="display:inline-block" >
             		<a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
-            		<!-- 이미지 경로는 imagePath/uploadedImage/ 이하폴더로 해주세요 (배포용)
+            		<!-- 이미지 경로는 imagePath/uploadedImage/ 이하폴더로 해주세요
+            		imagePath/uploadedImage/food/${recipe.rcpImg1} (배포용)
             			테스트는 아무데서나 해도됩니다. -->
-                		<img class="recipeImg" src="imagePath/uploadedImage/food/${recipe.rcpImg1}">
+                		<img class="recipeImg" src="/assets/img/dduk.jpg">
                 		<p class="title">${recipe.rcpName}</p>
               		</a>
                 	<br>
@@ -269,14 +267,16 @@
 
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script>
+<script type="text/javaScript">
 
 $(document).ready(function() {
+	console.log("여기는오나요")
     let page = 2; // 초기 페이지
     let loading = false;
         
 
     function loadMoreData() {
+
         if (loading) return; // 이미 로딩 중이면 중복 실행 방지
         loading = true;
         console.log(page);
@@ -285,6 +285,7 @@ $(document).ready(function() {
             type: 'GET',
             data: { "page": page }, // 현재 페이지 정보를 서버에 전달
             success: function(data) {
+            	console.log("여기는오나요2")
                 if (data.length === 0) {
                     // 더 이상 데이터가 없으면 무한 스크롤 중지
                     $(window).off('scroll', loadMoreData);
@@ -324,6 +325,7 @@ $(document).ready(function() {
 
     // 스크롤 이벤트를 감지하여 무한 스크롤 동작
     $(window).scroll(function() {
+    	console.log("스크롤오나요")
        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
             loadMoreData(); // 스크롤이 끝에 도달하면 새로운 데이터를 불러옴
         }

@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
   <!-- <script src="jquery.min.js"></script> -->
-  <link rel="stylesheet" href="./assets/css/community.css" />
+  <link rel="stylesheet" href="/assets/css/community.css" />
 
   
 
@@ -112,7 +112,7 @@
       </div>
     </aside>
     <div class="flex flex-col flex-1 w-full">
-      <header class="z-10 py-2 bg-white shadow-md dark:bg-gray-800">
+      <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
         <div
           class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
           <!-- Mobile hamburger button안에 md:hidden 지워야함-->
@@ -127,7 +127,11 @@
           <div class="flex justify-center flex-1 lg:mr-32">
 
             <a href="/goMain">
+
               <img id="logo" src="./assets/img/regoJJIN.png" width="80px" height="80px" style="margin: auto;">
+
+             
+
             </a>
 
           </div>
@@ -261,7 +265,7 @@
 </body>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script>
+<script type="text/javaScript">
 
 
 $(document).ready(function(){

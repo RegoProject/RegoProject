@@ -9,11 +9,11 @@
   <title>REGO HOME</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <script src="./assets/js/init-alpine.js"></script>
+  <script src="/assets/js/init-alpine.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
   <script src="jquery.min.js"></script>
-  <link rel="stylesheet" href="./assets/css/recipedetails.css" />
+  <link rel="stylesheet" href="/assets/css/recipedetails.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -124,7 +124,7 @@
           <div class="flex justify-center flex-1 lg:mr-32">
             <div></div>
             <a href="/goMain">
-              <img id="logo" src="./assets/img/regoJJIN.png" width="80px" height="80px" style="margin: auto;">
+              <img id="logo" src="/assets/img/regoLogo.png" width="80px" height="80px" style="margin: auto;">
             </a>
 
           </div>
@@ -194,8 +194,9 @@
         <div class="container px-6 mx-auto grid flex-container margin:auto">
           <header class="flexitem">
             <div class="container">
+            <!-- a태그로  "javascript:window.history.back();" 뒤로가기 넣으려고했는데 a태그 붙이니까 버튼이 사라져여 -->
               <button>
-                <img src="./assets/img/left.png" class="backBtn">
+                <img src="/assets/img/left.png" class="backBtn">
               </button>
               <br><br><br>
               <div class="videocon">
@@ -220,7 +221,7 @@
               <br>
               <div class="rcpm flex-container">
                 <h5 class="rcpmt">재료</h5>
-                <button><img src="./assets/img/caution.png" class="smimg"></button>
+                <button><img src="/assets/img/caution.png" class="smimg"></button>
               </div>
               <br>
               <div class="rcping"></div>
