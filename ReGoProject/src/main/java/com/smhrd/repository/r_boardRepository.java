@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.smhrd.entity.r_board;
+import com.smhrd.entity.r_likes;
 
 @Repository
 public interface r_boardRepository extends JpaRepository<r_board, String> {
@@ -20,6 +21,8 @@ public interface r_boardRepository extends JpaRepository<r_board, String> {
 	
 	@Query(value = "SELECT * FROM r_board ORDER BY created_at DESC LIMIT :n", nativeQuery = true)
 	public List<r_board> findTopNByCreatedAtDesc(@Param("n") int n);
+	
+	public List<r_board> findByCustId(String custId);
 	
 	
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +14,14 @@ import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.smhrd.entity.r_board;
 import com.smhrd.entity.r_member;
+import com.smhrd.repository.r_boardRepository;
 import com.smhrd.repository.r_memberrRepository;
 
 @Controller
@@ -26,8 +30,8 @@ public class MyPageController {
 
 	@Autowired
 	private r_memberrRepository repo;
-	r_member member = new r_member();
-	
+	@Autowired
+	private r_boardRepository repo1;
 	
 	
 	@RequestMapping("/goMyForm")
@@ -51,9 +55,13 @@ public class MyPageController {
 		return "mypage/addList";
 	}
 	@RequestMapping("/goMypage")
-	public String goMypage() {
+	public String goMypage(HttpSession session ,Model model) {
+		r_member user =(r_member)session.getAttribute("user");
+		String custId =user.getCustId();
+		List<r_board> list= repo1.findByCustId(custId);
+		model.addAttribute("board",list);
 		
-		return "mypage/mypage";
+		return "mypage/mypage1";
 	}
 	@RequestMapping("/updateProfileImage")
     public void updateProfileImage(@RequestParam("file") MultipartFile file ,HttpServletResponse response , HttpSession session, HttpServletRequest request ) {

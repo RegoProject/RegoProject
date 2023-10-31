@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
@@ -13,8 +14,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
   <script src="jquery.min.js"></script>
-  <link rel="stylesheet" href="./assets/css/recipedetails.css" />
+  <link rel="stylesheet" href="./assets/css/mypage.css" />
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body>
@@ -109,7 +112,7 @@
       </div>
     </aside>
     <div class="flex flex-col flex-1 w-full">
-      <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+      <header class="z-10 py-2 bg-white shadow-md dark:bg-gray-800">
         <div
           class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
           <!-- Mobile hamburger button안에 md:hidden 지워야함-->
@@ -122,8 +125,8 @@
           </button>
 
           <div class="flex justify-center flex-1 lg:mr-32">
-            <div></div>
-            <a href="/goMain">
+
+            <a href="#">
               <img id="logo" src="./assets/img/regoJJIN.png" width="80px" height="80px" style="margin: auto;">
             </a>
 
@@ -190,63 +193,91 @@
         </div>
       </header>
       <main class="h-full overflow-y-auto">
-        <br>
-        <div class="container px-6 mx-auto grid flex-container margin:auto">
-          <header class="flexitem">
+        <div class="container px-6 mx-auto grid">
+          <br><br>
+          <!-- 여기서부터 코드 추가 되었음 -->
+          <header>
             <div class="container">
-              <button>
-                <img src="./assets/img/left.png" class="backBtn">
-              </button>
-              <br><br><br>
-              <div class="videocon">
-                <video playsinline="" controls=""
-                  poster="https://static.wtable.co.kr/image/production/service/recipe/1923/f513c7bf-0572-475c-95b7-b98771ab7618.jpg?size=890x500"
-                  src="https://video.wtable.co.kr/video/production/service/recipe/1923/886fe196-6697-42c8-851d-d7e01967e80d.mp4">
-                  <source
-                    src="https://video.wtable.co.kr/video/production/service/recipe/1923/886fe196-6697-42c8-851d-d7e01967e80d.mp4"
-                    type="video/mp4" style="margin: auto;" class="videorcp">
-                </video>
-                <source
-                  src="https://video.wtable.co.kr/video/production/service/recipe/1923/886fe196-6697-42c8-851d-d7e01967e80d.mp4"
-                  type="video/mp4">
-              </div>
-              <br><br>
-              <div class="rcpcontent">
-                <h2 class="rcptitle">김치 비빔 국수</h2>
+              <div class="profile">
+                <div class="profile-image">
+                <form id="uploadForm" enctype="multipart/form-data">
+				<!-- 문제생기면 imagePath/ -->
+    			<img id="profilePhoto" src="imagePath/uploadedImage/${user.custImg}" alt="#" class="rounded-image">
+    			<input type="file" name="file" id="fileInput" style="display: none;">
+    			<input type="submit" value="Upload" style="display: none;">
+				</form>                  
+                </div>
+                <div class="profile-user-settings">
+                  <h1 class="profile-user-name">${user.custName}</h1>
+                  <a href="/goUpdate"><button class="btn profile-edit-btn">프로필 수정</button></a>
+                </div>
                 <br>
-                <p class="rcpd">난이도  :  쉬움</p>
-                <p class="rcpt">소요시간  :  25분</p>
+                <div class="profile-stats">
+                  <ul>
+                    <li><span class="profile-stat-count">164</span> 게시글</li>
+                    <li><span class="profile-stat-count">188</span> 팔로워</li>
+                    <li><span class="profile-stat-count">206</span> 팔로잉</li>
+                  </ul>
+                </div>
+                <br>
+                <div class="profile-bio">
+                </div>
               </div>
-              <br>
-              <div class="rcpm flex-container">
-                <h5 class="rcpmt">재료</h5>
-                <button><img src="./assets/img/caution.png" class="smimg"></button>
-              </div>
-              <br>
-              <div class="rcping"></div>
-              <p class="basic">신김치, 중면, 오이, 깨, 고추장, 식초, 올리고당, 간장, 설탕, 맛술</p>
+              <!-- End of profile section -->
             </div>
-            <br><br>
-            <div class="rcpm flex-container">
-              <h5 class="rcpmt">레시피</h5>
-            </div>
-            <br>
-            <div class="rcping"></div>
-            <p class="rcpstep">1. 오이는 가늘게 채 썰고 김치는 굵게 다져주세요.</p>
-            <p class="rcpstep">2. 볼에 다진 김치와 양념재료를 넣고 섞어주세요.</p>
-            <p class="rcpstep">3. 끓는 물에 중면을 펼쳐 넣고 면끼리 달라붓지 않도록 저어주세요.
-              물에 끓어오르면 찬물을 2~3회 반복해서 부어 국수를 삶아주세요. 흐르는 찬물에 중면을
-              여러 번 씻어 전분기를 없애고 채반에 밭쳐 물기를 빼주세요.
-            </p>
-            <p class="rcpstep">4. 양념장에 삶은 국수를 넣고 버무려주세요.</p>
-            <p class="rcpstep">5. 접시에 비빔국수를 담고 삶은 달걀과 오이채, 깨를 올려주세요.</p>
-          </div>
-          <br><br><br>
-        </header>
+            <!-- End of container -->
+          </header>
+          <main>
+            <div class="container">
+              <div class="gallery">
+              <c:forEach var="board" items="${board}" varStatus="status">
+                <div class="gallery-item" tabindex="0">
+                 <a><img src="${board.rbImg}"></a>
+                </div>
+              </c:forEach>  
+                
+                <!-- End of gallery -->
+              <!-- End of container -->
+          </main>
         </div>
       </main>
     </div>
   </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("#profilePhoto").click(function() {
+        $("#fileInput").click(); // 파일 선택 창을 띄웁니다.
+    });
+
+    $("#fileInput").change(function() { // 파일이 선택되면 자동으로 submit 합니다.
+        $("#uploadForm").submit();
+    });
+
+    $("#uploadForm").submit(function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        
+        $.ajax({
+            url: "/updateProfileImage",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(res) {
+            	console.log(res)
+                setTimeout(function() {
+                    window.location.reload();
+                }, 2500);
+            	// 다듬을때하기 -> 배포할때 업로드가 바로바로 돼서 바로 프로젝트가 새로고침되게끔 해야함
+            },
+            error: function(e) {
+                console.log("에러 발생");
+            }
+        });
+    });
+});
+</script>
 
 </html>
