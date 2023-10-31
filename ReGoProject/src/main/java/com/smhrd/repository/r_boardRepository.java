@@ -24,6 +24,8 @@ public interface r_boardRepository extends JpaRepository<r_board, String> {
 	
 	public List<r_board> findByCustId(String custId);
 	
+	@Query(value="SELECT * From r_board WHERE rbContent LIKE :search ORDER BY createdAt DESC", nativeQuery = true)
+	public List<r_board> findByRbContentContainingOrderByCreatedAtDesc(@Param("search")String search);
 	
 }
 

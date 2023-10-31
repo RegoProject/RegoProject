@@ -30,7 +30,7 @@ public class RecipeController {
 	@RequestMapping("/goRecList")
 	public String goList(Model model) {
 		//List<r_recipe> list = repo.findAll();
-		List<r_recipe> list=  repo.findTop5ByOrderByRcpIdxAsc();
+		List<r_recipe> list=  repo.findTop10ByOrderByRcpIdxAsc();
 		
 		
 		model.addAttribute("recipe",list);
@@ -68,9 +68,9 @@ public class RecipeController {
 	@RequestMapping("/loadMoreData")
 	public void loadMoreRcp(@RequestParam("page") int page, HttpServletResponse response ) {
 		System.out.println(page);
-		int start = page*5-4;
+		int start = page*10-9;
 		System.out.println(start);
-		int end=page*5;
+		int end=page*10;
 		List<r_recipe> list= repo.findByRcpIdxBetweenOrderByRcpIdxAsc(start, end);
 		System.out.println(list.size());
 		ObjectMapper mapper = new ObjectMapper();

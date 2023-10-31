@@ -16,7 +16,7 @@ public interface r_recipeRepository extends JpaRepository<r_recipe, Integer> {
 	public List<r_recipe> findTop5ByOrderByRcpIdxAsc();
  	//public List<r_recipe> findRecordsBetweenRcpIdx(int startIdx, int endIdx);
 	public List<r_recipe> findByRcpIdxBetweenOrderByRcpIdxAsc(int startIdx, int endIdx);
-	
+	public List<r_recipe> findTop10ByOrderByRcpIdxAsc();
 }
 
 

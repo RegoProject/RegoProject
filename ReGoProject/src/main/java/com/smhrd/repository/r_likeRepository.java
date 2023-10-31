@@ -23,7 +23,11 @@ public interface r_likeRepository extends JpaRepository<r_likes, Integer> {
 	
 	@Query(value = "SELECT * FROM r_likes l JOIN (SELECT rbIdx FROM r_board ORDER BY createdAt DESC LIMIT 10 OFFSET :offset) b ON l.rbIdx = b.rbIdx WHERE l.custId = :custId", nativeQuery = true)
 	public List<r_likes> findLikesByCustId(@Param("custId") String custId, @Param("offset") int offset);
-
+	
+	@Query(value = "SELECT * FROM r_likes l JOIN(SELECT rbIdx From r_board WHERE rbContent LIKE :search ORDER BY createdAt DESC) b ON l.rbIdx = b.rbIdx WHERE l.custId = :custId", nativeQuery= true)
+	public List<r_likes> findLikesByCustId2(@Param("custId") String custId , @Param("search") String search);
+	
+	
 }
 
 

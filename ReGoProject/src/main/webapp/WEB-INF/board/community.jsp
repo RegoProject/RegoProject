@@ -202,10 +202,12 @@
 
           <!-- 여기서부터 코드 추가 되었음 -->
           <!-- search -->
-          <input class="search" type="text" placeholder="검색어 입력">
+          <form action="/boardSearch" method="post">
+          <input class="search" type="text" placeholder="검색어 입력" name="search">
           <button>
             <img src="./assets/img/search_black.png" class="searchimg">
           </button>
+          </form>
           <br>
           <!-- 커뮤니티 피드 -->
           <section class="container" id="bbc">
@@ -271,7 +273,9 @@
 $(document).ready(function(){
 	  let page = 1; // 초기 페이지
 	  let loading = false;
-
+	  let stopControl = ${stop}; 
+	  
+	  console.log(stop);
 	    function loadMoreData() {
 	    	
 	        if (loading) return; // 이미 로딩 중이면 중복 실행 방지
@@ -349,8 +353,12 @@ $(document).ready(function(){
 	    // 스크롤 이벤트를 감지하여 무한 스크롤 동작
 	    $(window).scroll(function() {
 	        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
-	            console.log("스크롤끝");
-	        	loadMoreData(); // 스크롤이 끝에 도달하면 새로운 데이터를 불러옴
+	            if(!stopControl){
+	        	console.log("스크롤끝");
+	        	loadMoreData();
+	            }
+	            
+	            // 스크롤이 끝에 도달하면 새로운 데이터를 불러옴
 	        }
 	    });
 	

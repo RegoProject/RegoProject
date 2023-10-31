@@ -128,7 +128,7 @@ public class BoardController {
 		model.addAttribute("likes", likes);
 		model.addAttribute("likeCnt", likeCnt);
 		model.addAttribute("userImg",userImg);
-		
+		model.addAttribute("stop", "false");
 		
 		
 		return "board/community";
@@ -233,9 +233,57 @@ public class BoardController {
 		
 		
 	}
-	
-
-	
-	
+	@RequestMapping("/boardSearch")
+	public String boardSearch(@RequestParam("search") String search ,Model model,HttpSession session) {
+		
+		System.out.println(search);
+		String search1 = "%"+search+"%";
+		
+		r_member member=(r_member)session.getAttribute("user");
+		String custId= member.getCustId();
+		List<r_board> list= repo.findByRbContentContainingOrderByCreatedAtDesc(search1);
+		List<r_likes> list1= repo1.findLikesByCustId2(custId, search1);
+		List<Integer> likes = new ArrayList<Integer>();
+		
+		
+		for(int i = 0 ; i<list1.size() ; i++) {
+			int rbIdx = list1.get(i).getRbIdx();
+			likes.add(rbIdx);
+		}
+		
+		List<Integer> likeCnt= new ArrayList<Integer>();
+		for(int i= 0 ;  i<list.size(); i++) {
+			int idx = list.get(i).getRbIdx();
+			List<r_likes> likeCount = repo1.findAllByRbIdx(idx);
+			likeCnt.add(likeCount.size());
+		}
+		List<String> userImg=  new ArrayList<String>();
+		
+		for(int i=0 ; i< list.size(); i++) {
+			String custid =  list.get(i).getCustId();
+			
+			r_member user = repo2.findByCustId(custid);
+			
+			String img = user.getCustImg();
+			userImg.add(img);			
+		}
+			
+		System.out.println(list);	
+		System.out.println(likes);
+		System.out.println(likeCnt);
+		System.out.println(userImg);
+		
+		model.addAttribute("board",list);
+		model.addAttribute("likes", likes);
+		model.addAttribute("likeCnt", likeCnt);
+		model.addAttribute("userImg",userImg);
+		model.addAttribute("stop", "true");
+		
+		
+		return "board/community";	
+	}
+		
+		
+		
 }
 
