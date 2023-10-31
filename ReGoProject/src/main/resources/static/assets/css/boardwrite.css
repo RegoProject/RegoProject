@@ -1,11 +1,14 @@
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+
+
 html {
     line-height: 1.15;
     -webkit-text-size-adjust: 100%
 }
 
 body {
-    margin: 0
+    margin: 0;
 }
 
 main {
@@ -136,7 +139,8 @@ progress {
 }
 
 textarea {
-    overflow: auto
+    overflow: auto;
+    border: 1px solid lightgray;
 }
 
 [type=checkbox],
@@ -313,14 +317,16 @@ video {
     vertical-align: middle
 }
 
-img,
+/* CSS 수정했음 비디오 크기*/
+
 video {
-    max-width: 100%;
-    height: auto
+    max-width: 75%;
+    height: auto;
+    margin: auto;
 }
 
 .container {
-    width: 100%;
+    width: 100%
 }
 
 @media (min-width: 640px) {
@@ -640,14 +646,13 @@ print and (-ms-high-contrast:none) {
 
 .bg-gray-50 {
     --bg-opacity: 1;
-    background-color: #f9fafb;
-    background-color: rgba(249, 250, 251, var(--bg-opacity))
+    background-color: white;
 }
 
 .bg-gray-100 {
     --bg-opacity: 1;
-    background-color: #f4f5f7;
-    background-color: rgba(244, 245, 247, var(--bg-opacity))
+    background-color: white;
+
 }
 
 .bg-red-100 {
@@ -2121,12 +2126,15 @@ print and (-ms-high-contrast:none) {
     }
 }
 
+/* CSS 수정 */
 input {
     margin: auto;
     width: 68%;
     position: relative;
     bottom: 92%;
-    left: 8%;
+    border: 1px solid lightgray;
+    
+
 }
 
 svg {
@@ -2169,12 +2177,11 @@ body>div>div.flex.flex-col.flex-1.w-full>main>div>a {
 }
 
 #ss {
-    width: 110px;
-    height: 110px;
+    width: 60px;
+    height: 60px;
     align-items: center;
     margin: auto;
     margin-top: 30px;
-
 
 }
 
@@ -2328,22 +2335,19 @@ img {
 
 }
 
-
 .mySlides .fade {
     position: relative;
 }
 
 .search {
-    width: 60%;
-    height: 150%;
+    width: 63%;
     background-color: white;
     position: relative;
-    left: 0%;
+    left: 3%;
     box-shadow: #7DD076;
-    bottom: 100.5%;
-    border: 1px solid lightgray;
-    border-radius: 50px;
-    /*box-shadow: 3px 3px 1px 0 lightgray;*/
+    bottom: 91%;
+    border: 2px solid #7DD076;
+    border-radius: 3px;
 }
 
 input:focus {
@@ -2362,16 +2366,32 @@ button:focus {
 }
 
 p {
-    font-size: larger;
-    text-align: center;
-    font-weight: bold;
+    font-size: smaller;
     position: relative;
-    top: 5%;
+    top: 1%;
+
 }
 
-/* searchBtn, searchSelect css 필요 없어서 지움 */
+#searchSelect {
+    width: 16%;
+    position: relative;
+    top: 2%;
+    left: 5%;
+    border: 2px solid #7DD076;
+    box-shadow: #7DD076;
+    border-radius: 3px;
+}
 
-
+.searchBtn {
+    width: 11%;
+    position: relative;
+    bottom: 191%;
+    left: 85%;
+    border: 2px solid #7DD076;
+    box-shadow: #7DD076;
+    border-radius: 3px;
+    background-color: white;
+}
 
 .recipeRc {
     width: 48%;
@@ -2385,8 +2405,7 @@ p {
     position: relative;
 }
 
-
-.ingIcon {
+.addItem {
     width: 48%;
     height: 180px;
     box-sizing: border-box;
@@ -2399,419 +2418,332 @@ p {
     left: 3%;
 }
 
+.ingIcon {
+    width: 20%;
+    height: 180px;
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #F4CB81;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    margin: auto;
+    position: relative;
+    left: 3%;
+}
+
+.addItem2 {
+    width: 20%;
+    height: 125px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: linen;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    position: relative;
+    display: inline-block;
+    flex-direction: reverse;
+}
+
+.addItem3 {
+    width: 20%;
+    height: 125px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 3px 5px 1px 0 lightgray;
+    position: relative;
+    display: inline-block;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+}
+
+.addItem2,
+.addItem3,
+.addItem4 {
+    flex: 0 0 calc(33.3% - 20px);
+    /* Adjust the width as needed */
+    margin-right: 20px;
+    /* Add margin for spacing between items */
+    margin-bottom: 20px;
+    /* Add margin for vertical spacing */
+}
+
+/* Adjust the width, margins, and other styles as needed for your layout */
+
+.ingB {
+    display: inline-block;
+    position: relative;
+    margin: auto;
+
+}
+
+
+
+.addB {
+    width: 100%;
+}
+
+#addImg {
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    margin: auto;
+    margin-top: 30px;
+
+}
+
+.myCheckbox {
+    position: relative;
+    margin-left: 10%;
+}
+
+.ss1 {
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    margin: auto;
+    margin-top: 30px;
+
+}
+
+.addItem4 {
+    flex: 1 0 50%;
+    /* 요소를 2개씩 행에 배치 */
+    box-sizing: border-box;
+    margin: 10px;
+    /* 요소 사이의 간격을 조정 */
+    max-width: calc(50% - 20px);
+    /* 반응형을 위한 최대 너비 설정 */
+    width: 43%;
+
+}
+
+.recipeImg {
+    border-radius: 3px;
+}
+
+.title {
+    font-size: medium;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* 센터 정렬 */
+}
+
+.Difficulty {
+    font-size: smaller;
+    font-weight: bolder;
+    text-align: center;
+    color: gray;
+}
+
+.time {
+    font-size: smaller;
+    font-weight: bolder;
+    text-align: center;
+    color: gray;
+}
+
+.dimg {
+    width: 12px;
+    margin: auto;
+}
+
+.timg {
+    width: 12px;
+    margin: auto;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo {
+    width: 100%;
+    /* 이미지 너비를 부모 요소의 100%로 설정 */
+    max-width: 100px;
+    /* 이미지의 최대 너비를 설정 */
+    height: auto;
+    /* 높이를 자동으로 설정하여 이미지의 비율을 유지 */
+    position: relative;
+    left: 5%;
+}
+
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-#logo {
-    max-width: 80px;
-    height: auto;
-}
-
-/* 화면 너비가 600픽셀 미만일 때 적용될 CSS */
-@media (max-width: 600px) {
-    #logo {
-        max-width: 60px;
-    }
-}
-
-/* 여기서부터 css 추가 됨*/
-/*
-
-All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310).
-
-The 'supports' rule will only run if your browser supports CSS grid.
-
-Flexbox and floats are used as a fallback so that browsers which don't support grid will still recieve a similar layout.
-
-*/
-
-/* Base Styles */
-
-/* 헤더 사이즈가 이상해져서 폰트사이즈는 프로필단에만 줘야할것같아서 주석처리합니다.
-:root {
-    font-size: 10px;
-}*/
-
-
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-body {
-	font-family: Verdana, sans-serif;
-    /*font-family: "Open Sans", Arial, sans-serif; 윗줄 폰트가 맞는거 아닌가요?*/
-    min-height: 100vh;
-    background-color: #fafafa;
-    color: #262626;
-    padding-bottom: 3rem;
-}
-
-img {
-    display: block;
-}
-
-/* container가 템플릿 메인 css라서 겹치면 문제 생기기 때문데 myContainer로 바꿔줬습니다.*/
-.myContainer {
-    max-width: 93.5rem;
-    margin: 0 auto;
-    /*padding: 0 2rem; 필요가없어서 지웠습니다.*/ 
-}
-
-.btn {
-    display: inline-block;
-    font: inherit;
-    background: none;
-    border: none;
-    color: inherit;
-    padding: 0;
-    cursor: pointer;
-}
-
-.btn:focus {
-    outline: 0.5rem auto #4d90fe;
-}
-
-.visually-hidden {
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-}
-
-/* Profile Section */
-
-.profile {
-    padding: 5rem 0;
-    display: grid;
-    /* Add this to make it a grid container */
-    grid-template-columns: 1fr 2fr;
-    /* Divide the space between image and other sections */
-    grid-template-rows: repeat(3, auto);
-    grid-column-gap: 3rem;
-    align-items: center;
-    font-size: 10px;
-}
-
-.profile::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-.profile-image {
-    float: left;
-    width: calc(33.333% - 1rem);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 3rem;
-}
-
-.profile-image img {
-    border-radius: 50%;
-}
-
-.profile-user-settings,
-.profile-stats,
-.profile-bio {
-    float: left;
-    width: calc(66.666% - 2rem);
-}
-
-.profile-user-settings {
-    margin-top: 1.1rem;
-}
-
-.profile-user-name {
-    display: inline-block;
-    font-size: 3.2rem;
-    font-weight: 300;
-}
-
-.profile-edit-btn {
-    font-size: 1.4rem;
-    line-height: 1.8;
-    border: 0.1rem solid #dbdbdb;
-    border-radius: 0.3rem;
-    padding: 0 2.4rem;
-    margin-left: 2rem;
-    background-color: #d1f1c3;
-}
-
-.profile-settings-btn {
-    font-size: 2rem;
-    margin-left: 1rem;
-}
-
-.profile-stats {
-    margin-top: 2.3rem;
-}
-
-.profile-stats li {
-    display: inline-block;
-    font-size: 1.6rem;
-    line-height: 1.5;
-    margin-right: 4rem;
-    cursor: pointer;
-}
-
-.profile-stats li:last-of-type {
-    margin-right: 0;
-}
-
-.profile-bio {
-    font-size: 1.6rem;
-    font-weight: 400;
-    line-height: 1.5;
-    margin-top: 2.3rem;
-}
-
-.profile-real-name,
-.profile-stat-count,
-.profile-edit-btn {
-    font-weight: 600;
-}
-
-/* Gallery Section */
-
-.gallery {
-    display: flex;
-    flex-wrap: wrap;
+.flex-container {
     justify-content: space-between;
+    /* 요소들을 좌우에 정렬합니다. */
 }
 
-.gallery-item {
-    flex-basis: calc(33.33% - 10px);
-    margin-bottom: 15px;
-}
-
-/* 기존에 있던 css에서 추가함 */
-.gallery-item img {
-    width: 100%;
-    height: auto;
-}
-
-.gallery-item:hover .gallery-item-info,
-.gallery-item:focus .gallery-item-info {
+.flex-row {
     display: flex;
-    justify-content: center;
     align-items: center;
+    margin-left: 20%;
+    margin: auto;
+}
+
+.flex-row img {
+    margin-right: 10px;
+}
+
+
+/* recipe css 가져와서 밑으로 추가 함. 수정은 따로 위에 주석으로 적어두겠음 */
+.video-container {
+    position: relative;
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    height: 0;
+}
+
+.video-container .video {
     position: absolute;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
 }
 
-.gallery-item-info {
-    display: none;
-}
-
-.gallery-item-info li {
-    display: inline-block;
-    font-size: 1.7rem;
-    font-weight: 600;
-}
-
-.gallery-item-likes {
-    margin-right: 2.2rem;
-}
-
-.gallery-item-type {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 2.5rem;
-    text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
-}
-
-.fa-clone,
-.fa-comment {
-    transform: rotateY(180deg);
-}
-
-.gallery-image {
+.recipemv {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
-/* Loader */
+/* 뒤로가기 css 추가 */
+.backBtn {
+    width: 25px;
+    height: 25px;
+    position: relative;
 
-.loader {
-    width: 5rem;
-    height: 5rem;
-    border: 0.6rem solid #999;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    margin: 0 auto;
-    animation: loader 500ms linear infinite;
+
 }
 
-/* Media Query */
+/* 2128번째줄 input 태그 수정 */
+/* 2368 p태그 수정 */
+/* 여기 밑에 코드 필요없어서 지우고 게시물 작성 css 추가 하겠음 */
+h3 {
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+}
 
-@media screen and (max-width: 40rem) {
-    .profile {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 4rem 0;
-    }
+.boardwrite table {
+    width: 80%;
+    /* 기본 테이블 너비 설정 */
+    max-width: 600px;
+    /* 테이블의 최대 너비 설정 */
+    margin: auto;
+    /* 테이블을 화면 가운데에 위치시킴 */
+}
 
-    .profile::after {
-        display: none;
-    }
-
-    .profile-image,
-    .profile-user-settings,
-    .profile-bio,
-    .profile-stats {
-        float: none;
-        width: auto;
-    }
-
-    .profile-image img {
-        width: 7.7rem;
-    }
-
-    .profile-user-settings {
-        flex-basis: calc(100% - 10.7rem);
-        display: flex;
-        flex-wrap: wrap;
-        margin-top: 1rem;
-    }
-
-    .profile-user-name {
-        font-size: 2.2rem;
-    }
-
-    .profile-edit-btn {
-        order: 1;
-        padding: 0;
-        text-align: center;
-        margin-top: 1rem;
-    }
-
-    .profile-edit-btn {
-        margin-left: 0;
-    }
-
-    .profile-bio {
-        font-size: 1.4rem;
-        margin-top: 1.5rem;
-    }
-
-    .profile-edit-btn,
-    .profile-bio,
-    .profile-stats {
-        flex-basis: 100%;
-    }
-
-    .profile-stats {
-        order: 1;
-        margin-top: 1.5rem;
-    }
-
-    .profile-stats ul {
-        display: flex;
-        text-align: center;
-        padding: 1.2rem 0;
-        border-top: 0.1rem solid #dadada;
-        border-bottom: 0.1rem solid #dadada;
-    }
-
-    .profile-stats li {
-        font-size: 1.4rem;
-        flex: 1;
-        margin: 0;
-    }
-
-    .profile-stat-count {
-        display: block;
+/* 화면 크기가 600px 이하일 때 적용될 스타일 */
+@media screen and (max-width: 600px) {
+    .boardwrite table {
+        width: 100%;
+        /* 테이블의 너비를 100%로 설정 */
     }
 }
 
-/* Spinner Animation */
-
-@keyframes loader {
-    to {
-        transform: rotate(360deg);
+@media screen and (max-width: 480px) {
+    .boardwrite table {
+        width: 100%;
+        /* 여기에 모바일 기기에서 적용할 스타일을 작성하세요 */
     }
 }
 
-/*
+table {
+    box-shadow: 5px 4px 5px 0 lightgray;
+}
+
+#write {
+    width: 100px;
+    margin: auto;
+    align-items: center;
+    position: relative;
+    background-color: #ADE498;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    right: 8%;
+    
+}
+
+#write2 {
+    width: 100px;
+    margin: auto;
+    align-items: center;
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    left: 8%;
+}
+
+
+.tablecon {
+    font-size: medium;
+    text-align: left;
+    left: 3%;
+    
+}
+
+.boardwrite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
-  The following code will only run if your browser supports CSS grid.
+  .writetable {
+    max-width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    background-color: white;
+    border-collapse: collapse;
+    width: 100%;
+  }
   
-  Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling.
+  .writetable th {
+    background-color: #ADE498;
+    text-align: left;
+    height: 35px;
+  }
   
-  */
-
-@supports (display: grid) {
-    .profile {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        grid-template-rows: repeat(3, auto);
-        grid-column-gap: 3rem;
-        align-items: center;
-    }
-
-    .profile-image {
-        grid-row: 1 / -1;
-    }
-
-    .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-
-    .profile-image,
-    .profile-user-settings,
-    .profile-stats,
-    .profile-bio,
-    .gallery-item,
-    .gallery {
-        width: auto;
-        margin: 0;
-        flex-basis: calc(33.33% - 10px);
-        margin-bottom: 15px;
-    }
-
-    @media (max-width: 40rem) {
-        .profile {
-            grid-template-columns: auto 1fr;
-            grid-row-gap: 1.5rem;
-        }
-
-        .profile-image {
-            grid-row: 1 / 2;
-        }
-
-        .profile-user-settings {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            grid-gap: 1rem;
-        }
-
-        .profile-edit-btn,
-        .profile-stats,
-        .profile-bio {
-            grid-column: 1 / -1;
-        }
-
-        .profile-user-settings,
-        .profile-edit-btn,
-        .profile-settings-btn,
-        .profile-bio,
-        .profile-stats {
-            margin: 0;
-        }
-    }
-}
+  .writetable tr {
+    height: 35px;
+  }
+  
+  .writetable td {
+    padding: 10px;
+  }
+  
+  .writetable input[type="text"],
+  .writetable input[type="file"],
+  .writetable textarea {
+    width: 100%;
+    
+  }
+  
+  .writetable input[type="submit"] {
+    margin: 0;
+  }
+  
+  .button {
+    display: flex;
+    justify-content: center;
+  }
