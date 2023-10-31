@@ -19,4 +19,10 @@ wget -q https://github.com/IDEA-Research/GroundingDINO/releases/download/v0.1.0-
 cd ..
 echo "Grounding DINO check"
 
+pip install gdown
+
+gdown https://drive.google.com/uc?id=1826V4X63UFaN1ElTN17kSiwRqIMRiQ-c
+
+gdown https://drive.google.com/uc?id=14u8kZCZ6cEmDy9vnyG16QJbiKqsXyC0h
+
 python3 real_API.py
