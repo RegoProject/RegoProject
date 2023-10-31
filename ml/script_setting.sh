@@ -4,8 +4,6 @@ pip install torch \
 torchvision \
 timm
 
-git clone https://github.com/RegoProject/RegoProject.git
-cd RegoProject/ml
 git clone https://github.com/IDEA-Research/GroundingDINO.git
 cd GroundingDINO
 pip install -q -e .
