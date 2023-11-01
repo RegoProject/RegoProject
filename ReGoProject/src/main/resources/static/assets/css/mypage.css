@@ -2430,9 +2430,12 @@ Flexbox and floats are used as a fallback so that browsers which don't support g
 
 /* Base Styles */
 
+/* 헤더 사이즈가 이상해져서 폰트사이즈는 프로필단에만 줘야할것같아서 주석처리합니다.
 :root {
     font-size: 10px;
-}
+}*/
+
+
 
 *,
 *::before,
@@ -2441,7 +2444,8 @@ Flexbox and floats are used as a fallback so that browsers which don't support g
 }
 
 body {
-    font-family: "Open Sans", Arial, sans-serif;
+	font-family: Verdana, sans-serif;
+    /*font-family: "Open Sans", Arial, sans-serif; 윗줄 폰트가 맞는거 아닌가요?*/
     min-height: 100vh;
     background-color: #fafafa;
     color: #262626;
@@ -2452,10 +2456,11 @@ img {
     display: block;
 }
 
-.container {
+/* container가 템플릿 메인 css라서 겹치면 문제 생기기 때문데 myContainer로 바꿔줬습니다.*/
+.myContainer {
     max-width: 93.5rem;
     margin: 0 auto;
-    padding: 0 2rem;
+    /*padding: 0 2rem; 필요가없어서 지웠습니다.*/ 
 }
 
 .btn {
@@ -2491,6 +2496,7 @@ img {
     grid-template-rows: repeat(3, auto);
     grid-column-gap: 3rem;
     align-items: center;
+    font-size: 10px;
 }
 
 .profile::after {

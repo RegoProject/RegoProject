@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[26]:
-
-
 import io
 import torch
 from PIL import Image
@@ -20,6 +14,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import MultiLabelBinarizer
 import pandas as pd
 from torchvision.datasets import ImageFolder
+from groundingdino.util.inference import load_model, load_image, predict, annotate
+import os
 
 app = Flask(__name__)
 
@@ -69,14 +65,15 @@ mlb = MultiLabelBinarizer()
 multi_hot_matrix = mlb.fit_transform(matrix)
 
 """식재료 데이터 불러오기"""
-val_data_dir = '../ing_val4'
+# val_data_dir = '../ing_val4' 이건 원서 컴퓨터에서만
+val_data_dir = 'ing_val4'
 val_dataset = ImageFolder(val_data_dir)
 class_names = val_dataset.classes
 
 """success 모델 로딩"""
 # num_classes는 학습된 레시피의 개수
 success_model = resnet50(num_classes = len(cook_list))
-success_weights_path = "resnet50.pth"
+success_weights_path = "resnet50_final_dish.pth"
 success_model.load_state_dict(torch.load(success_weights_path, map_location=torch.device('cpu')))
 success_model.eval()
 
@@ -86,6 +83,13 @@ ing_model = resnet50(num_classes = 69)
 ing_weights_path = "ing_resnet50.pth"
 ing_model.load_state_dict(torch.load(ing_weights_path, map_location=torch.device('cpu')))
 ing_model.eval()
+
+"""GD 모델 로딩"""
+# 이 모델 성공하면 경로 바꿔줘야함
+CONFIG_PATH = os.path.join("GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py")
+WEIGHTS_PATH = os.path.join("weights", "groundingdino_swint_ogc.pth")
+GD_model = load_model(CONFIG_PATH, WEIGHTS_PATH)
+GD_model.eval()
 
 """완성 사진 성공 여부 출력해주는 API"""
 @app.route('/success', methods=['POST'])
@@ -139,15 +143,15 @@ def recommend():
         idxs = np.argsort(similarity_scores)[::-1]
 
         # 상위 5개 점수
-        top5_scores = similarity_scores[idxs][:5]
-        top5_idxs = idxs[:5] # 상위 5개 인덱스 번호
-        top5_recipe = [] # 상위 5개 매칭 레시피
+        top6_scores = similarity_scores[idxs][:5]
+        top6_idxs = idxs[:6] # 상위 5개 인덱스 번호
+        top6_recipe = [] # 상위 5개 매칭 레시피
 
-        for id in top5_idxs:
-            top5_recipe.append(cook_list[id])
+        for id in top6_idxs:
+            top6_recipe.append(cook_list[id])
         
         result = {
-            "recipe" : top5_recipe
+            "recipe" : top6_recipe
         }
         
         return flask.Response(
@@ -165,13 +169,52 @@ def predict_ing():
         js = json.load(s)
 
         image = Image.open(io.BytesIO(base64.b64decode(js['image'].split(',')[-1]))).convert('RGB')
-        input_data = transform(image).unsqueeze(0).to(device)
+        image.save('tmp_image.jpg') # 이미지 임시 저장
+        
+        TEXT_PROMPT = "Food, Fruits, Vegetable, Meat, Fish" # 변경
+        BOX_TRESHOLD = 0.25
+        TEXT_TRESHOLD = 0.25
+        image_source, image = load_image('tmp_image.jpg')
+        
+        # 모델 추론
+        boxes, logits, phrases = predict(
+            model=GD_model,
+            image=image, 
+            caption=TEXT_PROMPT, 
+            box_threshold=BOX_TRESHOLD, 
+            text_threshold=TEXT_TRESHOLD
+        )
+        
+        # 박스 좌표 리스케일링
+        origin_h, origin_w = image_source.shape[:2]
+        box_list = []
+        
+        for box in boxes.numpy():
+            cx = int(box[0] * origin_w)
+            cy = int(box[1] * origin_h)
+            w = int(box[2] * origin_w)
+            h = int(box[3] * origin_h)
+        
+            box_list.append([cx - w//2, cy - h//2, cx + w//2, cy + h//2])
+        
+        #이미지 크롭
+        crop_image_list = []
 
-        outputs = ing_model(input_data)
-        label_pre = outputs.topk(1, dim=-1)[1][0]
+        for idx, box in enumerate(box_list):
+            x1, y1, x2, y2 = box
+            cropped_image = image_source[y1:y2, x1:x2, :]
+            crop_img = Image.fromarray(cropped_image)
+            crop_image_list.append(crop_img)
+        
+        ret_cls = []
+        for idx, crop_image in enumerate(crop_image_list):
+            input_data = transform(image).unsqueeze(0).to(device)
+            outputs = ing_model(input_data)
+            label_pre = outputs.topk(1, dim=-1)[1][0]
+            ret_cls.append(class_names[label_pre])
         
         result = {
-            "result" : class_names[label_pre]
+            "result" : ret_cls
         }
         
         return flask.Response(
@@ -182,4 +225,3 @@ def predict_ing():
         
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-

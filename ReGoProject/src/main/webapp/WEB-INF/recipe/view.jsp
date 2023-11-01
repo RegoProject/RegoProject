@@ -243,6 +243,19 @@
             <p class="rcpstep">5. 접시에 비빔국수를 담고 삶은 달걀과 오이채, 깨를 올려주세요.</p>
           </div>
           <br><br><br>
+          <!-- 요리성공 api 관련 html 코드 추가 -->
+        <br><br>
+        <p class="foodcom">👨‍🍳 완성 사진을 올려보세요!</p>
+        <br>
+        <div>
+          <input type="file" name="file" id="file">
+          <br><br><br><br><br>
+        </div>
+        <div class="foodsub">
+            <button class="filesub">제출</button>
+        </div>
+        <br><br><br><br>
+         </div>
         </header>
         </div>
       </main>

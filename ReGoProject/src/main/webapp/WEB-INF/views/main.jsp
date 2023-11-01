@@ -392,6 +392,24 @@
       						
 					 
 					</div>
+
+
+
+				<div class="mt-4">
+					<h2 class="subtitle">조미료</h2>
+					<div class="mt-4">
+						<button @click="openTrdModal"
+							class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+							id="msgAdd">조미료추가</button>
+
+					</div>
+					<div class="mt-4">
+						<button id="cancleModal" @click="closeModal"
+							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+							>취소</button>
+					</div>
+				</div>
+			</div>
 					<div
 					  x-show="isSecModalOpen"
 					  x-transition:enter="transition ease-out duration-150"
@@ -416,7 +434,7 @@
 					        class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
 					        role="dialog"
 					        id="secModal"
-					      >
+					      style="height : 100%">
 					      
 					     
 					<header class="flex justify-end">
@@ -430,10 +448,19 @@
 							clip-rule="evenodd" fill-rule="evenodd"></path>
             </svg>
 				</button>
+				
+			</header>
+			<div class="mt-4 text-center">
 				<input id="ingreName2" name="ingreName"class="h-12 searchModal"
 							value="" style="left: 0;">
 							<ul id="searchList2" class=""></ul>
-			</header>
+				</div>
+			
+					<div class="mt-4">
+						<button id="cancleSecModal" @click="closeSecModal"
+							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+							>취소</button>
+					</div>
 					 </div>
 
 					
@@ -443,24 +470,6 @@
 						
 					 
 				</div>
-
-
-				<div class="mt-4">
-					<h2 class="subtitle">조미료</h2>
-					<div class="mt-4">
-						<button @click="openTrdModal"
-							class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-							id="msgAdd">조미료추가</button>
-
-					</div>
-					<div class="mt-4">
-						<button id="cancleModal" @click="closeModal"
-							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
-							>취소</button>
-					</div>
-				</div>
-			</div>
-
 
 	
 
@@ -775,6 +784,13 @@
     .catch(error => {
       console.error('에러 발생:', error);
     });
+  });
+  
+//'취소' 버튼 클릭 시 서버로 요청을 보내지 않도록 이벤트 핸들러를 추가
+  document.getElementById('cancleTrdModal').addEventListener('click', function(event) {
+    // 기본 동작 (서버로의 폼 제출)을 막음
+    event.preventDefault();
+    // 여기에 모달 창을 닫는 코드 등을 추가
   });
 </script>
 
