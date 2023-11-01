@@ -27,7 +27,7 @@ public class r_recipe {
 
     // 난이도
 	@Column
-    private int rcpLevel;
+    private String rcpLevel;
 
     // 동영상 URL
 	@Column
@@ -52,6 +52,9 @@ public class r_recipe {
     // 이미지 경로5
 	@Column
     private String rcpImg5;
+	
+	@Column
+	private String rcpTime;
 
 
 }

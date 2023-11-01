@@ -1,10 +1,15 @@
 package com.smhrd.controller;
 
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,9 +45,83 @@ public class RecipeController {
 	@Autowired
 	private r_recipeRepository repo;
 	
+	//레시피데이터 데이터베이스 추가하는코드
+	@RequestMapping("/recipeInsert")
+	public void recipeInsert() {
+		
+		 String csvFile = "C:/Users/user/Desktop/recipe.csv"; // 실제 CSV 파일 경로로 변경
+	     String csvFile2 = "C:/Users/user/Desktop/leveltime.csv";
+	     String line = "";
+	     String line2 = "";
+	        // CSV 파일의 열 구분자
+	        
+	        
+	        List<String[]> rows2 =new ArrayList<>();
+
+	        List<String[]> rows = new ArrayList<>();
+	        
+	        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFile2), "utf-8"))){
+
+	            while ((line2 = br.readLine()) != null) {
+	                String[] data = line2.split(",");
+	                
+	                // 빈 값이 아닌 경우에만 추가
+	                if (data.length > 0 && !data[0].isEmpty()) {
+	                    rows2.add(data);
+	                }
+	            }
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        
+	        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFile), "EUC-KR"))){
+
+	            while ((line = br.readLine()) != null) {
+	                String[] data = line.split("\",\"");
+	                rows.add(data);
+	            }
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }        
+	        rows.remove(0);
+	        rows2.remove(0);	
+	         
+	        for (int i=0 ; i<rows.size() ; i++) {
+	        	 r_recipe recipe =  new r_recipe();
+	        	 String[] recipeNameList = rows.get(i)[0].split(",");
+	             String[] recipeNameList2 =recipeNameList[0].split("]");
+	             String recipeName ="";
+	             if (recipeNameList2.length == 2) {
+	            	 recipeName =recipeNameList2[1].replace(" ", "");
+	             }else {
+	            	  recipeName =recipeNameList2[0].replace(" ", "");
+	             }
+	             String rcpImg= rows2.get(i)[0]+".jpg";
+	             String rcpLevel = rows2.get(i)[1];
+	             String rcpTime = rows2.get(i)[2];	            
+	             String recipeContent = rows.get(i)[2].replaceAll("[\\[\\].]", "");
+	             recipe.setRcpIdx(i+1);
+	             recipe.setRcpName(recipeName);
+	             recipe.setRcpContent(recipeContent);
+	             recipe.setRcpImg1(rcpImg);
+	             recipe.setRcpLevel(rcpLevel);
+	             recipe.setRcpTime(rcpTime);
+	             
+	             repo.save(recipe);           
+	             
+	            
+	                     
+	        }
+	}
+	
 	@RequestMapping("/goRecList")
 	public String goList(Model model) {
 		//List<r_recipe> list = repo.findAll();
+				
+		
 		List<r_recipe> list=  repo.findTop10ByOrderByRcpIdxAsc();
 		
 		
