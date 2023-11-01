@@ -3,7 +3,7 @@
 
 
  body {
- /*이거하면 양옆이 고정됨*/
+ /*이거하면 양옆이 고정됨 다영언니 요청으로 일단 살려놨습니다.*/
     display: flex;
     align-items: center;
     justify-content: center;

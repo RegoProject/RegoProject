@@ -19,6 +19,10 @@ public interface r_recipeRepository extends JpaRepository<r_recipe, Integer> {
 	public List<r_recipe> findTop10ByOrderByRcpIdxAsc();
 	public List<r_recipe> findByRcpNameAndRcpContentAndRcpImg1AndRcpLevelAndRcpTime(
 		        String rcpName, String rcpContent, String rcpImg1, String rcpLevel, String rcpTime);
+	
+	
+	// 레시피 상세뷰 dao
+	public r_recipe findByRcpIdx(int rcpIdx);
 		
 }
 

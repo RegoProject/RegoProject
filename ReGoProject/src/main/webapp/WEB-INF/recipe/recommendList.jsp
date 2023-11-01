@@ -197,7 +197,8 @@
 
 
             <br><br>
-            <!-- 이부분 반복 -->
+            <!-- 추천 api값 받아와서 이부분 반복 -->
+            <!-- 쿼리스트링으로 인덱스 보내주기만 하면됨-->
             <div class="addItem4" style="display:inline-block">
               <a href="/goRecView">
                 <img class="recipeImg" src="/assets/img/dduk.jpg">

@@ -9,33 +9,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smhrd.entity.r_ingre_join_data;
 import com.smhrd.entity.r_member;
-
+import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.entity.r_recipe;
 import com.smhrd.repository.r_recipeRepository;
+import com.smhrd.service.r_recipeService;
 
 
 
@@ -44,6 +41,9 @@ public class RecipeController {
 	
 	@Autowired
 	private r_recipeRepository repo;
+	
+	@Autowired
+	private r_recipeService recService;
 	
 	//레시피데이터 데이터베이스 추가하는코드
 	@RequestMapping("/recipeInsert")
@@ -139,8 +139,40 @@ public class RecipeController {
 	
 	
 	@RequestMapping("/goRecView")
-	public String goView() {
+	public String goView(@RequestParam("rcpIdx") int rcpIdx , Model model) throws JsonProcessingException {
 		// 레시피 상세뷰
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		
+		r_recipe result = repo.findByRcpIdx(rcpIdx);
+
+		// 1. 레시피인덱스로 r_recipe_ingredients , r_ingredients 조인한 재료정보(재료정보) 리스트에 담아주기
+		
+		List<r_ingre_join_data> ingreResult = recService.selectRecipeIngre(rcpIdx);
+		List<String> ingredientsList = new ArrayList<>();
+		for (r_ingre_join_data ingredient : ingreResult) {
+		    ingredientsList.add(ingredient.getIngreName());
+		}
+		String ingreJson = objectMapper.writeValueAsString(ingredientsList);
+
+		
+		
+		// 2. 레시피인덱스로 r_recipe_msg , r_msg 조인한 조미료정보(조미료이름)
+		List<String> msgList = new ArrayList<>();
+		List<r_msg_join_data> msgResult = recService.selectRecipeMsg(rcpIdx);
+		for (r_msg_join_data msg : msgResult) {
+			msgList.add(msg.getMsgName());
+		}
+		String msgJson = objectMapper.writeValueAsString(msgList);
+		
+		// JSON 형식으로 담아주기 -> 재료 : 값 / 조미료 : 값 
+		
+		
+		// result는 그대로 model로 보내도될듯 
+		model.addAttribute("recipe", result);
+		model.addAttribute("msgJson",msgJson);
+		model.addAttribute("ingreJson",ingreJson);
+		
 		
 		
 		return "recipe/view";

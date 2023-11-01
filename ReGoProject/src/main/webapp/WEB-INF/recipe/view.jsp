@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+
+
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
 <head>
@@ -213,10 +216,10 @@
               </div>
               <br><br>
               <div class="rcpcontent">
-                <h2 class="rcptitle">김치 비빔 국수</h2>
+                <h2 class="rcptitle">${recipe.rcpName}</h2>
                 <br>
-                <p class="rcpd">난이도  :  쉬움</p>
-                <p class="rcpt">소요시간  :  25분</p>
+                <p class="rcpd">${recipe.rcpLevel }</p>
+                <p class="rcpt">${recipe.rcpTime }</p>
               </div>
               <br>
               <div class="rcpm flex-container">
@@ -225,22 +228,34 @@
               </div>
               <br>
               <div class="rcping"></div>
-              <p class="basic">신김치, 중면, 오이, 깨, 고추장, 식초, 올리고당, 간장, 설탕, 맛술</p>
+              <!-- 슬라이싱 작업만 남았어용 -->
+              <p class="basic"><c:out value="${ingreJson}" /></p>
+              
+              <br>
+              <div class="rcpm flex-container">
+                <h5 class="rcpmt">조미료</h5>
+                <button><img src="/assets/img/caution.png" class="smimg"></button>
+              </div>
+              <br>
+              <div class="rcping"></div>
+              <!-- 슬라이싱 작업만 남았어용 -->
+              <p class="basic"><c:out value="${msgJson}" /></p>
+              
             </div>
+            
+            
+            
             <br><br>
             <div class="rcpm flex-container">
               <h5 class="rcpmt">레시피</h5>
             </div>
+
             <br>
             <div class="rcping"></div>
-            <p class="rcpstep">1. 오이는 가늘게 채 썰고 김치는 굵게 다져주세요.</p>
-            <p class="rcpstep">2. 볼에 다진 김치와 양념재료를 넣고 섞어주세요.</p>
-            <p class="rcpstep">3. 끓는 물에 중면을 펼쳐 넣고 면끼리 달라붓지 않도록 저어주세요.
-              물에 끓어오르면 찬물을 2~3회 반복해서 부어 국수를 삶아주세요. 흐르는 찬물에 중면을
-              여러 번 씻어 전분기를 없애고 채반에 밭쳐 물기를 빼주세요.
-            </p>
-            <p class="rcpstep">4. 양념장에 삶은 국수를 넣고 버무려주세요.</p>
-            <p class="rcpstep">5. 접시에 비빔국수를 담고 삶은 달걀과 오이채, 깨를 올려주세요.</p>
+            <!-- 슬라이싱 작업만 남았어용 -->
+            <!-- 조리순서 반복문 어떤것 기준으로 순서를 슬라이싱 할지 모르겠음-->
+            <p class="rcpstep">${recipe.rcpContent }</p>
+
           </div>
           <br><br><br>
           <!-- 요리성공 api 관련 html 코드 추가 -->

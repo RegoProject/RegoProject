@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.smhrd.mapper.r_recipeMapper">
+
+<select id="selectRecipeIngre" parameterType="com.smhrd.entity.r_recipe" resultType="com.smhrd.entity.r_ingre_join_data">
+
+ <![CDATA[
+			   SELECT ri.ingreName
+				FROM r_recipe_ingredients rri
+				JOIN r_ingredients ri ON rri.IngreIdx = ri.ingreIdx
+				WHERE rri.rcpIdx = #{rcpIdx};
+    ]]>
+
+</select>
+
+
+
+<select id="selectRecipeMsg" parameterType="com.smhrd.entity.r_recipe" resultType="com.smhrd.entity.r_msg_join_data">
+
+ <![CDATA[
+				SELECT rm.msgName
+				FROM r_recipe_msg rrm
+				JOIN r_msg rm ON rrm.msgIdx = rm.msgIdx
+				WHERE rrm.rcpIdx = #{rcpIdx};
+    ]]>
+
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>
