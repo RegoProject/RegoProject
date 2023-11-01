@@ -10,9 +10,8 @@ import lombok.Data;
 
 // 마이조미료 테이블
 
-
-@Entity 
 @Data
+@Entity 
 public class r_my_msg {
 	
 	// 냉장고 번호 
@@ -30,7 +29,7 @@ public class r_my_msg {
 
     // 조미료 보유량
 	@Column
-    private float msgAmount;
+    private int msgAmount;
 
     // 조미료 등록일
 	@Column
