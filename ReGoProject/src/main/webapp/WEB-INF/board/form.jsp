@@ -200,7 +200,7 @@
             <h3>게시글 작성</h3>
             <br><br><br>
             <div class="boardwrite">
-              <form action="#">
+              <form action="/boardWrite"  method="POST" enctype="multipart/form-data">
                 <table align="center" width="200" class="writetable">
                   <tr height="35">
                     <th bgcolor="#ADE498" align="left" colspan="2"></th>
@@ -211,7 +211,7 @@
                     <td align="left"><input type="hidden" maxlength="15"></td>
                   </tr>
                   <tr align="left" bgcolor="white" height="35">
-                    <td><input type="file" maxlength="15"></td>
+                    <td><input type="file" maxlength="15" name="boardImg"></td>
                     <td align="left"></td>
                   </tr>
                   <tr align="left" bgcolor="white" height="35">
@@ -225,7 +225,7 @@
                   </tr>
                   <tr>
                     <td colspan="2" align="center" bgcolor="white">
-                      <textarea cols="56" rows="10"></textarea>
+                      <textarea cols="56" rows="10" name="boardContent"></textarea>
                     </td>
                   </tr>
                   <tr align="left" bgcolor="white" height="35">

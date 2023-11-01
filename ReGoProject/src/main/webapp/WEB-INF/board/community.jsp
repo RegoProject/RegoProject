@@ -206,8 +206,11 @@
           <input class="search" type="text" placeholder="검색어 입력" name="search">
           <button>
             <img src="./assets/img/search_black.png" class="searchimg">
-          </button>
+          </button>         
           </form>
+          <button>
+            <a href="/goBoardForm"><img src="./assets/img/more.png" class="writeimg"></a>
+          </button>
           <br>
           <!-- 커뮤니티 피드 -->
           <section class="container" id="bbc">
