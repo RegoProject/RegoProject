@@ -64,13 +64,25 @@
 										 )
 				VALUES					(	#{custId}
 											, #{msgIdx} 
-											, 1
+											, #{msgAmount}
 										 )
     ]]>
 </insert>
 
 
-<!-- 유저 r_my_msg 테이블에 조미료 정보가 있을경우 update -->
+<!-- 유저 r_my_msg 테이블에 조미료 정보가 있을경우 update 1->0 -->
+<update id="updateMyMsgZero" parameterType="com.smhrd.entity.r_my_msg">
+    <![CDATA[
+			    UPDATE r_my_msg
+			       SET msgAmount = 0
+			     WHERE custId = #{custId}
+			       AND msgIdx = #{msgIdx} 
+    ]]>
+</update>
+
+
+
+<!-- 유저 r_my_msg 테이블에 조미료 정보가 있을경우 update 0->1 -->
 <update id="updateMyMsg" parameterType="com.smhrd.entity.r_my_msg">
     <![CDATA[
 			    UPDATE r_my_msg
@@ -79,5 +91,16 @@
 			       AND msgIdx = #{msgIdx} 
     ]]>
 </update>
+
+<!-- 조미료 업데이트 null방지 -->
+<update id="updateAllMsgZero" parameterType="com.smhrd.entity.r_my_msg">
+    <![CDATA[
+			UPDATE r_my_msg
+			   SET msgAmount = 0
+			 WHERE custId = #{custId} 
+			   AND msgAmount = 1
+    ]]>
+</update>
+
 
 </mapper>

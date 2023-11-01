@@ -52,16 +52,28 @@ public class r_memberService {
 
 	}
 	// 조미료 추가 dao
-	public void insertMyMsg(String custId, Integer msgIdx){
-		memMapper.insertMyMsg(custId,msgIdx);
+	public void insertMyMsg(String custId, Integer msgIdx , Integer msgAmount){
+		memMapper.insertMyMsg(custId,msgIdx,msgAmount);
 
 	}
 
-	// 조미료 업데이트 dao
-	public void updateMyMsg(r_my_msg existingMsg) {
-		
+	// 조미료 업데이트 dao 1->0
+	public void updateMyMsgZero(String custId, Integer msgIdx) {
+		memMapper.updateMyMsgZero(custId,msgIdx);
 		
 	}
+	
+	// 조미료 업데이트 dao 0->1
+	public void updateMyMsg(String custId, Integer msgIdx, Integer msgAmount) {
+		memMapper.updateMyMsg(custId,msgIdx,msgAmount);
+		
+	}
+	
+	public void updateAllMsgZero(String custId) {
+		memMapper.updateAllMsgZero(custId);
+		
+	}
+	
 	
 
 	

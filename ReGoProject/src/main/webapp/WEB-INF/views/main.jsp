@@ -311,7 +311,7 @@
 								<p calss="font">레시피 추천</p>
 							</div>
 						</a> <a href="#">
-							<div @click="openModal" class="addItem"
+							<div @click="openModal" class="addItem" id="addItemBtn"
 								style="display: inline-block">
 								<div>
 									<img id="ss" src="/assets/img/add-button.png">
@@ -504,6 +504,7 @@
 				x-transition:leave-end="opacity-0 transform translate-y-1/2"
 				class="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
 				<!-- 세 번째 모달 내용 -->
+				
 				<div x-show="isTrdModalOpen"
 					x-transition:enter="transition ease-out duration-150"
 					x-transition:enter-start="opacity-0 transform translate-y-1/2"
@@ -515,8 +516,8 @@
 					class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
 					role="dialog" id="trdModal">
 					<!-- 조미료 추가(trdModal) 버튼 -->
-
-			<form action="/addMySelectedMsg">
+					
+		
 					<div class="pl-5 checkContainer text-center">
 					<h2>조미료 추가입니다.</h2>
 						<ul class="ks-cboxtags">
@@ -558,7 +559,12 @@
 					<button id="msgSubmit" type="submit"
 						class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
 						적용</button>
-				</form>
+						<div id="loadingModal" class="addModal">
+					    <div class="modal-content">
+					        <p>잠시만 기다려 주세요...</p>
+					    </div>
+					</div>
+				
 					<button id="cancleTrdModal" @click="closeTrdModal"
 							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray "
 						>취소</button>
@@ -583,6 +589,7 @@
 
 
 <script type="text/javaScript">
+
 
 	$(document).ready(function() {
 		const inputElement = $('#ingreName'); // 모달창 내의 input 요소 선택
@@ -766,32 +773,108 @@
 </script>
 
 <script type="text/javaScript">
-  // "적용" 버튼 클릭 시 서버로 선택한 조미료 전송
-  document.getElementById('msgSubmit').addEventListener('click', function () {
-    const selectedSpices = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(checkbox => checkbox.value);
-    
-    // AJAX 또는 Fetch를 사용하여 서버로 선택한 조미료를 전송
-    fetch('/addMyMsg', {
-      method: 'POST',
-      body: JSON.stringify(selectedSpices),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      // 서버로부터 응답 처리
-    })
-    .catch(error => {
-      console.error('에러 발생:', error);
+//모달 표시
+function showLoadingModal() {
+    document.getElementById("loadingModal").style.display = "block";
+}
+
+// 모달 숨김
+function hideLoadingModal() {
+    document.getElementById("loadingModal").style.display = "none";
+}
+
+var userMsgInfo;
+
+//페이지 로드시마다 조미료 정보 가져오는 함수
+function fetchUserMsgInfo() {
+ // Ajax 요청을 보냅니다.
+ $.ajax({
+     type: "GET",
+     url: "/selectMyAllMsg",
+     success: function (data) {
+         // 요청이 완료되면 사용자 조미료 정보를 userMsgInfo에 저장합니다.
+         userMsgInfo = data;
+         console.log(userMsgInfo);
+         initializeCheckboxes(); // 페이지 로드 후 체크박스 초기화
+     },
+     error: function (err) {
+         console.error("에러 발생: " + err);
+     }
+ });
+}
+
+//페이지 로드 시 조미료 정보 가져오기
+fetchUserMsgInfo();
+
+//적용 버튼을 클릭할 때
+$("#msgSubmit").click(function () {
+	//적용버튼 비활성화
+	$("#msgSubmit").prop("disabled", true);
+	
+	showLoadingModal();
+	
+	
+ var selectedMsgs = [];
+
+ // 모든 체크박스를 반복하면서 선택된 항목을 확인합니다.
+ $('input[name="msgIdx"]').each(function () {
+     var msgIdx = $(this).val();
+     var msgAmount = $(this).is(":checked") ? 1 : 0;
+     selectedMsgs.push({ msgIdx: msgIdx, msgAmount: msgAmount });
+ });
+
+ // 서버로 선택된 조미료 정보를 전송합니다.
+ $.ajax({
+     type: "POST",
+     url: "/addMySelectedMsg", // 적절한 엔드포인트를 지정하세요.
+     data: JSON.stringify(selectedMsgs), // 선택된 조미료 정보를 JSON 형식으로 전송합니다.
+     contentType: "application/json; charset=utf-8",
+     success: function (response) {
+         console.log("성공했나요");
+         // 적용버튼 다시 활성화
+         $("#msgSubmit").prop("disabled", false);
+         hideLoadingModal();
+         fetchUserMsgInfo(); // 서버 응답 후 체크박스 초기화
+         location.reload();
+     },
+     error: function (err) {
+         console.error("에러 발생: " + err);
+      // 에러 발생 시도 "적용" 버튼을 다시 활성화
+         $("#msgSubmit").prop("disabled", false);
+         hideLoadingModal();
+     }
+ });
+});
+
+//체크박스를 업데이트하는 함수
+function initializeCheckboxes() {
+    // 각 Checkbox를 반복합니다.
+    $('input[name="msgIdx"]').each(function () {
+        var msgIdx = $(this).val(); // Checkbox의 value를 가져옵니다.
+        var msgAmount = getMsgAmountById(msgIdx);
+
+        // msgAmount가 1이면 Checkbox를 체크합니다.
+        if (msgAmount === 1) {
+            $(this).prop('checked', true);
+        }
     });
-  });
-  
-//'취소' 버튼 클릭 시 서버로 요청을 보내지 않도록 이벤트 핸들러를 추가
-  document.getElementById('cancleTrdModal').addEventListener('click', function(event) {
-    // 기본 동작 (서버로의 폼 제출)을 막음
-    event.preventDefault();
-    // 여기에 모달 창을 닫는 코드 등을 추가
-  });
+}
+
+//msgIdx에 해당하는 msgAmount를 찾는 함수
+function getMsgAmountById(msgIdx) {
+    if (userMsgInfo) {
+        for (var i = 0; i < userMsgInfo.length; i++) {
+            if (userMsgInfo[i].msgIdx == msgIdx) {
+                return userMsgInfo[i].msgAmount;
+            }
+        }
+    }
+    // 해당하는 데이터를 찾지 못하면 기본값 0으로 처리합니다.
+    return 0;
+}
+
+
+
 </script>
 
 

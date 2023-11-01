@@ -6,16 +6,19 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smhrd.entity.r_ingre_join_data;
 import com.smhrd.entity.r_member;
 import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.entity.r_my_msg;
+import com.smhrd.repository.r_my_msgRepository;
 import com.smhrd.service.r_memberService;
 
 @Controller
@@ -24,6 +27,9 @@ public class MyRefController {
 	
 	@Autowired
 	r_memberService memService;
+	
+	@Autowired
+	private r_my_msgRepository myMsgRepo;
 	
 	
 	@RequestMapping("/goMyIngreList")
@@ -97,44 +103,58 @@ public class MyRefController {
 	}
 	
 	
-	// 카테고리 내에서 여러개 추가하는용
-	@RequestMapping("/addMySelectedMsg")
-	public String addMyMsg(r_member member, HttpSession session, @RequestParam("msgIdx") List<Integer> msgIdxList) {
-	    System.out.println(msgIdxList);
-	    member = (r_member) session.getAttribute("user");
-	    
-	    // 1행 인서트 되는건 확인하고 다중 추가용 만드는중
-	    // 다중행 추가되는거 확인함
-	    // 기존 보유조미료 있을때 어떻게 처리되는지 해봐야함
-	    
-	    for (Integer msgIdx : msgIdxList) {
-        // r_my_msg 테이블에서 해당 사용자와 msgIdx로 조회
-        r_my_msg existingMsg = memService.selectMyMsg(member.getCustId(), msgIdx);
+	// 컨트롤러에서 클라이언트로부터 JSON 형식으로 전송된 데이터를 받을 수 있는 방법은 다음과 같습니다.
+	@RequestMapping(value = "/addMySelectedMsg", method = RequestMethod.POST)
+	public String addMyMsg(@RequestBody List<r_my_msg> selectedMsgs, r_member member, HttpSession session) {
+	    // 사용자 정보를 가져오는 코드 (session에서 또는 필요한 방식으로)
+		  member = (r_member) session.getAttribute("user");
 
-        if (existingMsg != null) {
-            // 이미존재하면 업데이트 처리 -> 이거 무조건 오류남 사전 쿼리 확인하고 값 어떻게 들어갈지 생각해서 고칠것
-            memService.updateMyMsg(existingMsg);
-        } else {
-            
-            memService.insertMyMsg(member.getCustId(), msgIdx);
-        }
-    }
+	    if (member == null) {
+	        // 사용자 정보가 없으면 처리할 수 없음
+	        return "redirect:/login"; // 또는 다른 적절한 처리
+	    }
+
+	    // 클라이언트로부터 전송된 조미료 정보를 반복 처리
+	    for (r_my_msg selectedMsg : selectedMsgs) {
+	        int msgIdx = selectedMsg.getMsgIdx();
+	        int msgAmount = selectedMsg.getMsgAmount();
+
+	        r_my_msg existingMsg = memService.selectMyMsg(member.getCustId(), msgIdx);
+
+	        if (existingMsg != null) {
+	            // 이미 존재하는 조미료인 경우
+	            memService.updateMyMsg(member.getCustId(), msgIdx, msgAmount);
+	        } else {
+	            // 조미료가 DB에 없는 경우, 새로 추가
+	            memService.insertMyMsg(member.getCustId(), msgIdx, msgAmount);
+	        }
+	    }
+
 	    return "views/main";
-	    
-	    
-	    
-	  
+	}
+
+	
+	
+
 
 	    
-	    
-	    
-	}
 	
 	
 	@RequestMapping("/addMyIngre")
 	public String addMyIngre() {
 		
 		return "";
+		
+	}
+	
+	@RequestMapping("/selectMyAllMsg")
+	@ResponseBody
+	public List<r_my_msg> selectMyAllMsg(r_member member , HttpSession session) {
+		member = (r_member) session.getAttribute("user");
+		List<r_my_msg> result = myMsgRepo.findByCustId(member.getCustId());
+		
+		
+		return result;
 		
 	}
 	

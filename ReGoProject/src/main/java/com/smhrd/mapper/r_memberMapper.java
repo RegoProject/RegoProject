@@ -21,15 +21,22 @@ public interface r_memberMapper {
 	public List<r_ingre_join_data> searchMyIngre(String custId,String ingreName);
 	
 	// 조미료 추가 dao
-	public void insertMyMsg(String custId, Integer msgIdx);
+	public void insertMyMsg(String custId, Integer msgIdx ,Integer msgAmount);
 
 	// 조미료 개별조회 dao
 	public r_my_msg selectMyMsg(String custId, int msgIdx);
 	
-	// 조미료 업데이트 dao
-	public void updateMyMsg(r_my_msg existingMsg);
+	// 조미료 업데이트 dao 1->0
+	public void updateMyMsgZero(String custId, Integer msgIdx );
 	
-
+	// 조미료 업데이트 dao 0->1
+	public void updateMyMsg(String custId, Integer msgIdx, Integer msgAmount);
+	
+	
+	// 조미료 업데이트 dao 1->0
+	public void updateAllMsgZero(String custId);
+	
+	
 	
 	
 }
