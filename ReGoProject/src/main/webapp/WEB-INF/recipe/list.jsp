@@ -241,10 +241,10 @@
                 	<br>
                 	<div class="flex-row display:inline-block;">
                   		<img src="/assets/img/star_gray.png" class="dimg">
-                 	 	<p class="Difficulty">난이도</p>
+                 	 	<p class="Difficulty">${recipe.rcpLevel }</p>
                   		<div class="flex-row display:inline-block;">
                     		<img src="/assets/img/clock_gray.png" class="timg">
-                    		<p class="time">시간</p>
+                    		<p class="time">${recipe.rcpTime }</p>
                  		</div>
                		</div>
                	</div>
