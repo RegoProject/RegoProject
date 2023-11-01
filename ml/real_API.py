@@ -14,7 +14,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import MultiLabelBinarizer
 import pandas as pd
 from torchvision.datasets import ImageFolder
-from groundingdino.util.inference import load_model, load_image, predict, annotate
+from groundingdino.util.inference import load_model, load_image, annotate
+from groundingdino.util.inference import predict as gd_predict
 import os
 
 app = Flask(__name__)
@@ -177,12 +178,13 @@ def predict_ing():
         image_source, image = load_image('tmp_image.jpg')
         
         # 모델 추론
-        boxes, logits, phrases = predict(
+        boxes, logits, phrases = gd_predict(
             model=GD_model,
             image=image, 
             caption=TEXT_PROMPT, 
             box_threshold=BOX_TRESHOLD, 
-            text_threshold=TEXT_TRESHOLD
+            text_threshold=TEXT_TRESHOLD,
+            device='cpu'
         )
         
         # 박스 좌표 리스케일링
@@ -208,7 +210,7 @@ def predict_ing():
         
         ret_cls = []
         for idx, crop_image in enumerate(crop_image_list):
-            input_data = transform(image).unsqueeze(0).to(device)
+            input_data = transform(crop_image).unsqueeze(0).to(device)
             outputs = ing_model(input_data)
             label_pre = outputs.topk(1, dim=-1)[1][0]
             ret_cls.append(class_names[label_pre])

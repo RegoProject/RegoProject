@@ -14,7 +14,7 @@ main {
 
 h1 {
     font-size: 2em;
-    margin: .67em
+    margin: .67em 0
 }
 
 hr {
@@ -2468,6 +2468,12 @@ p {
     color: #111;
 }
 
+.content {
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
 
 .content img {
     max-width: 100%;

@@ -1,6 +1,7 @@
 package com.smhrd.controller;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -56,8 +59,10 @@ public class BoardController {
 		return "board/addList";
 	}
 	
+	//게시글 작성페이지
 	@RequestMapping("/goBoardForm")
 	public String goForm() {
+		
 		
 		return "board/form";
 	}
@@ -281,6 +286,47 @@ public class BoardController {
 		
 		
 		return "board/community";	
+	}
+	@RequestMapping("/boardWrite")
+	public String bardWrite(@RequestParam("boardImg") MultipartFile file , @RequestParam("boardContent") String boardContent ,HttpSession session ) {
+		
+		r_member member= (r_member)session.getAttribute("user");
+		String custId=  member.getCustId();
+		r_board board = new r_board();
+		board.setCustId(custId);
+		board.setRbLikes(0);
+		board.setRbViews(0);
+		board.setRbStatus("A");
+		board.setRbContent(boardContent);
+		String uuid =  UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
+		System.out.println(uuid);
+		
+		// 2. uuid + file 이름, 저장할 이름을 생성
+		String filename = uuid + "_" + file.getOriginalFilename();
+		System.out.println(filename);
+
+		// 3. 어디에 저장할지 
+		
+		String savePath = "/home/ubuntu/uploadedImage";
+		try {
+			
+			//File f = new File(savePath + "/" + filename);
+			//file.transferTo(f);
+			board.setRbImg(filename);			
+			System.out.println(filename);
+			repo.save(board);
+			
+			
+			
+			System.out.println("성공");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return "redirect:/goCommunity";
 	}
 		
 		
