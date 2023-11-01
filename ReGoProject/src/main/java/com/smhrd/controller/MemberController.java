@@ -1,9 +1,14 @@
 package com.smhrd.controller;
 
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.entity.r_member;
+import com.smhrd.entity.r_recipe;
 import com.smhrd.repository.r_memberrRepository;
+import com.smhrd.repository.r_recipeRepository;
 
 @Controller
 public class MemberController {
@@ -27,10 +34,13 @@ public class MemberController {
 	@Autowired
 	private r_memberrRepository repo;
 	r_member member = new r_member();
+	@Autowired
+	private r_recipeRepository repo1;
 
 	// goMain 이라는 요청을 받으면 main.jsp
 	@RequestMapping("/goMain")
-	public String goMain() {
+	public String goMain() { 
+		
 
 		return "views/main";
 	}

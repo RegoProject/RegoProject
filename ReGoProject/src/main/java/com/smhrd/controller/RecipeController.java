@@ -1,17 +1,30 @@
 package com.smhrd.controller;
 
+
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smhrd.entity.r_member;
@@ -85,6 +98,35 @@ public class RecipeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+		
+	}
+	@RequestMapping("/recSuccess")
+	public void recSuccess(@RequestParam("file") MultipartFile file ) {
+		Map<String, Object> map = new HashMap<>();
+		RestTemplate restTemplate  = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		try {
+			byte[] fileBytes = file.getBytes();	        
+		    byte[] encodedBytes = Base64.encodeBase64(fileBytes);
+		    String encodedFile = new String(encodedBytes);
+		    String recipe = "김치볶음밥";
+			map.put("label", recipe );
+			map.put("image", encodedFile);
+			
+			HttpEntity<Map<String,Object>> requestEntity = new HttpEntity<>(map, headers);
+			String flaskUrl = "http://172.30.1.23:5000/upload"; 
+			ResponseEntity<String> responseEntity = restTemplate.postForEntity(flaskUrl, requestEntity, String.class);
+	        //ResponseEntity<String> response 
+	        //     = restTemplate.exchange(flaskUrl, HttpMethod.POST,requestEntity,String.class);
+		    
+			
+		} catch (Exception e) {
+			
+		}	
+		
+		 
+	     
 		
 	}
 	
