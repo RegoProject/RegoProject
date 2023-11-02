@@ -379,9 +379,10 @@
 
 				<!-- 사진으로 추가하는 태그 -->
 				<div>
-					<input type="file" id="addIngreFile"
+					<input type="file" id="addIngreFile" style="display: none;">
+					<button id="uploadButton"
 						class="h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-						style="box-sizing: border-box; left: 0;">
+						style="box-sizing: border-box; left: 0;">사진 업로드</button>
 
 				
 				<!-- 글자로 추가하는 태그 -->
@@ -586,297 +587,51 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/assets/js/msgModal.js"></script> <!-- msg 모달 js -->
+<script src="/assets/js/searchModal.js"></script> <!-- 재료검색 모달 js -->
 
 
 <script type="text/javaScript">
+$(document).ready(function() {
+    // 파일 선택 시 이벤트
+    $('#addIngreFile').change(function() {
+      // 선택한 파일 가져오기
+      var selectedFile = this.files[0];
 
+      // FileReader 객체를 사용하여 파일을 읽고 Base64로 인코딩
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        var base64data = event.target.result;
 
-	$(document).ready(function() {
-		const inputElement = $('#ingreName'); // 모달창 내의 input 요소 선택
-		const searchList = $('#searchList');
+        // API로 데이터 전송
+        $.ajax({
+          url: "http://15.165.250.150:5000/ing_predict",
+          type: "POST",
+          data: JSON.stringify({ fileData: base64data }),
+          contentType: "application/json",
+          success: function(response) {
+            // 성공 시 처리
+            console.log(response);
+          },
+          error: function(xhr, status, error) {
+            // 오류 시 처리
+            console.log(error);
+          }
+        });
+      };
 
-		inputElement.on('input', function() {
-			const searchTerm = inputElement.val();
-			console.log(searchTerm);
-			if (searchTerm.trim() !== '') {
-				$.ajax({
-					url : '/searchMyIngre',
-					method : 'POST',
-					data : {
-						ingreName : searchTerm,
-						custId : '${user.custId}'
-					},
-					success : function(results) {
-						updateSearchResults(results);
-						console.log(results)
-					},
-					error : function(xhr, status, error) {
-						console.error('AJAX 오류:', error);
-					}
-				});
-			} else {
-				searchList.empty();
-
-			}
-		});
-		
-		
-		
-		function updateSearchResults(results) {
-		    const searchList = $('#searchList');
-		    searchList.empty();
-		    console.log(results);
-
-		    // 결과의 유형을 확인합니다.
-		    if (results.type === 'searchIngre') {
-		        // searchIngre 유형일 경우
-		        results.data.forEach(function(result) {
-		            const ingreName = result.ingreName;
-		            const ingreIdx = result.ingreIdx;
-		            const ingreImg = result.ingreImg;
-
-		            const listItem = $('<li>').text(ingreName);
-		            const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
-
-		            addButton.on('click', function() {
-		                // 추가 버튼을 누를 때 처리를 추가합니다.
-		                // 예: 클릭 이벤트 핸들러
-		            });
-
-		            listItem.append(addButton);
-		            searchList.append(listItem);
-		        });
-		    } else if (results.type === 'searchMyIngre') {
-		        // searchMyIngre 유형일 경우
-		        for (const ingreName in results) {
-		            if (ingreName !== 'type') {
-		                const ingreAmount = results[ingreName];
-
-		                const listItem = $('<li>').text(ingreName + ' ');
-
-		                if (ingreAmount === '1') {
-		                    const textSpan = $('<span>').text(' 보유중');
-		                    textSpan.css('color', 'red');
-		                    listItem.append(textSpan);
-		                } else {
-		                    const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
-
-		                    addButton.on('click', function() {
-		                        // 추가 버튼을 누를 때 처리를 추가합니다.
-		                        // 예: 클릭 이벤트 핸들러
-		                    });
-
-		                    listItem.append(addButton);
-		                }
-
-		                listItem.addClass('text-center');
-		                searchList.append(listItem);
-		            }
-		        }
-		    }
-		}
-
-	});
-	
-	
-	
-	
-	$(document).ready(function() {
-		const inputElement = $('#ingreName2'); // 모달창 내의 input 요소 선택
-		const searchList = $('#searchList2');
-
-		inputElement.on('input', function() {
-			const searchTerm = inputElement.val();
-			console.log(searchTerm);
-			if (searchTerm.trim() !== '') {
-				$.ajax({
-					url : '/searchMyIngre',
-					method : 'POST',
-					data : {
-						ingreName : searchTerm,
-						custId : '${user.custId}'
-					},
-					success : function(results) {
-						updateSearchResults(results);
-						console.log(results)
-					},
-					error : function(xhr, status, error) {
-						console.error('AJAX 오류:', error);
-					}
-				});
-			} else {
-				searchList.empty();
-
-			}
-		});
-		
-		
-		
-		function updateSearchResults(results) {
-		    const searchList = $('#searchList2');
-		    searchList.empty();
-		    console.log(results);
-
-		    // 결과의 유형을 확인합니다.
-		    if (results.type === 'searchIngre') {
-		        // searchIngre 유형일 경우
-		        results.data.forEach(function(result) {
-		            const ingreName = result.ingreName;
-		            const ingreIdx = result.ingreIdx;
-		            const ingreImg = result.ingreImg;
-
-		            const listItem = $('<li>').text(ingreName);
-		            const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
-
-		            addButton.on('click', function() {
-		                // 추가 버튼을 누를 때 처리를 추가합니다.
-		                // 예: 클릭 이벤트 핸들러
-		            });
-
-		            listItem.append(addButton);
-		            searchList.append(listItem);
-		        });
-		    } else if (results.type === 'searchMyIngre') {
-		        // searchMyIngre 유형일 경우
-		        for (const ingreName in results) {
-		            if (ingreName !== 'type') {
-		                const ingreAmount = results[ingreName];
-
-		                const listItem = $('<li>').text(ingreName + ' ');
-
-		                if (ingreAmount === '1') {
-		                    const textSpan = $('<span>').text(' 보유중');
-		                    textSpan.css('color', 'red');
-		                    listItem.append(textSpan);
-		                } else {
-		                    const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
-
-		                    addButton.on('click', function() {
-		                        // 추가 버튼을 누를 때 처리를 추가합니다.
-		                        // 예: 클릭 이벤트 핸들러
-		                    });
-
-		                    listItem.append(addButton);
-		                }
-
-		                listItem.addClass('text-center');
-		                searchList.append(listItem);
-		            }
-		        }
-		    }
-		}
-
-	});
-	
-	
-	
-</script>
-
-<script type="text/javaScript">
-//모달 표시
-function showLoadingModal() {
-    document.getElementById("loadingModal").style.display = "block";
-}
-
-// 모달 숨김
-function hideLoadingModal() {
-    document.getElementById("loadingModal").style.display = "none";
-}
-
-var userMsgInfo;
-
-//페이지 로드시마다 조미료 정보 가져오는 함수
-function fetchUserMsgInfo() {
- // Ajax 요청을 보냅니다.
- $.ajax({
-     type: "GET",
-     url: "/selectMyAllMsg",
-     success: function (data) {
-         // 요청이 완료되면 사용자 조미료 정보를 userMsgInfo에 저장합니다.
-         userMsgInfo = data;
-         console.log(userMsgInfo);
-         initializeCheckboxes(); // 페이지 로드 후 체크박스 초기화
-     },
-     error: function (err) {
-         console.error("에러 발생: " + err);
-     }
- });
-}
-
-//페이지 로드 시 조미료 정보 가져오기
-fetchUserMsgInfo();
-
-//적용 버튼을 클릭할 때
-$("#msgSubmit").click(function () {
-	//적용버튼 비활성화
-	$("#msgSubmit").prop("disabled", true);
-	
-	showLoadingModal();
-	
-	
- var selectedMsgs = [];
-
- // 모든 체크박스를 반복하면서 선택된 항목을 확인합니다.
- $('input[name="msgIdx"]').each(function () {
-     var msgIdx = $(this).val();
-     var msgAmount = $(this).is(":checked") ? 1 : 0;
-     selectedMsgs.push({ msgIdx: msgIdx, msgAmount: msgAmount });
- });
-
- // 서버로 선택된 조미료 정보를 전송합니다.
- $.ajax({
-     type: "POST",
-     url: "/addMySelectedMsg", // 적절한 엔드포인트를 지정하세요.
-     data: JSON.stringify(selectedMsgs), // 선택된 조미료 정보를 JSON 형식으로 전송합니다.
-     contentType: "application/json; charset=utf-8",
-     success: function (response) {
-         console.log("성공했나요");
-         // 적용버튼 다시 활성화
-         $("#msgSubmit").prop("disabled", false);
-         hideLoadingModal();
-         fetchUserMsgInfo(); // 서버 응답 후 체크박스 초기화
-         location.reload();
-     },
-     error: function (err) {
-         console.error("에러 발생: " + err);
-      // 에러 발생 시도 "적용" 버튼을 다시 활성화
-         $("#msgSubmit").prop("disabled", false);
-         hideLoadingModal();
-     }
- });
-});
-
-//체크박스를 업데이트하는 함수
-function initializeCheckboxes() {
-    // 각 Checkbox를 반복합니다.
-    $('input[name="msgIdx"]').each(function () {
-        var msgIdx = $(this).val(); // Checkbox의 value를 가져옵니다.
-        var msgAmount = getMsgAmountById(msgIdx);
-
-        // msgAmount가 1이면 Checkbox를 체크합니다.
-        if (msgAmount === 1) {
-            $(this).prop('checked', true);
-        }
+      // 파일을 Base64로 변환
+      reader.readAsDataURL(selectedFile);
     });
-}
 
-//msgIdx에 해당하는 msgAmount를 찾는 함수
-function getMsgAmountById(msgIdx) {
-    if (userMsgInfo) {
-        for (var i = 0; i < userMsgInfo.length; i++) {
-            if (userMsgInfo[i].msgIdx == msgIdx) {
-                return userMsgInfo[i].msgAmount;
-            }
-        }
-    }
-    // 해당하는 데이터를 찾지 못하면 기본값 0으로 처리합니다.
-    return 0;
-}
+    // 파일 업로드 버튼 클릭 시 파일 선택 창 열기
+    $('#uploadButton').click(function() {
+      $('#addIngreFile').click();
+    });
+  });
 
-
-
+	
 </script>
-
 
 
 
