@@ -145,12 +145,33 @@ public class RecipeController {
 	
 	@RequestMapping("/goRecView")
 	public String goView(@RequestParam("rcpIdx") int rcpIdx , Model model) throws JsonProcessingException {
-
+		
+		
+		r_recipe recipe = repo.findByRcpIdx(rcpIdx);
+		
+		String[] contentList = recipe.getRcpContent().split("', '");
+		ArrayList<String> contentList2 = new ArrayList<>();
+		System.out.println(contentList[0]);
+		for(int i =0 ; i< contentList.length ; i++) {
+			
+			String content = contentList[i].replace("'", "");
+			content = content.replace("\"", "");
+			if(i==0) {
+				content =(i+1)+". "+content;
+			}else {
+				content = i+1+". "+content;
+			}
+			
+			contentList2.add(content);
+			System.out.println(content);
+		}
+		model.addAttribute("content", contentList2);
+		model.addAttribute("recipe", recipe);
 		// 레시피 상세뷰
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		
-		r_recipe result = repo.findByRcpIdx(rcpIdx);
+		
 
 		// 1. 레시피인덱스로 r_recipe_ingredients , r_ingredients 조인한 재료정보(재료정보) 리스트에 담아주기
 		
@@ -175,10 +196,11 @@ public class RecipeController {
 		
 		
 		// result는 그대로 model로 보내도될듯 
-		model.addAttribute("recipe", result);
+		
 		model.addAttribute("msgJson",msgJson);
 		model.addAttribute("ingreJson",ingreJson);
-		
+		model.addAttribute("content", contentList2);
+		model.addAttribute("recipe", recipe);
 		
 		
 		return "recipe/view";

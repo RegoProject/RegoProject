@@ -264,8 +264,9 @@
 
             <!-- 슬라이싱 작업만 남았어용 -->
             <!-- 조리순서 반복문 어떤것 기준으로 순서를 슬라이싱 할지 모르겠음-->
-            <p class="rcpstep">${recipe.rcpContent }</p>
-
+            <c:forEach var="content" items="${content}">
+            <p class="rcpstep">${content }</p>
+			</c:forEach>
 
           </div>
           <br><br><br>
