@@ -110,6 +110,21 @@
 	
 }
 
+#sendAPIResult {
+
+	margin: auto;
+    width: 45%;
+    position: relative;
+    bottom: 92%;
+	
+}
+#cancleIngreAPIModal{
+	margin: auto;
+    width: 45%;
+    position: relative;
+    bottom: 92%;
+	
+}
 
 #cancleModal{
 	margin: auto;
@@ -145,3 +160,5 @@
     position: relative;
     left: 3%;
 }
+
+

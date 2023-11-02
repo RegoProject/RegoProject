@@ -99,3 +99,9 @@ function getMsgAmountById(msgIdx) {
     // 해당하는 데이터를 찾지 못하면 기본값 0으로 처리합니다.
     return 0;
 }
+
+// 취소 버튼을 클릭할 때
+$("#cancleTrdModal").click(function() {
+    initializeCheckboxes(); // 체크박스 초기화
+    // 여기에서 필요한 추가 작업 수행
+});

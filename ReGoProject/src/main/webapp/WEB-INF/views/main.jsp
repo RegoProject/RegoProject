@@ -383,6 +383,31 @@
 					<button id="uploadButton"
 						class="h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
 						style="box-sizing: border-box; left: 0;">사진 업로드</button>
+						<div id="ingreAPIloadingModal" class="addModal">
+					    <div class="modal-content">
+					        <p>잠시만 기다려 주세요...</p>
+					    </div>
+					    </div>
+					    
+					    <div id="ingreAPIModal" class="addModal" >
+					    <div class="w-full modal-content">
+						<div class="mt-4 text-center">
+							<ul id="ingreResponeList" class=""></ul>
+							</div>
+						
+								<div class="mt-4 pl-1_5">
+								<button id="sendAPIResult"
+										class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+										>적용</button>
+									<button id="cancleIngreAPIModal"
+										class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+										>취소</button>
+								</div>
+								    </div>
+								    <!-- height 100 ,width 64% -->
+				
+					     </div>
+					
 
 				
 				<!-- 글자로 추가하는 태그 -->
@@ -464,37 +489,8 @@
 					</div>
 					 </div>
 
-					
-						
-						
-				
-						
 					 
 				</div>
-
-	
-
-    <!-- 
-          <button
-            class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-            사진추가
-          </button>
-        </div>
-    <div>
-
-      </div>
-    
-      <button
-        @click="closeSecModal"
-        class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
-      
-      >
-       닫기
-      </button>
-   
-      </div>
-    </div>
-     -->
 
 			<div x-show="isTrdModalOpen"
 				x-transition:enter="transition ease-out duration-150"
@@ -513,7 +509,7 @@
 					x-transition:leave="transition ease-in duration-150"
 					x-transition:leave-start="opacity-100"
 					x-transition:leave-end="opacity-0  transform translate-y-1/2"
-					@click.away="closeTrdModal" @keydown.escape="closeTrdModal"
+					@click.away="" @keydown.escape="closeTrdModal"
 					class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
 					role="dialog" id="trdModal">
 					<!-- 조미료 추가(trdModal) 버튼 -->
@@ -564,7 +560,7 @@
 					    <div class="modal-content">
 					        <p>잠시만 기다려 주세요...</p>
 					    </div>
-					</div>
+						</div>
 				
 					<button id="cancleTrdModal" @click="closeTrdModal"
 							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray "
@@ -592,43 +588,105 @@
 
 
 <script type="text/javaScript">
-$(document).ready(function() {
-    // 파일 선택 시 이벤트
-    $('#addIngreFile').change(function() {
-      // 선택한 파일 가져오기
-      var selectedFile = this.files[0];
+//모달 열기
+function openIngreModal() {
+  var modal = document.getElementById("ingreAPIModal");
+  modal.style.display = "block";
+}
 
-      // FileReader 객체를 사용하여 파일을 읽고 Base64로 인코딩
-      var reader = new FileReader();
-      reader.onload = function(event) {
-        var base64data = event.target.result;
+//모달 닫기
+function closeIngreModal() {
+  var modal = document.getElementById("ingreAPIModal");
+  modal.style.display = "none";
+}
 
-        // API로 데이터 전송
-        $.ajax({
-          url: "http://15.165.250.150:5000/ing_predict",
-          type: "POST",
-          data: JSON.stringify({ fileData: base64data }),
-          contentType: "application/json",
-          success: function(response) {
-            // 성공 시 처리
-            console.log(response);
-          },
-          error: function(xhr, status, error) {
-            // 오류 시 처리
-            console.log(error);
-          }
-        });
-      };
+//취소 버튼 클릭 시 확인창 표시
+$('#cancleIngreAPIModal').click(function() {
+  if (confirm("정말 취소하시겠습니까? 취소 시 사진을 재 업로드 해야합니다.")) {
+    // 확인 버튼을 눌렀을 때 모달 닫기
+    closeIngreModal();
+    // goMain 요청 매핑으로 이동
+    window.location.href = '/goMain'; // 요청 매핑 URL로 수정
+  }
+});
 
-      // 파일을 Base64로 변환
-      reader.readAsDataURL(selectedFile);
-    });
+//처리중입니다. 모달 표시
+function showLoadingModal() {
+    document.getElementById("ingreAPIloadingModal").style.display = "block";
+}
 
-    // 파일 업로드 버튼 클릭 시 파일 선택 창 열기
-    $('#uploadButton').click(function() {
-      $('#addIngreFile').click();
-    });
+// 모달 숨김
+function hideLoadingModal() {
+    document.getElementById("ingreAPIloadingModal").style.display = "none";
+}
+
+
+// 파일 업로드 버튼 클릭 시 파일 선택 창 열기
+$('#uploadButton').click(function() {
+  $('#addIngreFile').click();
+});
+
+
+//파일 선택 시 이벤트
+$('#addIngreFile').change(function() {
+  var selectedFile = this.files[0];
+  var formData = new FormData();
+  formData.append('file', selectedFile);
+  // 응답 받는동안 모달창 띄우기 
+  showLoadingModal();
+  
+
+  // ingreAPI로 파일을 업로드
+  $.ajax({
+    url: '/ingreAPI', // ingreAPI로 보내기
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(response) {
+      // 성공 시 처리
+      console.log(response);
+      hideLoadingModal();     
+      
+      // 응답받은 후에 검색창용 모달창 불러와서 이름 수정할수있게 기능 만들어서 호출하기 
+      // 응답을 UL에 추가
+      appendResponseToList(response);
+      
+    },
+    error: function(xhr, status, error) {
+    alert('오류')
+      // 오류 시 처리
+      console.log(error);
+    }
   });
+});
+
+
+
+function appendResponseToList(response) {
+	// 'result' 속성에서 배열 가져오기
+	  var resultArray = response.result;
+
+	  // UL 엘리먼트 가져오기
+	  var ul = document.getElementById("ingreResponeList");
+
+	  // 기존 LI 엘리먼트 삭제
+	  while (ul.firstChild) {
+	    ul.removeChild(ul.firstChild);
+	  }
+
+	  // 각 응답 아이템을 LI로 만들어 UL에 추가
+	  resultArray.forEach(function(item) {
+	    var li = document.createElement("li");
+	    li.appendChild(document.createTextNode(item));
+	    ul.appendChild(li);
+	  });
+	  
+	  openIngreModal()
+	
+}
+	
+
 
 	
 </script>
