@@ -143,7 +143,7 @@ public class RecipeController {
 	}
 	
 	
-	
+	@RequestMapping("/goRecView")
 	public String goView(@RequestParam("rcpIdx") int rcpIdx , Model model) throws JsonProcessingException {
 
 		// 레시피 상세뷰
