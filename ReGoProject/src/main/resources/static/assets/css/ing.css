@@ -2125,10 +2125,9 @@ print and (-ms-high-contrast:none) {
 
 input {
     margin: auto;
-    width: 68%;
+    width: 55%;
     position: relative;
     bottom: 92%;
-    left: 50%;
 }
 
 svg {
@@ -2340,17 +2339,6 @@ img {
     position: relative;
 }
 
-.search {
-    width: 63%;
-    background-color: white;
-    position: relative;
-    left: 3%;
-    box-shadow: #7DD076;
-    bottom: 91%;
-    border: 2px solid #7DD076;
-    border-radius: 3px;
-}
-
 input:focus {
     border-color: #7DD076;
     outline: none;
@@ -2372,8 +2360,9 @@ p {
     font-weight: bold;
     position: relative;
     top: 1%;
-    
+
 }
+
 
 .recipeRc {
     width: 48%;
@@ -2387,7 +2376,7 @@ p {
     position: relative;
 }
 
-.addItemMsg {
+.addItem {
     width: 48%;
     height: 180px;
     box-sizing: border-box;
@@ -2413,25 +2402,19 @@ p {
     left: 3%;
 }
 
-.addItem {
-    width: 20%;
+.addItem2 {
+    width: 300px;
     height: 125px;
     box-sizing: border-box;
     border-radius: 10px;
-    background-color:linen;
+    background-color: linen;
     box-shadow: 3px 5px 1px 0 lightgray;
     position: relative;
     display: inline-block;
     flex-direction: reverse;
-    flex: 0 0 calc(33.3% - 20px);
-    /* Adjust the width as needed */
-    margin-right: 20px;
-    /* Add margin for spacing between items */
-    margin-bottom: 20px;
-    /* Add margin for vertical spacing */
 }
 
-.addItemIngre {
+.addItem3 {
     width: 20%;
     height: 125px;
     box-sizing: border-box;
@@ -2440,6 +2423,15 @@ p {
     box-shadow: 3px 5px 1px 0 lightgray;
     position: relative;
     display: inline-block;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.addItem2,
+.addItem3 {
     flex: 0 0 calc(33.3% - 20px);
     /* Adjust the width as needed */
     margin-right: 20px;
@@ -2448,25 +2440,20 @@ p {
     /* Add margin for vertical spacing */
 }
 
-.flex-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-
 /* Adjust the width, margins, and other styles as needed for your layout */
 
 .ingB {
     display: inline-block;
     position: relative;
     margin: auto;
-    
+
 }
 
 
-
+/* 231101 CSS 수정 */
 .addB {
     width: 100%;
+
 }
 
 #addImg {
@@ -2480,15 +2467,48 @@ p {
 
 .myCheckbox {
     position: relative;
-    margin-left: 10%;
+    margin-right: d
 }
 
-.ingreImg {
-    width: 60px;
+/* 231101 CSS 수정 */
+.ss1 {
+    width: 90px;
     height: 60px;
     align-items: center;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 20px;
 
 }
 
+/* 231101 CSS 추가 */
+.addCon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 231102 검색바 추가 */
+ .search {
+    width: 55%;
+    background-color: white;
+    position: relative;
+    left: 0%;
+    box-shadow: #7DD076;
+    bottom: 100.5%;
+    border: 1px solid lightgray;
+    border-radius: 50px;
+    display: flex;
+    /*box-shadow: 3px 3px 1px 0 lightgray;*/
+}
+
+.searchimg {
+    width: 12px;
+    height: 12px;
+    margin: auto;
+
+}
+
+.itemcon {
+    display: flex;
+    justify-content: center;
+}

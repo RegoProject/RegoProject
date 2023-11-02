@@ -201,9 +201,17 @@
         </div>
       </header>
       <main class="h-full overflow-y-auto">
+      	
         <br><br>
-        <div class="container px-6 mx-auto grid flex-container margin:auto">
-          <br><br>
+        <div class="container px-6 mx-auto grid margin-auto">
+          
+          <div class="search-container">
+                <input class="search" type="text" placeholder="검색어 입력">
+                <button>
+                    <img src="./assets/img/search_black.png" class="searchimg">
+                </button>
+            </div>
+          
           <div class="addItem" style="display:inline-block">
             <div class="addCon">
               <div>

@@ -199,8 +199,12 @@
       </header>
       <main class="#"> <!--  h-full overflow-y-auto -->
         <br><br>
-        <div class="container px-6 mx-auto grid"> <!-- grid이후부터 flex-container margin:auto 삭제해봄 : 해봤는데 문제가 아니어서 되돌려놈..-->
-        
+        <div class="container px-6 mx-auto grid flex-container margin:auto"> <!-- grid이후부터 flex-container margin:auto 삭제해봄 : 해봤는데 문제가 아니어서 되돌려놈..-->
+        <input class="search" type="text" placeholder="검색어 입력">
+            <button>
+              <img src="./assets/img/search_black.png" class="searchimg">
+            </button>
+        <br>
         
         
           <div class="grid-container" id="rcp_list">
