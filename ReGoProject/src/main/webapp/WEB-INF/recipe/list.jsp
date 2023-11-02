@@ -233,8 +233,7 @@
             	<div class="addItem4" style="display:inline-block" >
             		<a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
             		<!-- 이미지 경로는 imagePath/uploadedImage/ 이하폴더로 해주세요
-            		imagePath/uploadedImage/food/${recipe.rcpImg1} (배포용)
-            			테스트는 아무데서나 해도됩니다. -->
+          imagePath/uploadedImage/food/${recipe.rcpImg1} (배포용) <<<<<<<<<<<<<<<<<<<<<<<<<<이거 제가 잘못썼어요 static 폴더로 해도됩니다.  -->
                 		<img class="recipeImg" src="/assets/img/dduk.jpg">
                 		<p class="title">${recipe.rcpName}</p>
               		</a>

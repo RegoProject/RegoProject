@@ -20,7 +20,13 @@ public interface r_recipeRepository extends JpaRepository<r_recipe, Integer> {
 	public List<r_recipe> findByRcpNameAndRcpContentAndRcpImg1AndRcpLevelAndRcpTime(
 		        String rcpName, String rcpContent, String rcpImg1, String rcpLevel, String rcpTime);
 	
-	 public r_recipe findByRcpIdx(int rcpIdx);
+
+	 
+
+	
+	
+	public r_recipe findByRcpIdx(int rcpIdx);
+
 		
 }
 

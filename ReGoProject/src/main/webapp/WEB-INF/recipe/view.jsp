@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
+
 <!DOCTYPE html>
+
+
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
 <head>
@@ -216,8 +222,13 @@
               <div class="rcpcontent">
                 <h2 class="rcptitle">${recipe.rcpName}</h2>
                 <br>
+
                 <p class="rcpd">난이도  :  ${recipe.rcpLevel }</p>
                 <p class="rcpt">소요시간  : ${recipe.rcpTime }</p>
+
+                <p class="rcpd">${recipe.rcpLevel }</p>
+                <p class="rcpt">${recipe.rcpTime }</p>
+
               </div>
               <br>
               <div class="rcpm flex-container">
@@ -226,17 +237,37 @@
               </div>
               <br>
               <div class="rcping"></div>
-              <p class="basic">신김치, 중면, 오이, 깨, 고추장, 식초, 올리고당, 간장, 설탕, 맛술</p>
+              <!-- 슬라이싱 작업만 남았어용 -->
+              <p class="basic"><c:out value="${ingreJson}" /></p>
+              
+              <br>
+              <div class="rcpm flex-container">
+                <h5 class="rcpmt">조미료</h5>
+                <button><img src="/assets/img/caution.png" class="smimg"></button>
+              </div>
+              <br>
+              <div class="rcping"></div>
+              <!-- 슬라이싱 작업만 남았어용 -->
+              <p class="basic"><c:out value="${msgJson}" /></p>
+              
             </div>
+            
+            
+            
             <br><br>
             <div class="rcpm flex-container">
               <h5 class="rcpmt">레시피</h5>
             </div>
+
             <br>
             <div class="rcping"></div>
-            <c:forEach var="content" items="${content}">
-            	<p class="rcpstep">${content}</p>            
-            </c:forEach>
+            
+
+            <!-- 슬라이싱 작업만 남았어용 -->
+            <!-- 조리순서 반복문 어떤것 기준으로 순서를 슬라이싱 할지 모르겠음-->
+            <p class="rcpstep">${recipe.rcpContent }</p>
+
+
           </div>
           <br><br><br>
           <!-- 요리성공 api 관련 html 코드 추가 -->
