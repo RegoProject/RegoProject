@@ -1,6 +1,8 @@
 package com.smhrd.entity;
 
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,11 +31,11 @@ public class r_board {
 
     // 글 작성일자 
 	@Column
-    private String createdAt;
+    private Date createdAt;
 
     // 글 수정일자 
 	@Column
-    private String updatedAt;
+    private Date updatedAt;
 
     // 글 상태 
 	@Column

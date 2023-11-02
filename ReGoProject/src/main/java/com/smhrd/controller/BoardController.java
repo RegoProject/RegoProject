@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,6 +129,7 @@ public class BoardController {
 		System.out.println(likes);
 		System.out.println(likeCnt);
 		System.out.println(userImg);
+		System.out.println(list.get(0).getCreatedAt());
 		
 		model.addAttribute("board",list);
 		model.addAttribute("likes", likes);
@@ -312,7 +314,8 @@ public class BoardController {
 			
 			//File f = new File(savePath + "/" + filename);
 			//file.transferTo(f);
-			board.setRbImg(filename);			
+			board.setRbImg(filename);
+			board.setCreatedAt(new Date()); 
 			System.out.println(filename);
 			repo.save(board);
 			
@@ -321,6 +324,7 @@ public class BoardController {
 			System.out.println("성공");
 			
 		} catch (Exception e) {
+			System.out.println("실패");
 			e.printStackTrace();
 		}
 		

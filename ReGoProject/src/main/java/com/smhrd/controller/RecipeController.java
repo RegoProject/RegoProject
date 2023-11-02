@@ -1,8 +1,9 @@
 package com.smhrd.controller;
 
-
-import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -10,12 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Base64;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -130,7 +132,8 @@ public class RecipeController {
 	}
 	
 	@RequestMapping("/goRecForm")
-	public String goForm() {
+	public String goForm( ) {
+			
 		// 레시피 수정폼이 필요한가 모르겠다
 		// 관리자용으로 남겨놔야하나?
 		
@@ -139,7 +142,31 @@ public class RecipeController {
 	
 	
 	@RequestMapping("/goRecView")
-	public String goView() {
+	public String goView(@RequestParam("rcpIdx")int rcpIdx , Model model  ) {
+		r_recipe recipe = repo.findByRcpIdx(rcpIdx);
+		
+		String[] contentList = recipe.getRcpContent().split("', '");
+		ArrayList<String> contentList2 = new ArrayList<>();
+		System.out.println(contentList[0]);
+		for(int i =0 ; i< contentList.length ; i++) {
+			
+			String content = contentList[i].replace("'", "");
+			content = content.replace("\"", "");
+			if(i==0) {
+				content =(i+1)+". "+content;
+			}else {
+				content = i+1+". "+content;
+			}
+			
+			contentList2.add(content);
+			System.out.println(content);
+		}
+		model.addAttribute("content", contentList2);
+		model.addAttribute("recipe", recipe);
+		
+		
+		
+		
 		// 레시피 상세뷰
 		
 		
@@ -180,33 +207,50 @@ public class RecipeController {
 		
 	}
 	@RequestMapping("/recSuccess")
-	public void recSuccess(@RequestParam("file") MultipartFile file ) {
-		Map<String, Object> map = new HashMap<>();
-		RestTemplate restTemplate  = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		try {
-			byte[] fileBytes = file.getBytes();	        
-		    byte[] encodedBytes = Base64.encodeBase64(fileBytes);
-		    String encodedFile = new String(encodedBytes);
-		    String recipe = "김치볶음밥";
-			map.put("label", recipe );
-			map.put("image", encodedFile);
-			
-			HttpEntity<Map<String,Object>> requestEntity = new HttpEntity<>(map, headers);
-			String flaskUrl = "http://172.30.1.23:5000/upload"; 
-			ResponseEntity<String> responseEntity = restTemplate.postForEntity(flaskUrl, requestEntity, String.class);
-	        //ResponseEntity<String> response 
-	        //     = restTemplate.exchange(flaskUrl, HttpMethod.POST,requestEntity,String.class);
-		    
-			
-		} catch (Exception e) {
-			
-		}	
-		
-		 
-	     
-		
+	public String recSuccess(@RequestParam("file") MultipartFile multipartFile, @RequestParam("recipe") String recipeName) {
+	    Map<String, String> map = new HashMap<>();
+	    RestTemplate restTemplate  = new RestTemplate();
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+
+	    try {
+	        // MultipartFile을 File로 변환
+	        File file = convertMultipartFileToFile(multipartFile);
+
+	        FileInputStream fileInputStreamReader = new FileInputStream(file);
+	        byte[] bytes = new byte[(int)file.length()];        
+	        fileInputStreamReader.read(bytes);
+	        String encodedfile = Base64.getEncoder().encodeToString(bytes);
+
+	        map.put("label", recipeName );
+	        map.put("image", encodedfile);
+
+	        HttpEntity<Map<String,String>> requestEntity = new HttpEntity<>(map, headers);
+	        String flaskUrl = "http://15.165.250.150:5000/success"; 
+	        ResponseEntity<String> responseEntity = restTemplate.postForEntity(flaskUrl, requestEntity, String.class);
+
+	        System.out.println(responseEntity.getBody());
+	        System.out.println(responseEntity.getHeaders());
+	        System.out.println(responseEntity.getStatusCode());
+
+	        System.out.println("성공");
+
+	        // 파일 사용이 끝나면 삭제
+	        file.delete();
+	    } catch (Exception e) {
+	        System.out.println("실패인가?");
+	        e.printStackTrace();
+	    }
+
+	    return "views/main";
+	}
+
+	private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
+	    File file = new File(multipartFile.getOriginalFilename());
+	    FileOutputStream fos = new FileOutputStream(file);
+	    fos.write(multipartFile.getBytes());
+	    fos.close();
+	    return file;
 	}
 	
 	
