@@ -226,8 +226,7 @@
                 <p class="rcpd">난이도  :  ${recipe.rcpLevel }</p>
                 <p class="rcpt">소요시간  : ${recipe.rcpTime }</p>
 
-                <p class="rcpd">${recipe.rcpLevel }</p>
-                <p class="rcpt">${recipe.rcpTime }</p>
+                
 
               </div>
               <br>
