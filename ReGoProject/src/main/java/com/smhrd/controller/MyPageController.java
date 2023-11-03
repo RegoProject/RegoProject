@@ -76,9 +76,10 @@ public class MyPageController {
 			
 			return "redirect:/goMypage";
 		}else {
-			
+			r_member who = repo.findByCustId(custId);
 			List<r_board> list =repo1.findByCustId(custId);
 			model.addAttribute("board", list);
+			model.addAttribute("user1" ,who);
 			model.addAttribute("who", "you");
 			return "mypage/mypage1";
 		}

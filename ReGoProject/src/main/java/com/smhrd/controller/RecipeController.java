@@ -10,9 +10,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.Base64;
 import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -309,13 +311,47 @@ public class RecipeController {
 	}
 	@RequestMapping("/recipeSearch")
 	public String boardSearch(Model model, @RequestParam("search") String search) {
-		String search1 = "%"+search+"%";
-		System.out.println(search1);
-		List<r_recipe> list = repo.findByRcpNameContaining(search1);
-		model.addAttribute("recipe",list);
+		List<r_recipe> recipelist =  new ArrayList<>();
+		List<String> ngrams = generateNGrams(search, 2);
+		for(int i=0 ; i <ngrams.size() ; i++) {
+			String search1 = "";
+			search1 = "%"+ngrams.get(i)+"%";
+		  
+		  List<r_recipe> list = repo.findByRcpNameContaining(search1);
+		  for(int j=0 ; j<list.size() ; j++) {
+			  	recipelist.add(list.get(j));
+			  	
+		  }
+		}
+		List<r_recipe> uniqueRecipeList = new ArrayList<>();
+		Set<Integer> rcpIdxSet = new HashSet<>();
+
+		for (r_recipe recipe : recipelist) {
+		    if (!rcpIdxSet.contains(recipe.getRcpIdx())) {
+		        uniqueRecipeList.add(recipe);
+		        rcpIdxSet.add(recipe.getRcpIdx());
+		    }
+		}
+		
+		
+		
+		model.addAttribute("recipe",uniqueRecipeList);
 		model.addAttribute("stop", "false");
 		
 		return "recipe/list";
+	}
+	
+	
+	
+	public static List<String> generateNGrams(String text, int n) {
+	    List<String> ngrams = new ArrayList<>();
+	    String[] words = text.split("\\s+");
+	    for (String word : words) {
+	        for (int i = 0; i <= word.length() - n; i++) {
+	            ngrams.add(word.substring(i, i + n));
+	        }
+	    }
+	    return ngrams;
 	}
 	
 	
