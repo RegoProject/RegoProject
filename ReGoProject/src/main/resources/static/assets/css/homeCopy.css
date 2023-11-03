@@ -66,13 +66,16 @@
     background-color: white;
     position: relative;
     box-shadow: #7DD076;
-    left : -2%;
+    left : 0%;
     bottom: 91%;
     border: 2px solid #7DD076;
     border-radius: 3px;
 }
 
-
+.add-ingredient-button {
+	background-color : green;
+	width: 60%;
+}
 
 .save-button{
 	width: 10%;

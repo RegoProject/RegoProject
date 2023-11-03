@@ -653,7 +653,7 @@ $('#addIngreFile').change(function() {
       // 응답을 UL에 추가
       appendResponseToList(response);
       openIngreModal();
-      enableEditAndDeleteButtons();
+
       
     },
     error: function(xhr, status, error) {
@@ -677,6 +677,19 @@ $(document).ready(function() {
 function appendResponseToList(response) {
 	  var resultArray = response.result;
 	  var ul = document.getElementById("ingreResponeList");
+	  
+	  var maxItems = 15; // 최대 항목 수
+
+	  // 체크하여 추가 버튼 활성화/비활성화
+	  function checkAddButton() {
+	    var liElements = ul.getElementsByTagName("li");
+	    if (liElements.length >= maxItems) {
+	      addIngredientButton.disabled = true;
+	    } else {
+	      addIngredientButton.disabled = false;
+	    }
+	    
+	  }
 
 	  while (ul.firstChild) {
 	    ul.removeChild(ul.firstChild);
@@ -700,33 +713,120 @@ function appendResponseToList(response) {
 
 	    var deleteButton = document.createElement("button");
 	    deleteButton.textContent = "삭제";
-	    deleteButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple delete-button"; // CSS 클래스 추가
+	    deleteButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-yj border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple delete-button"; // CSS 클래스 추가
 	    li.appendChild(deleteButton);
 
 	    ul.appendChild(li);
 	  });
 
+	  var addIngredientButton = document.createElement("button");
+	  addIngredientButton.textContent = "추가";
+	  addIngredientButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green add-ingredient-button";
 	  
-	}
+	  
+	  addIngredientButton.addEventListener("click", function () {
+		    var liElements = ul.getElementsByTagName("li");
+		    if (liElements.length < maxItems) {
+		      var newLi = document.createElement("li");
+		      var newInputElement = document.createElement("input");
+		      newInputElement.type = "text";
+		      newInputElement.disabled = true; // 새로운 항목은 비활성화된 상태로 시작
+		      newInputElement.name = "ingreName";
+		      newInputElement.className = "h-12 ingreAPIInput";
+		      newLi.appendChild(newInputElement);
 
-function enableEditAndDeleteButtons() {
-	  // "저장" 버튼을 클릭하면 해당 항목의 입력 필드를 활성화하고 버튼 이름을 "수정"으로 변경
-	  $('.save-button').click(function() {
-	    var inputElement = $(this).closest('li').find('input');
-	    var buttonText = $(this).text(); // 현재 버튼의 텍스트 가져오기
+		      var newSaveButton = document.createElement("button");
+		      newSaveButton.textContent = "수정"; // 시작 버튼 텍스트를 "수정"으로 설정
+		      newSaveButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple save-button";
+		      newLi.appendChild(newSaveButton);
 
-	    if (buttonText === "저장") {
-	      // "저장" 버튼을 클릭한 경우
-	      inputElement.prop('disabled', true);
-	      $(this).text("수정"); // 버튼 텍스트를 "수정"으로 변경
-	    } else {
-	      // "수정" 버튼을 클릭한 경우
-	      inputElement.prop('disabled', false);
-	      inputElement.focus(); // 입력 필드에 포커스를 줌
-	      $(this).text("저장"); // 버튼 텍스트를 "저장"으로 변경
-	    }
-	  });
-	}
+		      var newDeleteButton = document.createElement("button");
+		      newDeleteButton.textContent = "삭제";
+		      newDeleteButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-yj border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple delete-button";
+		      newLi.appendChild(newDeleteButton);
+
+		      ul.appendChild(newLi);
+		      // 체크하여 추가 버튼 활성화/비활성화
+		      checkAddButton();
+		    }
+		  });
+		  checkAddButton();
+		  ul.appendChild(addIngredientButton);
+		}
+
+
+//"저장" 버튼 클릭 이벤트 핸들러
+function toggleSaveButton(button) {
+  var inputElement = $(button).closest('li').find('input');
+  var buttonText = $(button).text(); // 현재 버튼의 텍스트 가져오기
+
+  if (buttonText === "수정") {
+    // "수정" 버튼을 클릭한 경우
+    inputElement.prop('disabled', false);
+    inputElement.focus(); // 입력 필드에 포커스를 줌
+    $(button).text("저장"); // 버튼 텍스트를 "저장"으로 변경
+  } else {
+    // "저장" 버튼을 클릭한 경우
+    inputElement.prop('disabled', true);
+    $(button).text("수정"); // 버튼 텍스트를 "수정"으로 변경
+  }
+}
+
+$(document).ready(function() {
+  // "수정" 버튼 클릭 이벤트 핸들러를 등록
+  $('#ingreResponeList').on('click', 'li .save-button', function() {
+    toggleSaveButton(this); // 현재 클릭한 버튼에 대한 처리
+  });
+  // 나머지 코드 ...
+});
+
+
+
+//"적용" 버튼 클릭 이벤트 핸들러
+$('#sendAPIResult').click(function() {
+  var inputValues = []; // 입력된 값들을 저장할 배열
+
+  // 각 <input> 요소에서 값을 가져와 배열에 추가
+  $('.ingreAPIInput').each(function() {
+    inputValues.push($(this).val());
+  });
+
+  var inputData = JSON.stringify(inputValues);
+  console.log(inputData);
+  // 배열에 저장된 값들을 서버로 전송
+  $.ajax({
+    url: '/saveInputValues', // 서버의 저장 엔드포인트 URL로 수정
+    type: 'POST',
+    contentType: 'application/json', // JSON 데이터를 전송한다고 명시
+    data: inputData,
+    success: function(response) {
+        console.log(response.message);
+
+        var message = '';
+
+        if (response.successfulIngredients.length > 0) {
+            message += '성공한 재료: ' + response.successfulIngredients.join(', ') + '\n';
+        }
+
+        if (response.failedIngredients.length === 0) {
+            message += '실패한 재료가 없습니다.';
+        } else {
+            message += '다음 재료는 존재하지 않습니다: ' + response.failedIngredients.join(', ');
+        }
+
+        alert(message);
+        window.location.href = '/goMain'; // 이 부분을 수정해서 실제 URL로 변경해야 합니다.
+    },
+    error: function(xhr, status, error) {
+      // 오류 시 처리
+      console.error('서버로 값 전송 중 오류 발생:', error);
+      alert("오류")
+      window.location.href = '/goMain'; // 이 부분을 수정해서 실제 URL로 변경해야 합니다.
+    }
+  });
+});
+
+
 
 
 </script>

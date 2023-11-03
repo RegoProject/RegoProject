@@ -12,6 +12,8 @@ public interface r_ingredientsMapper {
 	
 	public List<r_ingredients> ingreSearch(String ingreName);
 	
+	public r_ingredients ingreExistSearch(String ingreName);
+	
 
 	
 	
