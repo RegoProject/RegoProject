@@ -4,6 +4,8 @@ import java.security.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
@@ -18,6 +20,7 @@ public class r_my_ingredients {
 	// 냉장고 번호 
 	@Id
 	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment로 설정
     private int rmrNum;
 
     // 고객 아이디
