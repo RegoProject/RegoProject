@@ -33,8 +33,8 @@ transform = transforms.Compose(
     ]
 )
 
-"""recipe.csv 불러오고 필요한 list 생성"""
-df = pd.read_csv('recipe.csv', encoding='cp949')
+"""recipe_final.csv 불러오고 필요한 list 생성"""
+df = pd.read_csv('recipe_final.csv', encoding='cp949')
 cook_list = [] # 레시피 목록
 ingredients = [] # 레시피별 재료 목록
 all_ingredients = {} # 전체 재료 목록
