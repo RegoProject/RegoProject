@@ -126,7 +126,7 @@
 
           <div class="flex justify-center flex-1 lg:mr-32">
 
-            <a href="#">
+            <a href="/goMain">
               <img id="logo" src="./assets/img/regoLogo.png" width="80px" height="80px" style="margin: auto;">
             </a>
 
@@ -197,9 +197,11 @@
           <br><br>
           <!-- 여기서부터 코드 추가 되었음 -->
           <header>
+           
             <div class="myContainer">
               <div class="profile">
                 <div class="profile-image">
+              
                 <form id="uploadForm" enctype="multipart/form-data">
 				<!-- 문제생기면 imagePath/ -->
     			<img id="profilePhoto" src="imagePath/uploadedImage/${user.custImg}" alt="#" class="rounded-image">
@@ -209,7 +211,14 @@
                 </div>
                 <div class="profile-user-settings">
                   <h1 class="profile-user-name" style="font-size:18px">${user.custName}</h1>
-                  <a href="/goUpdate"><button class="btn profile-edit-btn">프로필 수정</button></a>
+                <c:choose>
+    			<c:when test="${who eq 'you'}">
+       			 <a href="#"><button class="btn profile-edit-btn">팔로우</button></a>
+    			</c:when>
+    			<c:when test="${who eq 'my'}">
+       			<a href="/goUpdate"><button class="btn profile-edit-btn">프로필 수정</button></a>
+    			</c:when>
+				</c:choose>
                 </div>
                 <br>
                 <div class="profile-stats">
@@ -225,6 +234,8 @@
               </div>
               <!-- End of profile section -->
             </div>
+         
+          
             <!-- End of container -->
           </header>
           <main>

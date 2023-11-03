@@ -274,7 +274,7 @@
         <br><br>
         <p class="foodcom">👨‍🍳 완성 사진을 올려보세요!</p>
         <br>
-        <form action="/recSuccess" method="post" enctype="multipart/form-data">
+        <form id =uploadForm  method="post" enctype="multipart/form-data">
         <div>
           <input type="file" name="file" id="file">
           <input type="hidden" name="recipe" value= "${recipe.rcpName}" >
@@ -292,5 +292,49 @@
     </div>
   </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+   // $("#profilePhoto").click(function() {
+   //     $("#fileInput").click(); // 파일 선택 창을 띄웁니다.
+   // });
+
+   // $("#fileInput").change(function() { // 파일이 선택되면 자동으로 submit 합니다.
+   //     $("#uploadForm").submit();
+   // });
+
+    $("#uploadForm").submit(function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        
+        $.ajax({
+            url: "/recSuccess",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(res) {
+            	console.log(res)
+            	if(res==="true"){
+            		if (confirm("요리성공! 마이페이지로 이동하시겠습니까?")) {
+            	        window.location.href = "/goMain"; // mypage로 이동
+            	    }
+            		
+            	}else{
+            		
+            		alert("요리실패!");
+            		
+            	}
+            	
+            	
+                
+            },
+            error: function(e) {
+                console.log("에러 발생");
+            }
+        });
+    });
+});
+</script>
 
 </html>

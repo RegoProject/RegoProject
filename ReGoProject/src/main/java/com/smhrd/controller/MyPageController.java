@@ -55,14 +55,40 @@ public class MyPageController {
 		return "mypage/addList";
 	}
 	@RequestMapping("/goMypage")
-	public String goMypage(HttpSession session ,Model model) {
+	public String goMypage(HttpSession session ,Model model  ) {
 		r_member user =(r_member)session.getAttribute("user");
 		String custId =user.getCustId();
+		
+		
 		List<r_board> list= repo1.findByCustId(custId);
 		model.addAttribute("board",list);
+		model.addAttribute("who", "my");
 		
 		return "mypage/mypage1";
 	}
+	@RequestMapping("/goYourpage")
+	public String goYourpage(HttpSession session, Model model, @RequestParam("custId")String custId) {
+		r_member member= (r_member)session.getAttribute("user");
+		String custId2 = member.getCustId();
+		
+		
+		if(custId.equals(custId2)) {
+			
+			return "redirect:/goMypage";
+		}else {
+			
+			List<r_board> list =repo1.findByCustId(custId);
+			model.addAttribute("board", list);
+			model.addAttribute("who", "you");
+			return "mypage/mypage1";
+		}
+		
+		
+		
+	}
+	
+	
+	
 	@RequestMapping("/updateProfileImage")
     public void updateProfileImage(@RequestParam("file") MultipartFile file ,HttpServletResponse response , HttpSession session, HttpServletRequest request ) {
 	// 이미지파일 넣기 난이도★★★ ㅋㅋㅋㅋ 고생하셨어요

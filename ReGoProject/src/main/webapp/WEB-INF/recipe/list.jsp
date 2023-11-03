@@ -200,37 +200,17 @@
       <main class="#"> <!--  h-full overflow-y-auto -->
         <br><br>
         <div class="container px-6 mx-auto grid flex-container margin:auto"> <!-- grid이후부터 flex-container margin:auto 삭제해봄 : 해봤는데 문제가 아니어서 되돌려놈..-->
-        <input class="search" type="text" placeholder="검색어 입력">
+        <form action="/recipeSearch" method="post" >
+        <input class="search" type="text" name="search" placeholder="검색어 입력">
             <button>
               <img src="./assets/img/search_black.png" class="searchimg">
             </button>
+        </form>
         <br>
         
         
           <div class="grid-container" id="rcp_list">
-          
-          <!-- 반복문 돌리는곳  -->
-          <!--  <div class="addItem4" style="display:inline-block">
-              <a href="#">
-                <img class="recipeImg" src="/assets/img/dduk.jpg">
-                <p class="title">떡볶이</p>
-                <br>
-                <div class="flex-row display:inline-block;">
-                  <img src="/assets/img/star_gray.png" class="dimg">
-                  <p class="Difficulty">난이도</p>
-                  <div class="flex-row display:inline-block;">
-                    <img src="/assets/img/clock_gray.png" class="timg">
-                    <p class="time">시간</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-           -->
-           
-            
-           
-            
-            <!-- 반복문 돌리는곳  -->
+                    
 
             
             <c:forEach var="recipe" items="${recipe}">
@@ -275,8 +255,9 @@
 $(document).ready(function() {
 	console.log("여기는오나요")
     let page = 2; // 초기 페이지
+    let stopControl =${stop}; 
     let loading = false;
-        
+    console.log(stopControl);    
 
     function loadMoreData() {
 
@@ -330,7 +311,9 @@ $(document).ready(function() {
     $(window).scroll(function() {
     	console.log("스크롤오나요")
        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
-            loadMoreData(); // 스크롤이 끝에 도달하면 새로운 데이터를 불러옴
+    	   if(stopControl){
+               loadMoreData();
+           }
         }
     });
 });

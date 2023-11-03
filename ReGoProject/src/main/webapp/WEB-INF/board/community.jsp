@@ -13,7 +13,7 @@
   <script src="./assets/js/init-alpine.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <!-- <script src="jquery.min.js"></script> -->
+  <script src="jquery.min.js"></script> 
   <link rel="stylesheet" href="/assets/css/community.css" />
 
   
@@ -218,7 +218,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="profile-img">
-                  <a href="/goMypage?custId=${board.custId}"> 
+                  <a href="/goYourpage?custId=${board.custId}"> 
                   <img src="${userImg[status.index]}" class="profileimg">
                   </a>
                 </div>
@@ -313,7 +313,7 @@ $(document).ready(function(){
 	            		var card= "<div class='card'>";
 	            	    card +=  "<div class='card-header'>";
 	            	    card +=  "<div class='profile-img'>";
-	            	    card +=  "<a href='/goMypage?custId="+list[i].custId +"'>"; 
+	            	    card +=  "<a href='/goYourpage?custId="+list[i].custId +"'>"; 
 	            	    card +=  "<img src='" + uImg[i] + "' class='profileimg'></a>" ;
 	            	    card +=  "</div>"; 
 	            	    card +=  "<div class='profile-info'>"; 
