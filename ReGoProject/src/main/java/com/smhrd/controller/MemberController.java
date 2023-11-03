@@ -79,13 +79,13 @@ public class MemberController {
 		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
 		// 3. 어디에 저장할지
-		String savePath = "src/main/resources/static/";
-		Path path = Paths.get(savePath + filename);
+		//String savePath = "src/main/resources/static/";
+		//Path path = Paths.get(savePath + filename);
 		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 		// Path path = Paths.get(savePath+"\\"+ filename);
-		System.out.println(path);
+		
 		try {
-			Files.copy(Img.getInputStream(), path);
+			//Files.copy(Img.getInputStream(), path);
 			member.setCustImg(filename);
 			member.setCustAddr(custAddr);
 			repo.save(member);
@@ -142,9 +142,43 @@ public class MemberController {
 	}
 
 	@RequestMapping("/update")
-	public String update(r_member member, HttpSession session) {
+	public String update(r_member member, HttpSession session ,@RequestParam("custImg1") MultipartFile Img, @RequestParam("custAddr1") String custAddr1,
+			@RequestParam("custAddr2") String custAddr2) {
 		// 1. 수집
+		System.out.println(member);
+		String addr= member.getCustAddr();
+		String custAddr = addr +"/"+custAddr1 +"/"+custAddr2;
+		System.out.println(custAddr);
+		r_member user= (r_member)session.getAttribute("user");
+		String joindate = user.getCustJoindate();
+		
+		// 회원가입 이미지 저장
+		String uuid = UUID.randomUUID().toString(); // 0123-4567-asdf-qwercat.jpg
+		System.out.println(uuid);
+		// 2. uuid + file 이름, 저장할 이름을 생성
+		String filename = uuid + "_" + Img.getOriginalFilename();
+		System.out.println(filename);
+		// 3. 어디에 저장할지
+		String savePath = "src/main/resources/static/";
+		Path path = Paths.get(savePath + filename);
+		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
+		// Path path = Paths.get(savePath+"\\"+ filename);
+		System.out.println(path);
+		try {
+			member.setCustJoindate(joindate);
+			//Files.copy(Img.getInputStream(), path);
+			member.setCustImg(filename);
+			member.setCustAddr(custAddr);
+			repo.save(member);
 
+			System.out.println("성공이야?");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 2. 기능 정의 및 실행
+
+		// 3. View 선택
 		// 2. 기능 정의 및 실행
 		member = repo.save(member);
 

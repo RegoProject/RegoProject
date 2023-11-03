@@ -3,6 +3,8 @@ package com.smhrd.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.smhrd.entity.r_board;
@@ -22,7 +24,8 @@ public interface r_recipeRepository extends JpaRepository<r_recipe, Integer> {
 	
 
 	 
-
+	@Query(value="SELECT * From r_recipe WHERE rcpName LIKE :search", nativeQuery = true)
+	public List<r_recipe> findByRcpNameContaining(@Param("search")String search);
 	
 	
 	public r_recipe findByRcpIdx(int rcpIdx);

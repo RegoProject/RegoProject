@@ -1,5 +1,7 @@
 package com.smhrd.controller;
 
+
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.BufferedReader;
@@ -13,10 +15,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Base64;
 import javax.servlet.http.HttpServletResponse;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import com.smhrd.entity.r_ingre_join_data;
 import com.smhrd.entity.r_member;
 import com.smhrd.entity.r_msg_join_data;
@@ -94,28 +103,24 @@ public class RecipeController {
 	        rows2.remove(0);	
 	         
 	        for (int i=0 ; i<rows.size() ; i++) {
-	        	 r_recipe recipe =  new r_recipe();
+	        	 r_recipe recipe = new r_recipe();
 	        	 String[] recipeNameList = rows.get(i)[0].split(",");
-	             String[] recipeNameList2 =recipeNameList[0].split("]");
-	             String recipeName ="";
-	             if (recipeNameList2.length == 2) {
-	            	 recipeName =recipeNameList2[1].replace(" ", "");
-	             }else {
-	            	  recipeName =recipeNameList2[0].replace(" ", "");
-	             }
+	             
+	             
+
+	             System.out.println(recipeNameList[0]);
 	             String rcpImg= rows2.get(i)[0]+".jpg";
 	             String rcpLevel = rows2.get(i)[1];
 	             String rcpTime = rows2.get(i)[2];	            
 	             String recipeContent = rows.get(i)[2].replaceAll("[\\[\\].]", "");
 	             recipe.setRcpIdx(i+1);
-	             recipe.setRcpName(recipeName);
+	             recipe.setRcpName(rows2.get(i)[0]);
 	             recipe.setRcpContent(recipeContent);
 	             recipe.setRcpImg1(rcpImg);
 	             recipe.setRcpLevel(rcpLevel);
 	             recipe.setRcpTime(rcpTime);
 	             
-	             repo.save(recipe);           
-	             
+	             repo.save(recipe);      
 	            
 	                     
 	        }
@@ -128,7 +133,7 @@ public class RecipeController {
 		
 		List<r_recipe> list=  repo.findTop10ByOrderByRcpIdxAsc();
 		
-		
+		model.addAttribute("stop", "true");
 		model.addAttribute("recipe",list);
 		return "recipe/list";
 	}
@@ -237,15 +242,17 @@ public class RecipeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("????왜여기오냐");
 		
 	}
 	@RequestMapping("/recSuccess")
-	public String recSuccess(@RequestParam("file") MultipartFile multipartFile, @RequestParam("recipe") String recipeName) {
+	public void recSuccess( HttpServletResponse response, @RequestParam("file") MultipartFile multipartFile, @RequestParam("recipe") String recipeName) {
 	    Map<String, String> map = new HashMap<>();
 	    RestTemplate restTemplate  = new RestTemplate();
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
-
+	    String result = "";
+	    System.out.println(recipeName);
 	    try {
 	        // MultipartFile을 File로 변환
 	        File file = convertMultipartFileToFile(multipartFile);
@@ -263,10 +270,23 @@ public class RecipeController {
 	        ResponseEntity<String> responseEntity = restTemplate.postForEntity(flaskUrl, requestEntity, String.class);
 
 	        System.out.println(responseEntity.getBody());
+	        String responseBody = responseEntity.getBody();
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        JsonNode jsonNode = objectMapper.readTree(responseBody);
+	        
+	        boolean results = jsonNode.get("results").asBoolean();
+	        System.out.println(results);     
+	         
+	        
 	        System.out.println(responseEntity.getHeaders());
 	        System.out.println(responseEntity.getStatusCode());
-
+	        result = responseEntity.getBody();
 	        System.out.println("성공");
+	        
+	        result = String.valueOf(results);
+	        
+	       
+	        response.getWriter().write(result);
 
 	        // 파일 사용이 끝나면 삭제
 	        file.delete();
@@ -274,8 +294,10 @@ public class RecipeController {
 	        System.out.println("실패인가?");
 	        e.printStackTrace();
 	    }
-
-	    return "views/main";
+	    
+	    
+	    
+	    
 	}
 
 	private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
@@ -284,6 +306,16 @@ public class RecipeController {
 	    fos.write(multipartFile.getBytes());
 	    fos.close();
 	    return file;
+	}
+	@RequestMapping("/recipeSearch")
+	public String boardSearch(Model model, @RequestParam("search") String search) {
+		String search1 = "%"+search+"%";
+		System.out.println(search1);
+		List<r_recipe> list = repo.findByRcpNameContaining(search1);
+		model.addAttribute("recipe",list);
+		model.addAttribute("stop", "false");
+		
+		return "recipe/list";
 	}
 	
 	
