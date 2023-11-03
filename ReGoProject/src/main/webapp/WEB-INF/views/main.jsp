@@ -379,9 +379,36 @@
 
 				<!-- 사진으로 추가하는 태그 -->
 				<div>
-					<input type="file" id="addIngreFile"
+					<input type="file" id="addIngreFile" style="display: none;">
+					<button id="uploadButton"
 						class="h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-						style="box-sizing: border-box; left: 0;">
+						style="box-sizing: border-box; left: 0;">사진 업로드</button>
+						<div id="ingreAPIloadingModal" class="addModal">
+					    <div class="modal-content">
+					        <p>잠시만 기다려 주세요...</p>
+					    </div>
+					    </div>
+					    
+					    <div id="ingreAPIModal" class="addModal" >
+					    <div class="w-full modal-content">
+						<div class="mt-4 text-center">
+							<ul id="ingreResponeList" class=""></ul>
+							
+							</div>
+						
+								<div class="mt-4 pl-1_5">
+								<button id="sendAPIResult"
+										class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+										>적용</button>
+									<button id="cancleIngreAPIModal"
+										class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+										>취소</button>
+								</div>
+								    </div>
+								    <!-- height 100 ,width 64% -->
+				
+					     </div>
+					
 
 				
 				<!-- 글자로 추가하는 태그 -->
@@ -463,37 +490,8 @@
 					</div>
 					 </div>
 
-					
-						
-						
-				
-						
 					 
 				</div>
-
-	
-
-    <!-- 
-          <button
-            class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-            사진추가
-          </button>
-        </div>
-    <div>
-
-      </div>
-    
-      <button
-        @click="closeSecModal"
-        class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
-      
-      >
-       닫기
-      </button>
-   
-      </div>
-    </div>
-     -->
 
 			<div x-show="isTrdModalOpen"
 				x-transition:enter="transition ease-out duration-150"
@@ -512,7 +510,7 @@
 					x-transition:leave="transition ease-in duration-150"
 					x-transition:leave-start="opacity-100"
 					x-transition:leave-end="opacity-0  transform translate-y-1/2"
-					@click.away="closeTrdModal" @keydown.escape="closeTrdModal"
+					@click.away="" @keydown.escape="closeTrdModal"
 					class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
 					role="dialog" id="trdModal">
 					<!-- 조미료 추가(trdModal) 버튼 -->
@@ -563,7 +561,7 @@
 					    <div class="modal-content">
 					        <p>잠시만 기다려 주세요...</p>
 					    </div>
-					</div>
+						</div>
 				
 					<button id="cancleTrdModal" @click="closeTrdModal"
 							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray "
@@ -586,297 +584,152 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/assets/js/msgModal.js"></script> <!-- msg 모달 js -->
+<script src="/assets/js/searchModal.js"></script> <!-- 재료검색 모달 js -->
 
 
 <script type="text/javaScript">
+//모달 열기
+function openIngreModal() {
+  var modal = document.getElementById("ingreAPIModal");
+  modal.style.display = "block";
+}
 
+//모달 닫기
+function closeIngreModal() {
+  var modal = document.getElementById("ingreAPIModal");
+  modal.style.display = "none";
+}
 
-	$(document).ready(function() {
-		const inputElement = $('#ingreName'); // 모달창 내의 input 요소 선택
-		const searchList = $('#searchList');
+//취소 버튼 클릭 시 확인창 표시
+$('#cancleIngreAPIModal').click(function() {
+  if (confirm("정말 취소하시겠습니까? 취소 시 사진을 재 업로드 해야합니다.")) {
+    // 확인 버튼을 눌렀을 때 모달 닫기
+    closeIngreModal();
+    // goMain 요청 매핑으로 이동
+    window.location.href = '/goMain'; // 요청 매핑 URL로 수정
+  }
+});
 
-		inputElement.on('input', function() {
-			const searchTerm = inputElement.val();
-			console.log(searchTerm);
-			if (searchTerm.trim() !== '') {
-				$.ajax({
-					url : '/searchMyIngre',
-					method : 'POST',
-					data : {
-						ingreName : searchTerm,
-						custId : '${user.custId}'
-					},
-					success : function(results) {
-						updateSearchResults(results);
-						console.log(results)
-					},
-					error : function(xhr, status, error) {
-						console.error('AJAX 오류:', error);
-					}
-				});
-			} else {
-				searchList.empty();
-
-			}
-		});
-		
-		
-		
-		function updateSearchResults(results) {
-		    const searchList = $('#searchList');
-		    searchList.empty();
-		    console.log(results);
-
-		    // 결과의 유형을 확인합니다.
-		    if (results.type === 'searchIngre') {
-		        // searchIngre 유형일 경우
-		        results.data.forEach(function(result) {
-		            const ingreName = result.ingreName;
-		            const ingreIdx = result.ingreIdx;
-		            const ingreImg = result.ingreImg;
-
-		            const listItem = $('<li>').text(ingreName);
-		            const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
-
-		            addButton.on('click', function() {
-		                // 추가 버튼을 누를 때 처리를 추가합니다.
-		                // 예: 클릭 이벤트 핸들러
-		            });
-
-		            listItem.append(addButton);
-		            searchList.append(listItem);
-		        });
-		    } else if (results.type === 'searchMyIngre') {
-		        // searchMyIngre 유형일 경우
-		        for (const ingreName in results) {
-		            if (ingreName !== 'type') {
-		                const ingreAmount = results[ingreName];
-
-		                const listItem = $('<li>').text(ingreName + ' ');
-
-		                if (ingreAmount === '1') {
-		                    const textSpan = $('<span>').text(' 보유중');
-		                    textSpan.css('color', 'red');
-		                    listItem.append(textSpan);
-		                } else {
-		                    const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
-
-		                    addButton.on('click', function() {
-		                        // 추가 버튼을 누를 때 처리를 추가합니다.
-		                        // 예: 클릭 이벤트 핸들러
-		                    });
-
-		                    listItem.append(addButton);
-		                }
-
-		                listItem.addClass('text-center');
-		                searchList.append(listItem);
-		            }
-		        }
-		    }
-		}
-
-	});
-	
-	
-	
-	
-	$(document).ready(function() {
-		const inputElement = $('#ingreName2'); // 모달창 내의 input 요소 선택
-		const searchList = $('#searchList2');
-
-		inputElement.on('input', function() {
-			const searchTerm = inputElement.val();
-			console.log(searchTerm);
-			if (searchTerm.trim() !== '') {
-				$.ajax({
-					url : '/searchMyIngre',
-					method : 'POST',
-					data : {
-						ingreName : searchTerm,
-						custId : '${user.custId}'
-					},
-					success : function(results) {
-						updateSearchResults(results);
-						console.log(results)
-					},
-					error : function(xhr, status, error) {
-						console.error('AJAX 오류:', error);
-					}
-				});
-			} else {
-				searchList.empty();
-
-			}
-		});
-		
-		
-		
-		function updateSearchResults(results) {
-		    const searchList = $('#searchList2');
-		    searchList.empty();
-		    console.log(results);
-
-		    // 결과의 유형을 확인합니다.
-		    if (results.type === 'searchIngre') {
-		        // searchIngre 유형일 경우
-		        results.data.forEach(function(result) {
-		            const ingreName = result.ingreName;
-		            const ingreIdx = result.ingreIdx;
-		            const ingreImg = result.ingreImg;
-
-		            const listItem = $('<li>').text(ingreName);
-		            const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
-
-		            addButton.on('click', function() {
-		                // 추가 버튼을 누를 때 처리를 추가합니다.
-		                // 예: 클릭 이벤트 핸들러
-		            });
-
-		            listItem.append(addButton);
-		            searchList.append(listItem);
-		        });
-		    } else if (results.type === 'searchMyIngre') {
-		        // searchMyIngre 유형일 경우
-		        for (const ingreName in results) {
-		            if (ingreName !== 'type') {
-		                const ingreAmount = results[ingreName];
-
-		                const listItem = $('<li>').text(ingreName + ' ');
-
-		                if (ingreAmount === '1') {
-		                    const textSpan = $('<span>').text(' 보유중');
-		                    textSpan.css('color', 'red');
-		                    listItem.append(textSpan);
-		                } else {
-		                    const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
-
-		                    addButton.on('click', function() {
-		                        // 추가 버튼을 누를 때 처리를 추가합니다.
-		                        // 예: 클릭 이벤트 핸들러
-		                    });
-
-		                    listItem.append(addButton);
-		                }
-
-		                listItem.addClass('text-center');
-		                searchList.append(listItem);
-		            }
-		        }
-		    }
-		}
-
-	});
-	
-	
-	
-</script>
-
-<script type="text/javaScript">
-//모달 표시
+//처리중입니다. 모달 표시
 function showLoadingModal() {
-    document.getElementById("loadingModal").style.display = "block";
+    document.getElementById("ingreAPIloadingModal").style.display = "block";
 }
 
 // 모달 숨김
 function hideLoadingModal() {
-    document.getElementById("loadingModal").style.display = "none";
+    document.getElementById("ingreAPIloadingModal").style.display = "none";
 }
 
-var userMsgInfo;
 
-//페이지 로드시마다 조미료 정보 가져오는 함수
-function fetchUserMsgInfo() {
- // Ajax 요청을 보냅니다.
- $.ajax({
-     type: "GET",
-     url: "/selectMyAllMsg",
-     success: function (data) {
-         // 요청이 완료되면 사용자 조미료 정보를 userMsgInfo에 저장합니다.
-         userMsgInfo = data;
-         console.log(userMsgInfo);
-         initializeCheckboxes(); // 페이지 로드 후 체크박스 초기화
-     },
-     error: function (err) {
-         console.error("에러 발생: " + err);
-     }
- });
-}
-
-//페이지 로드 시 조미료 정보 가져오기
-fetchUserMsgInfo();
-
-//적용 버튼을 클릭할 때
-$("#msgSubmit").click(function () {
-	//적용버튼 비활성화
-	$("#msgSubmit").prop("disabled", true);
-	
-	showLoadingModal();
-	
-	
- var selectedMsgs = [];
-
- // 모든 체크박스를 반복하면서 선택된 항목을 확인합니다.
- $('input[name="msgIdx"]').each(function () {
-     var msgIdx = $(this).val();
-     var msgAmount = $(this).is(":checked") ? 1 : 0;
-     selectedMsgs.push({ msgIdx: msgIdx, msgAmount: msgAmount });
- });
-
- // 서버로 선택된 조미료 정보를 전송합니다.
- $.ajax({
-     type: "POST",
-     url: "/addMySelectedMsg", // 적절한 엔드포인트를 지정하세요.
-     data: JSON.stringify(selectedMsgs), // 선택된 조미료 정보를 JSON 형식으로 전송합니다.
-     contentType: "application/json; charset=utf-8",
-     success: function (response) {
-         console.log("성공했나요");
-         // 적용버튼 다시 활성화
-         $("#msgSubmit").prop("disabled", false);
-         hideLoadingModal();
-         fetchUserMsgInfo(); // 서버 응답 후 체크박스 초기화
-         location.reload();
-     },
-     error: function (err) {
-         console.error("에러 발생: " + err);
-      // 에러 발생 시도 "적용" 버튼을 다시 활성화
-         $("#msgSubmit").prop("disabled", false);
-         hideLoadingModal();
-     }
- });
+// 파일 업로드 버튼 클릭 시 파일 선택 창 열기
+$('#uploadButton').click(function() {
+  $('#addIngreFile').click();
 });
 
-//체크박스를 업데이트하는 함수
-function initializeCheckboxes() {
-    // 각 Checkbox를 반복합니다.
-    $('input[name="msgIdx"]').each(function () {
-        var msgIdx = $(this).val(); // Checkbox의 value를 가져옵니다.
-        var msgAmount = getMsgAmountById(msgIdx);
 
-        // msgAmount가 1이면 Checkbox를 체크합니다.
-        if (msgAmount === 1) {
-            $(this).prop('checked', true);
-        }
-    });
-}
+//파일 선택 시 이벤트
+$('#addIngreFile').change(function() {
+  var selectedFile = this.files[0];
+  var formData = new FormData();
+  formData.append('file', selectedFile);
+  // 응답 받는동안 모달창 띄우기 
+  showLoadingModal();
+  
 
-//msgIdx에 해당하는 msgAmount를 찾는 함수
-function getMsgAmountById(msgIdx) {
-    if (userMsgInfo) {
-        for (var i = 0; i < userMsgInfo.length; i++) {
-            if (userMsgInfo[i].msgIdx == msgIdx) {
-                return userMsgInfo[i].msgAmount;
-            }
-        }
+  // ingreAPI로 파일을 업로드
+  $.ajax({
+    url: '/ingreAPI', // ingreAPI로 보내기
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(response) {
+      // 성공 시 처리
+      console.log(response);
+      hideLoadingModal();     
+      
+      // 응답받은 후에 검색창용 모달창 불러와서 이름 수정할수있게 기능 만들어서 호출하기 
+      // 응답을 UL에 추가
+      appendResponseToList(response);
+      openIngreModal();
+      enableEditAndDeleteButtons();
+      
+    },
+    error: function(xhr, status, error) {
+    alert('오류')
+      // 오류 시 처리
+      console.log(error);
     }
-    // 해당하는 데이터를 찾지 못하면 기본값 0으로 처리합니다.
-    return 0;
-}
+  });
+});
 
+
+$(document).ready(function() {
+	  // "삭제" 버튼을 클릭하면 해당 항목을 목록에서 제거
+	  $('#ingreResponeList').on('click', 'li .delete-button', function() {
+	    event.preventDefault(); // 이벤트의 기본 동작 막기
+	    event.stopPropagation(); // 이벤트 전파 중지
+	    $(this).closest('li').remove();
+	  });
+	});
+
+function appendResponseToList(response) {
+	  var resultArray = response.result;
+	  var ul = document.getElementById("ingreResponeList");
+
+	  while (ul.firstChild) {
+	    ul.removeChild(ul.firstChild);
+	  }
+
+	  resultArray.forEach(function (item, index) {
+		    var li = document.createElement("li");
+		    var inputElement = document.createElement("input");
+		    inputElement.type = "text";
+		    inputElement.value = item;
+		    inputElement.disabled = true;
+		    inputElement.name = "ingreName"; 
+		    inputElement.className="h-12 ingreAPIInput";
+		    li.appendChild(inputElement);
+
+
+	    var saveButton = document.createElement("button");
+	    saveButton.textContent = "수정";
+	    saveButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple save-button" 
+	    li.appendChild(saveButton);
+
+	    var deleteButton = document.createElement("button");
+	    deleteButton.textContent = "삭제";
+	    deleteButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple delete-button"; // CSS 클래스 추가
+	    li.appendChild(deleteButton);
+
+	    ul.appendChild(li);
+	  });
+
+	  
+	}
+
+function enableEditAndDeleteButtons() {
+	  // "저장" 버튼을 클릭하면 해당 항목의 입력 필드를 활성화하고 버튼 이름을 "수정"으로 변경
+	  $('.save-button').click(function() {
+	    var inputElement = $(this).closest('li').find('input');
+	    var buttonText = $(this).text(); // 현재 버튼의 텍스트 가져오기
+
+	    if (buttonText === "저장") {
+	      // "저장" 버튼을 클릭한 경우
+	      inputElement.prop('disabled', true);
+	      $(this).text("수정"); // 버튼 텍스트를 "수정"으로 변경
+	    } else {
+	      // "수정" 버튼을 클릭한 경우
+	      inputElement.prop('disabled', false);
+	      inputElement.focus(); // 입력 필드에 포커스를 줌
+	      $(this).text("저장"); // 버튼 텍스트를 "저장"으로 변경
+	    }
+	  });
+	}
 
 
 </script>
-
 
 
 

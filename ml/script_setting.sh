@@ -20,10 +20,10 @@ echo "Grounding DINO check"
 pip install gdown
 echo "gdown check"
 
-wget https://drive.google.com/uc?id=1826V4X63UFaN1ElTN17kSiwRqIMRiQ-c -O resnet50_final_dish.pth
+curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print$NF}' ./cookie`&id=1826V4X63UFaN1ElTN17kSiwRqIMRiQ-c" -o "resnet50_final_dish.pth" rm cookie
 echo "final_dish check"
 
-wget https://drive.google.com/uc?id=14u8kZCZ6cEmDy9vnyG16QJbiKqsXyC0h -O ing_resnet50.pth
-echo "ing check"
+curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print$NF}' ./cookie`&id=13yHUeuqzZe4WJgz4OAz9tC68HxInLtPU" -o "resnet50_final_ing.pth" rm cookie
+echo "final_ing check"
 
 python3 real_API.py

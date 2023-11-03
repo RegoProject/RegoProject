@@ -81,5 +81,17 @@ function data() {
       this.trapTrdCleanup()
     },
 
+	// fourModal
+	isFourModalOpen: false,
+    trapFourCleanup: null,
+    openFourModal() {
+      this.isFourModalOpen = true
+      this.trapFourCleanup = focusTrap(document.querySelector('#fourModal'))
+    },
+    closeFourModal() {
+      this.isFourModalOpen = false
+      this.trapFourCleanup()
+    },
+
   }
 }
