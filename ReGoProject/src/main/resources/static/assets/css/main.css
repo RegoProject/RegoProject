@@ -650,6 +650,11 @@ img,video {
     background-color: #7DD076
 }
 
+.bg-red-600{
+	    --bg-opacity: 1;
+    background-color: red;
+}
+
 .hover\:bg-gray-100:hover {
     --bg-opacity: 1;
     background-color: #f4f5f7;

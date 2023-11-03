@@ -393,6 +393,7 @@
 					    <div class="w-full modal-content">
 						<div class="mt-4 text-center">
 							<ul id="ingreResponeList" class=""></ul>
+							
 							</div>
 						
 								<div class="mt-4 pl-1_5">
@@ -651,6 +652,8 @@ $('#addIngreFile').change(function() {
       // 응답받은 후에 검색창용 모달창 불러와서 이름 수정할수있게 기능 만들어서 호출하기 
       // 응답을 UL에 추가
       appendResponseToList(response);
+      openIngreModal();
+      enableEditAndDeleteButtons();
       
     },
     error: function(xhr, status, error) {
@@ -662,33 +665,70 @@ $('#addIngreFile').change(function() {
 });
 
 
+$(document).ready(function() {
+	  // "삭제" 버튼을 클릭하면 해당 항목을 목록에서 제거
+	  $('#ingreResponeList').on('click', 'li .delete-button', function() {
+	    event.preventDefault(); // 이벤트의 기본 동작 막기
+	    event.stopPropagation(); // 이벤트 전파 중지
+	    $(this).closest('li').remove();
+	  });
+	});
 
 function appendResponseToList(response) {
-	// 'result' 속성에서 배열 가져오기
 	  var resultArray = response.result;
-
-	  // UL 엘리먼트 가져오기
 	  var ul = document.getElementById("ingreResponeList");
 
-	  // 기존 LI 엘리먼트 삭제
 	  while (ul.firstChild) {
 	    ul.removeChild(ul.firstChild);
 	  }
 
-	  // 각 응답 아이템을 LI로 만들어 UL에 추가
-	  resultArray.forEach(function(item) {
-	    var li = document.createElement("li");
-	    li.appendChild(document.createTextNode(item));
+	  resultArray.forEach(function (item, index) {
+		    var li = document.createElement("li");
+		    var inputElement = document.createElement("input");
+		    inputElement.type = "text";
+		    inputElement.value = item;
+		    inputElement.disabled = true;
+		    inputElement.name = "ingreName"; 
+		    inputElement.className="h-12 ingreAPIInput";
+		    li.appendChild(inputElement);
+
+
+	    var saveButton = document.createElement("button");
+	    saveButton.textContent = "수정";
+	    saveButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple save-button" 
+	    li.appendChild(saveButton);
+
+	    var deleteButton = document.createElement("button");
+	    deleteButton.textContent = "삭제";
+	    deleteButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple delete-button"; // CSS 클래스 추가
+	    li.appendChild(deleteButton);
+
 	    ul.appendChild(li);
 	  });
+
 	  
-	  openIngreModal()
-	
-}
-	
+	}
+
+function enableEditAndDeleteButtons() {
+	  // "저장" 버튼을 클릭하면 해당 항목의 입력 필드를 활성화하고 버튼 이름을 "수정"으로 변경
+	  $('.save-button').click(function() {
+	    var inputElement = $(this).closest('li').find('input');
+	    var buttonText = $(this).text(); // 현재 버튼의 텍스트 가져오기
+
+	    if (buttonText === "저장") {
+	      // "저장" 버튼을 클릭한 경우
+	      inputElement.prop('disabled', true);
+	      $(this).text("수정"); // 버튼 텍스트를 "수정"으로 변경
+	    } else {
+	      // "수정" 버튼을 클릭한 경우
+	      inputElement.prop('disabled', false);
+	      inputElement.focus(); // 입력 필드에 포커스를 줌
+	      $(this).text("저장"); // 버튼 텍스트를 "저장"으로 변경
+	    }
+	  });
+	}
 
 
-	
 </script>
 
 
