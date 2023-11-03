@@ -23,8 +23,7 @@ echo "gdown check"
 curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print$NF}' ./cookie`&id=1826V4X63UFaN1ElTN17kSiwRqIMRiQ-c" -o "resnet50_final_dish.pth" rm cookie
 echo "final_dish check"
 
-
-curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print$NF}' ./cookie`&id=14u8kZCZ6cEmDy9vnyG16QJbiKqsXyC0h" -o "ing_resnet50.pth" rm cookie
-echo "ing check"
+curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print$NF}' ./cookie`&id=13yHUeuqzZe4WJgz4OAz9tC68HxInLtPU" -o "resnet50_final_ing.pth" rm cookie
+echo "final_ing check"
 
 python3 real_API.py
