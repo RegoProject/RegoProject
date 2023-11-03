@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.smhrd.entity.r_ingre_join_data;
 import com.smhrd.entity.r_msg_join_data;
+import com.smhrd.entity.r_recipe;
 import com.smhrd.mapper.r_recipeMapper;
 
 @Service
@@ -34,7 +35,11 @@ public class r_recipeService {
 	}
 	
 	
-	
+	public r_recipe selectRecipe(String rcpName) {
+		r_recipe recipeResult = recMapper.selectRecipe(rcpName);
+		return recipeResult;
+		
+	}
 
 	
 }

@@ -45,10 +45,14 @@ public class MyRefController {
 	private r_my_msgRepository myMsgRepo;
 	
 	@Autowired
-	private r_ingreRepository ingreRepo;
+	private r_my_ingreRepository myIngreRepo;
 	
 	@Autowired
-	private r_my_ingreRepository myIngreRepo;
+	private r_ingreRepository ingreRepo;
+	
+
+	
+
 	
 	
 	@RequestMapping("/goMyIngreList")
@@ -218,6 +222,27 @@ public class MyRefController {
 	    response.put("failedIngredients", failedIngredients);
 
 	    return response;
+	}
+	
+	
+	@RequestMapping("/searchMyRef")
+	@ResponseBody
+	public Map<String, Object> searchMyRef(HttpSession session, r_member member, Model model) {
+		member = (r_member) session.getAttribute("user");
+		
+		
+		List<r_my_ingredients> ingreList = myIngreRepo.findByCustId(member.getCustId());
+		List<r_my_msg> msgList = myMsgRepo.findByCustId(member.getCustId());
+		
+		
+		// model에 각각 담아주고싶어 "ingre" , ingreList / "msg" , msgList
+		
+	    Map<String, Object> responseData = new HashMap<>();
+	    responseData.put("ingre", ingreList);
+	    responseData.put("msg", msgList);
+		
+		
+		return responseData;
 	}
 
 

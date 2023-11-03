@@ -26,6 +26,16 @@
 
 </select>
 
+<select id="selectRecipe" parameterType="java.lang.String" resultType="com.smhrd.entity.r_recipe" >
+
+ <![CDATA[
+			   SELECT *
+				FROM r_recipe
+				WHERE rcpName = #{value};
+    ]]>
+
+</select>
+
 
 
 

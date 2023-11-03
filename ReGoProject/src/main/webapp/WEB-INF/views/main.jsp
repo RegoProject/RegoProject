@@ -303,8 +303,9 @@
 						</a>
 					</div>
 					<div>
-						<br> <a href="/goRecommendList">
-							<div class="recipeRc" style="display: inline-block">
+						<br>
+							<div class="recipeRc" style="display: inline-block" id="recommand">
+							 	<a href="/goRecommendList">
 								<div>
 									<img id="ss" src="/assets/img/recipe.png">
 								</div>
@@ -590,7 +591,69 @@
 
 
 <script type="text/javaScript">
-//모달 열기
+var ingreList;
+var msgList;
+
+
+$.ajax({
+  type: "POST",
+  url: "/searchMyRef",
+  success: function (response) {
+    // 서버로부터 받은 JSON 응답을 사용
+    ingreList = response.ingre;
+    msgList = response.msg;
+
+    // 이제 ingreList와 msgList를 사용하여 필요한 작업을 수행
+
+    // 'ingreIdx'와 'msgIdx' 값을 함께 추출하여 하나의 배열로 반환하는 함수
+    var userIngredients = getUserIngredients(ingreList, msgList);
+
+    // 데이터 추출 및 새로운 API에 보내기
+    sendToRecommendAPI(userIngredients);
+  },
+  error: function (error) {
+    // 오류 처리
+    console.log("Error:", error);
+  },
+});
+
+// 'ingreIdx'와 'msgIdx' 값을 함께 추출하여 하나의 배열로 반환하는 함수
+function getUserIngredients(ingreList, msgList) {
+  var userIngredients = [];
+  
+  ingreList.forEach(function (item) {
+    userIngredients.push(item.ingreIdx);
+  });
+  
+  msgList.forEach(function (item) {
+    userIngredients.push(item.msgIdx);
+  });
+  
+  return userIngredients;
+}
+
+// 데이터를 새로운 API에 보내는 함수
+function sendToRecommendAPI(userIngredients) {
+  $.ajax({
+    type: "POST",
+    url: "/recommandAPI",
+    data: JSON.stringify({
+      'user_ing': userIngredients
+    }),
+    contentType: "application/json",
+    success: function (response) {
+      // 새로운 API로부터 받은 응답을 처리
+      console.log("Recommend API Response:", response);
+    
+ 
+    },
+    error: function (error) {
+      // 오류 처리
+      console.log("Error:", error);
+    },
+  });
+}
+
 
 
 
