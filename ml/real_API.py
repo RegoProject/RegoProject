@@ -105,11 +105,11 @@ def predict():
         input_data = transform(image).unsqueeze(0).to(device)
 
         outputs = success_model(input_data)
-        top5_op = outputs.topk(5, dim=-1)[1][0].numpy().tolist()
+        top4_op = outputs.topk(4, dim=-1)[1][0].numpy().tolist()
         
         # 모델이 예측한것과 레시피의 음식이 일치하는지 확인 (음식 라벨과 모델 예측값이 일치하는지 확인)    
         success_res = False
-        for i in top5_op:
+        for i in top4_op:
             if cook_list[i] == label:
                 success_res = True
         
