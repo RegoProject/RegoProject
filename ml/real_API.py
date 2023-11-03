@@ -33,8 +33,8 @@ transform = transforms.Compose(
     ]
 )
 
-"""recipe.csv 불러오고 필요한 list 생성"""
-df = pd.read_csv('recipe.csv', encoding='cp949')
+"""recipe_final.csv 불러오고 필요한 list 생성"""
+df = pd.read_csv('recipe_final.csv', encoding='cp949')
 cook_list = [] # 레시피 목록
 ingredients = [] # 레시피별 재료 목록
 all_ingredients = {} # 전체 재료 목록
@@ -67,7 +67,7 @@ multi_hot_matrix = mlb.fit_transform(matrix)
 
 """식재료 데이터 불러오기"""
 # val_data_dir = '../ing_val4' 이건 원서 컴퓨터에서만
-val_data_dir = 'ing_val4'
+val_data_dir = 'ing_val_final'
 val_dataset = ImageFolder(val_data_dir)
 class_names = val_dataset.classes
 
@@ -80,8 +80,8 @@ success_model.eval()
 
 """ing_predict 모델 로딩"""
 # num_classes는 학습된 식재료 개수
-ing_model = resnet50(num_classes = 69)
-ing_weights_path = "ing_resnet50.pth"
+ing_model = resnet50(num_classes = 59)
+ing_weights_path = "resnet50_final_ing.pth"
 ing_model.load_state_dict(torch.load(ing_weights_path, map_location=torch.device('cpu')))
 ing_model.eval()
 
@@ -213,10 +213,11 @@ def predict_ing():
             input_data = transform(crop_image).unsqueeze(0).to(device)
             outputs = ing_model(input_data)
             label_pre = outputs.topk(1, dim=-1)[1][0]
-            ret_cls.append(class_names[label_pre])
+            if label_pre !='trash':
+                ret_cls.append(class_names[label_pre])
         
         result = {
-            "result" : ret_cls
+            "result" : list(set(ret_cls))
         }
         
         return flask.Response(
