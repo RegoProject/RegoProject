@@ -217,7 +217,7 @@ def predict_ing():
                 ret_cls.append(class_names[label_pre])
         
         result = {
-            "result" : ret_cls
+            "result" : list(set(ret_cls))
         }
         
         return flask.Response(
