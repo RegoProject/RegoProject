@@ -67,7 +67,7 @@ multi_hot_matrix = mlb.fit_transform(matrix)
 
 """식재료 데이터 불러오기"""
 # val_data_dir = '../ing_val4' 이건 원서 컴퓨터에서만
-val_data_dir = 'ing_val4'
+val_data_dir = 'ing_val_final'
 val_dataset = ImageFolder(val_data_dir)
 class_names = val_dataset.classes
 
@@ -80,8 +80,8 @@ success_model.eval()
 
 """ing_predict 모델 로딩"""
 # num_classes는 학습된 식재료 개수
-ing_model = resnet50(num_classes = 69)
-ing_weights_path = "ing_resnet50.pth"
+ing_model = resnet50(num_classes = 59)
+ing_weights_path = "resnet50_final_ing.pth"
 ing_model.load_state_dict(torch.load(ing_weights_path, map_location=torch.device('cpu')))
 ing_model.eval()
 
@@ -105,11 +105,11 @@ def predict():
         input_data = transform(image).unsqueeze(0).to(device)
 
         outputs = success_model(input_data)
-        top4_op = outputs.topk(4, dim=-1)[1][0].numpy().tolist()
+        top5_op = outputs.topk(5, dim=-1)[1][0].numpy().tolist()
         
         # 모델이 예측한것과 레시피의 음식이 일치하는지 확인 (음식 라벨과 모델 예측값이 일치하는지 확인)    
         success_res = False
-        for i in top4_op:
+        for i in top5_op:
             if cook_list[i] == label:
                 success_res = True
         
