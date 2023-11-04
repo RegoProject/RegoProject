@@ -197,28 +197,25 @@
           <br><br>
           <!-- 여기서부터 코드 추가 되었음 -->
           <header>
-           
+           	
+    		
             <div class="myContainer">
+            <c:if test="${who eq 'you'}">
               <div class="profile">
                 <div class="profile-image">
               
                 <form id="uploadForm" enctype="multipart/form-data">
 				<!-- 문제생기면 imagePath/ -->
-    			<img id="profilePhoto" src="imagePath/uploadedImage/${user.custImg}" alt="#" class="rounded-image">
+    			
+    			<img id="profilePhoto" src="imagePath/uploadedImage/${user1.custImg}" alt="#" class="rounded-image">
     			<input type="file" name="file" id="fileInput" style="display: none;">
     			<input type="submit" value="Upload" style="display: none;">
 				</form>                  
                 </div>
                 <div class="profile-user-settings">
-                  <h1 class="profile-user-name" style="font-size:18px">${user.custName}</h1>
-                <c:choose>
-    			<c:when test="${who eq 'you'}">
-       			 <a href="#"><button class="btn profile-edit-btn">팔로우</button></a>
-    			</c:when>
-    			<c:when test="${who eq 'my'}">
-       			<a href="/goUpdate"><button class="btn profile-edit-btn">프로필 수정</button></a>
-    			</c:when>
-				</c:choose>
+                  <h1 class="profile-user-name" style="font-size:18px">${user1.custName}</h1>                 
+       			 <a href="#"><button class="btn profile-edit-btn">팔로우</button></a>  			
+    			
                 </div>
                 <br>
                 <div class="profile-stats">
@@ -232,7 +229,37 @@
                 <div class="profile-bio">
                 </div>
               </div>
-              <!-- End of profile section -->
+            </c:if>
+            <c:if test="${who eq 'my'}">
+              <div class="profile">
+                <div class="profile-image">
+              
+                <form id="uploadForm" enctype="multipart/form-data">
+				<!-- 문제생기면 imagePath/ -->
+    			
+    			<img id="profilePhoto" src="imagePath/uploadedImage/${user.custImg}" alt="#" class="rounded-image">
+    			<input type="file" name="file" id="fileInput" style="display: none;">
+    			<input type="submit" value="Upload" style="display: none;">
+				</form>                  
+                </div>
+                <div class="profile-user-settings">
+                  <h1 class="profile-user-name" style="font-size:18px">${user.custName}</h1>                 
+       			 <a href="/goUpdate"><button class="btn profile-edit-btn">회원정보수정</button></a>  			
+    			
+                </div>
+                <br>
+                <div class="profile-stats">
+                  <ul>
+                    <li><span class="profile-stat-count">164</span> 게시글</li>
+                    <li><span class="profile-stat-count">188</span> 팔로워</li>
+                    <li><span class="profile-stat-count">206</span> 팔로잉</li>
+                  </ul>
+                </div>
+                <br>
+                <div class="profile-bio">
+                </div>
+              </div>
+            </c:if>
             </div>
          
           

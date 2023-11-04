@@ -9,9 +9,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Optional;
+import java.util.Set;
+import java.util.Base64;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -44,9 +48,10 @@ import com.smhrd.service.r_recipeService;
 
 @Controller
 public class RecipeController {
+
 	@Autowired
 	private recommandAPIController recAPI;
-	
+
 	@Autowired
 	private r_recipeRepository repo;
 
@@ -198,59 +203,10 @@ public class RecipeController {
 	}
 
 	@RequestMapping("/goRecommendList")
-	public String goRecommendList(HttpSession session, Model model) {
-	    r_member member = (r_member) session.getAttribute("user");
+	public String goRecommendList(r_member member, Model model) {
 
-	    List<r_my_ingredients> ingreList = myIngreRepo.findByCustId(member.getCustId());
-	    List<r_my_msg> msgList = myMsgRepo.findByCustId(member.getCustId());
-	    System.out.println(ingreList);
-	    
-	    if (ingreList.isEmpty() || msgList.isEmpty()) {
-	        // 사용자가 신규 사용자인 경우, 메인 페이지로 리다이렉트 또는 다른 처리 수행
-	    	// 에러페이지 만들어서 보내주자
-	        return "redirect:/goMain";
-	    }
-
-
-	    System.out.println("리스트 비어있으면 여긴 오면 안돼");
-	    // recommendAPIController 호출
-	    ResponseEntity<String> responseEntity = recAPI.recommendAPI(ingreList, msgList);
-
-	    if (responseEntity.getStatusCode() == HttpStatus.OK) {
-	        String response = responseEntity.getBody();
-	        System.out.println(response);
-	        ObjectMapper objectMapper = new ObjectMapper();
-	        List<String> rcpNames = new ArrayList<>();
-
-	        try {
-	            JsonNode rootNode = objectMapper.readTree(response);
-	            JsonNode recipeNode = rootNode.get("recipe");
-
-	            if (recipeNode.isArray()) {
-	                for (JsonNode recipe : recipeNode) {
-	                    rcpNames.add(recipe.asText());
-	                }
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace(); // 예외 처리를 적절하게 수행해야 합니다.
-	        }
-
-	        // recService.selectRecipe를 사용하여 레시피 정보 얻기
-	        List<r_recipe> recommendList = new ArrayList<>();
-	        for (String rcpName : rcpNames) {
-	            r_recipe recipe = recService.selectRecipe(rcpName);
-	            if (recipe != null) {
-	                recommendList.add(recipe);
-	            }
-	        }
-
-	        System.out.println(recommendList);
-	        model.addAttribute("recommendList", recommendList);
-	        return "recipe/recommendList";
-	    } else {
-	        // 오류 처리
-	        return "redirect:/goMain"; // 오류 페이지로 리다이렉트 또는 다른 처리 수행
-	    }
+		// model.addAttribute("recipeRecommed",recRecommendlist);
+		return "recipe/recommendList";
 	}
 
 	// 래정오빠 레시피 전체목록 페이지는 사진 사이즈때문에 스크롤이 적용이 안되는것같아서 한 페이지당 호출하는 개수를 늘려야될것같아요 10개정도로
@@ -339,13 +295,98 @@ public class RecipeController {
 
 	@RequestMapping("/recipeSearch")
 	public String boardSearch(Model model, @RequestParam("search") String search) {
-		String search1 = "%" + search + "%";
-		System.out.println(search1);
-		List<r_recipe> list = repo.findByRcpNameContaining(search1);
-		model.addAttribute("recipe", list);
+		List<r_recipe> recipelist = new ArrayList<>();
+		List<String> ngrams = generateNGrams(search, 2);
+		for (int i = 0; i < ngrams.size(); i++) {
+			String search1 = "";
+			search1 = "%" + ngrams.get(i) + "%";
+
+			List<r_recipe> list = repo.findByRcpNameContaining(search1);
+			for (int j = 0; j < list.size(); j++) {
+				recipelist.add(list.get(j));
+
+			}
+		}
+		List<r_recipe> uniqueRecipeList = new ArrayList<>();
+		Set<Integer> rcpIdxSet = new HashSet<>();
+
+		for (r_recipe recipe : recipelist) {
+			if (!rcpIdxSet.contains(recipe.getRcpIdx())) {
+				uniqueRecipeList.add(recipe);
+				rcpIdxSet.add(recipe.getRcpIdx());
+			}
+		}
+
+		model.addAttribute("recipe", uniqueRecipeList);
 		model.addAttribute("stop", "false");
 
 		return "recipe/list";
+	}
+
+	public static List<String> generateNGrams(String text, int n) {
+		List<String> ngrams = new ArrayList<>();
+		String[] words = text.split("\\s+");
+		for (String word : words) {
+			for (int i = 0; i <= word.length() - n; i++) {
+				ngrams.add(word.substring(i, i + n));
+			}
+		}
+		return ngrams;
+	}
+
+	@RequestMapping("/goRecommendList")
+	public String goRecommendList(HttpSession session, Model model) {
+		r_member member = (r_member) session.getAttribute("user");
+
+		List<r_my_ingredients> ingreList = myIngreRepo.findByCustId(member.getCustId());
+		List<r_my_msg> msgList = myMsgRepo.findByCustId(member.getCustId());
+		System.out.println(ingreList);
+
+		if (ingreList.isEmpty() || msgList.isEmpty()) {
+			// 사용자가 신규 사용자인 경우, 메인 페이지로 리다이렉트 또는 다른 처리 수행
+			// 에러페이지 만들어서 보내주자
+			return "redirect:/goMain";
+		}
+
+		System.out.println("리스트 비어있으면 여긴 오면 안돼");
+		// recommendAPIController 호출
+		ResponseEntity<String> responseEntity = recAPI.recommendAPI(ingreList, msgList);
+
+		if (responseEntity.getStatusCode() == HttpStatus.OK) {
+			String response = responseEntity.getBody();
+			System.out.println(response);
+			ObjectMapper objectMapper = new ObjectMapper();
+			List<String> rcpNames = new ArrayList<>();
+
+			try {
+				JsonNode rootNode = objectMapper.readTree(response);
+				JsonNode recipeNode = rootNode.get("recipe");
+
+				if (recipeNode.isArray()) {
+					for (JsonNode recipe : recipeNode) {
+						rcpNames.add(recipe.asText());
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace(); // 예외 처리를 적절하게 수행해야 합니다.
+			}
+
+			// recService.selectRecipe를 사용하여 레시피 정보 얻기
+			List<r_recipe> recommendList = new ArrayList<>();
+			for (String rcpName : rcpNames) {
+				r_recipe recipe = recService.selectRecipe(rcpName);
+				if (recipe != null) {
+					recommendList.add(recipe);
+				}
+			}
+
+			System.out.println(recommendList);
+			model.addAttribute("recommendList", recommendList);
+			return "recipe/recommendList";
+		} else {
+			// 오류 처리
+			return "redirect:/goMain"; // 오류 페이지로 리다이렉트 또는 다른 처리 수행
+		}
 	}
 
 }
