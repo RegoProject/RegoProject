@@ -83,6 +83,7 @@
 }
 
 .delete-button{
+	background-color : brown;
 	width: 10%;
 	left : -2%;
 }
