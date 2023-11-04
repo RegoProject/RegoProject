@@ -1,9 +1,11 @@
 package com.smhrd.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,24 +16,29 @@ import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.entity.r_board;
+import com.smhrd.entity.r_follow;
 import com.smhrd.entity.r_member;
 import com.smhrd.repository.r_boardRepository;
+import com.smhrd.repository.r_followRepository;
 import com.smhrd.repository.r_memberrRepository;
 
 @Controller
 public class MyPageController {
 	
-
+	
 	@Autowired
 	private r_memberrRepository repo;
 	@Autowired
 	private r_boardRepository repo1;
+	@Autowired
+	private r_followRepository repo2;
 	
 	
 	@RequestMapping("/goMyForm")
@@ -61,8 +68,14 @@ public class MyPageController {
 		
 		
 		List<r_board> list= repo1.findByCustId(custId);
+		List<r_follow> list1= repo2.findByFollowee(custId);
+		List<r_follow> list2= repo2.findByFollower(custId);
+		
+		model.addAttribute("boardCnt", list.size());
 		model.addAttribute("board",list);
 		model.addAttribute("who", "my");
+		model.addAttribute("follow", list1.size());
+		model.addAttribute("following" , list2.size());
 		
 		return "mypage/mypage1";
 	}
@@ -72,15 +85,30 @@ public class MyPageController {
 		String custId2 = member.getCustId();
 		
 		
+		
 		if(custId.equals(custId2)) {
 			
 			return "redirect:/goMypage";
 		}else {
+			String fff= "";
+			List<r_follow> follow =repo2.findByFollowerAndFollowee(custId2, custId);
+			if(follow.size()==0) {				
+					fff = "yes";
+			}else {
+				fff= "no";				
+			}
+			
 			r_member who = repo.findByCustId(custId);
 			List<r_board> list =repo1.findByCustId(custId);
+			List<r_follow> list1= repo2.findByFollowee(custId);
+			List<r_follow> list2= repo2.findByFollower(custId);
+			model.addAttribute("choose" , fff);
+			model.addAttribute("boardCnt", list.size());
 			model.addAttribute("board", list);
 			model.addAttribute("user1" ,who);
 			model.addAttribute("who", "you");
+			model.addAttribute("follow", list1.size());
+			model.addAttribute("following" , list2.size());
 			return "mypage/mypage1";
 		}
 		
@@ -134,5 +162,37 @@ public class MyPageController {
         
         
     }
+	@Transactional
+	@RequestMapping("/follow")
+	public void follow(@RequestParam("custId") String custId ,@RequestParam("action")String action , HttpSession session  , HttpServletResponse response) {
+		r_follow fol= new r_follow();
+		r_member member = (r_member)session.getAttribute("user");
+		String cust1 = member.getCustId();
+		String result ="";
+		if(action.equals("팔로우")) {
+			System.out.println(action);
+			fol.setCreatedAt(new Date());
+			fol.setFollowee(custId);
+			fol.setFollower(cust1);
+			repo2.save(fol);
+			result ="follow";
+			
+			
+		}else {
+			System.out.println(action);
+			repo2.deleteByFollowerAndFollowee(cust1, custId);
+			result ="unfollow";
+		}
+		
+		 try {
+		        response.getWriter().write(result);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		
+		
+		
+		
+	}
 	
 }

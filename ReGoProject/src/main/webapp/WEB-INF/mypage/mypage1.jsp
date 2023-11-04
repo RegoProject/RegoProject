@@ -213,16 +213,22 @@
 				</form>                  
                 </div>
                 <div class="profile-user-settings">
-                  <h1 class="profile-user-name" style="font-size:18px">${user1.custName}</h1>                 
-       			 <a href="#"><button class="btn profile-edit-btn">팔로우</button></a>  			
-    			
+                  <h1 class="profile-user-name" style="font-size:18px">${user1.custName}</h1> 
+                 <c:if test="${choose eq 'yes' }">                             
+       			 	<a href="#"><button class="btn profile-edit-btn followBtn" id="follow"  >팔로우</button></a>
+       			 	<a href="#"><button class="btn profile-edit-btn followBtn" id="unfollow" style="display: none;" >팔로우취소</button></a>   			
+    			 </c:if>
+    			 <c:if test ="${choose eq 'no' }">
+    			 	<a href="#"><button class="btn profile-edit-btn followBtn" id="follow" style="display: none;" >팔로우</button></a>
+       			 	<a href="#"><button class="btn profile-edit-btn followBtn" id="unfollow" >팔로우취소</button></a>  
+    			 </c:if>
                 </div>
                 <br>
                 <div class="profile-stats">
                   <ul>
-                    <li><span class="profile-stat-count">164</span> 게시글</li>
-                    <li><span class="profile-stat-count">188</span> 팔로워</li>
-                    <li><span class="profile-stat-count">206</span> 팔로잉</li>
+                    <li><span class="profile-stat-count">${boardCnt }</span> 게시글</li>
+                    <li><span class="profile-stat-count">${follow }</span> 팔로워</li>
+                    <li><span class="profile-stat-count">${following }</span> 팔로잉</li>
                   </ul>
                 </div>
                 <br>
@@ -250,9 +256,9 @@
                 <br>
                 <div class="profile-stats">
                   <ul>
-                    <li><span class="profile-stat-count">164</span> 게시글</li>
-                    <li><span class="profile-stat-count">188</span> 팔로워</li>
-                    <li><span class="profile-stat-count">206</span> 팔로잉</li>
+                    <li><span class="profile-stat-count">${boardCnt }</span> 게시글</li>
+                    <li><span class="profile-stat-count">${follow }</span> 팔로워</li>
+                    <li><span class="profile-stat-count">${following }</span> 팔로잉</li>
                   </ul>
                 </div>
                 <br>
@@ -288,6 +294,35 @@ $(document).ready(function() {
     $("#profilePhoto").click(function() {
         $("#fileInput").click(); // 파일 선택 창을 띄웁니다.
     });
+    
+    $(document).on('click', '.followBtn', function(){
+    	
+    	 
+    	var action = $(this).text();
+    	var custId = ${user1.custId};
+    	
+    	$.ajax({
+    	        url: '/follow',
+    	        type: 'POST',
+    	        data: {"custId": custId  , "action" : action},
+    	        success: function(response) {
+    	                	            
+                	if (response === "follow") {
+                    	$("#follow").hide(); 
+                    	$("#unfollow").show(); 
+                	} else if (response === "unfollow") {
+                    	$("#unfollow").hide(); 
+                    	$("#follow").show(); // 팔로우 버튼을 표시합니다
+               		}
+            	
+    	        },
+    	        error: function(e) {
+                    console.log("에러 발생");
+                }
+    	    });
+        
+    });
+    
 
     $("#fileInput").change(function() { // 파일이 선택되면 자동으로 submit 합니다.
         $("#uploadForm").submit();
