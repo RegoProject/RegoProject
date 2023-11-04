@@ -202,12 +202,6 @@ public class RecipeController {
 		return "recipe/view";
 	}
 
-	@RequestMapping("/goRecommendList")
-	public String goRecommendList(r_member member, Model model) {
-
-		// model.addAttribute("recipeRecommed",recRecommendlist);
-		return "recipe/recommendList";
-	}
 
 	// 래정오빠 레시피 전체목록 페이지는 사진 사이즈때문에 스크롤이 적용이 안되는것같아서 한 페이지당 호출하는 개수를 늘려야될것같아요 10개정도로
 	// 커뮤니티는 한 게시글이 차지하는 화면 비율이 커서 로드하자마자 기능실행이 돼서 스크롤이 정상작동 합니다.
