@@ -15,8 +15,8 @@
 </select>
 
 <!-- 사용자가 재료 보유했는지 검색기능 -->
-<select id="searchMyIngre" resultType="com.smhrd.entity.r_ingre_join_data" parameterType="com.smhrd.entity.r_ingre_join_data">
-		/* select.searchMyIngre */
+<select id="searchMyIngreList" resultType="com.smhrd.entity.r_ingre_join_data" parameterType="com.smhrd.entity.r_ingre_join_data">
+		/* select.searchMyIngreList */
 		<![CDATA[
 					SELECT RI.ingreName
 						 , RMI.ingreAmount
@@ -52,6 +52,18 @@
 
 </select>
 
+<!-- addIngre용 select 사전이행 쿼리문 -->
+<select id="selectMyIngre" resultType="com.smhrd.entity.r_my_ingredients" parameterType="com.smhrd.entity.r_my_ingredients">
+		/* seelct.selectIngre */
+		<![CDATA[
+				SELECT *
+				  FROM r_my_ingredients 
+				  WHERE custId = #{custId}
+				    AND ingreIdx = #{ingreIdx}
+		]]>
+
+</select>
+
 
 <!-- 유저 r_my_msg 테이블에 조미료 정보가 없을경우 insert -->
 <insert id="insertMyMsg" parameterType="com.smhrd.entity.r_my_msg">
@@ -65,6 +77,22 @@
 				VALUES					(	#{custId}
 											, #{msgIdx} 
 											, #{msgAmount}
+										 )
+    ]]>
+</insert>
+
+<!-- 유저 r_my_ingre 테이블에 조미료 정보가 없을경우 insert -->
+<insert id="insertMyIngre" parameterType="com.smhrd.entity.r_my_ingredients">
+	/* insert.insertMyIngre */
+    <![CDATA[
+				INSERT INTO 	r_my_ingredients (
+											custId
+											, ingreIdx
+											, ingreAmount
+										 )
+				VALUES					(	#{custId}
+											, #{ingreIdx} 
+											, #{ingreAmount}
 										 )
     ]]>
 </insert>
@@ -89,6 +117,16 @@
 			       SET msgAmount = #{msgAmount}
 			     WHERE custId = #{custId}
 			       AND msgIdx = #{msgIdx} 
+    ]]>
+</update>
+
+<!-- 유저 r_my_ingredients 테이블에 조미료 정보가 있을경우 update 0->1 -->
+<update id="updateMyIngre" parameterType="com.smhrd.entity.r_my_ingredients">
+    <![CDATA[
+			    UPDATE r_my_ingredients
+			       SET ingreAmount = #{ingreAmount}
+			     WHERE custId = #{custId}
+			       AND ingreIdx = #{ingreIdx} 
     ]]>
 </update>
 

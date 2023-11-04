@@ -134,7 +134,7 @@ public class MyRefController {
 
 	    if (member == null) {
 	        // 사용자 정보가 없으면 처리할 수 없음
-	        return "redirect:/login"; // 또는 다른 적절한 처리
+	        return "redirect:/goLogin"; // 또는 다른 적절한 처리
 	    }
 
 	    // 클라이언트로부터 전송된 조미료 정보를 반복 처리
@@ -164,11 +164,45 @@ public class MyRefController {
 	
 	
 	@RequestMapping("/addMyIngre")
-	public String addMyIngre() {
+	public String addMyIngre(@RequestBody List<String> ingreList, r_member member, HttpSession session) {
 		
-		return "";
-		
-	}
+		System.out.println(ingreList);
+	    // 사용자 정보를 가져오는 코드 (session에서 또는 필요한 방식으로)
+		  member = (r_member) session.getAttribute("user");
+
+		  if (member == null) {
+		        // 사용자 정보가 없으면 처리할 수 없음
+		        return "redirect:/goLogin"; // 또는 다른 적절한 처리
+		    }
+		  
+		    for (String ingreName : ingreList) {
+		    	// 재료카테고리에서 재료 인덱스번호 찾는용
+		        r_ingredients findIngre = ingreService.ingreExistSearch(ingreName);
+		        
+		        // 있는지 조회
+		        r_my_ingredients existingIngre = memService.selectMyIngre(member.getCustId(), findIngre.getIngreIdx());
+		            	
+			    int ingreIdx = findIngre.getIngreIdx();
+			    
+		        
+
+		        if (existingIngre != null) {
+		            // 행이 이미 존재하는 재료인 경우
+		            memService.updateMyIngre(member.getCustId(), ingreIdx, 1);
+		        } else {
+		            // 재료가 DB에 없는 경우, 새로 추가
+		            memService.insertMyIngre(member.getCustId(), ingreIdx, 1);
+		        }
+		        
+		       
+		    }
+		    return "views/main";
+		   } 
+	  
+
+	    
+
+	
 	
 	@RequestMapping("/selectMyAllMsg")
 	@ResponseBody
@@ -191,7 +225,6 @@ public class MyRefController {
 	    Set<String> uniqueInputData = new HashSet<>(inputData);
 	    for (String ingreName : uniqueInputData) {
 	        r_ingredients ingre = ingreService.ingreExistSearch(ingreName);
-	        System.out.println(ingre);
 	        
 	        if (ingre != null) {
 	            successfulIngredients.add(ingreName); // 조회된 재료를 성공한 목록에 추가

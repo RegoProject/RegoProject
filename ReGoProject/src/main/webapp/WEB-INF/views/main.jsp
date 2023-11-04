@@ -7,7 +7,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>REGO HOME</title>
-<script src="/assets/js/init-alpine.js"></script>
+
 <script src="/assets/js/focus-trap.js"></script>
 <script src="/assets/js/slide.js" defer></script>
 <link
@@ -15,7 +15,6 @@
 	rel="stylesheet" />
 
 <link rel="stylesheet" href="/assets/css/homeCopy.css" />
-<link rel="stylesheet" href="/assets/css/main.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
 <!--폰트어썸 라이브러리 / 체크박스용 라이브러리-->
@@ -26,6 +25,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
 	defer></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <link rel="stylesheet" href="/assets/css/regomain_f.css" />
+   <script src="/assets/js/regomain_f.js"></script>
 
 	
 
@@ -33,300 +35,216 @@
 </head>
 
 <body>
-	<!-- <h1>${user.custId}님 환영합니다</h1> 
-<a href="/goCommunity">게시판</a>
-<br>
-<a href="/goMypage">마이페이지</a>
-<br>
-<form action="/goMyIngreList" method="post">
-<input type="hidden" id="${user.custId }" value="${user.custId }">
-<button type="submit">내식재료</button>
-</form>
+  <div class="content">
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+      <!-- Desktop sidebar 여기 사이에있는 aside 코드 전부 지워야함-->
 
-<br>
-<form action="/goMyMsgList" method="post">
-<input type="hidden" id="${user.custId }" value="${user.custId }">
-<button type="submit">내조미료</button>
-</form>
-<br>
-<a href="/goRecList">레시피</a>
-<br>
-<a href="/logout">로그아웃</a>  -->
+      <!-- 여기 사이에있는 코드지워야함-->
+
+      <!-- Mobile sidebar -->
+
+      <!-- Backdrop -->
+      <div x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"></div>
+      <!--x-show="isSideMenuOpen에 있는" md:hidden 지워줘야함-->
+      <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800"
+        x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
+        x-transition:enter-start="opacity-0 transform -translate-x-[-20px]"
+        x-transition:enter-end="opacity-100 transform translate-x-0"
+        x-transition:leave="transition ease-in-out duration-150"
+        x-transition:leave-start="opacity-100 transform translate-x-0"
+        x-transition:leave-end="opacity-0 transform -translate-x-[-20px]" @click.away="closeSideMenu"
+        @keydown.escape="closeSideMenu">
+        <div class="py-4 text-gray-500 dark:text-gray-400">
+          <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+             <img src="./assets/img/coin.png" class="coin"> 
+             <br>
+             <h1 class="coinnum">123 개</h1>
+          </a>
+          <br><br>
+          <ul class="mt-6">
+            <li class="relative px-6 py-3">
+              <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"></span>
+              <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                href="/goMain">
+                <img src="./assets/img/home.png" class="myicon">
+                <span class="ml-4">홈</span>
+              </a>
+            </li>
+          </ul>
+          <ul>
+            <li class="relative px-6 py-3">
+              <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/goRecList">
+                <img src="./assets/img/recipem.png" class="myicon">
+                <span class="ml-4">레시피</span>
+              </a>
+            </li>
+            <li class="relative px-6 py-3">
+              <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/goCommunity">
+                <img src="./assets/img/community.png" class="myicon">
+                <span class="ml-4">커뮤니티</span>
+              </a>
+            </li>
+            <li class="relative px-6 py-3">
+              <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/goMypage">
+                <img src="./assets/img/mypage.png" class="myicon">
+                <span class="ml-4">마이페이지</span>
+              </a>
+            </li>
+            <li class="relative px-6 py-3">
+              <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                href="/logout">
+                <img src="./assets/img/logout.png" class="myicon">
+                <span class="ml-4">로그아웃</span>
+              </a>
+            </li>
+
+        </div>
+      </aside>
+      <div class="flex flex-col flex-1 w-full">
+        <header class="z-10 py-2 bg-white">
+          <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600">
+            <!-- Mobile hamburger button안에 md:hidden 지워야함-->
+            <div class="flex items-center justify-center">
+              <button class="p-1 mr-5 -ml-1 rounded-md focus:outline-none" @click="toggleSideMenu" aria-label="Menu">
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="lg:mr-32" style="margin: auto;">
+              <a href="/goMain">
+                <img id="logo" src="./assets/img/logo.png" width="100px" height="100px" style="margin: auto;">
+              </a>
+            </div>
+
+            <ul class="flex items-center flex-shrink-0 space-x-6">
+              <!-- Profile menu -->
+              <li class="relative">
+                <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                  @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
+                  aria-haspopup="true">
+                  <img class="object-cover w-8 h-8 rounded-full"
+                    src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+                    alt="" aria-hidden="true" />
+                </button>
+                <template x-if="isProfileMenuOpen">
+                  <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0" @click.away="closeProfileMenu" @keydown.escape="closeProfileMenu"
+                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                    aria-label="submenu">
+                    <li class="flex">
+                      <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                        href="/goMypage">
+                        <img src="./assets/img/mypage.png" class="usericon">
+                        <span class="mytext">마이페이지</span>
+                      </a>
+                    </li>
+                    <li class="flex">
+                      <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                        href="/logout">
+                        <img src="./assets/img/logout.png" class="usericon">
+                        <span class="mytext">로그아웃</span>
+                      </a>
+                    </li>
+                  </ul>
+                </template>
+              </li>
+            </ul>
+          </div>
+        </header>
+        <main class="h-full overflow-y-auto">
+          <div class="container px-6 mx-auto grid">
+            <br><br>
+
+            <div class="slideshow-container">
+              <div class="mySlides fade">
+                <div class="slidT2">
+                </div>
+                <img class="simg" src="./assets/img/food2.jpg" style="width:100%">
+              </div>
 
 
-
-
-	<div class="flex h-screen bg-gray-50 dark:bg-gray-900"
-		:class="{ 'overflow-hidden': isSideMenuOpen }">
-		<!-- Desktop sidebar 여기 사이에있는 aside 코드 전부 지워야함-->
-
-		<!-- 여기 사이에있는 코드지워야함-->
-
-		<!-- Mobile sidebar -->
-
-		<!-- Backdrop -->
-		<div x-show="isSideMenuOpen"
-			x-transition:enter="transition ease-in-out duration-150"
-			x-transition:enter-start="opacity-0"
-			x-transition:enter-end="opacity-100"
-			x-transition:leave="transition ease-in-out duration-150"
-			x-transition:leave-start="opacity-100"
-			x-transition:leave-end="opacity-0"
-			class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"></div>
-		<!--x-show="isSideMenuOpen에 있는" md:hidden 지워줘야함-->
-		<aside
-			class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800"
-			x-show="isSideMenuOpen"
-			x-transition:enter="transition ease-in-out duration-150"
-			x-transition:enter-start="opacity-0 transform -translate-x-20"
-			x-transition:enter-end="opacity-100"
-			x-transition:leave="transition ease-in-out duration-150"
-			x-transition:leave-start="opacity-100"
-			x-transition:leave-end="opacity-0 transform -translate-x-20"
-			@click.away="closeSideMenu" @keydown.escape="closeSideMenu">
-			<div class="py-4 text-gray-500 dark:text-gray-400">
-				<a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-					href="#"> Coin : (숫자) 개 </a>
-				<ul class="mt-6">
-					<li class="relative px-6 py-2"><span
-						class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-						aria-hidden="true"></span> <a
-						class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-						href="/goMain"> <svg class="w-5 h-5" aria-hidden="true"
-								fill="none" stroke-linecap="round" stroke-linejoin="round"
-								stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-									d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                </path>
-              </svg> <span class="ml-4">홈</span>
-					</a></li>
-				</ul>
-				<ul>
-					<li class="relative px-6 py-2"><a
-						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-						href="/goRecList"> <svg class="w-5 h-5" aria-hidden="true"
-								fill="none" stroke-linecap="round" stroke-linejoin="round"
-								stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-									d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                </path>
-              </svg> <span class="ml-4">레시피</span>
-					</a></li>
-					<li class="relative px-6 py-2"><a
-						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-						href="/goCommunity"> <svg class="w-5 h-5" aria-hidden="true"
-								fill="none" stroke-linecap="round" stroke-linejoin="round"
-								stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-									d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                </path>
-              </svg> <span class="ml-4">커뮤니티</span>
-					</a></li>
-					<li class="relative px-6 py-2"><a
-						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-						href="/goMypage"> <svg class="w-5 h-5" aria-hidden="true"
-								fill="none" stroke-linecap="round" stroke-linejoin="round"
-								stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-              </svg> <span class="ml-4">마이페이지</span>
-					</a></li>
-					<li class="relative px-6 py-2"><a
-						class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-						href="/logout"> <svg class="w-5 h-5" aria-hidden="true"
-								fill="none" stroke-linecap="round" stroke-linejoin="round"
-								stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-              </svg> <span class="ml-4">로그아웃</span>
-					</a></li>
-			</div>
-		</aside>
-		<div class="flex flex-col flex-1 w-full">
-			<header class="z-10 bg-white shadow-md dark:bg-gray-800 py-2">
-				<div
-					class="container flex py-2 items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
-					<!-- Mobile hamburger button안에 md:hidden 지워야함-->
-					<button class="p-1 mr-5 -ml-1 rounded-md focus:outline-none"
-						@click="toggleSideMenu" aria-label="Menu">
-						<svg class="w-6 h-6" aria-hidden="true" fill="currentColor"
-							viewBox="0 0 20 20">
-              <path fill-rule="evenodd"
-								d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-								clip-rule="evenodd"></path>
-            </svg>
-					</button>
-
-					<div class="flex justify-center flex-1 lg:mr-32">
-
-						<a href="/goMain"> <img id="logo"
-							src="/assets/img/regoLogo.png" width="80px" height="80px"
-							style="margin: auto;">
-						</a>
-
-					</div>
-					<ul class="flex items-center flex-shrink-0 space-x-6">
-						<!-- Theme toggler -->
-						<li class="flex">
-							<button class="rounded-md focus:outline-none"
-								@click="toggleTheme" aria-label="Toggle color mode">
-								<template x-if="!dark">
-									<svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-										viewBox="0 0 20 20">
-                    <path
-											d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                  </svg>
-								</template>
-								<template x-if="dark">
-									<svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-										viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-											d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-											clip-rule="evenodd"></path>
-                  </svg>
-								</template>
-							</button>
-						</li>
-						<!-- Profile menu -->
-						<li class="relative">
-							<button
-								class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
-								@click="toggleProfileMenu" @keydown.escape="closeProfileMenu"
-								aria-label="Account" aria-haspopup="true">
-								<!-- 기본이미지 경로 넣어줘야해요 -->
-								<img class="object-cover w-8 h-8 rounded-full"
-									src="/assets/img/login/defaultProfileImg.png"
-									alt="" aria-hidden="true" />
-							</button>
-							<template x-if="isProfileMenuOpen">
-								<ul x-transition:leave="transition ease-in duration-150"
-									x-transition:leave-start="opacity-100"
-									x-transition:leave-end="opacity-0"
-									@click.away="closeProfileMenu"
-									@keydown.escape="closeProfileMenu"
-									class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
-									aria-label="submenu">
-									<li class="flex"><a
-										class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-										href="/goMypage"> <svg class="w-4 h-4 mr-3"
-												aria-hidden="true" fill="none" stroke-linecap="round"
-												stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-												stroke="currentColor">
-                        <path
-													d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                        </path>
-                      </svg> <span>마이페이지</span>
-									</a></li>
-									<li class="flex"><a
-										class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-										href="/logout"> <svg class="w-4 h-4 mr-3"
-												aria-hidden="true" fill="none" stroke-linecap="round"
-												stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-												stroke="currentColor">
-                        <path
-													d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                        </path>
-                      </svg> <span>로그아웃</span>
-									</a></li>
-								</ul>
-							</template>
-						</li>
-					</ul>
-				</div>
-			</header>
-			<main class="h-full overflow-y-auto">
-				<div class="container px-6 mx-auto grid">
-					<!-- search -->
-					<div class="py-4 mb-2">
-					<select name="#" id="searchSelect" class="selectH-5">
-						<option value="전체">전체</option>
-						<option value="보유재료">보유재료</option>
-						<option value="보유조미료">보유조미료</option>
-						<option value="레시피">레시피</option>
-					</select> 
-					<input id="btnDisplayMode" class="search" type="text"
-						placeholder="검색어 입력"> <button class="searchBtn" type="button" value="#">검색</button>
-				</div>
-					<div class="slideshow-container py-4">
-						<div class="mySlides fade">
-							<div class="slidT2">고기의 유통기한이 얼마 남지 않았습니다!</div>
-							<img class="simg" src="/assets/img/foodBanner4.png"
-								style="width: 100%">
-						</div>
-
-						<div class="mySlides fade">
-							<div class="slidT">우유의 유통기한이 얼마 남지 않았습니다!</div>
-							<img class="simg" src="/assets/img/foodBanner5.png"
-								style="width: 100%">
-						</div>
-
-						<div class="mySlides fade">
-							<div class="slidT">REGO와 함께 냉장고를 관리 해보세요!</div>
-							<img class="simg" src="/assets/img/foodBanner1.jpg"
-								style="width: 100%">
-						</div>
-
-						<div class="mySlides fade">
-							<div class="slidT">REGO와 함께 맛있는 음식을 만들어요!</div>
-							<img class="simg" src="/assets/img/foodBanner3.png"
-								style="width: 100%">
-						</div>
-
-						<div class="mySlides fade">
-							<div class="slidT2">REGO와 함께 즐거운 시간 보내요!</div>
-							<img class="simg" src="/assets/img/foodBanner2.png"
-								style="width: 100%">
-						</div>
-
-					</div>
-
-					<div style="text-align: center" class="mb-6">
-						<span class="dot"></span> <span class="dot"></span> <span
-							class="dot"></span> <span class="dot"></span> <span class="dot"></span>
-					</div>
-
-					<div class="food">
-						<a href="/goMyIngreList">
-							<div class="Seasoning" style="display: inline-block">
-								<div>
-									<img id="igd" src="/assets/img/ingredient.png">
-								</div>
-								<p calss="font">식재료</p>
-							</div>
-						</a> <a href="/goMyMsgList">
-							<div class="ingredient" style="display: inline-block">
-								<div>
-									<img id="ss" src="/assets/img/seasoning.png">
-								</div>
-								<p calss="font">조미료</p>
-							</div>
-						</a>
-					</div>
-					<div>
-						<br>
-							<div class="recipeRc" style="display: inline-block" id="recommand">
-							 	<a href="/goRecommendList">
-								<div>
-									<img id="ss" src="/assets/img/recipe.png">
-								</div>
-								<p calss="font">레시피 추천</p>
-							</div>
-						</a> <a href="#">
-							<div @click="openModal" class="addItem" id="addItemBtn"
-								style="display: inline-block">
-								<div>
-									<img id="ss" src="/assets/img/add-button.png">
-								</div>
-								<p calss="font">항목추가</p>
-							</div>
-						</a> <br>
-						<br>
-					</div>
-				</div>
-		</div>
-		</main>
-	</div>
-	</div>
+            </div>
+             
+            <!-- <div style="text-align:center">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>  --> 
+            <br>
+            <div class="foodtext">
+              <p class="myrg">나의 냉장고</p>
+            </div>
+            <br>
+            <div class="food">
+              <div>
+                <a href="/goMyIngreList">
+                  <div class="Seasoning" style="display:inline-block">
+                    <div>
+                      <img id="igd" src="./assets/img/fooddonation.png">
+                    </div>
+                    <br>
+                    <p class="font">식재료</p>
+                  </div>
+                </a>
+                <a href="/goMyMsgList">
+                  <div class="ingredient" style="display:inline-block">
+                    <div>
+                      <img id="ss" src="./assets/img/Seasoning.png">
+                    </div>
+                    <br>
+                    <p class="font">조미료</p>
+                  </div>
+                </a>
+              </div>
+              <div>
+                <br>
+                <div class="foodtext">
+                  <p class="myrg">레시피</p>
+                </div>
+                <br>
+                <div class="food">
+                  <div>
+                    <a href="/goRecommendList">
+                      <div class="recipeRc" style="display:inline-block">
+                        <div>
+                          <img id="igd" src="./assets/img/recipe.png">
+                        </div>
+                        <br>
+                        <p class="font">레시피추천</p>
+                    </a>
+                  </div>
+                  <a href="#">
+                    <div @click="openModal" class="ingIcon" style="display:inline-block">
+                      <div>
+                        <img id="ss" src="./assets/img/add.png">
+                      </div>
+                      <br>
+                      <p class="font">항목추가</p>
+                    </div>
+                  </a>
+                  <div>
+                    <br><br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      </main>
+    </div>
+  </div>
 
 	<!-- homecopy랑 css 연관됨 -->
 	<!-- Modal backdrop. This what you want to place close to the closing body tag -->
@@ -347,7 +265,7 @@
 			x-transition:leave="transition ease-in duration-150"
 			x-transition:leave-start="opacity-100"
 			x-transition:leave-end="opacity-0  transform translate-y-1/2"
-			@click.away="closeModal" @keydown.escape="closeModal"
+			@click.away="" @keydown.escape="closeModal"
 			class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
 			role="dialog" id="modal">
 
@@ -371,7 +289,7 @@
 					class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
 					재료 조미료 추가</p>
 				<!-- Modal description -->
-				<p class="text-sm text-gray-700 dark:text-gray-400">재료와 조미료를 추가하는 모달창입니다.</p>
+				<p class="text-sm text-gray-700 dark:text-gray-400">재료와 조미료를 추가하는 기능입니다.</p>
 			</div>
 
 
@@ -415,7 +333,7 @@
 				<!-- 글자로 추가하는 태그 -->
 					<div class="mt-4 text-center">
 						<input id="ingreName" name="ingreName" @click="openSecModal" class="h-12 searchModal"
-							value="" style="left: 0;">
+							value="" style="left: 0;" placeholder="재료를 검색해주세요.">
 						<ul id="searchList" class=""></ul>
       						
 					 
@@ -457,12 +375,12 @@
 					        x-transition:leave="transition ease-in duration-150"
 					        x-transition:leave-start="opacity-100"
 					        x-transition:leave-end="opacity-0  transform translate-y-1/2"
-					        @click.away="closeSecModal"
+					        @click.away=""
 					        @keydown.escape="closeSecModal"
 					        class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
 					        role="dialog"
 					        id="secModal"
-					      style="height : 100%">
+					      >
 					      
 					     
 					<header class="flex justify-end">
@@ -478,15 +396,22 @@
 				</button>
 				
 			</header>
-			<div class="mt-4 text-center">
+			<div class="mt-4">
 				<input id="ingreName2" name="ingreName"class="h-12 searchModal"
 							value="" style="left: 0;">
 							<ul id="searchList2" class=""></ul>
+					<div id="cart">
+					   	 <h3>장바구니</h3>
+					    <ul id="cartList"></ul>
+					</div>
 				</div>
 			
 					<div class="mt-4">
+					<button id="secModalSubmitBtn" 
+							class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple submitBtn"
+							>적용</button>
 						<button id="cancleSecModal" @click="closeSecModal"
-							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray cancleBtn"
 							>취소</button>
 					</div>
 					 </div>
@@ -585,76 +510,15 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/assets/js/init-alpine.js"></script>
 <script src="/assets/js/msgModal.js"></script> <!-- msg 모달 js -->
 <script src="/assets/js/searchModal.js"></script> <!-- 재료검색 모달 js -->
 <script src="/assets/js/ingreAPI.js"></script> <!-- 식재료 API js -->
 
 
 <script type="text/javaScript">
-var ingreList;
-var msgList;
-
-
-$.ajax({
-  type: "POST",
-  url: "/searchMyRef",
-  success: function (response) {
-    // 서버로부터 받은 JSON 응답을 사용
-    ingreList = response.ingre;
-    msgList = response.msg;
-
-    // 이제 ingreList와 msgList를 사용하여 필요한 작업을 수행
-
-    // 'ingreIdx'와 'msgIdx' 값을 함께 추출하여 하나의 배열로 반환하는 함수
-    var userIngredients = getUserIngredients(ingreList, msgList);
-
-    // 데이터 추출 및 새로운 API에 보내기
-    sendToRecommendAPI(userIngredients);
-  },
-  error: function (error) {
-    // 오류 처리
-    console.log("Error:", error);
-  },
-});
-
-// 'ingreIdx'와 'msgIdx' 값을 함께 추출하여 하나의 배열로 반환하는 함수
-function getUserIngredients(ingreList, msgList) {
-  var userIngredients = [];
-  
-  ingreList.forEach(function (item) {
-    userIngredients.push(item.ingreIdx);
-  });
-  
-  msgList.forEach(function (item) {
-    userIngredients.push(item.msgIdx);
-  });
-  
-  return userIngredients;
-}
-
-// 데이터를 새로운 API에 보내는 함수
-function sendToRecommendAPI(userIngredients) {
-  $.ajax({
-    type: "POST",
-    url: "/recommandAPI",
-    data: JSON.stringify({
-      'user_ing': userIngredients
-    }),
-    contentType: "application/json",
-    success: function (response) {
-      // 새로운 API로부터 받은 응답을 처리
-      console.log("Recommend API Response:", response);
-    
- 
-    },
-    error: function (error) {
-      // 오류 처리
-      console.log("Error:", error);
-    },
-  });
-}
-
-
 
 
 

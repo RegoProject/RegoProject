@@ -11,23 +11,23 @@ function closeIngreModal() {
 
 //취소 버튼 클릭 시 확인창 표시
 $('#cancleIngreAPIModal').click(function() {
-  if (confirm("정말 취소하시겠습니까? 취소 시 사진을 재 업로드 해야합니다.")) {
-    // 확인 버튼을 눌렀을 때 모달 닫기
-    closeIngreModal();
-    // goMain 요청 매핑으로 이동
-    window.location.href = '/goMain'; // 요청 매핑 URL로 수정
-  }
+    Swal.fire({
+        icon: 'warning',
+        title: '취소 확인',
+        text: '정말 취소하시겠습니까? 취소 시 사진을 재 업로드 해야합니다.',
+        showCancelButton: true,
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 확인 버튼을 클릭했을 때 실행할 작업
+            closeIngreModal();
+            window.location.href = '/goMain'; // 요청 매핑 URL로 수정
+        }
+    });
 });
 
-//처리중입니다. 모달 표시
-function showLoadingModal() {
-    document.getElementById("ingreAPIloadingModal").style.display = "block";
-}
 
-// 모달 숨김
-function hideLoadingModal() {
-    document.getElementById("ingreAPIloadingModal").style.display = "none";
-}
 
 
 // 파일 업로드 버튼 클릭 시 파일 선택 창 열기
@@ -42,7 +42,19 @@ $('#addIngreFile').change(function() {
   var formData = new FormData();
   formData.append('file', selectedFile);
   // 응답 받는동안 모달창 띄우기 
-  showLoadingModal();
+  // 로딩 애니메이션을 포함한 SweetAlert2 커스텀 모달 표시
+Swal.fire({
+    title: '사진을 분석하는 중 입니다.',
+    html: '<div class="loading-container">' +
+            '<div class="loading-spinner"></div>' +
+          '</div>',
+    allowEscapeKey: false,
+    allowOutsideClick: false,
+    showConfirmButton: false,
+    onBeforeOpen: () => {
+        Swal.showLoading();
+    }
+});
   
 
   // ingreAPI로 파일을 업로드
@@ -54,8 +66,7 @@ $('#addIngreFile').change(function() {
     contentType: false,
     success: function(response) {
       // 성공 시 처리
-      console.log(response);
-      hideLoadingModal();     
+       Swal.close();
       
       // 응답받은 후에 검색창용 모달창 불러와서 이름 수정할수있게 기능 만들어서 호출하기 
       // 응답을 UL에 추가
@@ -65,9 +76,12 @@ $('#addIngreFile').change(function() {
       
     },
     error: function(xhr, status, error) {
-    alert('오류')
-      // 오류 시 처리
-      console.log(error);
+   Swal.fire({
+    icon: 'error',
+    title: '오류 발생',
+    text: '서버에서 데이터를 가져오는 동안 오류가 발생했습니다.',
+    showConfirmButton: true
+});
     }
   });
 });
@@ -207,7 +221,7 @@ $('#sendAPIResult').click(function() {
     type: 'POST',
     contentType: 'application/json', // JSON 데이터를 전송한다고 명시
     data: inputData,
-    success: function(response) {
+     success: function(response) {
         console.log(response.message);
 
         var message = '';
@@ -222,14 +236,30 @@ $('#sendAPIResult').click(function() {
             message += '다음 재료는 존재하지 않습니다: ' + response.failedIngredients.join(', ');
         }
 
-        alert(message);
-        window.location.href = '/goMain'; // 이 부분을 수정해서 실제 URL로 변경해야 합니다.
+       Swal.fire({
+    icon: response.successfulIngredients.length > 0 ? 'success' : 'error',
+    title: response.successfulIngredients.length > 0 ? '성공' : '오류',
+    html: message,
+    showConfirmButton: true,
+}).then((result) => {
+    if (result.isConfirmed) {
+        window.location.href = '/goMain'; // 성공하거나 오류 발생 시 goMain 페이지로 이동
+    }
+});
     },
     error: function(xhr, status, error) {
       // 오류 시 처리
-      console.error('서버로 값 전송 중 오류 발생:', error);
-      alert("오류")
-      window.location.href = '/goMain'; // 이 부분을 수정해서 실제 URL로 변경해야 합니다.
+   
+     Swal.fire({
+    icon: 'error',
+    title: '오류 발생',
+    text: '서버에서 데이터를 가져오는 동안 오류가 발생했습니다.',
+    showConfirmButton: true,
+}).then((result) => {
+    if (result.isConfirmed) {
+        window.location.href = '/goMain'; // 오류 발생 시 goMain 페이지로 이동
+    }
+});
     }
   });
 });

@@ -64,8 +64,8 @@ public class SearchController {
 	    member = (r_member) session.getAttribute("user");
 	    try {
 	        if (ingreName != null) {
-	            if (memService.searchMyIngre(member.getCustId(), ingreName) != null) {
-	                List<r_ingre_join_data> searchMyIngre = memService.searchMyIngre(member.getCustId(), ingreName);
+	            if (memService.searchMyIngreList(member.getCustId(), ingreName) != null) {
+	                List<r_ingre_join_data> searchMyIngre = memService.searchMyIngreList(member.getCustId(), ingreName);
 
 	                if (searchMyIngre != null && !searchMyIngre.isEmpty()) {
 	                    Map<String, String> responseMap = new HashMap<>();

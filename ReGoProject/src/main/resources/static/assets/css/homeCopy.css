@@ -40,6 +40,16 @@
   position: relative;
   left: 3%;
 }
+.errorImg{
+	width : 80%;
+	padding-left : 23%;
+} 
+
+h3 {
+	color : black;
+	text-decoration : inherit;
+	font-family: 'GyeonggiBatang';
+}
 
 /* 연관 검색어 목록 스타일 */
 .search-suggestions {
@@ -54,7 +64,34 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60px; /* 로딩 애니메이션과 내용 사이에 약 5px의 공간을 만들기 위한 높이 */
+}
 
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+.loading-text {
+    margin-top: 5px; /* 로딩 애니메이션과 내용 사이의 간격 조절 */
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+    
 /* 검색 입력 필드 클릭 시 연관 검색어 목록 표시 */
 .searchInput:focus + .search-suggestions {
   display: block;
@@ -88,6 +125,20 @@
 	left : -2%;
 }
 
+#secModalSubmitBtn{
+	margin: auto;
+	width:32%;
+	position:relative;
+
+	
+}
+
+#cancleSecModal{
+		margin: auto;
+	width:32%;
+	position:relative;
+	
+}
 /*모달 디자인 모음입니다. */
 .searchModal{
     width: 64%;

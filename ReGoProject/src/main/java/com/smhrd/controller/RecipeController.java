@@ -339,7 +339,7 @@ public class RecipeController {
 		if (ingreList.isEmpty() || msgList.isEmpty()) {
 			// 사용자가 신규 사용자인 경우, 메인 페이지로 리다이렉트 또는 다른 처리 수행
 			// 에러페이지 만들어서 보내주자
-			return "redirect:/goMain";
+			return "redirect:/goError";
 		}
 
 		System.out.println("리스트 비어있으면 여긴 오면 안돼");
