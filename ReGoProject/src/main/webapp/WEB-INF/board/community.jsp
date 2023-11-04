@@ -21,7 +21,7 @@
 </head>
 
 <body>
-  <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+  <div class="GyeonggiBatangfont flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
     <!-- Desktop sidebar 여기 사이에있는 aside 코드 전부 지워야함-->
 
     <!-- 여기 사이에있는 코드지워야함-->
@@ -41,7 +41,7 @@
       x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
       @keydown.escape="closeSideMenu">
-      <div class="py-4 text-gray-500 dark:text-gray-400">
+      <div class="py-4 text-gray-500 dark:text-gray-400 GyeonggiBatangfont">
         <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
           Coin : (숫자) 개
         </a>

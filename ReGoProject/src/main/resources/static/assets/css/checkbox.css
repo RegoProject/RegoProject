@@ -1,7 +1,18 @@
 @charset "UTF-8";
 
+@font-face {
+    font-family: 'GyeonggiBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-
+.GyeonggiBatangfont{
+	color : black;
+	text-decoration : inherit;
+	font-family: 'GyeonggiBatang';
+	
+}
  body {
  /*이거하면 양옆이 고정됨 다영언니 요청으로 일단 살려놨습니다.*/
     display: flex;

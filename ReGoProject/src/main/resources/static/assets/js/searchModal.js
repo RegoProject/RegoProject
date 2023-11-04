@@ -240,8 +240,16 @@ function updateSearchResults(results) {
 });
 	
 
+$(document).ready(function() {
+    $('#ingreName').click(function() {
 
+        // 모달이 열린 후 입력 필드에 포커스를 설정
+        setTimeout(function() {
+            $('#ingreName2').focus();
+        }, 500); // 500 밀리초(0.5초) 후에 포커스 설정
+    });
 
-	
+    // 나머지 코드 계속...
+});
 	
 	

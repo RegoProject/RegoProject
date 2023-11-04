@@ -20,7 +20,7 @@
 
 
 
- <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+ <div class="GyeonggiBatangfont flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
     <div class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg dark:bg-gray-800">
       <div class="loginLogo">
       <!-- 로그인화면으로 돌아가기로 바꿔주는게 좋을듯 -->

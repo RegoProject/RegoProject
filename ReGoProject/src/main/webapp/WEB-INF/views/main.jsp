@@ -58,7 +58,7 @@
         x-transition:leave-start="opacity-100 transform translate-x-0"
         x-transition:leave-end="opacity-0 transform -translate-x-[-20px]" @click.away="closeSideMenu"
         @keydown.escape="closeSideMenu">
-        <div class="py-4 text-gray-500 dark:text-gray-400">
+        <div class="GyeonggiBatangfont py-4 text-gray-500 dark:text-gray-400">
           <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
              <img src="./assets/img/coin.png" class="coin"> 
              <br>
@@ -283,21 +283,21 @@
 				</button>
 			</header>
 			<!-- Modal body -->
-			<div class="mt-4 mb-6">
+			<div class="mt-4 mb-6 GyeonggiBatangfont">
 				<!-- Modal title -->
 				<p
-					class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+					class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300 ">
 					재료 조미료 추가</p>
 				<!-- Modal description -->
 				<p class="text-sm text-gray-700 dark:text-gray-400">재료와 조미료를 추가하는 기능입니다.</p>
 			</div>
 
 
-			<div class="mt-4 mb-6 text-center">
+			<div class="mt-4 mb-6 text-center GyeonggiBatangfont">
 				<h2 class="subtitle">재료</h2>
 
 				<!-- 사진으로 추가하는 태그 -->
-				<div>
+				<div class="GyeonggiBatangfont">
 					<input type="file" id="addIngreFile" style="display: none;">
 					<button id="uploadButton"
 						class="h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
@@ -398,7 +398,7 @@
 			</header>
 			<div class="mt-4">
 				<input id="ingreName2" name="ingreName"class="h-12 searchModal"
-							value="" style="left: 0;">
+							value="" style="left: 0;" placeholder="재료를 검색해주세요.">
 							<ul id="searchList2" class=""></ul>
 					<div id="cart">
 					   	 <h3>장바구니</h3>
@@ -442,7 +442,7 @@
 					<!-- 조미료 추가(trdModal) 버튼 -->
 					
 		
-					<div class="pl-5 checkContainer text-center">
+					<div class="GyeonggiBatangfont pl-5 checkContainer text-center">
 					<h2>조미료 추가입니다.</h2>
 						<ul class="ks-cboxtags">
 							<!-- value 는 조미료 카테고리의 인덱스 값입니다. -->
