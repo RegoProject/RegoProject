@@ -218,7 +218,7 @@
             		<a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
             		<!-- 이미지 경로는 imagePath/uploadedImage/ 이하폴더로 해주세요
           imagePath/uploadedImage/food/${recipe.rcpImg1} (배포용) <<<<<<<<<<<<<<<<<<<<<<<<<<이거 제가 잘못썼어요 static 폴더로 해도됩니다.  -->
-                		<img class="recipeImg" src="/assets/img/dduk.jpg">
+                		<img class="recipeImg" src="/recipe/${recipe.rcpImg1}" alt="#">
                 		<p class="title">${recipe.rcpName}</p>
               		</a>
                 	<br>
@@ -278,10 +278,10 @@ $(document).ready(function() {
                 console.log(data);
                 let ul = $('#rcp_list');
                  // tr 변수를 초기화
-                for (let i = 0; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {  
                 	let tr = "<div class='addItem4' style='display:inline-block' >";
                     tr += "<a href='/goRecView?rcpIdx=" + data[i].rcpIdx + "'>";
-                    tr += "<img class='recipeImg' src='imagePath/uploadedImage/food/" + data[i].rcpImg1 + "' alt='#'>";
+                    tr += "<img class='recipeImg' src='/recipe/" + data[i].rcpImg1 + "' alt='#'>";
                     tr += "<p class='title'>" + data[i].rcpName + "</p>";
                     tr += "</a> ";
                     tr += "<br>";

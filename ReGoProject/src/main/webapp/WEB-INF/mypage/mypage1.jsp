@@ -287,14 +287,28 @@
       </main>
     </div>
   </div>
+  
+
+
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+
+
 <script>
 $(document).ready(function() {
-    $("#profilePhoto").click(function() {
+	
+	
+	$("#profilePhoto").click(function() {
+		if(${who eq 'you'}){
+			var src= $('#profilePhoto').attr('src');
+			window.open('/imgPage?imgSrc='+src, '새 창 이름', 'width=800,height=600');
+		}else{ 
+			console.log("여기마이페이지입니다.");
         $("#fileInput").click(); // 파일 선택 창을 띄웁니다.
+		} 
     });
-    
+	
     $(document).on('click', '.followBtn', function(){
     	
     	 

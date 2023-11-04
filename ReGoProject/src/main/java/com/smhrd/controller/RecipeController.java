@@ -26,6 +26,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,11 +37,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smhrd.entity.r_ingre_join_data;
+import com.smhrd.entity.r_ingredients;
 import com.smhrd.entity.r_member;
+import com.smhrd.entity.r_msg;
 import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.entity.r_my_ingredients;
 import com.smhrd.entity.r_my_msg;
 import com.smhrd.entity.r_recipe;
+import com.smhrd.repository.r_cookingRepository;
+import com.smhrd.repository.r_ingreRepository;
+import com.smhrd.repository.r_msgRepository;
 import com.smhrd.repository.r_my_ingreRepository;
 import com.smhrd.repository.r_my_msgRepository;
 import com.smhrd.repository.r_recipeRepository;
@@ -63,6 +69,8 @@ public class RecipeController {
 
 	@Autowired
 	private r_recipeService recService;
+	@Autowired
+	private r_cookingRepository cooking;
 
 	// 레시피데이터 데이터베이스 추가하는코드
 	@RequestMapping("/recipeInsert")
@@ -193,7 +201,7 @@ public class RecipeController {
 		// JSON 형식으로 담아주기 -> 재료 : 값 / 조미료 : 값
 
 		// result는 그대로 model로 보내도될듯
-
+		
 		model.addAttribute("msgJson", msgJson);
 		model.addAttribute("ingreJson", ingreJson);
 		model.addAttribute("content", contentList2);
@@ -267,8 +275,9 @@ public class RecipeController {
 			System.out.println("성공");
 
 			result = String.valueOf(results);
-
+			
 			response.getWriter().write(result);
+			
 
 			// 파일 사용이 끝나면 삭제
 			file.delete();
@@ -382,5 +391,18 @@ public class RecipeController {
 			return "redirect:/goMain"; // 오류 페이지로 리다이렉트 또는 다른 처리 수행
 		}
 	}
+	@RequestMapping("/recipeSuccess")
+	public String recipeScucess(@RequestParam("custId")String custId ) {
+		
+		
+		
+		cooking.save(null);
+		
+		
+		return "views/main";
+		
+	}
+	
+	
 
 }

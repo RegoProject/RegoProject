@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+
 import lombok.Data;
 
 // 재료 테이블
@@ -25,4 +26,8 @@ public class r_ingredients {
     // 식재료 사진
 	@Column
     private String ingreImg;
+	
+	
+	
+	
 }

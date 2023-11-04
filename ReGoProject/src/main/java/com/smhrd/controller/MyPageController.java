@@ -76,7 +76,7 @@ public class MyPageController {
 		model.addAttribute("who", "my");
 		model.addAttribute("follow", list1.size());
 		model.addAttribute("following" , list2.size());
-		
+		model.addAttribute("user1", user);
 		return "mypage/mypage1";
 	}
 	@RequestMapping("/goYourpage")
@@ -193,6 +193,12 @@ public class MyPageController {
 		
 		
 		
+	}
+	@RequestMapping("/imgPage")
+	public String yourPage(Model model ,@RequestParam("imgSrc")String src ) {
+	    
+	    model.addAttribute("imgUrl", src);
+	    return "mypage/imgPage";
 	}
 	
 }
