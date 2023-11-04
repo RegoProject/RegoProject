@@ -1,14 +1,3 @@
-// 취소버튼 누르면 모달 다시 초기화 시켜야하는 코드 필요함
-
-//처리중입니다. 모달 표시
-function showLoadingModal() {
-    document.getElementById("loadingModal").style.display = "block";
-}
-
-// 모달 숨김
-function hideLoadingModal() {
-    document.getElementById("loadingModal").style.display = "none";
-}
 
 var userMsgInfo;
 
@@ -21,7 +10,6 @@ function fetchUserMsgInfo() {
      success: function (data) {
          // 요청이 완료되면 사용자 조미료 정보를 userMsgInfo에 저장합니다.
          userMsgInfo = data;
-         console.log(userMsgInfo);
          initializeCheckboxes(); // 페이지 로드 후 체크박스 초기화
      },
      error: function (err) {
@@ -38,7 +26,12 @@ $("#msgSubmit").click(function () {
 	//적용버튼 비활성화
 	$("#msgSubmit").prop("disabled", true);
 	
-	showLoadingModal();
+	Swal.fire({
+    title: '잠시만 기다려주세요...',
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    showConfirmButton: false
+});
 	
 	
  var selectedMsgs = [];
@@ -57,18 +50,22 @@ $("#msgSubmit").click(function () {
      data: JSON.stringify(selectedMsgs), // 선택된 조미료 정보를 JSON 형식으로 전송합니다.
      contentType: "application/json; charset=utf-8",
      success: function (response) {
-         console.log("성공했나요");
          // 적용버튼 다시 활성화
          $("#msgSubmit").prop("disabled", false);
-         hideLoadingModal();
+         Swal.close();
          fetchUserMsgInfo(); // 서버 응답 후 체크박스 초기화
          location.reload();
      },
      error: function (err) {
-         console.error("에러 발생: " + err);
+         Swal.fire({
+    icon: 'error',
+    title: '오류 발생',
+    text: '서버에서 데이터를 가져오는 동안 오류가 발생했습니다.',
+    showConfirmButton: true
+});
       // 에러 발생 시도 "적용" 버튼을 다시 활성화
          $("#msgSubmit").prop("disabled", false);
-         hideLoadingModal();
+         Swal.close();
      }
  });
 });

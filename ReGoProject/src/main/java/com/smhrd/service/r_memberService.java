@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.smhrd.entity.r_ingre_join_data;
 import com.smhrd.entity.r_msg_join_data;
+import com.smhrd.entity.r_my_ingredients;
 import com.smhrd.entity.r_my_msg;
 import com.smhrd.mapper.r_memberMapper;
 
@@ -38,12 +39,18 @@ public class r_memberService {
 	}
 	
 	// 재료검색창 조회 dao
-	public List<r_ingre_join_data> searchMyIngre(String custId, String ingreName){
-		List<r_ingre_join_data> searchMyIngre = memMapper.searchMyIngre(custId,ingreName);
+	public List<r_ingre_join_data> searchMyIngreList(String custId, String ingreName){
+		List<r_ingre_join_data> searchMyIngre = memMapper.searchMyIngreList(custId,ingreName);
 		
 		return searchMyIngre;
 	}
-	
+	// 재료 개별 조회 dao
+	public r_my_ingredients selectMyIngre(String custId, int ingreIdx){
+		r_my_ingredients result = memMapper.selectMyIngre(custId,ingreIdx);
+		
+		return result;
+
+	}
 	// 조미료 개별 조회 dao
 	public r_my_msg selectMyMsg(String custId, int msgIdx){
 		r_my_msg result = memMapper.selectMyMsg(custId,msgIdx);
@@ -54,6 +61,12 @@ public class r_memberService {
 	// 조미료 추가 dao
 	public void insertMyMsg(String custId, Integer msgIdx , Integer msgAmount){
 		memMapper.insertMyMsg(custId,msgIdx,msgAmount);
+
+	}
+	
+	// 재료 추가 dao
+	public void insertMyIngre(String custId, Integer ingreIdx, Integer ingreAmount){
+		memMapper.insertMyIngre(custId,ingreIdx,ingreAmount);
 
 	}
 
@@ -67,6 +80,11 @@ public class r_memberService {
 	public void updateMyMsg(String custId, Integer msgIdx, Integer msgAmount) {
 		memMapper.updateMyMsg(custId,msgIdx,msgAmount);
 		
+	}
+	// 재료 업데이트 dao 0->1
+	public void updateMyIngre(String custId, Integer ingreIdx, Integer ingreAmount) {
+		memMapper.updateMyIngre(custId,ingreIdx,ingreAmount);
+			
 	}
 	
 	public void updateAllMsgZero(String custId) {

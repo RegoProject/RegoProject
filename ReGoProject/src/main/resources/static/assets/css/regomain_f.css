@@ -1,12 +1,37 @@
+@font-face {
+    font-family: 'GyeonggiBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.GyeonggiBatangfont{
+	color : black;
+	text-decoration : inherit;
+	font-family: 'GyeonggiBatang';
+	
+}
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 html {
     line-height: 1.15;
     -webkit-text-size-adjust: 100%
 }
-여기는 컴퓨터에서 수정했습니다.
+
 body {
-    margin: 0
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    -ms-overflow-style: none;
+    font-family: 'GyeonggiBatang';
+    height: 100%;
+    
 }
+
+::-webkit-scrollbar {
+    display: none;
+   }
 
 main {
     display: block
@@ -226,13 +251,15 @@ table {
 }
 
 h1,h2,h3,h4,h5,h6 {
-    font-size: inherit;
-    font-weight: inherit
+    font-size: x-large;
+    font-weight: inherit;
+    text-align: center;
 }
 
 a {
-    color: inherit;
-    text-decoration: inherit
+    color: black;
+    text-decoration: inherit;
+    font-family: 'GyeonggiBatang';    
 }
 
 button,input,optgroup,select,textarea {
@@ -575,8 +602,7 @@ img,video {
 
 .bg-gray-50 {
     --bg-opacity: 1;
-    background-color: #f9fafb;
-    background-color: rgba(249,250,251,var(--bg-opacity))
+   
 }
 
 .bg-gray-100 {
@@ -648,11 +674,6 @@ img,video {
 .bg-purple-600 {
     --bg-opacity: 1;
     background-color: #7DD076
-}
-
-.bg-red-yj{
-	    --bg-opacity: 1;
-    background-color: brown;
 }
 
 .hover\:bg-gray-100:hover {
@@ -1162,7 +1183,7 @@ img,video {
 }
 
 .mr-5 {
-    margin-right: 1.25rem
+    /*margin-right: 1.25rem*/
 }
 
 .mt-6 {
@@ -1190,7 +1211,7 @@ img,video {
 }
 
 .mt-16 {
-    margin-top: 4rem
+    margin-top: 3rem
 }
 
 .-mr-1 {
@@ -1198,7 +1219,7 @@ img,video {
 }
 
 .-ml-1 {
-    margin-left: -.25rem
+    margin-left: -.9rem
 }
 
 .-mb-4 {
@@ -1271,7 +1292,7 @@ img,video {
 }
 
 .p-1 {
-    padding: .25rem
+    /*padding: .25rem*/
 }
 
 .p-2 {
@@ -1485,7 +1506,8 @@ img,video {
 }
 
 .relative {
-    position: relative
+    position: relative;
+    margin-top: 15px;
 }
 
 .inset-0 {
@@ -1820,8 +1842,11 @@ img,video {
 }
 
 .w-8 {
-    width: 2rem
+    width: 2rem;
+    position: relative;
+    bottom: 7px;
 }
+
 
 .w-12 {
     width: 3rem
@@ -1844,7 +1869,8 @@ img,video {
 }
 
 .z-10 {
-    z-index: 10
+    z-index: 10;
+    border-bottom: 1px solid lightgray;
 }
 
 .z-20 {
@@ -2088,35 +2114,10 @@ body > div > div.flex.flex-col.flex-1.w-full > main > div > a {
     width: 100%;
 }
 
-.Seasoning{
-    width:48%;
-    height: 180px;
-    box-sizing: border-box;
-    align-items: center;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 3px 5px 1px 0 lightgray;
-    margin: auto;
-    position: relative;
-}
-
-
-.ingredient{
-    width: 48%;
-    height: 180px;
-    box-sizing: border-box;
-    align-items: center;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 3px 5px 1px 0 lightgray;
-    margin: auto;
-    position: relative;
-    left: 3%;
-}
 
 #ss{
-    width: 110px;
-    height: 110px;
+    width: 85px;
+    height: 85px;
     align-items: center;
     margin: auto;
     margin-top: 30px;
@@ -2125,8 +2126,8 @@ body > div > div.flex.flex-col.flex-1.w-full > main > div > a {
 }
 
 #igd{
-    width: 110px;
-    height: 110px;
+    width: 85px;
+    height: 85px;
     align-items: center;
     margin: auto;
     margin-top: 30px;
@@ -2277,73 +2278,269 @@ p{
     text-align: center;
     font-weight: bold;
     position: relative;
-    top: 5%;
-}
-
-#searchSelect{
-    width: 18%;
-    height : 150%;
-    position: relative;
-    top : 16%;
-    left: 2%;
-    border: 1px solid lightgray;
-    border-radius: 3px;
-    /*box-shadow: 3px 3px 1px 0 lightgray;*/
-}
-
-.search{
-    width: 58%;
-    height : 150%;
-    background-color: white;
-    position: relative;
-    left: 2%;
-    top:19%;
-    box-shadow: #7DD076;
-    bottom: 2%;
-    border: 1px solid lightgray;
-    border-radius: 4px;
-    /*box-shadow: 3px 3px 1px 0 lightgray;*/
+    top: -5%;
 }
 
 
-.searchBtn{
-    width: 18%;
-    height : 150%;
-    position: relative;
-    bottom: 2%;
-    top:16%;
-    left: 2%;
-    border: 1px solid lightgray;
-    border-radius: 3px;
-    background-color: white;
-    /*box-shadow: 3px 3px 1px 0 lightgray;*/
+.food {
+    width: 100%;
 }
 
-.recipeRc{
+.Seasoning {
+        width: 48%;
+        height: 180px;
+        box-sizing: border-box;
+        align-items: center;
+        border-radius: 3px;
+        background-color: #d1f8f7;
+        margin: auto;
+        position: relative;
+    
+}
+
+
+.ingredient {
     width: 48%;
     height: 180px;
     box-sizing: border-box;
     align-items: center;
-    border-radius: 10px;
-    background-color: #F1F592;
-    box-shadow: 3px 5px 1px 0 lightgray;
+    border-radius: 5px;
+    background-color: #e7fddd;
     margin: auto;
     position: relative;
+    left: 3%;
+    
 }
 
 
-.ingIcon{
-    width: 48%;
-    height: 180px;
+.banner {
+    width: 98.8%;
+    height: 200px;
     box-sizing: border-box;
     align-items: center;
     border-radius: 10px;
     background-color: #F4CB81;
-    box-shadow: 3px 5px 1px 0 lightgray;
+    box-shadow: 3px 5px 1px 0 lightgray
+}
+
+
+.recipe {
+    width: 98.8%;
+    height: 100px;
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #7DD076;
+    box-shadow: 3px 5px 1px 0 lightgray
+}
+
+.recipe>div>h1 {
+    text-align: center;
+    margin: auto;
+    font-size: larger;
+    font-weight: bold;
+    color: white;
+    margin-top: 40px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Verdana, sans-serif;
+}
+
+.mySlides {
+    display: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Caption text */
+.text {
+    color: #000000;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    height: 5px;
+    width: 5px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+    .text {
+        font-size: 11px
+    }
+}
+
+.slidT {
+    font-size: 15px;
+    color: #000;
+    position: absolute;
+    top: 30%;
+    left: 11%;
+}
+
+.slidT2 {
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    top: 30%;
+    left: 11%;
+
+}
+
+
+.mySlides .fade {
+    position: relative;
+}
+
+
+input:focus {
+    border-color: #7DD076;
+    outline: none;
+}
+
+select:focus {
+    border-color: #7DD076;
+    outline: none;
+}
+
+button:focus {
+    border-color: #7DD076;
+    outline: none;
+}
+
+.recipeRc {
+    width: 48%;
+    height: 180px;
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 3px;
+    background-color: #fafcc8;
+    margin: auto;
+    position: relative;
+}
+
+
+.ingIcon {
+    width: 48%;
+    height: 180px;
+    box-sizing: border-box;
+    align-items: center;
+    border-radius: 3px;
+    background-color: #fae2b5;
     margin: auto;
     position: relative;
     left: 3%;
+    
 }
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+/* 231101 CSS 수정 작업에 들어갔음. 2개 추가 해주고
+body CSS, 342번째줄 @media (min-width : 768) 부분 수정하였음.  */
+
+
+/* 로고 크기 수정 CSS */
+/* 화면 너비가 600픽셀 미만일 때 적용될 CSS */
+@media (max-width: 600px) {}
+
+.myrg {
+    font-size: large;
+    font-weight: bold;
+    font-family: 'GyeonggiBatang';
+    color: #7DD076;
+}
+
+.font {
+    font-family: 'GyeonggiBatang';
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.usericon {
+    width: 13px;
+    height: 13px;
+}
+
+.mytext {
+    margin-left: 5%;
+}
+
+.header {
+    border-bottom: 1px solid;
+}
+
 
 .logo-container {
     display: flex;
@@ -2351,9 +2548,24 @@ p{
     align-items: center;
 }
 #logo {
-    width: 100%;  /* 이미지 너비를 부모 요소의 100%로 설정 */
-    max-width: 100px;  /* 이미지의 최대 너비를 설정 */
+    width: 120px;  /* 이미지 너비를 부모 요소의 100%로 설정 */
+    max-width: 120px;  /* 이미지의 최대 너비를 설정 */
     height: auto; /* 높이를 자동으로 설정하여 이미지의 비율을 유지 */
     position: relative;
-    left: 5%;
+    margin: auto;
+}
+
+.myicon {
+    width: 20px;
+    height: 20px;
+}
+
+.coin {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+}
+
+h1 .coinnum {
+    margin: auto;
 }
