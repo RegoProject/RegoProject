@@ -14,4 +14,14 @@
 
 </select>
 
+<select id="ingreExistSearch" resultType="com.smhrd.entity.r_ingredients" parameterType="java.lang.String">
+
+  <![CDATA[
+   					 SELECT *
+  					   FROM r_ingredients
+  					  WHERE ingreName = #{value}
+  ]]>
+
+</select>
+
 </mapper>

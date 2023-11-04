@@ -1,46 +1,69 @@
 package com.smhrd.controller;
 
-import javax.servlet.http.HttpSession;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
 
-import com.smhrd.entity.r_member;
+import com.smhrd.entity.r_my_ingredients;
+import com.smhrd.entity.r_my_msg;
 
-@RestController
-@RequestMapping("/recommandAPI")
+@Component
+@Controller
 public class recommandAPIController {
 	
+	
+	public ResponseEntity<String> recommendAPI(List<r_my_ingredients> ingreList, List<r_my_msg> msgList) {
+	    try {
+	    	System.out.println("오니");
+	        // 필요한 데이터 추출 및 구성
+	        List<Integer> ingreIdxList = new ArrayList<>();
+	        List<Integer> msgIdxList = new ArrayList<>();
 
-    @PostMapping
-    public ResponseEntity<String> recommandAPI(HttpSession session, r_member member) {
-    	member = (r_member) session.getAttribute("user");
-        try {
-        	// 사용자 재료, 조미료 조회
-            member.getCustId();
+	        for (r_my_ingredients ingre : ingreList) {
+	            ingreIdxList.add(ingre.getIngreIdx());
+	        }
 
-            // API 서버에 요청 아래형식
-            // body = {
-            // 'user_ing': [106, 6, 34, 16, 149, 77, 109]
-            //	}
-            
-            
-            // API 응답값 받아서 (메뉴 이름으로 받을것임) rcpIdx 번호 추출
-            String responseJson = "{\"recipe\": [\"양배추 덮밥\", \"Item2\", \"Item3\"]}";
-            
-            // 레시피 추천 페이지에 해당 인덱스 번호로 불러오게 해야되는데 어떻게 할지 생각좀
-            
-            
-           
-           
+	        for (r_my_msg msg : msgList) {
+	            msgIdxList.add(msg.getMsgIdx());
+	        }
 
-            return ResponseEntity.ok(responseJson);
-        } catch (Exception e) {
-            // 오류 처리
-            return ResponseEntity.status(500).body("Error: " + e.getMessage());
-        }
-    }
+	        List<Integer> userIngredients = new ArrayList<>();
+	        userIngredients.addAll(ingreIdxList);
+	        userIngredients.addAll(msgIdxList);
+
+	        // API 서버에 요청할 URL
+	        String apiUrl = "http://15.165.250.150:5000/recommend";
+	        
+	     // 요청 바디를 JSON 형식으로 구성
+	        Map<String, Object> requestBody = new HashMap<>();
+	        requestBody.put("user_ing", userIngredients);
+
+
+	        // API 서버로 POST 요청 보내기
+	        RestTemplate restTemplate = new RestTemplate();
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.APPLICATION_JSON);
+	        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
+	        ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.POST, requestEntity, String.class);
+
+	        return ResponseEntity.ok(response.getBody());
+	    } catch (Exception e) {
+	        // 오류 처리
+	        return ResponseEntity.status(500).body("Error: " + e.getMessage());
+	    }
+	}
 
 }

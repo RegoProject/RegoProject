@@ -1,7 +1,11 @@
 package com.smhrd.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,14 +15,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smhrd.entity.r_ingre_join_data;
+import com.smhrd.entity.r_ingredients;
 import com.smhrd.entity.r_member;
 import com.smhrd.entity.r_msg_join_data;
+import com.smhrd.entity.r_my_ingredients;
 import com.smhrd.entity.r_my_msg;
+import com.smhrd.repository.r_ingreRepository;
+import com.smhrd.repository.r_my_ingreRepository;
 import com.smhrd.repository.r_my_msgRepository;
+import com.smhrd.service.r_ingredientsService;
 import com.smhrd.service.r_memberService;
 
 @Controller
@@ -29,7 +39,20 @@ public class MyRefController {
 	r_memberService memService;
 	
 	@Autowired
+	r_ingredientsService ingreService;
+	
+	@Autowired
 	private r_my_msgRepository myMsgRepo;
+	
+	@Autowired
+	private r_my_ingreRepository myIngreRepo;
+	
+	@Autowired
+	private r_ingreRepository ingreRepo;
+	
+
+	
+
 	
 	
 	@RequestMapping("/goMyIngreList")
@@ -158,7 +181,70 @@ public class MyRefController {
 		
 	}
 	
+	@RequestMapping("/saveInputValues")
+	@ResponseBody
+	public Map<String, Object> saveInputValues(@RequestBody List<String> inputData, HttpSession session, r_member member) throws JsonMappingException, JsonProcessingException {
+	    member = (r_member) session.getAttribute("user");
+	    List<String> failedIngredients = new ArrayList<>();
+	    List<String> successfulIngredients = new ArrayList<>(); // 성공한 재료 목록을 따로 저장
 
+	    Set<String> uniqueInputData = new HashSet<>(inputData);
+	    for (String ingreName : uniqueInputData) {
+	        r_ingredients ingre = ingreService.ingreExistSearch(ingreName);
+	        System.out.println(ingre);
+	        
+	        if (ingre != null) {
+	            successfulIngredients.add(ingreName); // 조회된 재료를 성공한 목록에 추가
+
+	            // r_my_ingredients에 값 추가
+	            r_my_ingredients myIngredient = myIngreRepo.findByCustIdAndIngreIdx(member.getCustId(), ingre.getIngreIdx());
+	            
+	            if (myIngredient != null && myIngredient.getRmrNum() != 0) {
+	                myIngredient.setIngreAmount(1);
+	                myIngreRepo.save(myIngredient);
+	            } else {
+	                // 새로운 엔티티로 취급
+	                myIngredient = new r_my_ingredients();
+	                myIngredient.setCustId(member.getCustId());
+	                myIngredient.setIngreIdx(ingre.getIngreIdx());
+	                myIngredient.setIngreAmount(1);
+	                myIngreRepo.save(myIngredient);
+	            }
+	            
+	        } else {
+	            // 조회가 되지 않는 재료를 실패한 목록에 추가
+	            failedIngredients.add(ingreName);
+	        }
+	    }
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("message", "값들이 저장되었습니다.");
+	    response.put("successfulIngredients", successfulIngredients);
+	    response.put("failedIngredients", failedIngredients);
+
+	    return response;
+	}
 	
 	
+	@RequestMapping("/searchMyRef")
+	@ResponseBody
+	public Map<String, Object> searchMyRef(HttpSession session, r_member member, Model model) {
+		member = (r_member) session.getAttribute("user");
+		
+		
+		List<r_my_ingredients> ingreList = myIngreRepo.findByCustId(member.getCustId());
+		List<r_my_msg> msgList = myMsgRepo.findByCustId(member.getCustId());
+		
+		
+		// model에 각각 담아주고싶어 "ingre" , ingreList / "msg" , msgList
+		
+	    Map<String, Object> responseData = new HashMap<>();
+	    responseData.put("ingre", ingreList);
+	    responseData.put("msg", msgList);
+		
+		
+		return responseData;
+	}
+
+
+
 }

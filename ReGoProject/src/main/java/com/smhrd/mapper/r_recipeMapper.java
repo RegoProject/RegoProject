@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.smhrd.entity.r_ingre_join_data;
 import com.smhrd.entity.r_msg_join_data;
+import com.smhrd.entity.r_recipe;
 
 @Mapper
 public interface r_recipeMapper {
@@ -17,7 +18,7 @@ public interface r_recipeMapper {
 	public List<r_msg_join_data> selectRecipeMsg(int rcpIdx);
 	
 	
-	
+	public r_recipe selectRecipe(String rcpName);
 
 	
 

@@ -29,6 +29,9 @@ public interface r_recipeRepository extends JpaRepository<r_recipe, Integer> {
 	
 	
 	public r_recipe findByRcpIdx(int rcpIdx);
+	
+	
+	public r_recipe findByRcpName(String rcpName);
 
 		
 }

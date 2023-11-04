@@ -650,9 +650,9 @@ img,video {
     background-color: #7DD076
 }
 
-.bg-red-600{
+.bg-red-yj{
 	    --bg-opacity: 1;
-    background-color: red;
+    background-color: brown;
 }
 
 .hover\:bg-gray-100:hover {

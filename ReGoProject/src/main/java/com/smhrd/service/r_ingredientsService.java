@@ -29,5 +29,11 @@ public class r_ingredientsService {
 		return ingreSearchList;
 	}
 	
+	// db재료 존재여부
+	public r_ingredients ingreExistSearch(String ingreName) {
+		r_ingredients ingreExistResult = ingreMapper.ingreExistSearch(ingreName);
+		return ingreExistResult;
+	}
+	
 	
 }

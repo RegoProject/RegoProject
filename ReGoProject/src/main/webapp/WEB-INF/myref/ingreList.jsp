@@ -11,38 +11,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   <script src="/assets/js/init-alpine.js"></script>
+  <script src="/assets/js/focus-trap.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
   <link rel="stylesheet" href="/assets/css/ing.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/assets/js/init-alpine.js"></script>
+  <link rel="stylesheet" href="/assets/css/homeCopy.css" />
+
+
 <title>Insert title here</title>
 </head>
-<!-- <h1>내 냉장고 식재료 리스트 페이지</h1>
-	<table border="1">
-		<c:forEach var="ingre" items="${myIngre}"> 
-			<tr>
-				<td>${ingre.ingreName}</td>
-				<td>${ingre.ingreAmount}</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<a href="/goMain">메인</a> -->
+
 <body>
+
   <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-    <!-- Desktop sidebar 여기 사이에있는 aside 코드 전부 지워야함-->
-
-    <!-- 여기 사이에있는 코드지워야함-->
-
-    <!-- Mobile sidebar -->
-
-    <!-- Backdrop -->
     <div x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
       x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
       x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
       class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"></div>
-    <!--x-show="isSideMenuOpen에 있는" md:hidden 지워줘야함-->
+
     <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800"
       x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
       x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
@@ -212,7 +199,7 @@
                 </button>
             </div>
           
-          <div class="addItem" style="display:inline-block">
+          <div @click="openModal" class="addItem" style="display:inline-block">
             <div class="addCon">
               <div>
                 <button class="addB"><img id="addImg" src="/assets/img/add_purple.png"></button>
@@ -220,6 +207,8 @@
               <p calss="font">항목추가</p>
             </div>
           </div>
+          
+          
           
  <c:forEach var="ingre" items="${myIngre}" >
   <div class="addItemIngre" style="display:block">
@@ -235,11 +224,117 @@
   </div>
   </c:forEach>
   
-  
-  
-</div>
+ 
+    	
+ 
       </main>
     </div>
   </div>
+  <div x-show="isModalOpen" 
+		x-transition:enter="transition ease-out duration-150"
+		x-transition:enter-start="opacity-0"
+		x-transition:enter-end="opacity-100"
+		x-transition:leave="transition ease-in duration-150"
+		x-transition:leave-start="opacity-100"
+		x-transition:leave-end="opacity-0"
+		class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+		<!-- Modal -->
+		<div x-show="isModalOpen"
+			x-transition:enter="transition ease-out duration-150"
+			x-transition:enter-start="opacity-0 transform translate-y-1/2"
+			x-transition:enter-end="opacity-100"
+			x-transition:leave="transition ease-in duration-150"
+			x-transition:leave-start="opacity-100"
+			x-transition:leave-end="opacity-0  transform translate-y-1/2"
+			@click.away="closeModal" @keydown.escape="closeModal"
+			class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+			role="dialog" id="modal">
+
+			<!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+			<header class="flex justify-end">
+				<button
+					class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+					aria-label="close" @click="closeModal">
+					<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+						role="img" aria-hidden="true">
+              <path
+							d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+							clip-rule="evenodd" fill-rule="evenodd"></path>
+            </svg>
+				</button>
+			</header>
+			<!-- Modal body -->
+			<div class="mt-4 mb-6">
+				<!-- Modal title -->
+				<p
+					class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+					재료 조미료 추가</p>
+				<!-- Modal description -->
+				<p class="text-sm text-gray-700 dark:text-gray-400">재료와 조미료를 추가하는 모달창입니다.</p>
+			</div>
+
+
+			<div class="mt-4 mb-6 text-center">
+				<h2 class="subtitle">재료</h2>
+
+				<!-- 사진으로 추가하는 태그 -->
+				<div>
+					<input type="file" id="addIngreFile" style="display: none;">
+					<button id="uploadButton"
+						class="h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+						style="box-sizing: border-box; left: 0;">사진 업로드</button>
+						<div id="ingreAPIloadingModal" class="addModal">
+					    <div class="modal-content">
+					        <p>잠시만 기다려 주세요...</p>
+					    </div>
+					    </div>
+					    
+					    <div id="ingreAPIModal" class="addModal" >
+					    <div class="w-full modal-content">
+						<div class="mt-4 text-center">
+							<ul id="ingreResponeList" class=""></ul>
+							
+							</div>
+						
+								<div class="mt-4 pl-1_5">
+								<button id="sendAPIResult"
+										class="w-full h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+										>적용</button>
+									<button id="cancleIngreAPIModal"
+										class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+										>취소</button>
+								</div>
+								    </div>
+								    <!-- height 100 ,width 64% -->
+				
+					     </div>
+					
+
+				
+				<!-- 글자로 추가하는 태그 -->
+					<div class="mt-4 text-center">
+						<input id="ingreName" name="ingreName" @click="openSecModal" class="h-12 searchModal"
+							value="" style="left: 0;">
+						<ul id="searchList" class=""></ul>
+      						
+					 
+					</div>
+					<div class="mt-4">
+						<button id="cancleModal" @click="closeModal"
+							class="w-full h-12 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+							>취소</button>
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+
+					
+  
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/assets/js/msgModal.js"></script> <!-- msg 모달 js -->
+<script src="/assets/js/searchModal.js"></script> <!-- 재료검색 모달 js -->
+<script src="/assets/js/ingreAPI.js"></script> <!-- 식재료 API js -->
 </html>

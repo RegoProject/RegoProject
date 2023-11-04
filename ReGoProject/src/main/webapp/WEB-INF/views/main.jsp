@@ -303,8 +303,9 @@
 						</a>
 					</div>
 					<div>
-						<br> <a href="/goRecommendList">
-							<div class="recipeRc" style="display: inline-block">
+						<br>
+							<div class="recipeRc" style="display: inline-block" id="recommand">
+							 	<a href="/goRecommendList">
 								<div>
 									<img id="ss" src="/assets/img/recipe.png">
 								</div>
@@ -586,147 +587,75 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/assets/js/msgModal.js"></script> <!-- msg 모달 js -->
 <script src="/assets/js/searchModal.js"></script> <!-- 재료검색 모달 js -->
+<script src="/assets/js/ingreAPI.js"></script> <!-- 식재료 API js -->
 
 
 <script type="text/javaScript">
-//모달 열기
-function openIngreModal() {
-  var modal = document.getElementById("ingreAPIModal");
-  modal.style.display = "block";
-}
+var ingreList;
+var msgList;
 
-//모달 닫기
-function closeIngreModal() {
-  var modal = document.getElementById("ingreAPIModal");
-  modal.style.display = "none";
-}
 
-//취소 버튼 클릭 시 확인창 표시
-$('#cancleIngreAPIModal').click(function() {
-  if (confirm("정말 취소하시겠습니까? 취소 시 사진을 재 업로드 해야합니다.")) {
-    // 확인 버튼을 눌렀을 때 모달 닫기
-    closeIngreModal();
-    // goMain 요청 매핑으로 이동
-    window.location.href = '/goMain'; // 요청 매핑 URL로 수정
-  }
+$.ajax({
+  type: "POST",
+  url: "/searchMyRef",
+  success: function (response) {
+    // 서버로부터 받은 JSON 응답을 사용
+    ingreList = response.ingre;
+    msgList = response.msg;
+
+    // 이제 ingreList와 msgList를 사용하여 필요한 작업을 수행
+
+    // 'ingreIdx'와 'msgIdx' 값을 함께 추출하여 하나의 배열로 반환하는 함수
+    var userIngredients = getUserIngredients(ingreList, msgList);
+
+    // 데이터 추출 및 새로운 API에 보내기
+    sendToRecommendAPI(userIngredients);
+  },
+  error: function (error) {
+    // 오류 처리
+    console.log("Error:", error);
+  },
 });
 
-//처리중입니다. 모달 표시
-function showLoadingModal() {
-    document.getElementById("ingreAPIloadingModal").style.display = "block";
-}
-
-// 모달 숨김
-function hideLoadingModal() {
-    document.getElementById("ingreAPIloadingModal").style.display = "none";
-}
-
-
-// 파일 업로드 버튼 클릭 시 파일 선택 창 열기
-$('#uploadButton').click(function() {
-  $('#addIngreFile').click();
-});
-
-
-//파일 선택 시 이벤트
-$('#addIngreFile').change(function() {
-  var selectedFile = this.files[0];
-  var formData = new FormData();
-  formData.append('file', selectedFile);
-  // 응답 받는동안 모달창 띄우기 
-  showLoadingModal();
+// 'ingreIdx'와 'msgIdx' 값을 함께 추출하여 하나의 배열로 반환하는 함수
+function getUserIngredients(ingreList, msgList) {
+  var userIngredients = [];
   
-
-  // ingreAPI로 파일을 업로드
-  $.ajax({
-    url: '/ingreAPI', // ingreAPI로 보내기
-    type: 'POST',
-    data: formData,
-    processData: false,
-    contentType: false,
-    success: function(response) {
-      // 성공 시 처리
-      console.log(response);
-      hideLoadingModal();     
-      
-      // 응답받은 후에 검색창용 모달창 불러와서 이름 수정할수있게 기능 만들어서 호출하기 
-      // 응답을 UL에 추가
-      appendResponseToList(response);
-      openIngreModal();
-      enableEditAndDeleteButtons();
-      
-    },
-    error: function(xhr, status, error) {
-    alert('오류')
-      // 오류 시 처리
-      console.log(error);
-    }
+  ingreList.forEach(function (item) {
+    userIngredients.push(item.ingreIdx);
   });
-});
+  
+  msgList.forEach(function (item) {
+    userIngredients.push(item.msgIdx);
+  });
+  
+  return userIngredients;
+}
+
+// 데이터를 새로운 API에 보내는 함수
+function sendToRecommendAPI(userIngredients) {
+  $.ajax({
+    type: "POST",
+    url: "/recommandAPI",
+    data: JSON.stringify({
+      'user_ing': userIngredients
+    }),
+    contentType: "application/json",
+    success: function (response) {
+      // 새로운 API로부터 받은 응답을 처리
+      console.log("Recommend API Response:", response);
+    
+ 
+    },
+    error: function (error) {
+      // 오류 처리
+      console.log("Error:", error);
+    },
+  });
+}
 
 
-$(document).ready(function() {
-	  // "삭제" 버튼을 클릭하면 해당 항목을 목록에서 제거
-	  $('#ingreResponeList').on('click', 'li .delete-button', function() {
-	    event.preventDefault(); // 이벤트의 기본 동작 막기
-	    event.stopPropagation(); // 이벤트 전파 중지
-	    $(this).closest('li').remove();
-	  });
-	});
 
-function appendResponseToList(response) {
-	  var resultArray = response.result;
-	  var ul = document.getElementById("ingreResponeList");
-
-	  while (ul.firstChild) {
-	    ul.removeChild(ul.firstChild);
-	  }
-
-	  resultArray.forEach(function (item, index) {
-		    var li = document.createElement("li");
-		    var inputElement = document.createElement("input");
-		    inputElement.type = "text";
-		    inputElement.value = item;
-		    inputElement.disabled = true;
-		    inputElement.name = "ingreName"; 
-		    inputElement.className="h-12 ingreAPIInput";
-		    li.appendChild(inputElement);
-
-
-	    var saveButton = document.createElement("button");
-	    saveButton.textContent = "수정";
-	    saveButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple save-button" 
-	    li.appendChild(saveButton);
-
-	    var deleteButton = document.createElement("button");
-	    deleteButton.textContent = "삭제";
-	    deleteButton.className = "h-12 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg sm:w-full sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple delete-button"; // CSS 클래스 추가
-	    li.appendChild(deleteButton);
-
-	    ul.appendChild(li);
-	  });
-
-	  
-	}
-
-function enableEditAndDeleteButtons() {
-	  // "저장" 버튼을 클릭하면 해당 항목의 입력 필드를 활성화하고 버튼 이름을 "수정"으로 변경
-	  $('.save-button').click(function() {
-	    var inputElement = $(this).closest('li').find('input');
-	    var buttonText = $(this).text(); // 현재 버튼의 텍스트 가져오기
-
-	    if (buttonText === "저장") {
-	      // "저장" 버튼을 클릭한 경우
-	      inputElement.prop('disabled', true);
-	      $(this).text("수정"); // 버튼 텍스트를 "수정"으로 변경
-	    } else {
-	      // "수정" 버튼을 클릭한 경우
-	      inputElement.prop('disabled', false);
-	      inputElement.focus(); // 입력 필드에 포커스를 줌
-	      $(this).text("저장"); // 버튼 텍스트를 "저장"으로 변경
-	    }
-	  });
-	}
 
 
 </script>
