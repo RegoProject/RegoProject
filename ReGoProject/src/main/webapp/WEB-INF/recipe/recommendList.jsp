@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
@@ -12,7 +13,6 @@
   <script src="/assets/js/init-alpine.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <script src="jquery.min.js"></script>
   <link rel="stylesheet" href="/assets/css/regorecommendation_f.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -153,12 +153,14 @@
             <p class="myfont">추천 레시피</p>
             <br>
             <br>
+   
             
               <!-- 이부분 반복 -->
+     <c:forEach var="recipe" items="${recommendList}">
             <div class="item-container">
               <div class="addItem4" style="display:inline-block">
-                <a href="#">
-                  <img class="recipeImg" src="./assets/img/dduk.jpg">
+                <a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
+                  <img class="recipeImg" src="/recipe/${recipe.rcpImg1}">
                 </a>
                 <br>
                 <div class="flex-row display:inline-block;">
@@ -168,23 +170,24 @@
               </div>
               <div class="addItem4" style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
                 <div class="flex-container" style="display: flex; justify-content: space-between; align-items: center; margin: 10px;">
-                  <a href="#">
-                    <p class="title">떡볶이</p>
+                  <a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
+                    <p class="title">${recipe.rcpName}</p>
                   </a>
-                  <button><img src="./assets/img/caution.png" class="smimg"></button>
+                  <a href="#" id="open-modal" data-rcpIdx="${recipe.rcpIdx}"><img src="./assets/img/caution.png" class="smimg"></a>
                 </div>
                 <div class="flex-row display:inline-block" style="display: flex; justify-content: space-between; align-items: center; margin: 10px;">
                   <div class="flex-row display:inline-block" style="display: flex; align-items: center; margin: 10px;">
                     <img src="./assets/img/star_gray.png" class="dimg">
-                    <p class="Difficulty">초급</p>
+                    <p class="Difficulty">${recipe.rcpLevel}</p>
                   </div>
                   <div class="flex-row display:inline-block" style="display: flex; align-items: center; margin: 10px;">
                     <img src="./assets/img/clock_gray.png" class="timg">
-                    <p class="time">20분</p>
+                    <p class="time">${recipe.rcpTime}</p>
                   </div>
                 </div>
               </div>
             </div>
+            </c:forEach>
             <!-- 이부분 반복 -->
             
    
@@ -194,5 +197,37 @@
     </div>
   </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script type="text/javaScript">
+$(document).ready(function() {
+	  $("#open-modal").click(function() {
+		var rcpIdx = $(this).attr('data-rcpIdx');
+	    console.log(rcpIdx)
+	    // AJAX 요청 수행
+	    $.ajax({
+	      url: "/goNeedIngre?rcpIdx=" + rcpIdx,
+	      type: "GET",
+	      success: function(data) {
+	    	  console.log(data)
+	        // 요청이 성공하면 모달을 엽니다.
+	        Swal.fire({
+	          title: '모달 제목',
+	          html: '필요한 재료: ' + data.ingreList.join(', ') + '<br>필요한 메시지: ' + data.msgList.join(', '),
+	          icon: 'success' // 모달 아이콘 (선택 사항)
+	        });
+	      },
+	      error: function() {
+	        // 오류 처리
+	        Swal.fire({
+	          title: '에러',
+	          text: '요청을 처리하는 중 오류가 발생했습니다.',
+	          icon: 'error'
+	        });
+	      }
+	    });
+	  });
+	});
+
+</script>
 
 </html>

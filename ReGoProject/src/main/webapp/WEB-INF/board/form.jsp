@@ -167,9 +167,9 @@
             </div> -->
             <br>
             <br>
-            <button>
+            <a href="javascript:window.history.back();">
               <img src="./assets/img/left.png" class="backBtn">
-            </button>
+            </a>
             
             <p class="myfont">게시글 작성</p>
             <div class="mycontainer">

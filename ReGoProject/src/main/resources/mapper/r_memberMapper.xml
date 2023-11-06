@@ -6,6 +6,7 @@
 		/* select.myIngredients */
 		<![CDATA[
 					SELECT RI.ingreName
+						 , RI.ingreIdx
 						 , RMI.ingreAmount
 						 , RI.ingreImg
 					  FROM r_my_ingredients RMI
@@ -31,6 +32,7 @@
 		/* select.myMsg */
 		<![CDATA[
 					SELECT RM.msgName
+						 , RM.msgIdx
 						 , RMM.msgAmount
 						 , RM.msgImg
 					  FROM r_my_msg RMM

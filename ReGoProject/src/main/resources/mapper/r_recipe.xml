@@ -5,7 +5,7 @@
 <select id="selectRecipeIngre" parameterType="com.smhrd.entity.r_recipe" resultType="com.smhrd.entity.r_ingre_join_data">
 
  <![CDATA[
-			   SELECT ri.ingreName
+			   SELECT ri.ingreName, ri.ingreIdx
 				FROM r_recipe_ingredients rri
 				JOIN r_ingredients ri ON rri.IngreIdx = ri.ingreIdx
 				WHERE rri.rcpIdx = #{rcpIdx};
@@ -18,7 +18,7 @@
 <select id="selectRecipeMsg" parameterType="com.smhrd.entity.r_recipe" resultType="com.smhrd.entity.r_msg_join_data">
 
  <![CDATA[
-				SELECT rm.msgName
+				SELECT rm.msgName, rm.msgIdx
 				FROM r_recipe_msg rrm
 				JOIN r_msg rm ON rrm.msgIdx = rm.msgIdx
 				WHERE rrm.rcpIdx = #{rcpIdx};

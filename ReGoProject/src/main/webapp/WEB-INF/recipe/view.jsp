@@ -156,9 +156,9 @@
          <div class="container px-6 mx-auto grid">
 
             <br>
-            <button>
+            <a href="javascript:window.history.back();">
               <img src="./assets/img/left.png" class="backBtn">
-            </button>
+            </a>
             <p class="myfont">상세 레시피</p>
             <br>
             <header class="flexitem">
@@ -166,17 +166,9 @@
     
               
               <br>
+              <!-- 비디오용 레시피 하나만 넣고 img로 때울게요 -->
               <div class="videocon">
-                <video playsinline="" controls=""
-                  poster="https://static.wtable.co.kr/image/production/service/recipe/1923/f513c7bf-0572-475c-95b7-b98771ab7618.jpg?size=890x500"
-                  src="https://video.wtable.co.kr/video/production/service/recipe/1923/886fe196-6697-42c8-851d-d7e01967e80d.mp4">
-                  <source
-                    src="https://video.wtable.co.kr/video/production/service/recipe/1923/886fe196-6697-42c8-851d-d7e01967e80d.mp4"
-                    type="video/mp4" style="margin: auto;" class="videorcp">
-                </video>
-                <source
-                  src="https://video.wtable.co.kr/video/production/service/recipe/1923/886fe196-6697-42c8-851d-d7e01967e80d.mp4"
-                  type="video/mp4">
+                <img src="/recipe/${recipe.rcpImg1 }">
               </div>
               <br><br>
               <div class="rcpcontent">

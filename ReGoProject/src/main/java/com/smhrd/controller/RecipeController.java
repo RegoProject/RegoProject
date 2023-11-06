@@ -13,10 +13,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
-import java.util.Optional;
 import java.util.Set;
-import java.util.Base64;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -27,7 +26,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,20 +37,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smhrd.entity.r_cooking;
 import com.smhrd.entity.r_ingre_join_data;
-import com.smhrd.entity.r_ingredients;
 import com.smhrd.entity.r_member;
-import com.smhrd.entity.r_msg;
 import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.entity.r_my_ingredients;
 import com.smhrd.entity.r_my_msg;
 import com.smhrd.entity.r_recipe;
 import com.smhrd.repository.r_cookingRepository;
-import com.smhrd.repository.r_ingreRepository;
 import com.smhrd.repository.r_memberrRepository;
-import com.smhrd.repository.r_msgRepository;
 import com.smhrd.repository.r_my_ingreRepository;
 import com.smhrd.repository.r_my_msgRepository;
 import com.smhrd.repository.r_recipeRepository;
+import com.smhrd.service.r_memberService;
 import com.smhrd.service.r_recipeService;
 
 @Controller
@@ -72,6 +67,10 @@ public class RecipeController {
 
 	@Autowired
 	private r_recipeService recService;
+	
+	@Autowired
+	private r_memberService memService;
+	
 	@Autowired
 	private r_cookingRepository cooking;
 	@Autowired
@@ -415,8 +414,9 @@ public class RecipeController {
 				}
 			}
 
-			System.out.println(recommendList);
 			model.addAttribute("recommendList", recommendList);
+			System.out.println(recommendList);
+
 			return "recipe/recommendList";
 		} else {
 			// 오류 처리
@@ -460,6 +460,50 @@ public class RecipeController {
 		return "views/main";
 		
 	}
+	
+	
+	
+	@RequestMapping("/goNeedIngre")
+	public Map<String, Object> goNeedIngre(Model model, @RequestParam("rcpIdx") int rcpIdx, HttpSession session, r_member member) {
+		System.out.println("들어오니");
+		member = (r_member) session.getAttribute("user");
+		
+		List<r_ingre_join_data> ingreJoinData = memService.myIngredients(member.getCustId());
+		List<r_msg_join_data> msgJoinData = memService.myMsg(member.getCustId());
+		
+		List<r_ingre_join_data> recIngreJoinData = recService.selectRecipeIngre(rcpIdx);
+		List<r_msg_join_data> recMsgJoinData = recService.selectRecipeMsg(rcpIdx);
+		
+		// recIngreJoinData에서 ingreIdx를 추출하여 recIngreIdxSet에 저장
+		Set<Integer> recIngreIdxSet = recIngreJoinData.stream()
+		    .map(r_ingre_join_data::getIngreIdx)
+		    .collect(Collectors.toSet());
+
+		// ingreJoinData를 필터링하고 ingreAmount가 0이며 recIngreIdxSet에 포함되는 데이터의 ingreName을 추출
+		List<String> missingIngreNames = ingreJoinData.stream()
+		    .filter(ingre -> ingre.getIngreAmount() == 0 && recIngreIdxSet.contains(ingre.getIngreIdx()))
+		    .map(r_ingre_join_data::getIngreName)
+		    .collect(Collectors.toList());
+		
+		// recMsgJoinData에서 msgIdx를 추출하여 recMsgIdxSet에 저장
+		Set<Integer> recMsgIdxSet = recMsgJoinData.stream()
+		    .map(r_msg_join_data::getMsgIdx)
+		    .collect(Collectors.toSet());
+
+		// msgJoinData를 필터링하고 msgAmount가 0이며 recMsgIdxSet에 포함되는 데이터의 msgName을 추출
+		List<String> missingMsgNames = msgJoinData.stream()
+		    .filter(msg -> msg.getMsgAmount() == 0 && recMsgIdxSet.contains(msg.getMsgIdx()))
+		    .map(r_msg_join_data::getMsgName)
+		    .collect(Collectors.toList());
+
+		 // 필터링된 데이터를 JSON 형식으로 반환
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("ingreList", missingIngreNames);
+	    response.put("msgList", missingMsgNames);
+	    
+	    return response;
+	}
+
 	
 	
 
