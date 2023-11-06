@@ -1,6 +1,7 @@
 package com.smhrd.entity;
 
 import java.security.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,5 +38,5 @@ public class r_cooking {
 
     // 작성 날짜
 	@Column
-    private String createdAt;
+    private Date createdAt;
 }

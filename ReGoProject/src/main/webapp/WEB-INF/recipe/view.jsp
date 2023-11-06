@@ -272,6 +272,7 @@
           <br><br><br>
           <!-- 요리성공 api 관련 html 코드 추가 -->
         <br><br>
+        <c:if test="${YorN eq 'no' }">
         <p class="foodcom">👨‍🍳 완성 사진을 올려보세요!</p>
         <br>
         <form id =uploadForm  method="post" enctype="multipart/form-data">
@@ -284,6 +285,8 @@
             <button class="filesub">제출</button>
         </div>
         </form>
+        </c:if>
+        
         <br><br><br><br>
          </div>
         </header>
@@ -317,7 +320,7 @@ $(document).ready(function() {
             	console.log(res)
             	if(res==="true"){
             		if (confirm("요리성공! 메인페이지로 이동하시겠습니까?")) {
-            	        window.location.href = "/recipeSuccess?custId=id&"; // mypage로 이동
+            	        window.location.href = "/recipeSuccess?custId=id&rcpIdx="+${recipe.rcpIdx}; // mypage로 이동
             	    }
             		
             	}else{

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -36,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smhrd.entity.r_cooking;
 import com.smhrd.entity.r_ingre_join_data;
 import com.smhrd.entity.r_ingredients;
 import com.smhrd.entity.r_member;
@@ -46,6 +48,7 @@ import com.smhrd.entity.r_my_msg;
 import com.smhrd.entity.r_recipe;
 import com.smhrd.repository.r_cookingRepository;
 import com.smhrd.repository.r_ingreRepository;
+import com.smhrd.repository.r_memberrRepository;
 import com.smhrd.repository.r_msgRepository;
 import com.smhrd.repository.r_my_ingreRepository;
 import com.smhrd.repository.r_my_msgRepository;
@@ -71,6 +74,8 @@ public class RecipeController {
 	private r_recipeService recService;
 	@Autowired
 	private r_cookingRepository cooking;
+	@Autowired
+	private r_memberrRepository members;
 
 	// 레시피데이터 데이터베이스 추가하는코드
 	@RequestMapping("/recipeInsert")
@@ -156,10 +161,23 @@ public class RecipeController {
 	}
 
 	@RequestMapping("/goRecView")
-	public String goView(@RequestParam("rcpIdx") int rcpIdx, Model model) throws JsonProcessingException {
-
+	public String goView(@RequestParam("rcpIdx") int rcpIdx, Model model, HttpSession session) throws JsonProcessingException {
+		
+		r_member member=(r_member)session.getAttribute("user");
+		String custdId = member.getCustId();
+		List<r_cooking> cooklist= cooking.findByRcpIdxAndCustId(rcpIdx, custdId);
+		String YorN = "";
+		if(cooklist.size()==0) {
+			
+			YorN = "no";
+		}else {
+			YorN ="yes";
+		}
+		
 		r_recipe recipe = repo.findByRcpIdx(rcpIdx);
-
+		
+		
+		
 		String[] contentList = recipe.getRcpContent().split("', '");
 		ArrayList<String> contentList2 = new ArrayList<>();
 		System.out.println(contentList[0]);
@@ -206,7 +224,7 @@ public class RecipeController {
 		model.addAttribute("ingreJson", ingreJson);
 		model.addAttribute("content", contentList2);
 		model.addAttribute("recipe", recipe);
-
+		model.addAttribute("YorN", YorN);
 		return "recipe/view";
 	}
 
@@ -392,11 +410,23 @@ public class RecipeController {
 		}
 	}
 	@RequestMapping("/recipeSuccess")
-	public String recipeScucess(@RequestParam("custId")String custId ) {
+	public String recipeScucess(@RequestParam("custId")String custId ,@RequestParam("rcpIdx")int rcpIdx,HttpSession session  ) {
+		
+		r_member member = (r_member)session.getAttribute("user");
+		member.setCustCoin(100);
+		
+		members.save(member);
+		session.setAttribute("user", member);
 		
 		
+		r_cooking cook = new r_cooking();
+		cook.setCustId(custId);
+		cook.setRcIdx(rcpIdx);
+		cook.setRcYn("Y");
+		cook.setCreatedAt(new Date());
+		cook.setRcpImg("");
 		
-		cooking.save(null);
+		cooking.save(cook);
 		
 		
 		return "views/main";
