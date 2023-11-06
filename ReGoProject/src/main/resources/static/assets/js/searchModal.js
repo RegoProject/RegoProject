@@ -90,11 +90,12 @@
 // 재료 검색창 눌렀을때 나오는 모달창 실제 기능이 여기서 작동함 윗 코드는 안씀 다른데서 재활용 해도 됩니다.
 /////////////////////////////////////////////////////////////////////////////////// 
 	
-
+const ingreList = [];
 	
-	const ingreList = [];
+	
 	
 	$(document).ready(function() {
+		
 		const inputElement = $('#ingreName2'); // 모달창 내의 input 요소 선택
 		const searchList = $('#searchList2');
 		const cartList = $('#cartList'); // 장바구니 목록 요소
@@ -131,8 +132,10 @@ function updateSearchResults(results) {
 
     // 결과의 유형을 확인합니다.
     if (results.type === 'searchIngre') {
+	console.log(ingreList);
         // searchIngre 유형일 경우
         results.data.forEach(function(result) {
+	console.log(ingreList); // 여기까지만 들어와
             const ingreName = result.ingreName;
             const ingreIdx = result.ingreIdx;
             const ingreImg = result.ingreImg;
@@ -140,19 +143,21 @@ function updateSearchResults(results) {
             const listItem = $('<li>').text(ingreName);
             const addButton = $('<button>').text('추가').addClass('w-1/2 px-5 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple');
 
-            addButton.on('click', function() {
-                const ingredientName = ingreName;
+         addButton.on('click', function() {
+                        const ingredientName = ingreName;
 
-                // 중복 체크
-                if (!selectedIngredients.includes(ingredientName)) {
-                    selectedIngredients.push(ingredientName); // 중복을 방지하기 위해 배열에 추가
+                        // 중복 체크
+                        if (!selectedIngredients.includes(ingredientName)) {
+                            selectedIngredients.push(ingredientName); // 중복을 방지하기 위해 배열에 추가
 
-                    const cartItem = $('<li>').text(ingredientName);
+                            const cartItem = $('<li>').text(ingredientName);
 
-                    cartList.append(cartItem);
+                            cartList.append(cartItem);
 
-                    // 추가 버튼 비활성화
-                    $(this).prop('disabled', true); // 'this'를 사용하여 클릭한 버튼을 참조
+                            // 추가 버튼 비활성화
+                            $(this).prop('disabled', true); // 'this'를 사용하여 클릭한 버튼을 참조
+
+ 						ingreList.push(ingredientName);
                 }
             });
 
@@ -160,10 +165,12 @@ function updateSearchResults(results) {
             searchList.append(listItem);
         });
     } else if (results.type === 'searchMyIngre') {
+
         // searchMyIngre 유형일 경우
         for (const ingreName in results) {
             if (ingreName !== 'type') {
                 const ingreAmount = results[ingreName];
+
 
                 const listItem = $('<li>').append($('<span>').text(ingreName + ' '));
 
@@ -189,7 +196,7 @@ function updateSearchResults(results) {
                             $(this).prop('disabled', true); // 'this'를 사용하여 클릭한 버튼을 참조
 
  						ingreList.push(ingredientName);
-						console.log(ingreList);
+
                         }
                     });
 
@@ -197,6 +204,7 @@ function updateSearchResults(results) {
                 }
 
                 searchList.append(listItem);
+
             }
         }
     }
@@ -221,7 +229,7 @@ function updateSearchResults(results) {
 			contentType: 'application/json',
             data:JSON.stringify(ingreList),
             success: function(response) {
-			hideLoadingModal()
+			
 			 // AJAX 요청이 성공하면 sweetAlert2 모달을 나타냅니다.
                 Swal.fire({
                     title: '등록완료',
