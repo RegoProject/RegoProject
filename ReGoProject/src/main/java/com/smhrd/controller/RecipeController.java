@@ -410,7 +410,10 @@ public class RecipeController {
 		}
 	}
 	@RequestMapping("/recipeSuccess")
-	public String recipeScucess(@RequestParam("custId")String custId ,@RequestParam("rcpIdx")int rcpIdx,HttpSession session  ) {
+	public String recipeScucess(@RequestParam("rcpIdx")int rcpIdx, HttpSession session ) {
+		
+		
+		System.out.println(rcpIdx);
 		
 		r_member member = (r_member)session.getAttribute("user");
 		member.setCustCoin(100);
@@ -420,13 +423,17 @@ public class RecipeController {
 		
 		
 		r_cooking cook = new r_cooking();
-		cook.setCustId(custId);
-		cook.setRcIdx(rcpIdx);
+		cook.setCustId(member.getCustId());
+		cook.setRcpIdx(rcpIdx);
 		cook.setRcYn("Y");
 		cook.setCreatedAt(new Date());
-		cook.setRcpImg("");
+		cook.setRcpImg("hi");
+		try {
+			cooking.save(cook);
+		} catch (Exception e) {
+			
+		}
 		
-		cooking.save(cook);
 		
 		
 		return "views/main";
