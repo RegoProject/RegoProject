@@ -64,6 +64,10 @@ public class MyPageController {
 	@RequestMapping("/goMypage")
 	public String goMypage(HttpSession session ,Model model  ) {
 		r_member user =(r_member)session.getAttribute("user");
+		  if (user == null) {
+		        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
+		        return "redirect:/goLogin";
+		    }
 		String custId =user.getCustId();
 		
 		
@@ -82,6 +86,11 @@ public class MyPageController {
 	@RequestMapping("/goYourpage")
 	public String goYourpage(HttpSession session, Model model, @RequestParam("custId")String custId) {
 		r_member member= (r_member)session.getAttribute("user");
+		
+		  if (member == null) {
+		        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
+		        return "redirect:/goLogin";
+		    }
 		String custId2 = member.getCustId();
 		
 		

@@ -56,6 +56,13 @@ public class MemberController {
 
 		return "views/errorPage";
 	}
+	
+	@RequestMapping("/goError2")
+	public String goError2() {
+
+		return "views/errorPage2";
+	}
+
 
 	@RequestMapping("/goUpdate")
 	public String goUpdate() {

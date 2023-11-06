@@ -13,24 +13,24 @@
 	font-family: 'GyeonggiBatang';
 	
 }
- body {
- /*이거하면 양옆이 고정됨 다영언니 요청으로 일단 살려놨습니다.*/
+/* body {
+ 이거하면 양옆이 고정됨 다영언니 요청으로 일단 살려놨습니다.
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
     background: white;
-/* fallback for old browsers*/ 
+fallback for old browsers
     background: -webkit-linear-gradient(to right, white);
- /* Chrome 10-25, Safari 5.1-6*/ 
+Chrome 10-25, Safari 5.1-6
     background: linear-gradient(to right,white);
- /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+*/ 
+ W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+
 
-}
+}*/
 
 .checkContainer {
     max-width: 640px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
     font-size: 13px;
 }
 

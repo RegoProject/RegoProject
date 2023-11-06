@@ -24,7 +24,7 @@ public class ingreAPIController {
 		  System.out.println("들어옴?");
 	    try {
 	      // 파일을 Base64로 인코딩
-	    	  System.out.println("들어옴2?");
+
 	      String base64Data = Base64.getEncoder().encodeToString(file.getBytes());
 	      
           // API 서버로 요청 보내기
@@ -36,7 +36,7 @@ public class ingreAPIController {
           RestTemplate restTemplate = new RestTemplate();
           ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestBody, String.class);
           // API 서버로부터 받은 응답을 반환
-          System.out.println("들어옴3?");
+
           return response;
           
 	    } catch (Exception e) {

@@ -1,20 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>REGO HOME</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <script src="/assets/js/init-alpine.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <link rel="stylesheet" href="/assets/css/regorecommendation_f.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>REGO HOME</title>
+
+<script src="/assets/js/focus-trap.js"></script>
+<script src="/assets/js/slide.js" defer></script>
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+	rel="stylesheet" />
+
+<link rel="stylesheet" href="/assets/css/homeCopy.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+<!--폰트어썸 라이브러리 / 체크박스용 라이브러리-->
+<link rel="stylesheet" href="/assets/css/checkbox.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+	defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <link rel="stylesheet" href="/assets/css/regomain_f.css" />
+   <script src="/assets/js/regomain_f.js"></script>
+
+	
+
+
 </head>
 
 <body>
@@ -43,9 +60,9 @@
         @keydown.escape="closeSideMenu">
         <div class="py-4 text-gray-500 dark:text-gray-400">
           <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-            <img src="./assets/img/coin.png" class="coin">
-            <br>
-            <h1 class="coinnum">123 개</h1>
+             <img src="./assets/img/coin.png" class="coin"> 
+             <br>
+             <h1 class="coinnum">123 개</h1>
           </a>
           <br><br>
           <ul class="mt-6">
@@ -145,89 +162,67 @@
             </ul>
           </div>
         </header>
-      <main class="h-full overflow-y-auto">
-                <div class="container px-6 mx-auto grid">
-			 <br>
-            <br>
+        <main class="h-full overflow-y-auto">
+          <div class="container px-6 mx-auto grid">
+            <br><br>
+			
+            <div class="slideshow-container">
+              <div class="mySlides fade">
+                <div class="slidT2">
+                </div>
+                <img class="errorImg" src="./assets/img/surang_free-icon-error.png">
+              </div>
+              <div class="text-center">
+              <br>
 
-            <p class="myfont">추천 레시피</p>
-            <br>
-            <br>
-   
-            
-              <!-- 이부분 반복 -->
-     <c:forEach var="recipe" items="${recommendList}">
-            <div class="item-container">
-              <div class="addItem4" style="display:inline-block">
-                <a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
-                  <img class="recipeImg" src="/recipe/${recipe.rcpImg1}">
-                </a>
-                <br>
-                <div class="flex-row display:inline-block;">
-                  <div class="flex-row display:inline-block;">
-                  </div>
-                </div>
-              </div>
-              <div class="addItem4" style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
-                <div class="flex-container" style="display: flex; justify-content: space-between; align-items: center; margin: 10px;">
-                  <a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
-                    <p class="title">${recipe.rcpName}</p>
-                  </a>
-                  <a href="#" id="open-modal" data-rcpIdx="${recipe.rcpIdx}"><img src="./assets/img/caution.png" class="smimg"></a>
-                </div>
-                <div class="flex-row display:inline-block" style="display: flex; justify-content: space-between; align-items: center; margin: 10px;">
-                  <div class="flex-row display:inline-block" style="display: flex; align-items: center; margin: 10px;">
-                    <img src="./assets/img/star_gray.png" class="dimg">
-                    <p class="Difficulty">${recipe.rcpLevel}</p>
-                  </div>
-                  <div class="flex-row display:inline-block" style="display: flex; align-items: center; margin: 10px;">
-                    <img src="./assets/img/clock_gray.png" class="timg">
-                    <p class="time">${recipe.rcpTime}</p>
-                  </div>
-                </div>
-              </div>
+              <h3>잠시 후 다시 이용해주세요.</h3>
+              <br>
+              <br>
+              <br>
+              <br>
+			<a href="/goMain">메인화면으로 돌아가기</a>
+			</div>
             </div>
-            </c:forEach>
-            <!-- 이부분 반복 -->
-            
-   
+             
+          
             </div>
-          </div>
+      </div>
       </main>
     </div>
   </div>
+
+
+
+
+		</div>
+	</div>
+	</div>
+	</main>
+	</div>
+	</div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/assets/js/init-alpine.js"></script>
+<script src="/assets/js/msgModal.js"></script> <!-- msg 모달 js -->
+<script src="/assets/js/searchModal.js"></script> <!-- 재료검색 모달 js -->
+<script src="/assets/js/ingreAPI.js"></script> <!-- 식재료 API js -->
+
+
 <script type="text/javaScript">
-$(document).ready(function() {
-	  $("#open-modal").click(function() {
-		var rcpIdx = $(this).attr('data-rcpIdx');
-	    console.log(rcpIdx)
-	    // AJAX 요청 수행
-	    $.ajax({
-	      url: "/goNeedIngre?rcpIdx=" + rcpIdx,
-	      type: "GET",
-	      success: function(data) {
-	    	  console.log(data)
-	        // 요청이 성공하면 모달을 엽니다.
-	        Swal.fire({
-	          title: '모달 제목',
-	          html: '필요한 재료: ' + data.ingreList.join(', ') + '<br>필요한 메시지: ' + data.msgList.join(', '),
-	          icon: 'success' // 모달 아이콘 (선택 사항)
-	        });
-	      },
-	      error: function() {
-	        // 오류 처리
-	        Swal.fire({
-	          title: '에러',
-	          text: '요청을 처리하는 중 오류가 발생했습니다.',
-	          icon: 'error'
-	        });
-	      }
-	    });
-	  });
-	});
+
+
 
 </script>
+
+
+
+
+
+
+
 
 </html>
