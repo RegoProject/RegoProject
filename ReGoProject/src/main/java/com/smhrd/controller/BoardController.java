@@ -1,40 +1,37 @@
 package com.smhrd.controller;
 
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.smhrd.entity.r_board;
+import com.smhrd.entity.r_comment;
 import com.smhrd.entity.r_likes;
 import com.smhrd.entity.r_member;
 import com.smhrd.repository.r_boardRepository;
+import com.smhrd.repository.r_commentRepository;
 import com.smhrd.repository.r_likeRepository;
 import com.smhrd.repository.r_memberrRepository;
 
@@ -47,6 +44,8 @@ public class BoardController {
 	private r_likeRepository repo1;
 	@Autowired
 	private r_memberrRepository repo2;
+	@Autowired
+	private r_commentRepository commentRepo;
 	
 	@RequestMapping("/goBoardList")
 	public String goList() {
@@ -140,6 +139,60 @@ public class BoardController {
 		
 		return "board/community";
 	}
+	
+	@RequestMapping("/getComments")
+	public ResponseEntity<List<r_comment>> getComments(@RequestParam("rbIdx") int rbIdx , Model model) {
+		System.out.println("들어옴?");
+	    List<r_comment> comments = commentRepo.findByRbIdx(rbIdx);
+
+	    System.out.println(comments);
+	    model.addAttribute("comment",comments);
+	    // 댓글 데이터를 JSON 형식으로 반환
+	    return new ResponseEntity<>(comments, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/addComment", method = RequestMethod.POST)
+	public ResponseEntity<String> addComment(@RequestParam int rbIdx, @RequestParam String rmtContent, HttpSession session, r_member member) {
+		member = (r_member) session.getAttribute("user");
+	    r_comment newComment = new r_comment();
+	    newComment.setRbIdx(rbIdx);
+	    newComment.setCustId(member.getCustId()); // 로그인한 사용자 아이디 또는 세션에서 가져온 사용자 아이디 사용
+	    newComment.setRmtContent(rmtContent);
+	    
+	    commentRepo.save(newComment); // CommentService에 댓글 저장 로직 추가
+	    
+	    return new ResponseEntity<>("댓글이 등록되었습니다.", HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping("/deleteComment")
+	@Transactional
+	public ResponseEntity<String> getComments(HttpSession session, r_member member, @RequestParam("rmtIdx") int rmtIdx) {
+		member = (r_member) session.getAttribute("user");
+		
+
+	    try {
+	        commentRepo.deleteByCustIdAndRmtIdx(member.getCustId(), rmtIdx);
+	        return new ResponseEntity<>("삭제에 성공하였습니다.", HttpStatus.OK);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>("삭제에 실패하였습니다.", HttpStatus.BAD_REQUEST);
+	    }
+	}
+	
+	@RequestMapping(value = "/updateComment", method = RequestMethod.POST)
+	@Transactional
+	public ResponseEntity<String> updateComment(HttpSession session,r_member member, @RequestParam("rmtIdx") int rmtIdx, @RequestParam("rmtComment") String rmtComment) {
+		member = (r_member) session.getAttribute("user");
+		System.out.println("들어옴?");
+		 try {
+		        // 댓글 업데이트 로직을 수행 (JPA 메소드 활용)
+		        commentRepo.updateComment(member.getCustId(), rmtIdx, rmtComment);
+		        return new ResponseEntity<>("수정에 성공하였습니다.", HttpStatus.OK);
+		    } catch (Exception e) {
+		        return new ResponseEntity<>("수정에 실패하였습니다.", HttpStatus.BAD_REQUEST);
+		    }
+	}
+	
 	
 	@Transactional   //뭔줄모르겠는데 그냥 붙이니깐 삭제가됨...(?)
 	@RequestMapping("/likeUnlike")

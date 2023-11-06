@@ -13,8 +13,7 @@
   <script src="./assets/js/init-alpine.js"></script>
   <script src="/assets/js/focus-trap.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-  <script src="jquery.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script> 
    <link rel="stylesheet" href="./assets/css/regocommunity_f.css" />
    
 
@@ -174,6 +173,7 @@
                   <div class="profile-img">
                     <a href="/goYourpage?custId=${board.custId}"> 
                     <img src="${userImg[status.index]}" class="profileimg">
+                    </a>
                   </div>
                   <div class="profile-info">
                     <div class="name">
@@ -204,9 +204,16 @@
                     <p class="context">${board.rbContent }</p>
                   </div>
                   <br><br>
-                  <div class="comments">
-                    <p class="username">wonseo</p>
-                    <p class="usercomment">좋은 사진 감사합니다!</p>
+                  <!-- 여기에 등록버튼과 input을 넣을꺼야 -->
+                   
+                  <div class="comments"id="commentContainer${board.rbIdx}">
+                  <div class="comment-input">
+                  <input type="text" id="commentInput${board.rbIdx}" placeholder="댓글을 입력하세요"> <button class="commentBtn" data-rbIdx="${board.rbIdx}">등록</button></div>
+   				 <div class="comments"id="commentContainer_${board.rbIdx}">
+   				 <div>                   <p class="username"></p> </div>
+                    <div><span class="usercomment"></span> </div>
+                    </div>
+                 
                   </div>
                 </div>
               </div>
@@ -220,6 +227,8 @@
 </body>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script type="text/javaScript">
 
 
@@ -373,7 +382,198 @@ $(document).ready(function(){
         });
     });
 });
+
+
+$(document).ready(function() {
+	  // 각 게시물의 댓글 입력란과 등록 버튼에 대한 이벤트 핸들러를 설정합니다.
+	  $('.commentBtn').click(function() {
+		const rbIdx = $(this).attr('data-rbIdx'); 
+	    const commentInput = $('#commentInput' + rbIdx);
+	    const rmtContent = commentInput.val();
+	    console.log(rmtContent)
+
+
+	    if (rmtContent.trim() === '') {
+	      alert('댓글을 입력하세요');
+	      return;
+	    }
+
+	    // 서버에 댓글 제출
+	    $.ajax({
+	      url: '/addComment', // 적절한 서버 엔드포인트로 변경
+	      method: 'POST',
+	      data: { rbIdx: rbIdx, rmtContent: rmtContent },
+	      success: function(response) {
+	        // 서버에서 반환된 댓글 데이터를 처리하여 페이지에 추가
+	        displayComment(rbIdx, response);
+	        location.reload()
+            commentInput.val(''); // 입력란 비우기
+	     
+	      },
+	      error: function(xhr, status, error) {
+	        console.error('AJAX 오류:', error);
+	      }
+	    });
+	  });
+
+	  // 서버에서 반환된 댓글 데이터를 화면에 추가하는 함수
+	  function displayComment(rbIdx, comment) {
+	    const commentContainer = $('#commentContainer' + rbIdx);
+
+	    const username = comment.custId;
+	    const usercomment = comment.rmtContent;
+
+	    const commentDiv = $('<div>').addClass('comments');
+	    commentDiv.append($('<span>').addClass('username').text(username));
+	    commentDiv.append($('<span>').addClass('usercomment').text(usercomment));
+
+	    commentContainer.append(commentDiv);
+	  }
+	  
+
+	});
+
+
+
+$(document).ready(function() {
+	function updateComment(custId, rmtIdx, rmtComment) {
+		console.log("오니?")
+	    $.ajax({
+	        url: '/updateComment', // 적절한 서버 엔드포인트로 변경
+	        method: 'POST',
+	        data: { custId: custId, rmtIdx: rmtIdx, rmtComment: rmtComment },
+	        success: function(response) {
+	            // 서버에서의 응답 처리 (성공 시)
+	        	swal('수정 완료', '댓글이 수정되었습니다.', 'success').then(function () {
+                    // Swal 창이 닫힌 후에 페이지를 새로고침합니다.
+                    location.reload();
+                });
+	        },
+	        error: function(xhr, status, error) {
+	            // 서버에서의 응답 처리 (에러 시)
+	            swal('수정 실패', '댓글 수정에 실패했습니다.', 'error');
+	        }
+	    });
+	}
+    // 댓글 목록을 비동기로 가져오는 함수
+    function loadComments(rbIdx, commentContainer) {
+        $.ajax({
+            url: '/getComments', // 적절한 서버 엔드포인트로 변경
+            method: 'GET',
+            data: { rbIdx: rbIdx },
+            success: function(response) {
+                // 서버에서 반환된 댓글 목록 데이터를 처리하여 페이지에 추가
+                displayComments(response, commentContainer);
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX 오류:', error);
+            }
+        });
+    }
+
+    // 댓글 목록을 페이지에 추가하는 함수
+    function displayComments(comments, commentContainer) {
+        commentContainer.empty(); // 기존 댓글 제거 (선택사항)
+
+        comments.forEach(function(comment) {
+            const username = comment.custId;
+            const usercomment = comment.rmtContent;
+
+            const commentDiv = $('<div>').addClass('comments');
+            commentDiv.append($('<span>').addClass('username').text(username));
+            commentDiv.append($('<span>').addClass('usercomment').text(usercomment));
+            
+            const deleteButton = $('<button>').text('삭제').addClass('deleteBtn');
+            commentDiv.append(deleteButton);
+            
+            const editButton = $('<button>').text('수정').addClass('editBtn');
+            commentDiv.append(editButton);
+
+       
+         
+            commentContainer.append(commentDiv);
+            
+            // 수정 버튼 클릭 이벤트 핸들러
+            editButton.click(function() {
+                // 수정 작업 수행
+                var custId = comment.custId; // 댓글 고유 ID를 사용하여 삭제 수행
+                var rmtIdx = comment.rmtIdx; 
+                var usercomment = commentDiv.find('.usercomment').text();
+                // 수정 모달 열기
+                swal({
+                    title: '댓글 수정',
+                    content: {
+                        element: 'input',
+                        attributes: {
+                            value: usercomment
+                        }
+                    },
+                    buttons: {
+                        confirm: {
+                            text: '저장',
+                            closeModal: true
+                        },
+                        cancel: '취소'
+                    },
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return '댓글 내용을 입력하세요';
+                        }
+                    }
+                }).then((result) => {
+                	console.log(result)
+                    console.log(result.value)
+                    if (result) {
+                    	console.log("오냐?")
+                        const rmtComment = result;
+                        console.log(rmtComment);
+                        updateComment(custId, rmtIdx, rmtComment);
+                    } else {
+                        // 사용자가 '취소' 버튼을 클릭한 경우 또는 다른 경우에 대한 처리를 추가할 수 있습니다.
+                    }
+                });
+            });
+
+            // 삭제 버튼 클릭 이벤트 핸들러
+            deleteButton.click(function() {
+                // 삭제 작업 수행
+                var custId = comment.custId; // 댓글 고유 ID를 사용하여 삭제 수행
+                var rmtIdx = comment.rmtIdx; 
+                // 서버로 삭제 요청 보내기 (예시)
+                $.ajax({
+                    url: '/deleteComment', // 적절한 서버 엔드포인트로 변경
+                    method: 'POST',
+                    data: { custId: custId ,
+                    		rmtIdx : rmtIdx},
+                    success: function(response) {
+                    	 swal("삭제 성공", response, "success");
+                         commentDiv.remove(); // 화면에서 해당 댓글 제거
+                     
+                    },
+                    error: function(xhr, status, error) {
+                    	  // 실패한 경우
+                        swal("삭제 실패", "삭제에 실패하였습니다.", "error");
+                    }
+                });
+            });
+        });
+    }
+
+    // 페이지 로드 시 각 게시글에 댓글 목록을 초기화
+    <c:forEach var="board" items="${board}" varStatus="status">
+        const rbIdx${status.index} = '${board.rbIdx}';
+        const commentContainer${status.index} = $('#commentContainer_${board.rbIdx}');
+        loadComments(rbIdx${status.index}, commentContainer${status.index});
+    </c:forEach>
+});
+
+
+
+
+
 </script>
+
+
 
 
 </html>

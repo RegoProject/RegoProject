@@ -2921,17 +2921,43 @@ p {
 }
 
 .comments {
-    display: flex;
-    align-items: center;
-    /* 수직 정렬 */
+    max-height: 300px; /* 원하는 최대 높이로 조정 */
+    overflow: auto;
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+  overflow-x: auto; /* 가로 스크롤바를 표시하고 넘치는 내용을 스크롤할 수 있게 합니다. */
+  max-width: 100%; /* 댓글 컨테이너의 최대 너비를 설정 (조절 가능) */
+   overflow-y: auto;
 }
 
+.comment-input {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    margin-bottom : 10px;
+
+}
+.commentBtn {
+	width:13%;
+    position: relative;
+
+}
+
+
+
+.deleteBtn,
+.editBtn {
+    float: right; /* 오른쪽으로 붙임 */
+    margin-left: 10px; /* 오른쪽 여백을 설정할 수 있음 */
+    /* 다른 스타일 속성도 추가 가능 */
+}
 .username,
 .usercomment {
     margin-right: 20px;
     font-size: 13px;
     color: black;
-    /* 오른쪽 여백 추가 */
+      white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+    overflow: hidden; /* 긴 텍스트를 숨김 (필요한 경우 스크롤바로 설정) */
+    text-overflow: ellipsis; /* 긴 텍스트를 생략 부호(...)로 표시 */
+    max-width: 80%; /* 댓글 컨테이너 너비의 최대값을 설정 (조절 가능) */
 }
 
 .searchimg {

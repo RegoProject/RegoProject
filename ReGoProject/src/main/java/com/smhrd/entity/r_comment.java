@@ -4,6 +4,8 @@ import java.security.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
@@ -17,6 +19,7 @@ public class r_comment {
 	// 댓글 순번 
 	@Id
 	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment로 설정
     private int rmtIdx;
 
     // 원글 순번 
