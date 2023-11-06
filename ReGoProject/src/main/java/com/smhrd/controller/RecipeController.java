@@ -27,7 +27,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,17 +38,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smhrd.entity.r_cooking;
 import com.smhrd.entity.r_ingre_join_data;
-import com.smhrd.entity.r_ingredients;
 import com.smhrd.entity.r_member;
-import com.smhrd.entity.r_msg;
 import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.entity.r_my_ingredients;
 import com.smhrd.entity.r_my_msg;
 import com.smhrd.entity.r_recipe;
 import com.smhrd.repository.r_cookingRepository;
-import com.smhrd.repository.r_ingreRepository;
 import com.smhrd.repository.r_memberrRepository;
-import com.smhrd.repository.r_msgRepository;
 import com.smhrd.repository.r_my_ingreRepository;
 import com.smhrd.repository.r_my_msgRepository;
 import com.smhrd.repository.r_recipeRepository;
@@ -76,6 +71,9 @@ public class RecipeController {
 	private r_cookingRepository cooking;
 	@Autowired
 	private r_memberrRepository members;
+	
+	
+	
 
 	// 레시피데이터 데이터베이스 추가하는코드
 	@RequestMapping("/recipeInsert")
@@ -438,8 +436,7 @@ public class RecipeController {
 		
 		return "views/main";
 		
-	}
-	
+	}	
 	
 
 }

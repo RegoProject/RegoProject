@@ -12,7 +12,9 @@ import com.smhrd.entity.r_ingredients;
 @Repository
 public interface r_ingreRepository extends JpaRepository<r_ingredients, String> {
 
-	public Optional<r_ingredients> findByIngreName(String ingreName);
+	//public Optional<r_ingredients> findByIngreName(String ingreName);
+	
+	public r_ingredients findByIngreName(String ingreName);
 
 
 }

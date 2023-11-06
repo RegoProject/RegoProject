@@ -14,7 +14,7 @@ public class r_recipe_ingredients {
 
     // 재료 순번 
 	@Id
-	@Column
+	@Column	
     private int rcpIngreIdx;
 
     // 레시피 순번
@@ -27,5 +27,5 @@ public class r_recipe_ingredients {
 
     // 식재료 투입량
 	@Column
-    private int ingreAmount;
+    private String ingreAmount;
 }
