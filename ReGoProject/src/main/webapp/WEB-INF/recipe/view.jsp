@@ -237,11 +237,11 @@
         <br>
         <form id =uploadForm  method="post" enctype="multipart/form-data">
         <div>
-          <input type="file" name="file" id="file">
-          <input type="hidden" name="recipe" value= "${recipe.rcpName}" >
+          <input type="file" name="file" id="file" class="GyeonggiBatangfont">
+          <input type="hidden" name="recipe" value= "${recipe.rcpName}" class="GyeonggiBatangfont">
           <br><br><br><br><br>
         </div>
-        <div class="foodsub">
+        <div class="foodsub GyeonggiBatangfont">
             <button class="filesub">제출</button>
         </div>
         </form>
