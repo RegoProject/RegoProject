@@ -319,8 +319,8 @@ $(document).ready(function() {
             success: function(res) {
             	console.log(res)
             	if(res==="true"){
-            		if (confirm("요리성공! 메인페이지로 이동하시겠습니까?")) {
-            	        window.location.href = "/recipeSuccess?custId=id&rcpIdx="+${recipe.rcpIdx}; // mypage로 이동
+            		if (confirm(`요리성공! 100코인지급되었습니다! 메인페이지로 이동하시겠습니까?`)) {
+            	        window.location.href = "/recipeSuccess?rcpIdx="+${recipe.rcpIdx}; // mypage로 이동
             	    }
             		
             	}else{

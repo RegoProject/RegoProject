@@ -213,26 +213,30 @@
                     
 
             
-            <c:forEach var="recipe" items="${recipe}">
-            	<div class="addItem4" style="display:inline-block" >
-            		<a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
-            		<!-- 이미지 경로는 imagePath/uploadedImage/ 이하폴더로 해주세요
-          imagePath/uploadedImage/food/${recipe.rcpImg1} (배포용) <<<<<<<<<<<<<<<<<<<<<<<<<<이거 제가 잘못썼어요 static 폴더로 해도됩니다.  -->
-                		<img class="recipeImg" src="/recipe/${recipe.rcpImg1}" alt="#">
-                		<p class="title">${recipe.rcpName}</p>
-              		</a>
-                	<br>
-                	<div class="flex-row display:inline-block;">
-                  		<img src="/assets/img/star_gray.png" class="dimg">
-                 	 	<p class="Difficulty">${recipe.rcpLevel }</p>
-                  		<div class="flex-row display:inline-block;">
-                    		<img src="/assets/img/clock_gray.png" class="timg">
-                    		<p class="time">${recipe.rcpTime }</p>
-                 		</div>
-               		</div>
-               	</div>
-               
-               	</c:forEach>
+       <c:choose>
+    <c:when test="${empty recipe}">
+        <div class="#">검색 결과가 없습니다.</div>
+    </c:when>
+    <c:otherwise>
+        <c:forEach var="recipe" items="${recipe}">
+            <div class="addItem4" style="display:inline-block" >
+                <a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
+                    <img class="recipeImg" src="/recipe/${recipe.rcpImg1}" alt="#">
+                    <p class="title">${recipe.rcpName}</p>
+                </a>
+                <br>
+                <div class="flex-row display:inline-block;">
+                    <img src="/assets/img/star_gray.png" class="dimg">
+                    <p class="Difficulty">${recipe.rcpLevel }</p>
+                    <div class="flex-row display:inline-block;">
+                        <img src="/assets/img/clock_gray.png" class="timg">
+                        <p class="time">${recipe.rcpTime }</p>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </c:otherwise>
+</c:choose>
              	
             
             
