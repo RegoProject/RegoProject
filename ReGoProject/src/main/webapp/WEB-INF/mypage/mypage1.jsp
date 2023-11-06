@@ -49,7 +49,7 @@
           <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
              <img src="./assets/img/coin.png" class="coin"> 
              <br>
-             <h1 class="coinnum">123 개</h1>
+             <h1 class="coinnum">${user.custCoin }개</h1>
           </a>
           <br><br>
           <ul class="mt-6">
