@@ -58,6 +58,10 @@ public class MyRefController {
 	@RequestMapping("/goMyIngreList")
 	public String goIngreList(r_member member, HttpSession session, Model model) {
 		member = (r_member) session.getAttribute("user");
+		  if (member == null) {
+		        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
+		        return "redirect:/goLogin";
+		    }
 		try {
 			List<r_ingre_join_data> myIngre = memService.myIngredients(member.getCustId());
 			  if (myIngre != null) {
@@ -84,6 +88,10 @@ public class MyRefController {
 	@RequestMapping("/goMyMsgList")
 	public String goMsgList(r_member member, HttpSession session, Model model) {
 		member = (r_member) session.getAttribute("user");
+		  if (member == null) {
+		        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
+		        return "redirect:/goLogin";
+		    }
 		try {
 			List<r_msg_join_data> myMsg = memService.myMsg(member.getCustId());
 			
@@ -208,6 +216,7 @@ public class MyRefController {
 	@ResponseBody
 	public List<r_my_msg> selectMyAllMsg(r_member member , HttpSession session) {
 		member = (r_member) session.getAttribute("user");
+		
 		List<r_my_msg> result = myMsgRepo.findByCustId(member.getCustId());
 		
 		

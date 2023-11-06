@@ -164,6 +164,13 @@ public class RecipeController {
 	public String goView(@RequestParam("rcpIdx") int rcpIdx, Model model, HttpSession session) throws JsonProcessingException {
 		
 		r_member member=(r_member)session.getAttribute("user");
+		
+		
+	    if (member == null) {
+	        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
+	        return "redirect:/goLogin"; // 로그인 페이지 URL로 변경하세요
+	    }
+	    
 		String custdId = member.getCustId();
 		List<r_cooking> cooklist= cooking.findByRcpIdxAndCustId(rcpIdx, custdId);
 		String YorN = "";
@@ -358,6 +365,13 @@ public class RecipeController {
 	@RequestMapping("/goRecommendList")
 	public String goRecommendList(HttpSession session, Model model) {
 		r_member member = (r_member) session.getAttribute("user");
+		
+		
+	    if (member == null) {
+	        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
+	        return "redirect:/goLogin"; // 로그인 페이지 URL로 변경하세요
+	    }
+
 
 		List<r_my_ingredients> ingreList = myIngreRepo.findByCustId(member.getCustId());
 		List<r_my_msg> msgList = myMsgRepo.findByCustId(member.getCustId());
@@ -406,7 +420,7 @@ public class RecipeController {
 			return "recipe/recommendList";
 		} else {
 			// 오류 처리
-			return "redirect:/goMain"; // 오류 페이지로 리다이렉트 또는 다른 처리 수행
+			return "redirect:/goError2"; // 오류 페이지로 리다이렉트 또는 다른 처리 수행
 		}
 	}
 	@RequestMapping("/recipeSuccess")
@@ -416,6 +430,13 @@ public class RecipeController {
 		System.out.println(rcpIdx);
 		
 		r_member member = (r_member)session.getAttribute("user");
+		
+		
+	    if (member == null) {
+	        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
+	        return "redirect:/goLogin"; 
+	    }
+	    
 		member.setCustCoin(100);
 		
 		members.save(member);

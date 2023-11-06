@@ -170,6 +170,7 @@ public class BoardController {
 	public ResponseEntity<String> getComments(HttpSession session, r_member member, @RequestParam("rmtIdx") int rmtIdx) {
 		member = (r_member) session.getAttribute("user");
 		
+		
 
 	    try {
 	        commentRepo.deleteByCustIdAndRmtIdx(member.getCustId(), rmtIdx);
@@ -183,7 +184,7 @@ public class BoardController {
 	@Transactional
 	public ResponseEntity<String> updateComment(HttpSession session,r_member member, @RequestParam("rmtIdx") int rmtIdx, @RequestParam("rmtComment") String rmtComment) {
 		member = (r_member) session.getAttribute("user");
-		System.out.println("들어옴?");
+	
 		 try {
 		        // 댓글 업데이트 로직을 수행 (JPA 메소드 활용)
 		        commentRepo.updateComment(member.getCustId(), rmtIdx, rmtComment);
@@ -199,11 +200,13 @@ public class BoardController {
 	public void likeUnlike(@RequestParam("rbidx") int rbidx , @RequestParam("status") String status ,HttpSession session,HttpServletResponse response) {
 		
 		r_member user= (r_member)session.getAttribute("user");
+		
+		
+		
 		String custId = user.getCustId();
 		r_likes like = new r_likes();
 		
-		System.out.println(status);
-		System.out.println(rbidx);
+
 		
 		
 		
@@ -237,10 +240,10 @@ public class BoardController {
 	@RequestMapping("/loadMoreBoard")
 	public void loadMoreBoard(@RequestParam("page") int page , HttpSession session , HttpServletResponse response) {
 		
-		System.out.println(page);
+
 		r_member member =(r_member)session.getAttribute("user");
 		String custId = member.getCustId();
-		System.out.println(custId);
+
 		Pageable pageable = PageRequest.of(page, 10);
 		List<r_board> list= repo.findAllByOrderByCreatedAtDesc(pageable);
 		
@@ -300,6 +303,12 @@ public class BoardController {
 		String search1 = "%"+search+"%";
 		
 		r_member member=(r_member)session.getAttribute("user");
+		
+	    if (member == null) {
+	        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
+	        return "redirect:/goLogin";
+	    }
+
 		String custId= member.getCustId();
 		List<r_board> list= repo.findByRbContentContainingOrderByCreatedAtDesc(search1);
 		List<r_likes> list1= repo1.findLikesByCustId2(custId, search1);
@@ -346,6 +355,10 @@ public class BoardController {
 	public String bardWrite(@RequestParam("boardImg") MultipartFile file , @RequestParam("boardContent") String boardContent ,HttpSession session ) {
 		
 		r_member member= (r_member)session.getAttribute("user");
+		  if (member == null) {
+		        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
+		        return "redirect:/goLogin";
+		    }
 		String custId=  member.getCustId();
 		r_board board = new r_board();
 		board.setCustId(custId);
