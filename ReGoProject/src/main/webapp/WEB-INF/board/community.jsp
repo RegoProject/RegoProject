@@ -156,8 +156,8 @@
       <div class="search">
             <form class="search-container" action="/boardSearch" method="post">
               <input type="text" class="search-bar" placeholder="검색어 입력" name="search">
-              <a href="#"><img class="search-icon"
-                  src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
+              <button><img class="search-icon"
+                  src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></button>
             </form>
             <div>
             <a href="/goBoardForm"><img src="./assets/img/more.png" class="writeimg"></a>
