@@ -440,7 +440,7 @@
 					x-transition:leave-end="opacity-0  transform translate-y-1/2"
 					@click.away="" @keydown.escape="closeTrdModal"
 					class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
-					role="dialog" id="trdModal">
+					role="dialog" id="trdModal" style="overflow-y:auto; max-height:100%">
 					<!-- 조미료 추가(trdModal) 버튼 -->
 					
 		
@@ -449,35 +449,47 @@
 						<ul class="ks-cboxtags">
 							<!-- value 는 조미료 카테고리의 인덱스 값입니다. -->
 							<li><input type="checkbox" id="checkbox1" value="1" name="msgIdx">		<label for="checkbox1">간장</label></li>
-							<li><input type="checkbox" id="checkbox2" value="2" name="msgIdx">		<label for="checkbox2">소금</label></li>
-							<li><input type="checkbox" id="checkbox3" value="3" name="msgIdx">		<label for="checkbox3">참기름</label></li>
-							<li><input type="checkbox" id="checkbox4" value="4" name="msgIdx">		<label for="checkbox4">조미료1</label></li>
-							<li><input type="checkbox" id="checkbox5" value="5" name="msgIdx">		<label for="checkbox5">조미료2</label></li>
-							<li><input type="checkbox" id="checkbox6" value="6" name="msgIdx">		<label for="checkbox6">조미료3</label></li>
-							<li><input type="checkbox" id="checkbox7" value="7" name="msgIdx">		<label for="checkbox7">조미료4</label></li>
-							<li><input type="checkbox" id="checkbox8" value="8" name="msgIdx">		<label for="checkbox8">조미료5</label></li>
-							<li><input type="checkbox" id="checkbox9" value="9" name="msgIdx">		<label for="checkbox9">조미료6</label></li>
-							<li><input type="checkbox" id="checkbox10" value="10" name="msgIdx">	<label for="checkbox10">조미료7</label></li>
-							<li><input type="checkbox" id="checkbox11" value="11" name="msgIdx">	<label for="checkbox11">조미료8</label></li>
-							<li><input type="checkbox" id="checkbox12" value="12" name="msgIdx">	<label for="checkbox12">조미료9</label></li>
-							<li><input type="checkbox" id="checkbox13" value="13" name="msgIdx">	<label for="checkbox13">조미료10</label></li>
-							<li><input type="checkbox" id="checkbox14" value="14" name="msgIdx">	<label for="checkbox14">조미료11</label></li>
-							<li><input type="checkbox" id="checkbox15" value="15" name="msgIdx">	<label for="checkbox15">조미료12</label></li>
-							<li><input type="checkbox" id="checkbox16" value="16" name="msgIdx">	<label for="checkbox16">조미료13</label></li>
-							<li><input type="checkbox" id="checkbox17" value="17" name="msgIdx">	<label for="checkbox17">조미료14</label></li>
-							<li><input type="checkbox" id="checkbox18" value="18" name="msgIdx">	<label for="checkbox18">조미료15</label></li>
-							<li><input type="checkbox" id="checkbox19" value="19" name="msgIdx">	<label for="checkbox19">조미료16</label></li>
-							<li><input type="checkbox" id="checkbox20" value="20" name="msgIdx">	<label for="checkbox20">조미료17</label></li>
-							<li><input type="checkbox" id="checkbox21" value="21" name="msgIdx">	<label for="checkbox21">조미료18</label></li>
-							<li><input type="checkbox" id="checkbox22" value="22" name="msgIdx">	<label for="checkbox22">조미료19</label></li>
-							<li><input type="checkbox" id="checkbox23" value="23" name="msgIdx">	<label for="checkbox23">조미료20</label></li>
-							<li><input type="checkbox" id="checkbox24" value="24" name="msgIdx">	<label for="checkbox24">조미료21</label></li>
-							<li><input type="checkbox" id="checkbox25" value="25" name="msgIdx">	<label for="checkbox25">조미료22</label></li>
-							<li><input type="checkbox" id="checkbox26" value="26" name="msgIdx">	<label for="checkbox26">조미료23</label></li>
-							<li><input type="checkbox" id="checkbox27" value="27" name="msgIdx">	<label for="checkbox27">조미료24</label></li>
-							<li><input type="checkbox" id="checkbox28" value="28" name="msgIdx">	<label for="checkbox28">조미료25</label></li>
-							<li><input type="checkbox" id="checkbox29" value="29" name="msgIdx">	<label for="checkbox29">조미료26</label></li>
-							<li><input type="checkbox" id="checkbox30" value="30" name="msgIdx">	<label for="checkbox30">조미료27</label></li>
+							<li><input type="checkbox" id="checkbox2" value="2" name="msgIdx">		<label for="checkbox2">강황가루</label></li>
+							<li><input type="checkbox" id="checkbox3" value="3" name="msgIdx">		<label for="checkbox3">고추기름</label></li>
+							<li><input type="checkbox" id="checkbox4" value="4" name="msgIdx">		<label for="checkbox4">고추냉이</label></li>
+							<li><input type="checkbox" id="checkbox5" value="5" name="msgIdx">		<label for="checkbox5">고추장</label></li>
+							<li><input type="checkbox" id="checkbox6" value="6" name="msgIdx">		<label for="checkbox6">고춧가루</label></li>
+							<li><input type="checkbox" id="checkbox7" value="7" name="msgIdx">		<label for="checkbox7">국간장</label></li>
+							<li><input type="checkbox" id="checkbox8" value="8" name="msgIdx">		<label for="checkbox8">굴소스</label></li>
+							<li><input type="checkbox" id="checkbox9" value="9" name="msgIdx">		<label for="checkbox9">깨</label></li>
+							<li><input type="checkbox" id="checkbox10" value="10" name="msgIdx">	<label for="checkbox10">다진마늘</label></li>
+							<li><input type="checkbox" id="checkbox11" value="11" name="msgIdx">	<label for="checkbox11">도토리가루</label></li>
+							<li><input type="checkbox" id="checkbox12" value="12" name="msgIdx">	<label for="checkbox12">된장</label></li>
+							<li><input type="checkbox" id="checkbox13" value="13" name="msgIdx">	<label for="checkbox13">두반장</label></li>
+							<li><input type="checkbox" id="checkbox14" value="14" name="msgIdx">	<label for="checkbox14">들기름</label></li>
+							<li><input type="checkbox" id="checkbox15" value="15" name="msgIdx">	<label for="checkbox15">들깨가루</label></li>
+							<li><input type="checkbox" id="checkbox16" value="16" name="msgIdx">	<label for="checkbox16">레드페퍼</label></li>
+							<li><input type="checkbox" id="checkbox17" value="17" name="msgIdx">	<label for="checkbox17">마요네즈</label></li>
+							<li><input type="checkbox" id="checkbox18" value="18" name="msgIdx">	<label for="checkbox18">맛간장</label></li>
+							<li><input type="checkbox" id="checkbox19" value="19" name="msgIdx">	<label for="checkbox19">맛술</label></li>
+							<li><input type="checkbox" id="checkbox20" value="20" name="msgIdx">	<label for="checkbox20">매실청</label></li>
+							<li><input type="checkbox" id="checkbox21" value="21" name="msgIdx">	<label for="checkbox21">머스터드</label></li>
+							<li><input type="checkbox" id="checkbox22" value="22" name="msgIdx">	<label for="checkbox22">멸치액젓</label></li>
+							<li><input type="checkbox" id="checkbox23" value="23" name="msgIdx">	<label for="checkbox23">물</label></li>
+							<li><input type="checkbox" id="checkbox24" value="24" name="msgIdx">	<label for="checkbox24">물엿</label></li>
+							<li><input type="checkbox" id="checkbox25" value="25" name="msgIdx">	<label for="checkbox25">미림</label></li>
+							<li><input type="checkbox" id="checkbox26" value="26" name="msgIdx">	<label for="checkbox26">새우젓</label></li>
+							<li><input type="checkbox" id="checkbox27" value="27" name="msgIdx">	<label for="checkbox27">생강가루</label></li>
+							<li><input type="checkbox" id="checkbox28" value="28" name="msgIdx">	<label for="checkbox28">생강즙</label></li>
+							<li><input type="checkbox" id="checkbox29" value="29" name="msgIdx">	<label for="checkbox29">설탕</label></li>
+							<li><input type="checkbox" id="checkbox30" value="30" name="msgIdx">	<label for="checkbox30">소금</label></li>
+							<li><input type="checkbox" id="checkbox30" value="31" name="msgIdx">	<label for="checkbox31">식용유</label></li>
+							<li><input type="checkbox" id="checkbox30" value="32" name="msgIdx">	<label for="checkbox32">식초</label></li>
+							<li><input type="checkbox" id="checkbox30" value="33" name="msgIdx">	<label for="checkbox33">얼음</label></li>
+							<li><input type="checkbox" id="checkbox30" value="34" name="msgIdx">	<label for="checkbox34">연겨자</label></li>
+							<li><input type="checkbox" id="checkbox30" value="35" name="msgIdx">	<label for="checkbox35">올리고당</label></li>
+							<li><input type="checkbox" id="checkbox30" value="36" name="msgIdx">	<label for="checkbox36">진간장</label></li>
+							<li><input type="checkbox" id="checkbox30" value="37" name="msgIdx">	<label for="checkbox37">참기름</label></li>
+							<li><input type="checkbox" id="checkbox30" value="38" name="msgIdx">	<label for="checkbox38">참치액젓</label></li>
+							<li><input type="checkbox" id="checkbox30" value="39" name="msgIdx">	<label for="checkbox39">청주</label></li>
+							<li><input type="checkbox" id="checkbox30" value="40" name="msgIdx">	<label for="checkbox40">청하</label></li>
+							<li><input type="checkbox" id="checkbox30" value="41" name="msgIdx">	<label for="checkbox41">후추</label></li>
+							
 						</ul>
 
 					</div>

@@ -192,7 +192,7 @@
                     <div class="ingredient">
                       <div class="ingredient-content">
                         <div>
-                          <img class="ss" src="/assets/img/${ingre.ingreImg}">
+                          <img class="ss" src="/ingredients/${ingre.ingreImg}">
                         </div>
                         <br>
                          <p class="font">${ingre.ingreName }</p>
