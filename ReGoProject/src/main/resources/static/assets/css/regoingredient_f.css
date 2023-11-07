@@ -162,7 +162,9 @@ textarea {
 [type=checkbox],
 [type=radio] {
     box-sizing: border-box;
-    padding: 0
+    padding: 0;
+    width: 20px;
+    height: 20px;
 }
 
 [type=number]::-webkit-inner-spin-button,
@@ -2692,14 +2694,16 @@ h1 .coinnum {
     width: 45px;
     height: 45px;
     top: -37px;
-    right: 160px;
+    right: 200px;
 }
 
 .home-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 30px;
+    position: relative;
+    right: 11px;
 
 }
 
@@ -2714,6 +2718,8 @@ h1 .coinnum {
     .home-cards {
         justify-content: space-between;
         gap: 10px;
+        position: relative;
+    	left: -5px;
         /* 모바일에서 2개씩 정렬 */
     }
 
@@ -2787,8 +2793,8 @@ h1 .coinnum {
 }
 
 .checkbox {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
 }
 
 .ingredient-content {
@@ -2807,3 +2813,10 @@ h1 .coinnum {
     display: block;
     margin: auto;
   }
+  
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .search-icon {
+  position: relative;
+  right: 120px;
+} 
+}

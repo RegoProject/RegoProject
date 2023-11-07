@@ -1576,7 +1576,8 @@ img,video {
 .text-gray-700 {
     --text-opacity: 1;
     color: #24262d;
-    color: rgba(36,38,45,var(--text-opacity))
+    color: rgba(36,38,45,var(--text-opacity));
+    font-weight: bold;
 }
 
 .text-gray-800 {
@@ -2080,4 +2081,7 @@ a{
     font-weight: bold;
 }
 
+.block {
+	font-weight: bold;
+}
 

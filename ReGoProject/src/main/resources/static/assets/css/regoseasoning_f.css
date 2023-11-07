@@ -162,7 +162,9 @@ textarea {
 [type=checkbox],
 [type=radio] {
     box-sizing: border-box;
-    padding: 0
+    padding: 0;
+    width: 20px;
+    height: 20px;
 }
 
 [type=number]::-webkit-inner-spin-button,
@@ -2708,12 +2710,16 @@ h1 .coinnum {
     flex: 0 0 calc(33.33% - 20px);
     /* 3개씩 정렬, 간격은 20px로 조절 */
     margin-bottom: 20px;
+    position: relative;
+    right: 15px;
 }
 
 @media (max-width: 768px) {
     .home-cards {
-        justify-content: space-between;
-        gap: 10px;
+        justify-content: flex-start;
+    	gap: 1px;
+    	position: relative;
+    	left: 4px;
         /* 모바일에서 2개씩 정렬 */
     }
 
@@ -2721,6 +2727,8 @@ h1 .coinnum {
     .seasoning-container {
         flex: 0 0 calc(50% - 10px);
         /* 모바일에서 2개씩 정렬, 간격은 20px로 조절 */
+        position: relative;
+        left: 1px;
     }
 
     .search-icon {
@@ -2787,8 +2795,8 @@ h1 .coinnum {
 }
 
 .checkbox {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
 }
 
 .ingredient-content {
@@ -2807,3 +2815,14 @@ h1 .coinnum {
     display: block;
     margin: auto;
   }
+  
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+	.home-cards {
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 30px;
+    position: relative;
+    left: 5px;
+	}
+}  

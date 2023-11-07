@@ -1544,7 +1544,8 @@ img,video {
 .text-white {
     --text-opacity: 1;
     color: #fff;
-    color: rgba(255,255,255,var(--text-opacity))
+    color: rgba(255,255,255,var(--text-opacity));
+    font-weight: bold;
 }
 
 .text-black {
@@ -1574,7 +1575,8 @@ img,video {
 .text-gray-700 {
     --text-opacity: 1;
     color: #24262d;
-    color: rgba(36,38,45,var(--text-opacity))
+    color: rgba(36,38,45,var(--text-opacity));
+    font-weight: bold;
 }
 
 .text-gray-800 {
@@ -2078,4 +2080,8 @@ a{
     font-weight: bold;
 }
 
-
+.backBtn {
+    width: 25px;
+    height: 25px;
+    position: relative;
+}
