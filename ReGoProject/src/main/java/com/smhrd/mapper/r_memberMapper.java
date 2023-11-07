@@ -42,6 +42,10 @@ public interface r_memberMapper {
 	
 	// 재료 업데이트 dao 0->1
 	public void updateMyIngre(String custId, Integer ingreIdx ,Integer ingreAmount);
+	
+	// 재료 업데이트 dao 1->0
+	public void updateMyIngreZero(String custId, Integer ingreIdx );
+	
 		
 
 	// 조미료 업데이트 dao 1->0

@@ -4,6 +4,15 @@
 
 
 
+<select id="msgExistSearch" resultType="com.smhrd.entity.r_msg" parameterType="java.lang.String">
+/*select.msgExistSearch*/
+  <![CDATA[
+   					 SELECT *
+  					   FROM r_msg
+  					  WHERE msgName = #{value}
+  ]]>
+
+</select>
 
 
 

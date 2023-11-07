@@ -171,7 +171,7 @@
                     <div class="Seasoning">
                       <div class="seasoning-content">
                         <div>
-                          <img id="ss" src="./assets/img/add.png">
+                          <img class="ss" src="./assets/img/add.png">
                         </div>
                         <br>
                         <p class="font">항목추가</p>
@@ -186,13 +186,13 @@
                     <div class="ingredient">
                       <div class="ingredient-content">
                         <div>
-                          <img id="ss" src="/assets/img/${msg.msgImg}">
+                          <img class="ss" src="/assets/img/${msg.msgImg}">
                         </div>
                         <br>
                         <p class="font">${msg.msgName }</p>
                       </div>
                       <div class="checkbox-container">
-                        <input type="checkbox" id="check${loop.index}" name="${msg.msgName }" value="${msg.msgName }" >
+                        <input type="checkbox" name="msgCheckbox" value="${msg.msgName }" >
                       </div>
                     </div>
               </div>
@@ -456,4 +456,9 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="/assets/js/msgModal.js"></script> <!-- msg 모달 js -->
+     <script src="/assets/js/msgDelete.js"></script> <!-- 조미료삭제 js -->
+    
+ <script type="text/javaScript">
+
+  </script>
 </html>

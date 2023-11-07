@@ -165,12 +165,20 @@ public class BoardController {
 	    return new ResponseEntity<>("댓글이 등록되었습니다.", HttpStatus.OK);
 	}
 	
-	
+	 
 	@RequestMapping("/deleteComment")
 	@Transactional
 	public ResponseEntity<String> getComments(HttpSession session, r_member member, @RequestParam("rmtIdx") int rmtIdx) {
 		member = (r_member) session.getAttribute("user");
-		
+		 if (member == null) {
+		        return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED);
+		    }
+		 
+	    r_comment comment = commentRepo.findByRmtIdx(rmtIdx);
+	    if (comment == null || !comment.getCustId().equals(member.getCustId())) {
+	        return new ResponseEntity<>("댓글을 삭제할 권한이 없습니다.", HttpStatus.FORBIDDEN);
+	    }
+
 		
 
 	    try {

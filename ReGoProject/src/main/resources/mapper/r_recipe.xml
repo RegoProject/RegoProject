@@ -3,7 +3,7 @@
 <mapper namespace="com.smhrd.mapper.r_recipeMapper">
 
 <select id="selectRecipeIngre" parameterType="com.smhrd.entity.r_recipe" resultType="com.smhrd.entity.r_ingre_join_data">
-
+/*selectRecipeIngre*/
  <![CDATA[
 			   SELECT ri.ingreName, ri.ingreIdx
 				FROM r_recipe_ingredients rri
@@ -16,7 +16,7 @@
 
 
 <select id="selectRecipeMsg" parameterType="com.smhrd.entity.r_recipe" resultType="com.smhrd.entity.r_msg_join_data">
-
+/*selectRecipeMsg*/
  <![CDATA[
 				SELECT rm.msgName, rm.msgIdx
 				FROM r_recipe_msg rrm
@@ -27,7 +27,7 @@
 </select>
 
 <select id="selectRecipe" parameterType="java.lang.String" resultType="com.smhrd.entity.r_recipe" >
-
+/*selectRecipe*/
  <![CDATA[
 			   SELECT *
 				FROM r_recipe

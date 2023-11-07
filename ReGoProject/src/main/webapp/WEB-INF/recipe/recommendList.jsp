@@ -176,13 +176,12 @@
 										<a href="/goRecView?rcpIdx=${recipe.rcpIdx}">
 											<p class="title">${recipe.rcpName}</p>
 										</a>
+										
 										<div>
-											<a href="#" id="open-modal" data-rcpIdx="${recipe.rcpIdx}">
+										
+											<img src="./assets/img/caution.png" class="smimg open-modal" data-rcpIdx="${recipe.rcpIdx}">
 										</div>
-										<div>
-											<img src="./assets/img/caution.png" class="smimg">
-										</div>
-										</a>
+										
 									</div>
 									<div class="flex-row display:inline-block"
 										style="display: flex; justify-content: space-between; align-items: center; margin: 10px;">
@@ -213,39 +212,41 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javaScript">
-	$(document).ready(
-			function() {
-				$("#open-modal").click(
-						function() {
-							var rcpIdx = $(this).attr('data-rcpIdx');
-							console.log(rcpIdx)
-							// AJAX 요청 수행
-							$.ajax({
-								url : "/goNeedIngre?rcpIdx=" + rcpIdx,
-								type : "GET",
-								success : function(data) {
-									console.log(data)
-									// 요청이 성공하면 모달을 엽니다.
-									Swal.fire({
-										title : '모달 제목',
-										html : '필요한 재료: '
-												+ data.ingreList.join(', ')
-												+ '<br>필요한 메시지: '
-												+ data.msgList.join(', '),
-										icon : 'success' // 모달 아이콘 (선택 사항)
-									});
-								},
-								error : function() {
-									// 오류 처리
-									Swal.fire({
-										title : '에러',
-										text : '요청을 처리하는 중 오류가 발생했습니다.',
-										icon : 'error'
-									});
-								}
-							});
-						});
-			});
+$(document).ready(function() {
+    console.log("오나요");
+    $(".open-modal").click(function() {
+    	 console.log("오나요");
+        var rcpIdx = $(this).attr('data-rcpIdx');
+        console.log($(this).attr('data-rcpIdx'));
+        // AJAX 요청 수행
+        $.ajax({
+            url: "/goNeedIngre",
+            type: "GET",
+            data : {rcpIdx : rcpIdx},
+            cache: false, // 이 부분을 추가하여 캐싱하지 않도록 설정
+            success: function(data) {
+                console.log(data);
+                // 요청이 성공하면 모달을 엽니다.
+                Swal.fire({
+                    title: '부족한 식재료를 확인하세요 !',
+                    html: '재료: ' + data.ingreList.join(', ') + '<br>조미료: ' + data.msgList.join(', '),
+                    icon: 'success' // 모달 아이콘 (선택 사항)
+                });
+            },
+            error: function(err) {
+            	console.log(err)
+                // 오류 처리
+                Swal.fire({
+                    title: '에러',
+                    text: '요청을 처리하는 중 오류가 발생했습니다.',
+                    icon: 'error'
+                });
+            }
+        });
+    });
+});
+
+		
 </script>
 
 </html>

@@ -17,6 +17,8 @@ public interface r_commentRepository extends JpaRepository<r_comment, String> {
 	
 	public void deleteByCustIdAndRmtIdx(String custId, int rmtIdx);
 	
+	public r_comment findByRmtIdx(int rmtIdx);
+	
 	
 	 @Modifying
 	    @Query("UPDATE r_comment c SET c.rmtContent = :rmtComment WHERE c.custId = :custId AND c.rmtIdx = :rmtIdx")

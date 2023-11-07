@@ -76,6 +76,12 @@ public class r_memberService {
 		
 	}
 	
+	// 재료 업데이트 dao 1->0
+	public void updateMyIngreZero(String custId, Integer ingreIdx) {
+			memMapper.updateMyIngreZero(custId,ingreIdx);
+			
+	}
+	
 	// 조미료 업데이트 dao 0->1
 	public void updateMyMsg(String custId, Integer msgIdx, Integer msgAmount) {
 		memMapper.updateMyMsg(custId,msgIdx,msgAmount);

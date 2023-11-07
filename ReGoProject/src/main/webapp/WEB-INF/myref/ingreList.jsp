@@ -176,7 +176,7 @@
                     <div class="Seasoning">
                       <div class="seasoning-content">
                         <div>
-                          <img id="ss" src="./assets/img/add.png">
+                          <img class="ss" src="./assets/img/add.png">
                         </div>
                         <br>
                         <p class="font">항목추가</p>
@@ -192,13 +192,13 @@
                     <div class="ingredient">
                       <div class="ingredient-content">
                         <div>
-                          <img id="ss" src="/assets/img/${ingre.ingreImg}">
+                          <img class="ss" src="/assets/img/${ingre.ingreImg}">
                         </div>
                         <br>
                          <p class="font">${ingre.ingreName }</p>
                       </div>
                       <div class="checkbox-container">
-                        <input type="checkbox" id="checkbox2" name="${ingre.ingreName }" value="${ingre.ingreName }" >
+                        <input type="checkbox" name="${ingre.ingreName }" value="${ingre.ingreName }" >
                       </div>
                     </div>
               </div>
@@ -382,8 +382,16 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/assets/js/msgModal.js"></script> <!-- msg 모달 js -->
 <script src="/assets/js/searchModal.js"></script> <!-- 재료검색 모달 js -->
-<script src="/assets/js/ingreAPI.js"></script> <!-- 식재료 API js -->
+<script src="/assets/js/ingreAPI2.js"></script> <!-- 식재료 API js -->
 <script src="/assets/js/regoingredient_f.js"></script>
   <script src="/assets/js/init-alpine.js"></script>
   <script src="/assets/js/focus-trap.js"></script>
+   <script src="/assets/js/ingreDelete.js"></script> <!-- 재료삭제 js -->
+  
+  
+ <script type="text/javaScript">
+//삭제 버튼을 클릭하면 선택된 체크박스를 확인하고 삭제 요청을 보냅니다.
+
+
+  </script>
 </html>

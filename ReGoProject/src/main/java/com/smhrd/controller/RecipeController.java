@@ -29,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -465,8 +466,9 @@ public class RecipeController {
 	}	
 	
 	
-	@RequestMapping("/goNeedIngre")
-	public Map<String, Object> goNeedIngre(Model model, @RequestParam("rcpIdx") int rcpIdx, HttpSession session, r_member member) {
+	@RequestMapping("/goNeedIngre") 
+	@ResponseBody
+	public Map<String, Object> goNeedIngre(Model model, int rcpIdx, HttpSession session, r_member member) {
 		System.out.println("들어오니");
 		member = (r_member) session.getAttribute("user");
 		
@@ -475,35 +477,63 @@ public class RecipeController {
 		
 		List<r_ingre_join_data> recIngreJoinData = recService.selectRecipeIngre(rcpIdx);
 		List<r_msg_join_data> recMsgJoinData = recService.selectRecipeMsg(rcpIdx);
-		
-		// recIngreJoinData에서 ingreIdx를 추출하여 recIngreIdxSet에 저장
-		Set<Integer> recIngreIdxSet = recIngreJoinData.stream()
-		    .map(r_ingre_join_data::getIngreIdx)
-		    .collect(Collectors.toSet());
+		System.out.println(recIngreJoinData);
+		System.out.println(recMsgJoinData);
+		// 필요한 재료 목록 초기화
+		List<String> neededIngreNames = new ArrayList<>();
 
-		// ingreJoinData를 필터링하고 ingreAmount가 0이며 recIngreIdxSet에 포함되는 데이터의 ingreName을 추출
-		List<String> missingIngreNames = ingreJoinData.stream()
-		    .filter(ingre -> ingre.getIngreAmount() == 0 && recIngreIdxSet.contains(ingre.getIngreIdx()))
-		    .map(r_ingre_join_data::getIngreName)
-		    .collect(Collectors.toList());
-		
-		// recMsgJoinData에서 msgIdx를 추출하여 recMsgIdxSet에 저장
-		Set<Integer> recMsgIdxSet = recMsgJoinData.stream()
-		    .map(r_msg_join_data::getMsgIdx)
-		    .collect(Collectors.toSet());
+	
+		// 사용자 재료 목록을 Map으로 변환
+		Map<Integer, r_ingre_join_data> ingreJoinDataMap = ingreJoinData.stream()
+		    .collect(Collectors.toMap(
+		        r_ingre_join_data::getIngreIdx,
+		        ingre -> ingre,
+		        (existing, replacement) -> existing // 중복 키가 발생하면 기존 엔트리 유지
+		    ));
 
-		// msgJoinData를 필터링하고 msgAmount가 0이며 recMsgIdxSet에 포함되는 데이터의 msgName을 추출
-		List<String> missingMsgNames = msgJoinData.stream()
-		    .filter(msg -> msg.getMsgAmount() == 0 && recMsgIdxSet.contains(msg.getMsgIdx()))
-		    .map(r_msg_join_data::getMsgName)
-		    .collect(Collectors.toList());
 
-		 // 필터링된 데이터를 JSON 형식으로 반환
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("ingreList", missingIngreNames);
-	    response.put("msgList", missingMsgNames);
-	    
-	    return response;
+		// 레시피의 필요한 재료를 반복
+		for (r_ingre_join_data recIngre : recIngreJoinData) {
+		    int ingreIdx = recIngre.getIngreIdx();
+		    r_ingre_join_data userIngre = ingreJoinDataMap.get(ingreIdx);
+
+		    if (userIngre == null || userIngre.getIngreAmount() == 0) {
+		        neededIngreNames.add(recIngre.getIngreName());
+		    }
+		}
+
+
+
+		// 필요한 메시지 목록 초기화
+		List<String> neededMsgNames = new ArrayList<>();
+
+		// 사용자 메시지 목록을 Map으로 변환
+		Map<Integer, r_msg_join_data> msgJoinDataMap = msgJoinData.stream()
+		    .collect(Collectors.toMap(
+		        r_msg_join_data::getMsgIdx,
+		        msg -> msg,
+		        (existing, replacement) -> existing // 중복 키가 발생하면 기존 엔트리 유지
+		    ));
+
+
+		// 레시피의 필요한 메시지를 반복
+		for (r_msg_join_data recMsg : recMsgJoinData) {
+		    int msgIdx = recMsg.getMsgIdx();
+		    r_msg_join_data userMsg = msgJoinDataMap.get(msgIdx);
+
+		    if (userMsg == null || userMsg.getMsgAmount() == 0) {
+		        neededMsgNames.add(recMsg.getMsgName());
+		    }
+		}
+
+		// 필터링된 데이터를 JSON 형식으로 반환
+		Map<String, Object> response = new HashMap<>();
+		response.put("ingreList", neededIngreNames);
+		response.put("msgList", neededMsgNames);
+		System.out.println(response);
+		return response;
+
+
 	}
 
 	

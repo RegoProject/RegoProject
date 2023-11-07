@@ -1,8 +1,11 @@
+<%@page import="com.smhrd.entity.r_member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <% r_member user = (r_member) session.getAttribute("user"); %>
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+
 
 <head>
   <meta charset="UTF-8" />
@@ -437,6 +440,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
+	var loggedInUserId = '${user.custId}';
 	function updateComment(custId, rmtIdx, rmtComment) {
 		console.log("오니?")
 	    $.ajax({
@@ -497,9 +501,17 @@ $(document).ready(function() {
             // 수정 버튼 클릭 이벤트 핸들러
             editButton.click(function() {
                 // 수정 작업 수행
+                loggedInUserId
                 var custId = comment.custId; // 댓글 고유 ID를 사용하여 삭제 수행
                 var rmtIdx = comment.rmtIdx; 
                 var usercomment = commentDiv.find('.usercomment').text();
+                
+                if (custId !== loggedInUserId) {
+                    // Check if the user is the owner of the comment
+                    swal("권한 없음", "댓글을 수정할 권한이 없습니다.", "error");
+                    return; // Prevent further execution
+                }
+
                 // 수정 모달 열기
                 swal({
                     title: '댓글 수정',
@@ -552,8 +564,11 @@ $(document).ready(function() {
                      
                     },
                     error: function(xhr, status, error) {
-                    	  // 실패한 경우
-                        swal("삭제 실패", "삭제에 실패하였습니다.", "error");
+                    	 if (xhr.status === 403) {
+                             swal("권한 없음", "댓글을 삭제할 권한이 없습니다.", "error");
+                         } else {
+                             swal("오류", "서버에서 오류가 발생했습니다.", "error");
+                         }
                     }
                 });
             });

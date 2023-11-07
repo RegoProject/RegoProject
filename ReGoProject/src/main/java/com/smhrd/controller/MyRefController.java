@@ -1,5 +1,6 @@
 package com.smhrd.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smhrd.entity.r_ingre_join_data;
 import com.smhrd.entity.r_ingredients;
 import com.smhrd.entity.r_member;
+import com.smhrd.entity.r_msg;
 import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.entity.r_my_ingredients;
 import com.smhrd.entity.r_my_msg;
+import com.smhrd.mapper.r_msgMapper;
 import com.smhrd.repository.r_ingreRepository;
 import com.smhrd.repository.r_my_ingreRepository;
 import com.smhrd.repository.r_my_msgRepository;
@@ -40,6 +44,9 @@ public class MyRefController {
 	
 	@Autowired
 	r_ingredientsService ingreService;
+	
+	@Autowired
+	r_msgMapper msgMapper;
 	
 	@Autowired
 	private r_my_msgRepository myMsgRepo;
@@ -286,7 +293,68 @@ public class MyRefController {
 		
 		return responseData;
 	}
+	
+	@RequestMapping(value = "/deleteIngreList", method = RequestMethod.POST)
+	public void deleteIngredients(@RequestBody List<String> ingreList, HttpSession session , r_member member, HttpServletResponse response) throws IOException {
+		System.out.println("들옴?");
+	    member = (r_member) session.getAttribute("user");
+	    System.out.println("들옴?");
+	    System.out.println(ingreList);
 
+	    r_ingredients ingre; 
+	    try {
+	        // ingredients 목록을 사용하여 삭제 작업을 수행합니다.
+	        for (String ingredient : ingreList) {
+	            ingre = ingreService.ingreExistSearch(ingredient);
+	            memService.updateMyIngreZero(member.getCustId(), ingre.getIngreIdx());
+	            // 재료 삭제 또는 다른 작업을 수행하는 코드를 작성하세요.
+	            // 예: ingredient를 기반으로 데이터베이스에서 해당 재료를 삭제
+	        }
+
+			response.setContentType("text/plain; charset=UTF-8");
+			response.getWriter().write("success");
+	      
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // 오류 발생 시 "error"를 반환
+			response.setContentType("text/plain; charset=UTF-8");
+			response.getWriter().write("error");
+	       
+	    }
+	}
+	
+	
+
+	@RequestMapping(value = "/deleteMsgList", method = RequestMethod.POST)
+	public void deleteMsgList(@RequestBody List<String> msgList, HttpSession session , r_member member, HttpServletResponse response) throws IOException {
+		System.out.println("들옴?");
+	    member = (r_member) session.getAttribute("user");
+	    System.out.println("들옴?");
+	    System.out.println(msgList);
+
+	    r_msg msgs; 
+	    try {
+	        // ingredients 목록을 사용하여 삭제 작업을 수행합니다.
+	        for (String msg : msgList) {
+	            msgs = msgMapper.msgExistSearch(msg);
+	            memService.updateMyMsgZero(member.getCustId(), msgs.getMsgIdx());
+	            // 재료 삭제 또는 다른 작업을 수행하는 코드를 작성하세요.
+	            // 예: ingredient를 기반으로 데이터베이스에서 해당 재료를 삭제
+	        }
+
+			response.setContentType("text/plain; charset=UTF-8");
+			response.getWriter().write("success");
+	      
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // 오류 발생 시 "error"를 반환
+			response.setContentType("text/plain; charset=UTF-8");
+			response.getWriter().write("error");
+	       
+	    }
+	}
 
 
 }

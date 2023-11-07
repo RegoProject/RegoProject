@@ -22,7 +22,7 @@ $('#cancleIngreAPIModal').click(function() {
         if (result.isConfirmed) {
             // 확인 버튼을 클릭했을 때 실행할 작업
             closeIngreModal();
-            window.location.href = '/goMain'; // 요청 매핑 URL로 수정
+           location.reload()
         }
     });
 });
@@ -243,7 +243,7 @@ $('#sendAPIResult').click(function() {
     showConfirmButton: true,
 }).then((result) => {
     if (result.isConfirmed) {
-        window.location.href = '/goMain'; // 성공하거나 오류 발생 시 goMain 페이지로 이동
+        location.reload()// 성공하거나 오류 발생 시 새로고침
     }
 });
     },
@@ -257,7 +257,7 @@ $('#sendAPIResult').click(function() {
     showConfirmButton: true,
 }).then((result) => {
     if (result.isConfirmed) {
-        window.location.href = '/goMain'; // 오류 발생 시 goMain 페이지로 이동
+        location.reload() // 오류 발생 시 새로고침
     }
 });
     }

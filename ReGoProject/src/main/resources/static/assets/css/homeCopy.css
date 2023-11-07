@@ -119,14 +119,12 @@ h3 {
 	width: 60%;
 }
 
-.save-button{
-	width: 10%;
+.save-button2{
 	left : -2%;
 }
 
-.delete-button{
-	background-color : #7DD076;
-	width: 50px;
+.delete-button2{
+	background-color : brown;
 	left : -2%;
 }
 

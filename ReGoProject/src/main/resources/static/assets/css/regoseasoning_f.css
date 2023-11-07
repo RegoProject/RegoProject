@@ -14,7 +14,7 @@ html {
 body {
     margin: 0;
     padding: 0;
-    display: flex;
+   /* display: flex;*/
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -2180,7 +2180,7 @@ body>div>div.flex.flex-col.flex-1.w-full>main>div>a {
 }
 
 
-#ss {
+.ss {
     width: 85px;
     height: 85px;
     align-items: center;
@@ -2820,8 +2820,8 @@ h1 .coinnum {
 	.home-cards {
 	display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 30px;
+    /*justify-content: space-evenly;*/
+    gap: 10px;
     position: relative;
     left: 5px;
 	}

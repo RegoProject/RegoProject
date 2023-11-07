@@ -102,6 +102,7 @@
 
 <!-- 유저 r_my_msg 테이블에 조미료 정보가 있을경우 update 1->0 -->
 <update id="updateMyMsgZero" parameterType="com.smhrd.entity.r_my_msg">
+/* update.updateMyMsgZero */
     <![CDATA[
 			    UPDATE r_my_msg
 			       SET msgAmount = 0
@@ -110,10 +111,22 @@
     ]]>
 </update>
 
+<!-- 유저 r_my_ingredients 테이블에 조미료 정보가 있을경우 update 1->0 -->
+<update id="updateMyIngreZero" parameterType="com.smhrd.entity.r_my_ingredients">
+/* update.updateMyIngreZero */
+    <![CDATA[
+			    UPDATE r_my_ingredients
+			       SET ingreAmount = 0
+			     WHERE custId = #{custId}
+			       AND ingreIdx = #{ingreIdx} 
+    ]]>
+</update>
+
 
 
 <!-- 유저 r_my_msg 테이블에 조미료 정보가 있을경우 update 0->1 -->
 <update id="updateMyMsg" parameterType="com.smhrd.entity.r_my_msg">
+/* update.updateMyMsg */
     <![CDATA[
 			    UPDATE r_my_msg
 			       SET msgAmount = #{msgAmount}
@@ -124,6 +137,7 @@
 
 <!-- 유저 r_my_ingredients 테이블에 조미료 정보가 있을경우 update 0->1 -->
 <update id="updateMyIngre" parameterType="com.smhrd.entity.r_my_ingredients">
+  /* update.updateMyIngre */
     <![CDATA[
 			    UPDATE r_my_ingredients
 			       SET ingreAmount = #{ingreAmount}
@@ -134,6 +148,7 @@
 
 <!-- 조미료 업데이트 null방지 -->
 <update id="updateAllMsgZero" parameterType="com.smhrd.entity.r_my_msg">
+  /* update.updateAllMsgZero */
     <![CDATA[
 			UPDATE r_my_msg
 			   SET msgAmount = 0
