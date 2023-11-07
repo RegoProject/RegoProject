@@ -166,7 +166,7 @@
                 <form id="uploadForm" enctype="multipart/form-data">
 				<!-- 문제생기면 imagePath/ -->
     			
-    			<img id="profilePhoto" src="imagePath/uploadedImage/${user1.custImg}" alt="#" class="rounded-image">
+    			<img id="profilePhoto" src="imagePath/uploadedImage/profileImg/${user1.custImg}" alt="#" class="rounded-image">
     			<input type="file" name="file" id="fileInput" style="display: none;">
     			<input type="submit" value="Upload" style="display: none;">
 				</form>                  
@@ -202,7 +202,7 @@
                 <form id="uploadForm" enctype="multipart/form-data">
 				<!-- 문제생기면 imagePath/ -->
     			
-    			<img id="profilePhoto" src="imagePath/uploadedImage/${user.custImg}" alt="#" class="rounded-image">
+    			<img id="profilePhoto" src="/imagePath/uploadedImage/profileImg/${user.custImg}" alt="#" class="rounded-image">
     			<input type="file" name="file" id="fileInput" style="display: none;">
     			<input type="submit" value="Upload" style="display: none;">
 				</form>                  

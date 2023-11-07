@@ -242,10 +242,10 @@ $(document).ready(function() {
                     tr += "<br>";
                     tr += "<div class='flex-row display:inline-block'>";
                     tr += "<img src='/assets/img/star_gray.png' class='dimg'>";
-                    tr += "<p class='Difficulty'>난이도</p>";
+                    tr += "<p class='Difficulty'>"+data[i].rcpLevel+"</p>";
                     tr += "<div class='flex-row display:inline-block'>";
                     tr += "<img src='/assets/img/clock_gray.png' class='timg'>";
-                    tr += "<p class='time'>시간</p>";
+                    tr += "<p class='time'>"+data[i].rcpTime+"</p>";
                     tr += "</div>";
                     tr += "</div>";
                     tr += "</div>";

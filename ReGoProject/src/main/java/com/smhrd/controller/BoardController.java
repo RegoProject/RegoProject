@@ -1,6 +1,7 @@
 package com.smhrd.controller;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -375,11 +376,11 @@ public class BoardController {
 
 		// 3. 어디에 저장할지 
 		
-		String savePath = "/home/ubuntu/uploadedImage";
+		String savePath = "/imagePath/uploadedImage/boardImg";
 		try {
 			
-			//File f = new File(savePath + "/" + filename);
-			//file.transferTo(f);
+			File f = new File(savePath + "/" + filename);
+			file.transferTo(f);
 			board.setRbImg(filename);
 			board.setCreatedAt(new Date()); 
 			System.out.println(filename);
