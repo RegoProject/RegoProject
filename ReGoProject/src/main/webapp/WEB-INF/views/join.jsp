@@ -34,8 +34,8 @@
         <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
           <div class="w-full">
             <!-- 회원가입 제목 -->
-            <!-- 뒤로가기 추가해야합니다. -->
-			<h6><a href="javascript:window.history.back();">뒤로가기</a></h6>
+            <!-- 뒤로가기 추가해야합니다. 뒤로가기 추가했어요. -->
+			<h6><a href="javascript:window.history.back();"><img src="/assets/img/back.png" class="backBtn"></a></h6>
             <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
               회원가입
             </h1>

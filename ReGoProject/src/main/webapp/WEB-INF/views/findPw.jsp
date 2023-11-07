@@ -30,8 +30,8 @@
         </div>
         <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
           <div class="w-full">
-            <!-- 패스워드 찾기 제목 -->
-            <h6><a href="javascript:window.history.back();">뒤로가기</a></h6>
+            <!-- 패스워드 찾기 제목 / 뒤로가기 추가했어요.-->
+            <h6><a href="javascript:window.history.back();"><img src="/assets/img/back.png" class="backBtn"></a></h6>
             <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
               패스워드 찾기
             </h1>
