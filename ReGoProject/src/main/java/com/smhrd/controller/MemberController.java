@@ -93,12 +93,14 @@ public class MemberController {
 		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
 		// 3. 어디에 저장할지
-		//String savePath = "src/main/resources/static/";
+		String savePath = "/imagePath/uploadedImage/profileImg";
 		//Path path = Paths.get(savePath + filename);
 		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 		// Path path = Paths.get(savePath+"\\"+ filename);
 		
 		try {
+			File f = new File(savePath + "/" + filename);
+			Img.transferTo(f);
 			//Files.copy(Img.getInputStream(), path);
 			member.setCustImg(filename);
 			member.setCustAddr(custAddr);
