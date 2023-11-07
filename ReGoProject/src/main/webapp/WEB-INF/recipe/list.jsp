@@ -204,6 +204,8 @@
 
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="./assets/js/regorecipe_f.js"></script>
 <script type="text/javaScript">
 

@@ -209,7 +209,9 @@
 		</div>
 	</div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script type="text/javaScript">
 	$(document).ready(
 			function() {

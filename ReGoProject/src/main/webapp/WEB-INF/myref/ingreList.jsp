@@ -378,6 +378,8 @@
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/assets/js/msgModal.js"></script> <!-- msg 모달 js -->
 <script src="/assets/js/searchModal.js"></script> <!-- 재료검색 모달 js -->
 <script src="/assets/js/ingreAPI.js"></script> <!-- 식재료 API js -->
