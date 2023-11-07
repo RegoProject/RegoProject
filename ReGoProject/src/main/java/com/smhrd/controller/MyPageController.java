@@ -255,8 +255,8 @@ String csvFile = "C:/Users/user/Desktop/ing_name.csv"; // 실제 CSV 파일 경�
 		//r_ingredients ing = new r_ingredients();
 		String data1 = rows.get(0)[0].replace("\"", "");
 		String[] data2 =data1.split("', '");
-		 int ho = 95;
-		for(int i= 13 ; i<rows.size(); i++) {
+		 int ho = 808;
+		for(int i= 85 ; i<rows.size(); i++) {
 			
 			//ing.setIngreName(rows.get(i));
 			
