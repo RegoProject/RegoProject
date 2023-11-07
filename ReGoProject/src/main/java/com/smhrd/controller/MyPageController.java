@@ -140,16 +140,14 @@ public class MyPageController {
 
 			// 3. 어디에 저장할지 
 			
-			String savePath = "/home/ubuntu/uploadedImage";
+			String savePath = "/imagePath/uploadedImage/profileImg";
 			System.out.println(savePath);
 			
-//			Path path = Paths.get(savePath + filename);
-			// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
-			//Path path = Paths.get(savePath+"\\"+ filename);
-//			System.out.println(path);
+		
+			
 			r_member member = (r_member)session.getAttribute("user");
 			try {
-//				Files.copy( file.getInputStream(), path);
+				
 				File f = new File(savePath + "/" + filename);
 				file.transferTo(f);
 				

@@ -2,6 +2,7 @@ package com.smhrd.controller;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -172,12 +173,14 @@ public class MemberController {
 		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
 		// 3. 어디에 저장할지
-		String savePath = "src/main/resources/static/";
-		Path path = Paths.get(savePath + filename);
+		String savePath = "/imagePath/uploadedImage/profileImg";
+		
 		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 		// Path path = Paths.get(savePath+"\\"+ filename);
-		System.out.println(path);
+		
 		try {
+			File f = new File(savePath + "/" + filename);
+			Img.transferTo(f);
 			member.setCustJoindate(joindate);
 			//Files.copy(Img.getInputStream(), path);
 			member.setCustImg(filename);
