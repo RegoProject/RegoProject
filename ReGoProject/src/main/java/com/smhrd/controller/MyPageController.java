@@ -1,10 +1,14 @@
 package com.smhrd.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -24,10 +28,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.entity.r_board;
 import com.smhrd.entity.r_follow;
+import com.smhrd.entity.r_ingredients;
 import com.smhrd.entity.r_member;
+import com.smhrd.entity.r_msg;
+import com.smhrd.entity.r_recipe_ingredients;
+import com.smhrd.entity.r_recipe_msg;
 import com.smhrd.repository.r_boardRepository;
 import com.smhrd.repository.r_followRepository;
+import com.smhrd.repository.r_ingreRepository;
 import com.smhrd.repository.r_memberrRepository;
+import com.smhrd.repository.r_msgRepository;
+import com.smhrd.repository.r_recipe_ingreRepository;
+import com.smhrd.repository.r_recipe_msgRepository;
 
 @Controller
 public class MyPageController {
@@ -39,6 +51,10 @@ public class MyPageController {
 	private r_boardRepository repo1;
 	@Autowired
 	private r_followRepository repo2;
+	@Autowired
+	private r_msgRepository msgg;
+	@Autowired
+	private r_recipe_msgRepository msgg2;
 	
 	
 	@RequestMapping("/goMyForm")
@@ -206,6 +222,74 @@ public class MyPageController {
 	    
 	    model.addAttribute("imgUrl", src);
 	    return "mypage/imgPage";
+	}
+	@RequestMapping("/hahaha")
+	public void hahaha() {
+		
+String csvFile = "C:/Users/user/Desktop/ing_name.csv"; // 실제 CSV 파일 경로로 변경
+		
+		String line = "";
+		
+		// CSV 파일의 열 구분자
+		
+		List<String[]> rows = new ArrayList<>();
+		
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFile), "EUC-KR"))) {
+
+			while ((line = br.readLine()) != null) {
+					//System.out.println(line);
+					String[] data = line.split("\",\"");
+					//System.out.println(line);
+					rows.add(data);
+					System.out.println(data[0]);
+					System.out.println(data[1]);
+					
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(rows.get(31)[0]);
+		System.out.println(rows.get(31)[1]);
+		
+		//r_ingredients ing = new r_ingredients();
+		String data1 = rows.get(0)[0].replace("\"", "");
+		String[] data2 =data1.split("', '");
+		 int ho = 95;
+		for(int i= 13 ; i<rows.size(); i++) {
+			
+			//ing.setIngreName(rows.get(i));
+			
+			String ingre = rows.get(i)[2].replace("\"", "");
+			String amount = rows.get(i)[3].replace("\"", "");
+			amount = amount.replace("'", "");
+			ingre = ingre.replace("'", "");
+			
+			String[] ingreList =ingre.split(", ");
+			String[] amountList = amount.split(", ");
+			for(int j = 0 ; j <ingreList.length ; j++) {
+				
+				 String ing = ingreList[j];
+				 String amo = amountList[j];
+				 r_msg ing1 = msgg.findByMsgName(ing);
+				 
+				 r_recipe_msg aaa = new r_recipe_msg();
+				 aaa.setRcpMsgIdx(ho);
+				 aaa.setMsgIdx(ing1.getMsgIdx());
+				 aaa.setMsgAmount(amo);
+				 aaa.setRcpIdx(i+2);
+				 msgg2.save(aaa);
+				 ho++;
+				 System.out.println(ing);
+				 System.out.println(amo);		 
+				
+				
+			}
+			
+			
+			//ing.setIngreImg(img);
+			//ingre.save(ing);
+		}
 	}
 	
 }
