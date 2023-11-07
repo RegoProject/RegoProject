@@ -172,7 +172,7 @@ def predict_ing():
         image = Image.open(io.BytesIO(base64.b64decode(js['image'].split(',')[-1]))).convert('RGB')
         image.save('tmp_image.jpg') # 이미지 임시 저장
         
-        TEXT_PROMPT = "Food, Fruits, Vegetable, Meat, Fish" # 변경
+        TEXT_PROMPT = "Food, Fruits, Vegetable, Meat, Fish, Ingredients, Milk, Source, Seafood, Egg, Ramen" # 변경
         BOX_TRESHOLD = 0.25
         TEXT_TRESHOLD = 0.25
         image_source, image = load_image('tmp_image.jpg')
