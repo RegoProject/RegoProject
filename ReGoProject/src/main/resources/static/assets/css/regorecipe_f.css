@@ -2691,7 +2691,7 @@ h1 .coinnum {
     width: 45px;
     height: 45px;
     top: -37px;
-    right: 200px;
+    left: 990px;
 }
 
 .home-cards {
@@ -2724,7 +2724,7 @@ h1 .coinnum {
 
     .search-icon {
         position: relative;
-        left: 1px;
+        left: 300px;
 
     }
 
@@ -2869,3 +2869,10 @@ h1 .coinnum {
   .flex-row p {
     margin: 0; /* 이미지와 텍스트 간의 기본 마진을 제거합니다. */
   }
+  
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .search-icon {
+  position: relative;
+  left: 555px;
+} 
+}
