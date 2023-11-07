@@ -152,6 +152,7 @@
       <main class="#"> <!--  class="h-full overflow-y-auto"  -->
         <div class="container px-6 mx-auto grid">
         <!-- search -->
+        <br><br>
       <div class="search">
             <form class="search-container" action="/boardSearch" method="post">
               <input type="text" class="search-bar" placeholder="검색어 입력" name="search">

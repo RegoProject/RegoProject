@@ -2165,7 +2165,7 @@ input {
     position: relative;
     bottom: 92%;
     align-items: center;
-    left: 30px;
+    left: 5px;
 
 }
 
@@ -2768,10 +2768,6 @@ h1 .coinnum {
 
     }
 
-    input {
-        
-        left: 55px;
-    }
 
     .ingredient-container {
         width: calc(50% - 10px);

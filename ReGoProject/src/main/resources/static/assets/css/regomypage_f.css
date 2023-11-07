@@ -239,7 +239,7 @@ ol,
 ul {
     list-style: none;
     position: relative;
-    top: 30px;
+    top: 40px;
 }
 
 html {
@@ -1913,7 +1913,7 @@ print and (-ms-high-contrast:none) {
 .w-8 {
     width: 2rem;
     position: relative;
-    bottom: 36px;
+    bottom: 47px;
 }
 
 
@@ -2791,6 +2791,7 @@ h1 .coinnum {
         position: relative;
         bottom: 150px;
     }
+    
 }
 
 .ingredient-content,
@@ -2890,6 +2891,9 @@ h1 .coinnum {
     border-radius: 0.3rem;
     padding: 0 2.4rem;
     background-color: #d1f1c3;
+    position: relative;
+    top: 45px;
+    left: 105px;
 }
 
 .profile-settings-btn {
@@ -3049,6 +3053,7 @@ h1 .coinnum {
 
     .profile-edit-btn {
         margin-left: 0;
+        
     }
 
     .profile-bio {
@@ -3073,6 +3078,8 @@ h1 .coinnum {
         padding: 1.2rem 0;
         border-top: 0.1rem solid #dadada;
         border-bottom: 0.1rem solid #dadada;
+        position: relative;
+        top: 100px;
     }
 
     .profile-stats li {
@@ -3084,6 +3091,16 @@ h1 .coinnum {
     .profile-stat-count {
         display: block;
     }
+    
+   .profile-button {
+   		position: relative;
+   		right: 130px;
+   }
+   
+   .gallery {
+   		position: relative;
+   		top: -85px;
+   }
 }
 
 /* Spinner Animation */

@@ -2774,6 +2774,12 @@ h1 .coinnum {
     .ingredient-container {
         width: calc(50% - 10px);
     }
+   
+    .writeimg {
+    position: relative;
+    top: 45px;
+
+    }
 }
 
 .ingredient-content,
@@ -2821,6 +2827,7 @@ h1 .coinnum {
     border-bottom: 1px solid #ccc;
     overflow: auto;
     border: 1px solid lightgray;
+    margin-bottom: 80px;
 
 }
 
@@ -2974,7 +2981,7 @@ p {
     height: 25px;
     margin: auto;
     position: relative;
-    left: 35%;
-    bottom: 200%;
+    left: 40%;
+    bottom: 27px;
 }
     
