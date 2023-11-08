@@ -156,7 +156,7 @@ public class MyPageController {
 
 			// 3. 어디에 저장할지 
 			
-			String savePath = "/uploadedImage/";
+			String savePath = "imagePath/uploadedImag/";
 			System.out.println(savePath);
 			
 		
