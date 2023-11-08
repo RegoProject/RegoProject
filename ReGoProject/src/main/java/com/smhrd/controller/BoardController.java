@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -343,9 +344,38 @@ public class BoardController {
 		model.addAttribute("likeCnt", likeCnt);
 		model.addAttribute("userImg", userImg);
 		model.addAttribute("stop", "true");
+		
+		
 
 		return "board/community";
 	}
+	@RequestMapping(value = "/deleteBoard", method = RequestMethod.DELETE)
+	@ResponseBody
+	@Transactional
+	public ResponseEntity<String> deleteBoard(HttpSession session, @RequestParam("rbIdx") int rbIdx) {
+	    r_member member = (r_member) session.getAttribute("user");
+	    System.out.println(rbIdx);
+
+	    if (member == null) {
+	        return new ResponseEntity<>("error", HttpStatus.UNAUTHORIZED); // 로그인되지 않은 경우 오류 응답
+	    }
+
+	    try {
+	    	 System.out.println("오나");
+	    	repo.deleteByRbIdxAndCustId(rbIdx, member.getCustId());
+	        // 여기에서 rbIdx를 사용하여 게시글을 삭제하는 로직을 수행합니다.
+	        // 삭제 성공 시 "success"를 반환합니다.
+	        // 삭제에 실패한 경우 오류 메시지를 반환합니다.
+
+	        // 예시: 게시글 삭제 로직
+	        // boardService.deleteBoard(rbIdx);
+
+	        return new ResponseEntity<>("success", HttpStatus.OK); // 성공 응답
+	    } catch (Exception e) {
+	        return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 응답
+	    }
+	}
+
 
 	@RequestMapping("/boardWrite")
 	public String bardWrite(@RequestParam("boardImg" ) MultipartFile file,

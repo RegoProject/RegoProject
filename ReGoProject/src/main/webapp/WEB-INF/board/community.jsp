@@ -184,6 +184,11 @@
                       <p class="userid">${board.custId}</p>
                     </div>
                   </div>
+                  <div style="text-align: right;">
+                    <div class="">
+                      <a href="#" style="font-size: 10px;" class="deleteBoard" data-rbIdx="${board.rbIdx}" data-custId="${board.custId}" >게시글삭제</a>
+                    </div>
+                  </div>
                 </div>
   
                 <div class="content">
@@ -222,6 +227,10 @@
                 </div>
               </div>
             </c:forEach>
+              <!-- 추가: 게시글이 없는 경우 메시지를 표시 -->
+ 		 <c:if test="${empty board}">
+			    <p class="GyeonggiBatangfont">게시글이 없습니다.</p>
+			  </c:if>
             </section>
             <br><br>
              
@@ -231,6 +240,7 @@
 </body>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javaScript">
@@ -585,11 +595,71 @@ $(document).ready(function() {
 
 
 
+$(document).ready(function() {
+    $(".deleteBoard").click(function() {
+        var rbIdx = $(this).attr("data-rbIdx"); // data-rbIdx 속성을 추출
+        var boardCustId = $(this).attr("data-custId"); // data-rbIdx 속성을 추출
+        var custId = '${user.custId}'
+        console.log(rbIdx);
+        console.log(custId);
+        console.log(boardCustId)
+        // 권한 체크
+        if (custId != boardCustId) {
+            Swal.fire({
+                icon: "warning",
+                title: "권한이 없음",
+                text: "게시글을 삭제할 권한이 없습니다."
+            });
+            return;
+        }
+        if (confirm("게시글을 삭제하시겠습니까?")) {
+            $.ajax({
+                type: "DELETE",
+                data:{
+                	rbIdx : rbIdx,
+                	custId : custId},
+                url: "/deleteBoard", // 삭제 요청을 처리하는 URL로 변경
+                success: function(response) {
+                	 if (response === "success") {
+                         Swal.fire({
+                             icon: "success",
+                             title: "게시글 삭제 성공",
+                             text: "게시글이 삭제되었습니다.",
+                             showConfirmButton: false,
+                         }).then(function() {
+                             location.reload(); // 확인 버튼을 누르면 페이지를 리로드
+                         });
+
+                         // 삭제 후 페이지 리로드 또는 다른 작업을 수행하도록 여기에 추가
+                        
+                     } else if (response === "error") {
+                         Swal.fire({
+                             icon: "error",
+                             title: "게시글 삭제 오류",
+                             text: "게시글 삭제 중 오류가 발생했습니다."
+                         });
+                     }
+                },
+                error: function(err) {
+                	Swal.fire({
+                        icon: "error",
+                        title: "서버 오류",
+                        text: "서버와 통신 중 오류가 발생했습니다."
+                    });
+                }
+            });
+        }
+    });
+});
+
+</script>
+
+<script type="text/javaScript">
 
 
 </script>
 
-
+</script>
 
 
 </html>

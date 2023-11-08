@@ -121,7 +121,7 @@
                   @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
                   aria-haspopup="true">
                   <img class="object-cover w-8 h-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+                    src="imagePath/uploadedImage/profileImg/${user.custImg }"
                     alt="" aria-hidden="true" />
                 </button>
                 <template x-if="isProfileMenuOpen">
@@ -200,7 +200,7 @@
                 <div class="profile-image">
               
                 <form id="uploadForm" enctype="multipart/form-data">
-				<!-- 문제생기면 imagePath/ -->
+				
     			
     			<img id="profilePhoto" src="/imagePath/uploadedImage/profileImg/${user.custImg}" alt="#" class="rounded-image">
     			<input type="file" name="file" id="fileInput" style="display: none;">
@@ -236,7 +236,7 @@
               <div class="gallery">
               <c:forEach var="board" items="${board}" varStatus="status">
                 <div class="gallery-item" tabindex="0">
-                 <a><img src="${board.rbImg}"></a>
+                 <a><img src="/imagePath/uploadedImage/boardImg/${board.rbImg}"></a>
                 </div>
               </c:forEach>  
                 

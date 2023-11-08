@@ -56,9 +56,27 @@ public class MemberController {
 
 
 	@RequestMapping("/goUpdate")
-	public String goUpdate() {
+	public String goUpdate(HttpSession session, r_member member) {
+		
+		
+		member = (r_member) session.getAttribute("user");
+		
+		if(member == null) {
+			return "redirect:/goLogin";
+		}else {
+			
+			session.setAttribute("user", member);
+			return "views/update";
+			
+		}
+		
+		
+		
+		
+		
+		
 
-		return "views/update";
+		
 	}
 
 	@RequestMapping("/goJoin")
