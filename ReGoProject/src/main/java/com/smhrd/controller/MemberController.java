@@ -92,11 +92,18 @@ public class MemberController {
 			File f = new File(savePath + "/" + filename);
 			Img.transferTo(f);
 			//Files.copy(Img.getInputStream(), path);
+
+			
+			
+			
+			
+
 			if(Img.isEmpty()) {
 				
 			}else {
 				member.setCustImg(filename);
 			}
+
 			member.setCustAddr(custAddr);
 			repo.save(member);
 

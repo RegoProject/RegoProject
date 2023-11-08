@@ -262,7 +262,7 @@ public class RecipeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("????왜여기오냐");
+		
 
 	}
 
