@@ -114,6 +114,27 @@ h3 {
     border-radius: 3px;
 }
 
+/* SweetAlert2 모달 창의 폰트 크기와 줄간격 조절 */
+.swal2-popup {
+    font-size: 12px; /* 원하는 폰트 크기로 설정 */
+    line-height: 1.5; /* 원하는 줄간격으로 설정 */
+}
+
+/* SweetAlert2 모달 내부의 요소에 대한 스타일 조절 */
+.swal2-content {
+    /* 내용에 대한 스타일 설정 */
+    	color : black;
+	text-decoration : inherit;
+	font-family: 'GyeonggiBatang';
+}
+
+.swal2-title {
+    /* 제목에 대한 스타일 설정 */
+    	color : black;
+	text-decoration : inherit;
+	font-family: 'GyeonggiBatang';
+}
+
 .add-ingredient-button {
 	background-color : green;
 	width: 60%;

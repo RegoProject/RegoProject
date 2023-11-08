@@ -12,13 +12,23 @@ $(".deletebtn").click(function() {
     });
 
     if (msgList.length > 0) {
-    	console.log(msgList)
+    	 // "삭제중" 모달 띄우기
+            var deletingModal = Swal.fire({
+                icon: "info",
+                title: "삭제 중",
+                text: "잠시만 기다려주세요...",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            });
         $.ajax({
             type: "POST",
             url: "/deleteMsgList",
             contentType: "application/json",
             data: JSON.stringify(msgList),
             success: function(response) {
+            
+                    deletingModal.close(); // "삭제중" 모달 닫기
             	console.log(response)
                 if (response == "success") {
                 	 Swal.fire({
@@ -41,6 +51,8 @@ $(".deletebtn").click(function() {
             },
             error: function(err) {
             	console.log(err)
+            	
+                    deletingModal.close(); // "삭제중" 모달 닫기
                 Swal.fire({
                     icon: "error",
                     title: "오류",
