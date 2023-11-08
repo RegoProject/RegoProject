@@ -281,9 +281,7 @@ $(document).ready(function() {
             		
             		alert("요리실패!");
             		
-            	}
-            	
-            	
+            	}           	
                 
             },
             error: function(e) {

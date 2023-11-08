@@ -175,7 +175,7 @@
             <div class="mycontainer">
               <br><br>
               <div class="boardwrite">
-                <form action="#">
+                <form action="/boardWrite">
                   <table align="center" width="200" class="writetable">
                     <tr height="35">
                       <td bgcolor="#ADE498" align="left" colspan="2">
