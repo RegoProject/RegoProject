@@ -213,7 +213,7 @@ def predict_ing():
             input_data = transform(crop_image).unsqueeze(0).to(device)
             outputs = ing_model(input_data)
             label_pre = outputs.topk(1, dim=-1)[1][0]
-            if label_pre !='trash':
+            if class_names[label_pre] !='trash':
                 ret_cls.append(class_names[label_pre])
         
         result = {
