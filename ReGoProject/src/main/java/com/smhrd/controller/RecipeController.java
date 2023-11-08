@@ -382,7 +382,7 @@ public class RecipeController {
 		List<r_msg_join_data> msgList = memService.myMsg(member.getCustId());
 		System.out.println(ingreList);
 
-		if (ingreList.isEmpty() || msgList.isEmpty()) {
+		if (ingreList.isEmpty() && msgList.isEmpty()) {
 			// 사용자가 신규 사용자인 경우, 메인 페이지로 리다이렉트 또는 다른 처리 수행
 			// 에러페이지 만들어서 보내주자
 			return "redirect:/goError";
