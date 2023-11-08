@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
@@ -124,7 +122,7 @@
                   @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
                   aria-haspopup="true">
                   <img class="object-cover w-8 h-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+                    src="imagePath/uploadedImage/profileImg/${user.custImg }"
                     alt="" aria-hidden="true" />
                 </button>
                 <template x-if="isProfileMenuOpen">
@@ -189,8 +187,9 @@
               <br>
               <div class="rcping"></div>
               <!-- 슬라이싱 작업만 남았어용 -->
-              <p class="basic"><c:out value="${ingreJson}" /></p>
-              
+              <c:forEach var="ingre" items="${ingreJson }" varStatus="loop">
+               <span class="basic">${ingre}<c:if test="${!loop.last}">, </c:if></span>
+              </c:forEach>
               <br>
               <div class="rcpm flex-container">
                 <h5 class="rcpmt">조미료</h5>
@@ -199,7 +198,9 @@
               <br>
               <div class="rcping"></div>
               <!-- 슬라이싱 작업만 남았어용 -->
-              <p class="basic"><c:out value="${msgJson}" /></p>
+               <c:forEach var="msg" items="${msgJson }" varStatus="loop">
+             <span class="basic">${msg}<c:if test="${!loop.last}">, </c:if></span>
+              </c:forEach>
               
             </div>
             

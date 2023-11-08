@@ -124,7 +124,7 @@
                   @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
                   aria-haspopup="true">
                   <img class="object-cover w-8 h-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+                    src="imagePath/uploadedImage/profileImg/${user.custImg }"
                     alt="" aria-hidden="true" />
                 </button>
                 <template x-if="isProfileMenuOpen">
@@ -176,7 +176,7 @@
                 <div class="card-header">
                   <div class="profile-img">
                     <a href="/goYourpage?custId=${board.custId}"> 
-                    <img src="${userImg[status.index]}" class="profileimg">
+                    <img src="imagePath/uploadedImage/profileImg/${userImg[status.index]}" class="profileimg">
                     </a>
                   </div>
                   <div class="profile-info">
@@ -187,7 +187,7 @@
                 </div>
   
                 <div class="content">
-                  <img src="${board.rbImg}" width="100%" height="400" />
+                  <img src="imagePath/uploadedImage/boardImg/${board.rbImg}" width="100%" height="400" />
                 </div>
   
                 <div class="card-footer">
@@ -210,12 +210,12 @@
                   <br><br>
                   <!-- 여기에 등록버튼과 input을 넣을꺼야 -->
                    
-                  <div class="comments"id="commentContainer${board.rbIdx}">
-                  <div class="comment-input">
+                  <div class="comments GyeonggiBatangfont"id="commentContainer${board.rbIdx}">
+                  <div class="comment-input GyeonggiBatangfont">
                   <input type="text" id="commentInput${board.rbIdx}" placeholder="댓글을 입력하세요"> <button class="commentBtn" data-rbIdx="${board.rbIdx}">등록</button></div>
-   				 <div class="comments"id="commentContainer_${board.rbIdx}">
+   				 <div class="comments GyeonggiBatangfont"id="commentContainer_${board.rbIdx}">
    				 <div>                   <p class="username"></p> </div>
-                    <div><span class="usercomment"></span> </div>
+                    <div class="GyeonggiBatangfont"><span class="usercomment"></span> </div>
                     </div>
                  
                   </div>

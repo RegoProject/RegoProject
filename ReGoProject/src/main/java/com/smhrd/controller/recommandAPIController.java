@@ -13,10 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.smhrd.entity.r_ingre_join_data;
+import com.smhrd.entity.r_msg_join_data;
 import com.smhrd.entity.r_my_ingredients;
 import com.smhrd.entity.r_my_msg;
 
@@ -25,31 +25,35 @@ import com.smhrd.entity.r_my_msg;
 public class recommandAPIController {
 	
 	
-	public ResponseEntity<String> recommendAPI(List<r_my_ingredients> ingreList, List<r_my_msg> msgList) {
+	public ResponseEntity<String> recommendAPI(List<r_ingre_join_data> ingreList, List<r_msg_join_data> msgList) {
 	    try {
-	    	System.out.println("오니");
-	        // 필요한 데이터 추출 및 구성
-	        List<Integer> ingreIdxList = new ArrayList<>();
-	        List<Integer> msgIdxList = new ArrayList<>();
 
-	        for (r_my_ingredients ingre : ingreList) {
-	            ingreIdxList.add(ingre.getIngreIdx());
+	        List<String> ingreNameList = new ArrayList<>();
+	        List<String> msgNameList = new ArrayList<>();
+
+	        for (r_ingre_join_data ingre : ingreList) {
+	            if (ingre.getIngreAmount() == 1) {
+	            	ingreNameList.add(ingre.getIngreName());
+	            }
 	        }
 
-	        for (r_my_msg msg : msgList) {
-	            msgIdxList.add(msg.getMsgIdx());
+	        for (r_msg_join_data msg : msgList) {
+	            if (msg.getMsgAmount() == 1) {
+	            	msgNameList.add(msg.getMsgName());
+	            }
 	        }
-
-	        List<Integer> userIngredients = new ArrayList<>();
-	        userIngredients.addAll(ingreIdxList);
-	        userIngredients.addAll(msgIdxList);
+	        List<String> userIngredients = new ArrayList<>();
+	        userIngredients.addAll(ingreNameList);
+	        userIngredients.addAll(msgNameList);
 
 	        // API 서버에 요청할 URL
 	        String apiUrl = "http://15.165.250.150:5000/recommend";
+	      
 	        
 	     // 요청 바디를 JSON 형식으로 구성
 	        Map<String, Object> requestBody = new HashMap<>();
 	        requestBody.put("user_ing", userIngredients);
+	        System.out.println(requestBody);
 
 
 	        // API 서버로 POST 요청 보내기

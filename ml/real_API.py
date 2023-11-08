@@ -33,7 +33,7 @@ transform = transforms.Compose(
     ]
 )
 
-"""recipe_final.csv 불러오고 필요한 list 생성"""
+"""recipe.csv 불러오고 필요한 list 생성"""
 df = pd.read_csv('recipe_final.csv', encoding='cp949')
 cook_list = [] # 레시피 목록
 ingredients = [] # 레시피별 재료 목록
@@ -48,6 +48,7 @@ for idx, row in df.iterrows(): # pandas dataframe의 한 행씩 가져옴. idx=�
 
 # cook_list 정렬(success에 필요)
 cook_list.sort()
+all_ingredients = dict(sorted(all_ingredients.items()))
 
 # 재료의 카테고리 번호를 저장 (중복X)(recommend에 필요)
 category_index = {} 
@@ -131,13 +132,17 @@ def recommend():
         s = io.StringIO(data)
         js = json.load(s)
         
-        ing = js['user_ing']
+        ing_before = js['user_ing']
         
         all_ing_len = len(list(all_ingredients.keys()))
-        
+
         user_matrix = [0 for i in range(all_ing_len)]
-        for i in ing:
-            user_matrix[i]=1
+        num=0
+        for j in list(all_ingredients.keys()):
+            for k in ing_before:
+                if j == k:
+                    user_matrix[num]=1
+            num+=1
         
         similarity_scores = cosine_similarity([user_matrix], multi_hot_matrix)[0]
         

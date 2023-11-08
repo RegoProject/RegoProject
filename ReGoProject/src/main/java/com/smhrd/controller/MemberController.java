@@ -1,16 +1,7 @@
 package com.smhrd.controller;
 
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.entity.r_member;
-import com.smhrd.entity.r_recipe;
 import com.smhrd.repository.r_memberrRepository;
 import com.smhrd.repository.r_recipeRepository;
 
@@ -93,19 +83,27 @@ public class MemberController {
 		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
 		// 3. 어디에 저장할지
-		String savePath = "/imagePath/uploadedImage/profileImg";
+		String savePath = "/home/ubuntu/uploadedImage/profileImg";
 		//Path path = Paths.get(savePath + filename);
 		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 		// Path path = Paths.get(savePath+"\\"+ filename);
-		
+		System.out.println(Img);
 		try {
 			File f = new File(savePath + "/" + filename);
 			Img.transferTo(f);
 			//Files.copy(Img.getInputStream(), path);
+
 			
-			member.setCustImg(filename);
 			
 			
+			
+
+			if(Img.isEmpty()) {
+				
+			}else {
+				member.setCustImg(filename);
+			}
+
 			member.setCustAddr(custAddr);
 			repo.save(member);
 
@@ -178,7 +176,7 @@ public class MemberController {
 		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
 		// 3. 어디에 저장할지
-		String savePath = "/imagePath/uploadedImage/profileImg";
+		String savePath = "/home/ubuntu/uploadedImage/profileImg";
 		
 		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 		// Path path = Paths.get(savePath+"\\"+ filename);

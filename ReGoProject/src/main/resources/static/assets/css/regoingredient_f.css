@@ -2699,7 +2699,7 @@ h1 .coinnum {
 .home-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     gap: 30px;
     position: relative;
     right: 11px;
