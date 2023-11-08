@@ -33,6 +33,11 @@
 	text-decoration : inherit;
 	font-family: 'GyeonggiBatang';
 }
+.swal2-html-container{
+	    	color : black;
+	text-decoration : inherit;
+	font-family: 'GyeonggiBatang';
+}
 
 html {
     line-height: 1.15;

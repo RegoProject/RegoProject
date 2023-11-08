@@ -11,7 +11,11 @@
     font-size: 12px; /* 원하는 폰트 크기로 설정 */
     line-height: 1.5; /* 원하는 줄간격으로 설정 */
 }
-
+.swal2-html-container{
+	    	color : black;
+	text-decoration : inherit;
+	font-family: 'GyeonggiBatang';
+}
 /* SweetAlert2 모달 내부의 요소에 대한 스타일 조절 */
 .swal2-content {
     /* 내용에 대한 스타일 설정 */
