@@ -384,7 +384,7 @@ public class BoardController {
 
 		// 3. 어디에 저장할지 
 		
-		String savePath = "/home/ubuntu/uploadedImage/profileImg/boardImg";
+		String savePath = "/home/ubuntu/uploadedImage/boardImg";
 		try {
 			
 			File f = new File(savePath + "/" + filename);
