@@ -117,6 +117,7 @@ function appendResponseToList(response) {
 	    ul.removeChild(ul.firstChild);
 	  }
 
+
 	  resultArray.forEach(function (item, index) {
 		    var li = document.createElement("li");
 		    var inputElement = document.createElement("input");
