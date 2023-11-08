@@ -442,8 +442,8 @@ public class RecipeController {
 	        // 세션이 종료되었거나 사용자가 로그인하지 않았을 때 로그인 페이지로 리다이렉트
 	        return "redirect:/goLogin"; 
 	    }
-	    
-		member.setCustCoin(100);
+	    int coin =member.getCustCoin();
+		member.setCustCoin(coin+100);
 		
 		members.save(member);
 		session.setAttribute("user", member);
