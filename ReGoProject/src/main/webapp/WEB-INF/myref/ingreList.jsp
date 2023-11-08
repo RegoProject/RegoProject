@@ -163,7 +163,7 @@
           </div>
                       <p class="myfont">나의 식재료</p>
             <br>
-            <div class="delete-button">
+            <div class="delete-button GyeonggiBatangfont">
               <button class="deletebtn">
                 삭제
               </button>

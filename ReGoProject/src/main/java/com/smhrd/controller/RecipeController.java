@@ -217,6 +217,7 @@ public class RecipeController {
 			ingredientsList.add(ingredient.getIngreName());
 		}
 		String ingreJson = objectMapper.writeValueAsString(ingredientsList);
+		ingreJson = String.join(", ", ingredientsList);
 
 		// 2. 레시피인덱스로 r_recipe_msg , r_msg 조인한 조미료정보(조미료이름)
 		List<String> msgList = new ArrayList<>();
@@ -225,6 +226,7 @@ public class RecipeController {
 			msgList.add(msg.getMsgName());
 		}
 		String msgJson = objectMapper.writeValueAsString(msgList);
+		msgJson = String.join(", ", msgList);
 
 		// JSON 형식으로 담아주기 -> 재료 : 값 / 조미료 : 값
 

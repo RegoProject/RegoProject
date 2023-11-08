@@ -210,12 +210,12 @@
                   <br><br>
                   <!-- 여기에 등록버튼과 input을 넣을꺼야 -->
                    
-                  <div class="comments"id="commentContainer${board.rbIdx}">
-                  <div class="comment-input">
+                  <div class="comments GyeonggiBatangfont"id="commentContainer${board.rbIdx}">
+                  <div class="comment-input GyeonggiBatangfont">
                   <input type="text" id="commentInput${board.rbIdx}" placeholder="댓글을 입력하세요"> <button class="commentBtn" data-rbIdx="${board.rbIdx}">등록</button></div>
-   				 <div class="comments"id="commentContainer_${board.rbIdx}">
+   				 <div class="comments GyeonggiBatangfont"id="commentContainer_${board.rbIdx}">
    				 <div>                   <p class="username"></p> </div>
-                    <div><span class="usercomment"></span> </div>
+                    <div class="GyeonggiBatangfont"><span class="usercomment"></span> </div>
                     </div>
                  
                   </div>

@@ -151,15 +151,15 @@
             </ul>
           </div>
         </header>
-        <main class="h-full overflow-y-auto">
-          <div class="container px-6 mx-auto grid">
+        <main class="container px-6 mx-auto grid margin-auto">
+          <div class="container px-6 mx-auto grid margin-auto">
             </div>
             <br>
             <br>
 
             <p class="myfont">나의 조미료</p>
             <br>
-            <div class="delete-button">
+            <div class="delete-button GyeonggiBatangfont">
               <button class="deletebtn">
                 삭제
               </button>

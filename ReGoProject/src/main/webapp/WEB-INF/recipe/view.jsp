@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
@@ -189,8 +187,9 @@
               <br>
               <div class="rcping"></div>
               <!-- 슬라이싱 작업만 남았어용 -->
-              <p class="basic"><c:out value="${ingreJson}" /></p>
-              
+              <c:forEach var="ingre" items="${ingreJson }" varStatus="loop">
+               <span class="basic">${ingre}<c:if test="${!loop.last}">, </c:if></span>
+              </c:forEach>
               <br>
               <div class="rcpm flex-container">
                 <h5 class="rcpmt">조미료</h5>
@@ -199,7 +198,9 @@
               <br>
               <div class="rcping"></div>
               <!-- 슬라이싱 작업만 남았어용 -->
-              <p class="basic"><c:out value="${msgJson}" /></p>
+               <c:forEach var="msg" items="${msgJson }" varStatus="loop">
+             <span class="basic">${msg}<c:if test="${!loop.last}">, </c:if></span>
+              </c:forEach>
               
             </div>
             

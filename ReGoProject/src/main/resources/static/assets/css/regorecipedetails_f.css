@@ -2373,6 +2373,14 @@ p {
     color: #7DD076;
 }
 
+span {
+	font-size: larger;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    font-family: 'GyeonggiBatang';
+    color: #7DD076;
+}
 
 .food {
     width: 100%;
