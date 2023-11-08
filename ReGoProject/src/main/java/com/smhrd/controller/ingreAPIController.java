@@ -37,7 +37,14 @@ public class ingreAPIController {
           ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, requestBody, String.class);
           // API 서버로부터 받은 응답을 반환
 
-          return response;
+          // API 서버로부터 받은 응답 문자열
+          String apiResponse = response.getBody();
+
+          // "trash" 문자열이 포함된 경우, 해당 부분을 제거
+          apiResponse = apiResponse.replace("trash", "");
+
+          // 수정된 응답을 반환
+          return ResponseEntity.ok(apiResponse);
           
 	    } catch (Exception e) {
 	      // 오류 발생 시 처리
