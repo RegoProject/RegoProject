@@ -379,6 +379,7 @@ public class BoardController {
 		try {
 			if (file.isEmpty()) {
 				System.out.println("오나요");
+				board.setRbImg("regoJJIN.png");
 			} else {
 				board.setRbImg(filename);
 			}
