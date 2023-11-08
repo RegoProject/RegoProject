@@ -5,7 +5,7 @@
     font-style: normal;
 }
 a.write-link {
-	left : 77%;
+	left : 58%;
 	position : fixed;
     display: block;
     width: 80px; /* 원하는 너비 설정 */
@@ -3011,9 +3011,11 @@ p {
 
 .writeimg {
     width: 40px;
+    left : 25%;
     position: relative;
-    left: 80%;
+    top : 10%;
     bottom: 68%;
+    
 }
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {

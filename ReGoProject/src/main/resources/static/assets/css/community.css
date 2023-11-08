@@ -2590,11 +2590,11 @@ p {
 }
 
 .writeimg {
-    width: 25px;
-    height: 25px;
-    margin: auto;
+    width: 40px;
+    left : 30%;
     position: relative;
-    left: 35%;
-    bottom: 200%;
+    top : 10%;
+    bottom: 68%;
+    
 }
     

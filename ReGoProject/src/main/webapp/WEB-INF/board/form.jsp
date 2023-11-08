@@ -175,7 +175,7 @@
             <div class="mycontainer">
               <br><br>
               <div class="boardwrite">
-                <form action="/boardWrite">
+                <form action="/boardWrite" method="post" enctype="multipart/form-data">
                   <table align="center" width="200" class="writetable">
                     <tr height="35">
                       <td bgcolor="#ADE498" align="left" colspan="2">
@@ -184,10 +184,10 @@
                     <!-- ID 값 hidden 으로 해놓음 -->
                     <tr align="left" bgcolor="white" height="35">
                       <td></td>
-                      <td align="left"><input type="hidden" maxlength="15"></td>
+                      <td align="left"><input type="hidden"></td>
                     </tr>
                     <tr align="left" bgcolor="white" height="35">
-                      <td><input type="file" maxlength="15"></td>
+                      <td><input type="file" maxlength="15" name="boardImg"></td>
                       <td align="left"></td>
                     </tr>
                     <tr align="left" bgcolor="white" height="35">
@@ -201,7 +201,7 @@
                     </tr>
                     <tr>
                       <td colspan="2" align="center" bgcolor="white">
-                        <textarea cols="56" rows="10"></textarea>
+                        <textarea cols="56" rows="10" name="boardContent"></textarea>
                       </td>
                     </tr>
                     <tr align="left" bgcolor="white" height="35">
@@ -211,8 +211,12 @@
                   </table>
                   <br><br>
                   <div class="button">
-                    <input type="submit" value="취소" id="write2">
+         
+                    <a href="javascript:window.history.back();" id="write2">취소</a>
+                   
+                    
                     <input type="submit" value="작성" id="write">
+               
                   </div>
                 </form>
               </div>

@@ -162,7 +162,9 @@
               <button><img class="search-icon"
                   src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></button>
             </form>
+            <div>
             <a href="/goBoardForm" class="write-link"><img src="./assets/img/more.png" class="writeimg"></a>
+            </div>
           </div>
 
          <!-- 피드 -->
