@@ -93,7 +93,7 @@ public class MemberController {
 		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
 		// 3. 어디에 저장할지
-		String savePath = "/imagePath/uploadedImage/profileImg";
+		String savePath = "/home/ubuntu/uploadedImage/profileImg";
 		//Path path = Paths.get(savePath + filename);
 		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 		// Path path = Paths.get(savePath+"\\"+ filename);
@@ -175,7 +175,7 @@ public class MemberController {
 		String filename = uuid + "_" + Img.getOriginalFilename();
 		System.out.println(filename);
 		// 3. 어디에 저장할지
-		String savePath = "/imagePath/uploadedImage/profileImg";
+		String savePath = "/home/ubuntu/uploadedImage/profileImg";
 		
 		// 4. 위에서 만든 내용을 기반으로 경로 Path 객체 만들기
 		// Path path = Paths.get(savePath+"\\"+ filename);

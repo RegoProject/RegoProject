@@ -156,7 +156,7 @@ public class MyPageController {
 
 			// 3. 어디에 저장할지 
 			
-			String savePath = "/home/ubuntu/uploadedImage/";
+			String savePath = "/home/ubuntu/uploadedImage/profileImg";
 			System.out.println(savePath);
 			
 		
