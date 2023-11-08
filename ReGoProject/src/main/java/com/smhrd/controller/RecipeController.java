@@ -376,8 +376,8 @@ public class RecipeController {
 	    }
 
 
-		List<r_my_ingredients> ingreList = myIngreRepo.findByCustId(member.getCustId());
-		List<r_my_msg> msgList = myMsgRepo.findByCustId(member.getCustId());
+		List<r_ingre_join_data> ingreList = memService.myIngredients(member.getCustId());
+		List<r_msg_join_data> msgList = memService.myMsg(member.getCustId());
 		System.out.println(ingreList);
 
 		if (ingreList.isEmpty() || msgList.isEmpty()) {
