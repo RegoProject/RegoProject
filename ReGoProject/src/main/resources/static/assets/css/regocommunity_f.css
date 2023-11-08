@@ -4,6 +4,13 @@
     font-weight: normal;
     font-style: normal;
 }
+a.write-link {
+	left : 77%;
+	position : fixed;
+    display: block;
+    width: 80px; /* 원하는 너비 설정 */
+    height: 80px; /* 원하는 높이 설정 */
+}
 /* SweetAlert2 모달 창의 폰트 크기와 줄간격 조절 */
 .swal2-popup {
     font-size: 12px; /* 원하는 폰트 크기로 설정 */
@@ -3003,17 +3010,15 @@ p {
 }
 
 .writeimg {
-    width: 25px;
-    height: 25px;
-    margin: auto;
+    width: 40px;
     position: relative;
-    left: 40%;
-    bottom: 78px;
+    left: 80%;
+    bottom: 68%;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
   .search-icon {
   position: relative;
-  left: 555px;
+  left: 670px;
 } 
 }

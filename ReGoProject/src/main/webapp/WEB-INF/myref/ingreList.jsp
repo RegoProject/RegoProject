@@ -155,7 +155,7 @@
         <div class="container px-6 mx-auto grid margin-auto">
           
 		<div class="search">
-            <form class="search-container" action="#">
+            <form class="search-container GyeonggiBatangfont" action="#">
               <input type="text" class="search-bar" placeholder="검색어 입력">
               <a href="#"><img class="search-icon"
                   src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
