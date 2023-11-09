@@ -237,22 +237,25 @@ public class MyRefController {
 	    member = (r_member) session.getAttribute("user");
 	    List<String> failedIngredients = new ArrayList<>();
 	    List<String> successfulIngredients = new ArrayList<>(); // 성공한 재료 목록을 따로 저장
-
 	    Set<String> uniqueInputData = new HashSet<>(inputData);
+	    
+	    // 식재료 카테고리에 존재하는 식재료명인지 사전 검사 
 	    for (String ingreName : uniqueInputData) {
 	        r_ingredients ingre = ingreService.ingreExistSearch(ingreName);
 	        
 	        if (ingre != null) {
-	            successfulIngredients.add(ingreName); // 조회된 재료를 성공한 목록에 추가
+	        	// 사전검사 완료된 목록에 저장
+	            successfulIngredients.add(ingreName); 
 
-	            // r_my_ingredients에 값 추가
+	            // 중복 체크
 	            r_my_ingredients myIngredient = myIngreRepo.findByCustIdAndIngreIdx(member.getCustId(), ingre.getIngreIdx());
 	            
+	            // 내 재료 목록에 행이 존재하면 ingreAmount 0-> 1처리 
 	            if (myIngredient != null && myIngredient.getRmrNum() != 0) {
 	                myIngredient.setIngreAmount(1);
 	                myIngreRepo.save(myIngredient);
 	            } else {
-	                // 새로운 엔티티로 취급
+	                // 내 재료 목록에 행이 존재하지 않는다면 새로운 행으로 저장
 	                myIngredient = new r_my_ingredients();
 	                myIngredient.setCustId(member.getCustId());
 	                myIngredient.setIngreIdx(ingre.getIngreIdx());
@@ -261,7 +264,7 @@ public class MyRefController {
 	            }
 	            
 	        } else {
-	            // 조회가 되지 않는 재료를 실패한 목록에 추가
+	            // 식재료 카테고리에서 조회가 되지 않는 재료를 추가하지 못하는 식재료(실패) 목록에 추가
 	            failedIngredients.add(ingreName);
 	        }
 	    }
