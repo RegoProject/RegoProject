@@ -64,4 +64,7 @@
 # 추천받은 레시피 목록 / 요리 제출 페이지
 ![image](https://github.com/RegoProject/RegoProject/assets/132921827/c8533667-d5e3-4b66-9458-7d7fc65b4d8e)
 
+# 커뮤니티 기능
+![image](https://github.com/RegoProject/RegoProject/assets/132921827/bc3dd6da-f745-4eee-b1b6-19003a42255f)
+
 
