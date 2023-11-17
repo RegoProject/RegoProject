@@ -54,7 +54,7 @@
 # 메인화면
 ![image](https://github.com/RegoProject/RegoProject/assets/132921827/7490aebb-1ad7-494e-8bae-f8a84e42913a)
 
-# 식재료 추가 화면
+# 식재료 리스트 화면
 ![image](https://github.com/RegoProject/RegoProject/assets/132921827/b9c14984-5c90-4f36-8b99-ceed6f907838)
 
 # 식재료 추가 모달 기능
